@@ -7,7 +7,7 @@ include:
       php-84: true
       php-85: true
 
-trigger-build-of-testing-docker-image:
+trigger-build-of-docker-images:
   needs:
     - job: release
       artifacts: true
@@ -18,7 +18,21 @@ trigger-build-of-testing-docker-image:
     RELEASED_VERSION_ARTIFACT: .RELEASED_VERSION.txt
   script:
     - if [ ! -f $RELEASED_VERSION_ARTIFACT ]; then echo "No version released, exiting..."; exit; fi
-    - RELEASED_MAJOR_VERSION=$(cut -d. -f1 $RELEASED_VERSION_ARTIFACT)
-    - curl --fail-with-body --request POST --form "token=$CI_JOB_TOKEN" --form ref=main --form "variables[IMAGE_TYPE]=testing" --form "variables[QUIQQER_VERSION]=$RELEASED_MAJOR_VERSION" "$CI_API_V4_URL/projects/1061/trigger/pipeline"
+    - |
+      for image_type in production testing demo; do
+      # Testing also rebuilds ERP testing because build-dependents is enabled.
+      echo "Triggering (re-)build of QUIQQER docker image '$image_type'…"
+      curl \
+        --fail-with-body \
+        --silent \
+        --show-error \
+        --request POST \
+        --form "token=$CI_JOB_TOKEN" \
+        --form "ref=main" \
+        --form "inputs[image-type]=$image_type" \
+        --form "inputs[build-dependents]=true" \
+        "${CI_API_V4_URL}/projects/1061/trigger/pipeline" \
+        || exit 1
+      done
   rules:
     - !reference [release, rules]
