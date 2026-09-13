@@ -7,14 +7,14 @@ include:
       php-84: true
       php-85: true
 
-# The package installer updates the installation root; dependency require-dev
-# sections are not installed there. Register the real REST test dependencies
-# before that update so HTTP and OAuth integration tests run in every DB job.
+# The package installer does not install a dependency's require-dev section.
+# Register REST test dependencies through QUIQQER's Composer wrapper, which
+# selects var/composer/composer.json, before the installer updates packages.
 .core-rest-test-dependencies:
   before_script:
+    - cd /var/www/html
     - >-
-      php /var/www/html/var/composer/composer.phar
-      --working-dir=/var/www/html require --dev --no-update --no-interaction
+      ./console composer require --dev --no-update --no-interaction
       'quiqqer/rest:^3.3.1' 'quiqqer/oauth-server:^3.9.2'
 
 phpstan:
