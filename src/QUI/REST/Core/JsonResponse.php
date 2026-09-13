@@ -37,6 +37,11 @@ final class JsonResponse
                 400, 422 => 422,
                 default => 500
             };
+
+            if ($Error instanceof QUI\Permissions\Exception) {
+                $status = 403;
+            }
+
             [$code, $message] = match ($status) {
                 401 => ['unauthenticated', 'Authentication is required.'],
                 403 => ['permission_denied', 'You do not have permission to perform this operation.'],

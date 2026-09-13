@@ -54,6 +54,14 @@
         <guestPermission>0</guestPermission>
     </permission>
 
+    <!-- Access to user administration through REST. -->
+    <permission name="quiqqer.core.rest.users.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyonePermission>0</everyonePermission>
+        <guestPermission>0</guestPermission>
+    </permission>
+
     <!-- Darf QUIQQER Core per MCP nutzen -->
     <permission name="quiqqer.core.mcp.canUse" type="bool">
         <defaultvalue>0</defaultvalue>

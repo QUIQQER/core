@@ -18,6 +18,13 @@ final class Provider implements ProviderInterface
     public static function getEndpoints(): array
     {
         return [
+            Users\ActivateUsers::class,
+            Users\DeactivateUsers::class,
+            Users\ListUsers::class,
+            Users\CreateUser::class,
+            Users\GetUser::class,
+            Users\UpdateUser::class,
+            Users\DeleteUser::class,
             Project\Sites\GetSite::class
         ];
     }

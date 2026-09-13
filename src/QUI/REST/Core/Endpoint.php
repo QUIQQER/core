@@ -38,7 +38,10 @@ abstract class Endpoint
             return Permission::withUser($User, function () use ($Request, $Response, $arguments, $User) {
                 Permission::checkPermission('quiqqer.core.rest.canUse', $User);
 
-                return $this->handle($Request, $Response, $arguments, $User);
+                return QUI::getUsers()->withSessionUser(
+                    $User,
+                    fn() => $this->handle($Request, $Response, $arguments, $User)
+                );
             });
         } catch (Throwable $Error) {
             return JsonResponse::error($Response, $Error);
