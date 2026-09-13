@@ -18,6 +18,10 @@ final class Provider implements ProviderInterface
     public static function getEndpoints(): array
     {
         $endpoints = [
+            Project\Media\CreateUploadSession::class,
+            Project\Media\GetUploadSession::class,
+            Project\Media\UploadSessionContent::class,
+            Project\Media\FinalizeUpload::class,
 
             System\PrepareUpdate::class,
             System\StartUpdate::class,
