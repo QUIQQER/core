@@ -19,7 +19,7 @@ class PermissionsTest extends RestIntegrationTestCase
         $name = 'quiqqer.admin.users.edit';
         $updated = $this->data($this->request('PATCH', $path, ['permissions' => [$name => true]]));
         self::assertTrue($updated['permissions'][$name]);
-        self::assertSame('user', $this->data($this->request('GET', $path, null, $Actor))['area']);
+        self::assertSame('user', $this->data($this->request('GET', $path))['area']);
         $Response = $this->request('PATCH', $path, ['permissions' => [$name => false, 'unknown.permission' => true]]);
         self::assertSame(422, $Response->getStatusCode());
         self::assertTrue($this->data($this->request('GET', $path))['permissions'][$name]);
