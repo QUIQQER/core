@@ -127,6 +127,25 @@ class Permission
     }
 
     /**
+     * Run permission checks with an explicit actor and restore the previous context.
+     *
+     * @template T
+     * @param callable(): T $Callback
+     * @return T
+     */
+    public static function withUser(User $User, callable $Callback): mixed
+    {
+        $PreviousUser = self::$User;
+        self::$User = $User;
+
+        try {
+            return $Callback();
+        } finally {
+            self::$User = $PreviousUser;
+        }
+    }
+
+    /**
      * Checks, if the user has the SuperUser flag
      */
     public static function isSU(null | false | User $User = null): bool

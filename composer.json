@@ -86,11 +86,13 @@
     "ext-pdo_sqlite": "Required when SQLite is used as the QUIQQER database"
   },
   "conflict": {
+    "quiqqer/core-rest": "*",
     "quiqqer/quiqqer": "*",
     "quiqqer/rest": "^1"
   },
   "autoload": {
     "psr-4": {
+      "QUI\\REST\\Core\\": "src/QUI/REST/Core/",
       "QUI\\": "src/QUI/"
     },
     "classmap": [
