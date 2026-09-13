@@ -43,6 +43,8 @@ abstract class RestIntegrationTestCase extends TestCase
         $Server = new Server(['basePath' => '/api']);
         (new Provider($Authentication))->register($Server);
         $Request = new ServerRequest($method, '/api/quiqqer/core' . $path);
+        parse_str($Request->getUri()->getQuery(), $query);
+        $Request = $Request->withQueryParams($query);
 
         if ($body !== null) {
             $Request = $Request->withHeader('Content-Type', 'application/json');

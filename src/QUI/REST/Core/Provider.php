@@ -18,6 +18,29 @@ final class Provider implements ProviderInterface
     public static function getEndpoints(): array
     {
         $endpoints = [
+            Project\Media\DownloadMedia::class,
+            Project\Media\UploadMedia::class,
+            Project\Media\ReplaceMedia::class,
+
+            Project\Media\ListMedia::class,
+            Project\Media\GetMediaEffects::class,
+            Project\Media\UpdateMediaEffects::class,
+
+            Project\Media\GetMedia::class,
+            Project\Media\CreateFolder::class,
+            Project\Media\UpdateMedia::class,
+            Project\Media\DeleteMedia::class,
+            Project\Media\ActivateMedia::class,
+            Project\Media\DeactivateMedia::class,
+            Project\Media\MoveMedia::class,
+            Project\Media\CopyMedia::class,
+            Project\Media\SetMediaVisibility::class,
+            Project\Media\SetMediaOrder::class,
+            Project\Media\GetFolderPreview::class,
+            Project\Media\SetFolderPreview::class,
+            Project\Media\GetFolderSize::class,
+            Project\Media\CreateImageVariant::class,
+
             Permissions\GetUserPermissions::class,
             Permissions\UpdateUserPermissions::class,
             Permissions\GetGroupPermissions::class,
