@@ -18,6 +18,19 @@ final class Provider implements ProviderInterface
     public static function getEndpoints(): array
     {
         $endpoints = [
+            Permissions\GetUserPermissions::class,
+            Permissions\UpdateUserPermissions::class,
+            Permissions\GetGroupPermissions::class,
+            Permissions\UpdateGroupPermissions::class,
+            Permissions\GetProjectPermissions::class,
+            Permissions\UpdateProjectPermissions::class,
+            Permissions\GetSitePermissions::class,
+            Permissions\UpdateSitePermissions::class,
+            Permissions\GetMediaPermissions::class,
+            Permissions\UpdateMediaPermissions::class,
+            Permissions\ListPermissions::class,
+            Permissions\GetEffectivePermission::class,
+
             Groups\ActivateGroups::class,
             Groups\DeactivateGroups::class,
             Groups\ListGroups::class,
