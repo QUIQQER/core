@@ -21,6 +21,8 @@ final class OAuthAuthentication implements AuthenticationInterface
     {
         if (
             !class_exists(Server::class)
+            || !class_exists(RequestFactory::class)
+            || !class_exists(Metadata::class)
             || !QUI::getPackage('quiqqer/oauth-server')->getConfig()?->getValue('general', 'active')
         ) {
             throw new ApiException('authentication_unavailable', 'REST authentication is not configured.', 503);
@@ -88,7 +90,13 @@ final class OAuthAuthentication implements AuthenticationInterface
         }
 
         try {
-            return QUI::getUsers()->get($userId);
+            $User = QUI::getUsers()->get($userId);
+
+            if ($User instanceof QUI\Users\User) {
+                $User->refresh();
+            }
+
+            return $User;
         } catch (QUI\Exception) {
             throw new ApiException('invalid_token', 'The bearer token does not identify an existing user.', 401);
         }
