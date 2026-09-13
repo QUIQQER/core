@@ -53,6 +53,7 @@ final class Input
                 'string' => is_string($value),
                 'boolean' => is_bool($value),
                 'integer' => is_int($value),
+                'number' => is_int($value) || is_float($value),
                 'array' => is_array($value),
                 'object' => $value instanceof stdClass,
                 default => false

@@ -48,6 +48,23 @@ final class Provider implements ProviderInterface
             Users\ListUserAuthenticators::class,
             Users\DisableUserAuthenticator::class,
             Users\DeleteUserWebAuthnCredential::class,
+            Project\ListAvailableLanguages::class,
+            Project\ListProjectTemplates::class,
+            Project\ListDemoDataSets::class,
+            Project\ListProjects::class,
+            Project\CreateProject::class,
+            Project\GetProject::class,
+            Project\RenameProject::class,
+            Project\DeleteProject::class,
+            Project\ListLanguages::class,
+            Project\AddLanguage::class,
+            Project\GetSettings::class,
+            Project\UpdateSettings::class,
+            Project\GetCustomCSS::class,
+            Project\SetCustomCSS::class,
+            Project\GetCustomJavaScript::class,
+            Project\SetCustomJavaScript::class,
+            Project\CreateDefaultStructure::class,
             Project\Sites\GetSite::class
         ];
     }
