@@ -169,6 +169,8 @@ final class Provider implements ProviderInterface
 
     public function register(Server $Server): void
     {
+        RoutingErrors::register($Server);
+
         foreach (self::getEndpoints() as $endpoint) {
             $Server->getSlim()->map(
                 [$endpoint::METHOD],

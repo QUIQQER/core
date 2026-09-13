@@ -83,6 +83,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -142,6 +151,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -216,6 +234,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -398,7 +425,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -409,15 +437,24 @@
                     },
                     "meta": {
                       "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
                       "properties": {
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         }
                       }
                     }
@@ -425,6 +462,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -528,6 +574,15 @@
                 "description": "URL of the created user."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -679,6 +734,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -784,6 +848,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -915,6 +988,15 @@
           },
           "204": {
             "description": "User deleted"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -1051,6 +1133,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -1220,6 +1311,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -1314,6 +1414,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -1378,6 +1487,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -1523,6 +1641,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -1588,6 +1715,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -1716,6 +1852,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -1774,6 +1919,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -1836,6 +1990,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -1919,6 +2082,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -1975,6 +2147,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -2068,6 +2249,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2120,6 +2310,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2172,6 +2371,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2238,7 +2446,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -2246,11 +2455,43 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -2305,6 +2546,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -2388,6 +2638,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -2444,6 +2703,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -2513,6 +2781,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2569,11 +2846,29 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2641,7 +2936,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -2649,11 +2945,43 @@
                       "items": {
                         "$ref": "#/components/schemas/User"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2706,6 +3034,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -2756,6 +3093,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -2807,6 +3153,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -2890,6 +3245,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -2973,6 +3337,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -3027,6 +3400,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -3125,6 +3507,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -3181,6 +3572,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -3241,6 +3641,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -3302,6 +3711,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -3358,6 +3776,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -3439,6 +3866,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -3495,6 +3931,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -3506,12 +3951,9 @@
                 "minProperties": 1,
                 "description": "Keys and value types are provided by GET on this resource. Unknown keys and incorrect types reject the entire update.",
                 "additionalProperties": {
-                  "oneOf": [
+                  "anyOf": [
                     {
                       "type": "string"
-                    },
-                    {
-                      "type": "integer"
                     },
                     {
                       "type": "number"
@@ -3574,6 +4016,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -3625,6 +4076,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -3681,6 +4141,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -3739,6 +4208,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -3795,6 +4273,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -3872,6 +4359,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -3928,6 +4424,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4005,6 +4510,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -4075,6 +4589,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -4158,6 +4681,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4238,12 +4770,22 @@
                   ],
                   "properties": {
                     "data": {
-                      "type": "object"
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4345,6 +4887,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4440,6 +4991,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4530,6 +5090,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -4587,6 +5156,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -4648,12 +5226,22 @@
                   ],
                   "properties": {
                     "data": {
-                      "type": "object"
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4763,6 +5351,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4867,6 +5464,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -4962,6 +5568,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -5033,12 +5648,22 @@
                   ],
                   "properties": {
                     "data": {
-                      "type": "object"
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -5115,6 +5740,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -5190,6 +5824,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -5355,16 +5998,50 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
-                      "type": "object"
+                      "type": "array",
+                      "items": {}
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -5435,12 +6112,29 @@
                   ],
                   "properties": {
                     "data": {
-                      "type": "object"
+                      "type": "object",
+                      "properties": {
+                        "siteIds": {
+                          "type": "array",
+                          "items": {
+                            "type": "integer"
+                          }
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -5549,6 +6243,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -5610,6 +6313,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -5671,12 +6383,22 @@
                   ],
                   "properties": {
                     "data": {
-                      "type": "object"
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -5753,6 +6475,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -5830,6 +6561,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -5886,6 +6626,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -5965,6 +6714,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -6021,6 +6779,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -6109,6 +6876,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -6174,6 +6950,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -6271,6 +7056,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -6345,6 +7139,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -6437,6 +7240,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -6502,6 +7314,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -6590,6 +7411,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -6683,6 +7513,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -6750,6 +7589,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -6815,6 +7663,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -6899,6 +7756,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -6965,6 +7831,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7049,6 +7924,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7135,6 +8019,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7227,6 +8120,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7313,6 +8215,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7399,6 +8310,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7485,6 +8405,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7575,6 +8504,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -7640,6 +8578,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7726,6 +8673,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -7793,6 +8749,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -7883,6 +8848,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -7948,6 +8922,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -8055,7 +9038,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -8063,11 +9047,43 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -8132,6 +9148,18 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
           }
         },
         "requestBody": {
@@ -8225,6 +9253,18 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
           }
         },
         "requestBody": {
@@ -8301,6 +9341,18 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
           }
         }
       }
@@ -8339,7 +9391,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -8347,11 +9400,43 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -8406,6 +9491,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -8497,6 +9591,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -8553,6 +9656,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -8620,6 +9732,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -8658,7 +9779,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -8666,11 +9788,43 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -8725,6 +9879,15 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -8834,6 +9997,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -8890,6 +10062,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -8974,6 +10155,15 @@
           },
           "204": {
             "description": "Operation result"
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9022,7 +10212,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -9030,11 +10221,43 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9096,6 +10319,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -9187,6 +10419,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -9273,6 +10514,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -9342,7 +10592,8 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "data"
+                    "data",
+                    "meta"
                   ],
                   "properties": {
                     "data": {
@@ -9350,11 +10601,43 @@
                       "items": {
                         "type": "object"
                       }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "limit",
+                        "offset"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9425,6 +10708,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -9525,6 +10817,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -9620,6 +10921,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -9680,6 +10990,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9728,6 +11047,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       },
@@ -9777,6 +11105,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9828,6 +11165,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9886,6 +11232,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9944,6 +11299,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -9992,6 +11356,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         }
       }
@@ -10040,6 +11413,15 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
           }
         },
         "requestBody": {
@@ -10143,6 +11525,18 @@
                 "description": "URL of the created resource."
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error429"
           }
         },
         "requestBody": {
@@ -10244,6 +11638,18 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "410": {
+            "$ref": "#/components/responses/Error410"
           }
         }
       }
@@ -10311,6 +11717,21 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "413": {
+            "$ref": "#/components/responses/Error413"
+          },
+          "410": {
+            "$ref": "#/components/responses/Error410"
           }
         },
         "requestBody": {
@@ -10390,6 +11811,18 @@
                 }
               }
             }
+          },
+          "405": {
+            "$ref": "#/components/responses/Error405"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          },
+          "503": {
+            "$ref": "#/components/responses/Error503"
+          },
+          "410": {
+            "$ref": "#/components/responses/Error410"
           }
         }
       }
@@ -10581,7 +12014,73 @@
             }
           }
         }
+      },
+      "Error405": {
+        "description": "Method not allowed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Error410": {
+        "description": "Expired upload session",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Error413": {
+        "description": "Payload too large",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Error429": {
+        "description": "Request limit exceeded",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Error500": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Error503": {
+        "description": "Authentication unavailable",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Default REST base path; adjust to the installation configuration."
+    }
+  ]
 }
