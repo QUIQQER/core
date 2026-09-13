@@ -43,6 +43,7 @@ abstract class UserEndpoint extends Endpoint
             throw new ApiException('not_found', 'The requested user is not a manageable account.', 404);
         }
 
+        $User->refresh();
         return $User;
     }
 

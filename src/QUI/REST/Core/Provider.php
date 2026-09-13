@@ -20,11 +20,23 @@ final class Provider implements ProviderInterface
         return [
             Users\ActivateUsers::class,
             Users\DeactivateUsers::class,
+            Users\InviteUser::class,
             Users\ListUsers::class,
             Users\CreateUser::class,
             Users\GetUser::class,
             Users\UpdateUser::class,
             Users\DeleteUser::class,
+            Users\ListUserAddresses::class,
+            Users\GetUserAddress::class,
+            Users\CreateUserAddress::class,
+            Users\UpdateUserAddress::class,
+            Users\DeleteUserAddress::class,
+            Users\SetDefaultUserAddress::class,
+            Users\SetUserPassword::class,
+            Users\SendUserPasswordReset::class,
+            Users\ListUserAuthenticators::class,
+            Users\DisableUserAuthenticator::class,
+            Users\DeleteUserWebAuthnCredential::class,
             Project\Sites\GetSite::class
         ];
     }

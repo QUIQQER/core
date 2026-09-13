@@ -129,4 +129,51 @@ class UsersTest extends TestCase
             self::assertSame(403, $Response->getStatusCode(), (string)$Response->getBody());
         }
     }
+
+    public function testAddressesBelongToTheirUserAndDefaultAddressIsProtected(): void
+    {
+        $owner = $this->createUser();
+        $other = $this->createUser();
+        $path = '/users/' . $owner['uuid'] . '/addresses';
+        $address = $this->data($this->request('POST', $path, [
+            'firstName' => 'Delivery',
+            'city' => 'Berlin',
+            'mails' => ['rest@example.invalid'],
+            'phones' => [['type' => 'tel', 'no' => '0123456']]
+        ]), 201);
+        $id = $address['uuid'];
+        self::assertSame('Berlin', $address['city']);
+        self::assertSame(404, $this->request('GET', '/users/' . $other['uuid'] . '/addresses/' . $id)->getStatusCode());
+        $updated = $this->data($this->request('PATCH', $path . '/' . $id, ['city' => 'Cologne']));
+        self::assertSame('Cologne', $updated['city']);
+        self::assertSame(['rest@example.invalid'], $updated['mails']);
+        $default = $this->data($this->request('PUT', '/users/' . $owner['uuid'] . '/default-address', ['addressId' => $id]));
+        self::assertTrue($default['default']);
+        self::assertSame(409, $this->request('DELETE', $path . '/' . $id)->getStatusCode());
+    }
+
+    public function testInvalidAddressDataDoesNotCreateAnAddress(): void
+    {
+        $owner = $this->createUser();
+        $User = QUI::getUsers()->get($owner['uuid']);
+        $before = count($User->getAddressList());
+        $Response = $this->request('POST', '/users/' . $owner['uuid'] . '/addresses', [
+            'firstName' => 'Invalid',
+            'phones' => [['type' => 'fax', 'no' => '']]
+        ]);
+        self::assertSame(422, $Response->getStatusCode());
+        self::assertCount($before, $User->getAddressList());
+    }
+
+    public function testPasswordResponseDoesNotContainThePassword(): void
+    {
+        $owner = $this->createUser();
+        $Response = $this->request('PUT', '/users/' . $owner['uuid'] . '/password', [
+            'password' => 'rest-test-secret-123!',
+            'forceChange' => true
+        ]);
+        self::assertSame(204, $Response->getStatusCode(), (string)$Response->getBody());
+        self::assertSame('', (string)$Response->getBody());
+        self::assertTrue((bool)QUI::getUsers()->get($owner['uuid'])->getAttribute('quiqqer.set.new.password'));
+    }
 }
