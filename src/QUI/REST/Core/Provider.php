@@ -18,6 +18,14 @@ final class Provider implements ProviderInterface
     public static function getEndpoints(): array
     {
         $endpoints = [
+            Project\Trash\ListMediaTrash::class,
+            Project\Trash\RestoreMediaTrash::class,
+            Project\Trash\DestroyMediaTrash::class,
+            Project\Trash\ClearMediaTrash::class,
+            Project\Trash\ListSiteTrash::class,
+            Project\Trash\RestoreSiteTrash::class,
+            Project\Trash\DestroySiteTrash::class,
+            Project\Trash\ClearSiteTrash::class,
 
             VHost\ListVHosts::class,
             VHost\GetVHost::class,
