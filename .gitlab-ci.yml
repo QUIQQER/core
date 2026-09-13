@@ -7,6 +7,31 @@ include:
       php-84: true
       php-85: true
 
+# The package installer updates the installation root; dependency require-dev
+# sections are not installed there. Register the real REST test dependencies
+# before that update so HTTP and OAuth integration tests run in every DB job.
+.core-rest-test-dependencies:
+  before_script:
+    - >-
+      php /var/www/html/var/composer/composer.phar
+      --working-dir=/var/www/html require --dev --no-update --no-interaction
+      'quiqqer/rest:^3.3.1' 'quiqqer/oauth-server:^3.9.2'
+
+phpstan:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.2:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.3:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.4:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.5:
+  extends: .core-rest-test-dependencies
+
 trigger-build-of-docker-images:
   needs:
     - job: release
