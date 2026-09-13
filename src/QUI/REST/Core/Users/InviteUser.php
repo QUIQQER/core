@@ -35,6 +35,7 @@ final class InviteUser extends UserEndpoint
         if (!empty($body['groupIds'])) {
             foreach (Input::ids($body['groupIds'], 'groupIds') as $id) {
                 $Group = QUI::getGroups()->get($id);
+                QUI\REST\Core\Groups\GroupEndpoint::checkGroupDelegation($User, $Group);
                 $groupIds[] = $Group->getId();
             }
         }

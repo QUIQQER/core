@@ -53,10 +53,25 @@ abstract class GroupEndpoint extends UserEndpoint
             return;
         }
 
+        if ($Target->isSU()) {
+            throw new ApiException('permission_denied', 'Only superusers may manage root group membership.', 403);
+        }
+
+        self::checkGroupDelegation($Actor, $Group);
+    }
+
+    public static function checkGroupDelegation(Actor $Actor, Group $Group): void
+    {
+        self::authorizeGroup($Actor, 'edit');
+
+        if ($Actor->isSU()) {
+            return;
+        }
+
         $root = (string)QUI::conf('globals', 'root');
 
-        if ($Target->isSU() || (string)$Group->getId() === $root || (string)$Group->getUUID() === $root) {
-            throw new ApiException('permission_denied', 'Only superusers may change root group membership.', 403);
+        if ((string)$Group->getId() === $root || (string)$Group->getUUID() === $root) {
+            throw new ApiException('permission_denied', 'Only superusers may manage root group membership.', 403);
         }
 
         $Manager = QUI::getPermissionManager();
@@ -83,7 +98,11 @@ abstract class GroupEndpoint extends UserEndpoint
             };
 
             if (!$allowed) {
-                throw new ApiException('permission_denied', 'This group exceeds your permission delegation rights.', 403);
+                throw new ApiException(
+                    'permission_denied',
+                    'This group exceeds your permission delegation rights.',
+                    403
+                );
             }
         }
     }
