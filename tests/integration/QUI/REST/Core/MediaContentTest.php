@@ -54,6 +54,13 @@ class MediaContentTest extends RestIntegrationTestCase
             self::assertSame($file['id'], $replaced['id']);
             self::assertSame('replacement content', (string)$this->request('GET', $contentPath)->getBody());
 
+            $sizePath = $path . '/' . $folder['id'] . '/size';
+            self::assertSame(422, $this->request('GET', $sizePath . '?force=invalid')->getStatusCode());
+            $size = $this->data($this->request('GET', $sizePath . '?force=true'));
+            self::assertTrue($size['sizeKnown']);
+            self::assertGreaterThanOrEqual(strlen('replacement content'), $size['sizeBytes']);
+            self::assertSame($size, $this->data($this->request('GET', $sizePath)));
+
             $Archive = $this->request('GET', $path . '/' . $folder['id'] . '/content');
             self::assertSame(200, $Archive->getStatusCode(), (string)$Archive->getBody());
             self::assertSame('application/zip', $Archive->getHeaderLine('Content-Type'));

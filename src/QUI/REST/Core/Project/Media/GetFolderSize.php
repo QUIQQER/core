@@ -23,7 +23,12 @@ final class GetFolderSize extends MediaEndpoint
         Actor $User
     ): ResponseInterface {
         $Folder = self::folder($arguments);
-        $size = QUI\Utils\System\Folder::getFolderSize($Folder->getFullPath());
+        $force = match ($Request->getQueryParams()['force'] ?? 'false') {
+            'true', '1' => true,
+            'false', '0' => false,
+            default => throw new ApiException('invalid_input', 'force must be true or false.')
+        };
+        $size = QUI\Utils\System\Folder::getFolderSize($Folder->getFullPath(), $force);
         return JsonResponse::write($Response, ['data' => ['sizeBytes' => $size, 'sizeKnown' => $size !== null]]);
     }
 }
