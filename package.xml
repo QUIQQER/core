@@ -19,7 +19,7 @@
         </preview>
 
         <provider>
-            <rest src="\QUI\Projects\RestProvider"/>
+            <rest src="\QUI\REST\Core\Provider"/>
             <auth src="\QUI\Users\Auth\QUIQQER"/>
             <auth src="\QUI\Users\Auth\VerifiedMail2FA"/>
             <auth src="\QUI\Users\Auth\WebAuthn"/>

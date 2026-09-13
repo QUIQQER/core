@@ -368,6 +368,27 @@ class Manager
         $this->multipleCallPrevention = false;
     }
 
+    /**
+     * Execute a request as its authenticated user without changing the login session.
+     *
+     * @template T
+     * @param callable(): T $Callback
+     * @return T
+     */
+    public function withSessionUser(QUIUserInterface $User, callable $Callback): mixed
+    {
+        $PreviousUser = $this->Session;
+        $previousPrevention = $this->multipleCallPrevention;
+        $this->Session = $User;
+
+        try {
+            return $Callback();
+        } finally {
+            $this->Session = $PreviousUser;
+            $this->multipleCallPrevention = $previousPrevention;
+        }
+    }
+
     public function getSystemUser(): SystemUser
     {
         if ($this->SystemUser === null) {

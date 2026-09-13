@@ -7,6 +7,31 @@ include:
       php-84: true
       php-85: true
 
+# The package installer does not install a dependency's require-dev section.
+# Register REST test dependencies through QUIQQER's Composer wrapper, which
+# selects var/composer/composer.json, before the installer updates packages.
+.core-rest-test-dependencies:
+  before_script:
+    - cd /var/www/html
+    - >-
+      ./console composer require --dev --no-update --no-interaction
+      'quiqqer/rest:^3.3.1' 'quiqqer/oauth-server:^3.9.2'
+
+phpstan:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.2:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.3:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.4:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.5:
+  extends: .core-rest-test-dependencies
+
 trigger-build-of-docker-images:
   needs:
     - job: release
