@@ -11,9 +11,9 @@ use QUI\REST\Core\ApiException;
 use QUI\REST\Core\Input;
 use QUI\REST\Core\JsonResponse;
 
-final class GetSite extends SiteEndpoint
+final class UpdateSite extends SiteEndpoint
 {
-    public const METHOD = 'GET';
+    public const METHOD = 'PATCH';
     public const PATH = '/projects/{project}/{lang}/sites/{siteId}';
 
     protected function handle(
@@ -22,6 +22,10 @@ final class GetSite extends SiteEndpoint
         array $arguments,
         Actor $User
     ): ResponseInterface {
-        return JsonResponse::write($Response, ['data' => self::siteData(self::site($arguments))]);
+        $Site = self::site($arguments, 'edit');
+        $body = self::siteInput($Request);
+        $Site->setAttributes($body);
+        $Site->save($User);
+        return JsonResponse::write($Response, ['data' => self::siteData($Site)]);
     }
 }

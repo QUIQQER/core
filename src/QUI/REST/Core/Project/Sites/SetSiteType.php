@@ -11,10 +11,10 @@ use QUI\REST\Core\ApiException;
 use QUI\REST\Core\Input;
 use QUI\REST\Core\JsonResponse;
 
-final class GetSite extends SiteEndpoint
+final class SetSiteType extends SiteEndpoint
 {
-    public const METHOD = 'GET';
-    public const PATH = '/projects/{project}/{lang}/sites/{siteId}';
+    public const METHOD = 'PUT';
+    public const PATH = '/projects/{project}/{lang}/sites/{siteId}/type';
 
     protected function handle(
         ServerRequestInterface $Request,
@@ -22,6 +22,10 @@ final class GetSite extends SiteEndpoint
         array $arguments,
         Actor $User
     ): ResponseInterface {
-        return JsonResponse::write($Response, ['data' => self::siteData(self::site($arguments))]);
+        $Site = self::site($arguments, 'edit');
+        $body = Input::body($Request, ['type' => 'string'], ['type']);
+        $Site->setAttribute('type', $body['type']);
+        $Site->save($User);
+        return JsonResponse::write($Response, ['data' => self::siteData($Site)]);
     }
 }

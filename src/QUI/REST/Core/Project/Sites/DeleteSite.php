@@ -11,9 +11,9 @@ use QUI\REST\Core\ApiException;
 use QUI\REST\Core\Input;
 use QUI\REST\Core\JsonResponse;
 
-final class GetSite extends SiteEndpoint
+final class DeleteSite extends SiteEndpoint
 {
-    public const METHOD = 'GET';
+    public const METHOD = 'DELETE';
     public const PATH = '/projects/{project}/{lang}/sites/{siteId}';
 
     protected function handle(
@@ -22,6 +22,10 @@ final class GetSite extends SiteEndpoint
         array $arguments,
         Actor $User
     ): ResponseInterface {
-        return JsonResponse::write($Response, ['data' => self::siteData(self::site($arguments))]);
+        $Site = self::site($arguments, 'del');
+        if (!$Site->delete()) {
+            throw new ApiException('conflict', 'The site cannot be deleted.', 409);
+        }
+        return $Response->withStatus(204)->withHeader('Cache-Control', 'no-store');
     }
 }

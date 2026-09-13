@@ -17,7 +17,7 @@ final class Provider implements ProviderInterface
     /** @return list<class-string<Endpoint>> */
     public static function getEndpoints(): array
     {
-        return [
+        $endpoints = [
             Groups\ActivateGroups::class,
             Groups\DeactivateGroups::class,
             Groups\ListGroups::class,
@@ -65,8 +65,35 @@ final class Provider implements ProviderInterface
             Project\GetCustomJavaScript::class,
             Project\SetCustomJavaScript::class,
             Project\CreateDefaultStructure::class,
-            Project\Sites\GetSite::class
+            Project\Sites\ActivateSites::class,
+            Project\Sites\AddLanguageLink::class,
+            Project\Sites\ClearSiteCache::class,
+            Project\Sites\CopySite::class,
+            Project\Sites\CreateSite::class,
+            Project\Sites\CreateSiteCache::class,
+            Project\Sites\DeactivateSites::class,
+            Project\Sites\DeleteSite::class,
+            Project\Sites\GetSite::class,
+            Project\Sites\GetSiteLock::class,
+            Project\Sites\LinkSite::class,
+            Project\Sites\ListSiteLayouts::class,
+            Project\Sites\ListSiteTypes::class,
+            Project\Sites\ListSites::class,
+            Project\Sites\LockSite::class,
+            Project\Sites\MoveSite::class,
+            Project\Sites\RemoveLanguageLink::class,
+            Project\Sites\ResolveSite::class,
+            Project\Sites\SetSiteType::class,
+            Project\Sites\SortSites::class,
+            Project\Sites\UnlinkSite::class,
+            Project\Sites\UnlockSite::class,
+            Project\Sites\UpdateSite::class
         ];
+
+        // OAuth path scopes must encounter literal action routes before placeholders.
+        usort($endpoints, static fn(string $a, string $b): int =>
+            substr_count($a::PATH, '{') <=> substr_count($b::PATH, '{'));
+        return $endpoints;
     }
 
     public function register(Server $Server): void

@@ -42,6 +42,10 @@ final class JsonResponse
                 $status = 403;
             }
 
+            if ($Error instanceof QUI\Lock\Exception && $Error->getCode() === 703) {
+                $status = 409;
+            }
+
             [$code, $message] = match ($status) {
                 401 => ['unauthenticated', 'Authentication is required.'],
                 403 => ['permission_denied', 'You do not have permission to perform this operation.'],

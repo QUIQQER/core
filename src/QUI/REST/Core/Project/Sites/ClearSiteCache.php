@@ -11,10 +11,10 @@ use QUI\REST\Core\ApiException;
 use QUI\REST\Core\Input;
 use QUI\REST\Core\JsonResponse;
 
-final class GetSite extends SiteEndpoint
+final class ClearSiteCache extends SiteEndpoint
 {
-    public const METHOD = 'GET';
-    public const PATH = '/projects/{project}/{lang}/sites/{siteId}';
+    public const METHOD = 'POST';
+    public const PATH = '/projects/{project}/{lang}/sites/{siteId}/cache/clear';
 
     protected function handle(
         ServerRequestInterface $Request,
@@ -22,6 +22,8 @@ final class GetSite extends SiteEndpoint
         array $arguments,
         Actor $User
     ): ResponseInterface {
-        return JsonResponse::write($Response, ['data' => self::siteData(self::site($arguments))]);
+        $Site = self::site($arguments, 'edit');
+        $Site->deleteCache();
+        return JsonResponse::write($Response, ['data' => ['completed' => true]]);
     }
 }
