@@ -56,17 +56,22 @@ final class ListSites extends SiteEndpoint
             $Query->andWhere('id IN (:ids)')->setParameter('ids', $ids, \Doctrine\DBAL\ArrayParameterType::INTEGER);
         }
 
-        $Count = clone $Query;
-        $total = (int)$Count->select('COUNT(*)')->resetOrderBy()->executeQuery()->fetchOne();
-        $rows = $Query->setFirstResult($offset)->setMaxResults($limit)->executeQuery()->fetchFirstColumn();
+        $total = 0;
         $data = [];
+        $Result = $Query->executeQuery();
 
-        foreach ($rows as $id) {
+        while (($id = $Result->fetchOne()) !== false) {
             try {
-                $data[] = self::siteData(self::site($arguments, 'view', (int)$id));
+                $Site = self::site($arguments, 'view', (int)$id);
             } catch (QUI\Permissions\Exception) {
-                // Keep inaccessible site content out of collection responses.
+                continue;
             }
+
+            if ($total >= $offset && count($data) < $limit) {
+                $data[] = self::siteData($Site);
+            }
+
+            $total++;
         }
 
         return JsonResponse::write($Response, [

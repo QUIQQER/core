@@ -12,6 +12,55 @@ require_once __DIR__ . '/RestIntegrationTestCase.php';
 
 class SitesTest extends RestIntegrationTestCase
 {
+    public function testPaginationCountsOnlyReadableSites(): void
+    {
+        $user = $this->createUser();
+        $Actor = QUI::getUsers()->get($user['uuid']);
+        self::assertSame(204, $this->request('PUT', '/users/' . $user['uuid'] . '/password', [
+            'password' => 'rest-actor-test-password-123!'
+        ])->getStatusCode());
+        $activated = $this->data($this->request('POST', '/users/activate', ['userIds' => [$user['uuid']]]));
+        self::assertSame(200, $activated[0]['status']);
+        QUI::getPermissionManager()->setPermissions($Actor, [
+            'quiqqer.core.rest.canUse' => true,
+            'quiqqer.projects.sites.view' => true
+        ], $this->Root);
+        $Actor->refresh();
+        $Project = ProjectTestHelper::getProject();
+        $path = '/projects/' . $Project->getName() . '/de/sites';
+        $prefix = 'rest-list-acl-' . bin2hex(random_bytes(5));
+        $ids = [];
+
+        try {
+            foreach (['hidden', 'visible'] as $suffix) {
+                $site = $this->data($this->request('POST', $path, [
+                    'parentId' => 1, 'name' => $prefix . '-' . $suffix
+                ]), 201);
+                $ids[] = $site['id'];
+            }
+
+            ProjectTestHelper::runAsSystemUser(function () use ($Project, $ids): void {
+                QUI::getPermissionManager()->setPermissions(new Edit($Project, $ids[0]), [
+                    'quiqqer.projects.site.view' => 'u' . $this->Root->getUUID()
+                ], $this->Root);
+            });
+            self::assertSame(403, $this->request('GET', $path . '/' . $ids[0], null, $Actor)->getStatusCode());
+            $Response = $this->request('GET', $path . '?search=' . $prefix . '&limit=1', null, $Actor);
+            $data = $this->data($Response);
+            self::assertSame([$ids[1]], array_column($data, 'id'));
+            $body = json_decode((string)$Response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            self::assertSame(1, $body['meta']['total']);
+        } finally {
+            ProjectTestHelper::runAsSystemUser(function () use ($Project, $ids): void {
+                foreach ($ids as $id) {
+                    $Site = new Edit($Project, $id);
+                    $Site->delete();
+                    $Site->destroy();
+                }
+            });
+        }
+    }
+
     public function testSiteLifecycleUsesProjectAndLanguagePath(): void
     {
         $Project = ProjectTestHelper::getProject();
