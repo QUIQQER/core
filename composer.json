@@ -82,15 +82,23 @@
     "t7systems/blowfish": "1.0.0",
     "tedivm/stash": "^1.2"
   },
+  "require-dev": {
+    "quiqqer/oauth-server": "^3.9.2",
+    "quiqqer/rest": "^3.3.1"
+  },
   "suggest": {
-    "ext-pdo_sqlite": "Required when SQLite is used as the QUIQQER database"
+    "ext-pdo_sqlite": "Required when SQLite is used as the QUIQQER database",
+    "quiqqer/oauth-server": "^3.9.2 authenticates requests to the Core REST API",
+    "quiqqer/rest": "^3.3.1 exposes the Core REST API over HTTP"
   },
   "conflict": {
+    "quiqqer/core-rest": "*",
     "quiqqer/quiqqer": "*",
     "quiqqer/rest": "^1"
   },
   "autoload": {
     "psr-4": {
+      "QUI\\REST\\Core\\": "src/QUI/REST/Core/",
       "QUI\\": "src/QUI/"
     },
     "classmap": [
