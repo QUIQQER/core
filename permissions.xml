@@ -286,4 +286,25 @@
         <guest>0</guest>
     </permission>
 
+    <permission name="quiqqer.core.rest.system.viewInfo" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.system.clearCache" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.system.updateAllowed" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
 </permissions>
