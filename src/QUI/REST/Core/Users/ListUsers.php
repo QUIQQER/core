@@ -30,29 +30,34 @@ final class ListUsers extends UserEndpoint
             throw new ApiException('invalid_input', 'search must be a string of at most 200 characters.');
         }
 
-        $params = ['limit' => $limit, 'start' => $offset, 'field' => 'username', 'order' => 'ASC'];
+        $Manager = QUI::getUsers();
+        $Connection = QUI::getDataBaseConnection();
+        $Query = $Connection->createQueryBuilder()->select('uuid')
+            ->from($Connection->getDatabasePlatform()->quoteSingleIdentifier(QUI\Users\Manager::table()))
+            ->where('id NOT IN (:internalIds)')
+            ->setParameter('internalIds', [
+                $Manager->getNobody()->getId(), $Manager->getSystemUser()->getId()
+            ], \Doctrine\DBAL\ArrayParameterType::INTEGER)
+            ->orderBy('username', 'ASC')->addOrderBy('id', 'ASC');
 
         if (trim($search) !== '') {
-            $params['search'] = true;
-            $params['searchSettings'] = [
-                'userSearchString' => trim($search),
-                'fields' => ['uuid' => 1, 'email' => 1, 'username' => 1, 'firstname' => 1, 'lastname' => 1]
-            ];
+            $Query->andWhere('(uuid LIKE :search OR email LIKE :search OR username LIKE :search'
+                . ' OR firstname LIKE :search OR lastname LIKE :search)')
+                ->setParameter('search', '%' . trim($search) . '%');
         }
 
-        $Manager = QUI::getUsers();
-        $rows = $Manager->search($params);
+        $Count = clone $Query;
+        $total = (int)$Count->select('COUNT(*)')->resetOrderBy()->executeQuery()->fetchOne();
+        $ids = $Query->setFirstResult($offset)->setMaxResults($limit)->executeQuery()->fetchFirstColumn();
         $data = [];
 
-        if (is_array($rows)) {
-            foreach ($rows as $row) {
-                $data[] = self::representation(self::user((string)$row['uuid']));
-            }
+        foreach ($ids as $id) {
+            $data[] = self::representation(self::user((string)$id));
         }
 
         return JsonResponse::write($Response, [
             'data' => $data,
-            'meta' => ['total' => $Manager->count($params), 'limit' => $limit, 'offset' => $offset]
+            'meta' => ['total' => $total, 'limit' => $limit, 'offset' => $offset]
         ]);
     }
 }

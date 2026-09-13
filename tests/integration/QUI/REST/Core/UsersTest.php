@@ -8,6 +8,16 @@ require_once __DIR__ . '/RestIntegrationTestCase.php';
 
 class UsersTest extends RestIntegrationTestCase
 {
+    public function testUnfilteredListExcludesInternalAccounts(): void
+    {
+        $Response = $this->request('GET', '/users?limit=100');
+        $users = $this->data($Response);
+        $ids = array_column($users, 'id');
+        self::assertNotContains(QUI::getUsers()->getNobody()->getId(), $ids);
+        self::assertNotContains(QUI::getUsers()->getSystemUser()->getId(), $ids);
+        self::assertContains($this->Root->getId(), $ids);
+    }
+
     public function testUserLifecycleAndRepeatedActivation(): void
     {
         $data = $this->createUser();
