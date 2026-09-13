@@ -236,6 +236,8 @@ class Trash implements QUI\Interfaces\Projects\Trash
             ['id' => $id]
         );
 
+        $this->Media->invalidateItemCache($id);
+
         return $Item;
     }
 }
