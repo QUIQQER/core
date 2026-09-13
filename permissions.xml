@@ -272,4 +272,18 @@
     <permission name="quiqqer.projects.media.del" type="users_and_groups" area="media"/>
     <permission name="quiqqer.projects.media.upload" type="users_and_groups" area="media"/>
 
+    <permission name="quiqqer.core.rest.forwardings.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.vhosts.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
 </permissions>
