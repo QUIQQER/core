@@ -28,6 +28,7 @@ use function html_entity_decode;
 use function is_array;
 use function is_numeric;
 use function is_string;
+use function mb_strlen;
 use function method_exists;
 use function parse_str;
 use function parse_url;
@@ -35,7 +36,6 @@ use function preg_match;
 use function preg_replace;
 use function realpath;
 use function str_replace;
-use function strlen;
 use function trim;
 
 /**
@@ -50,30 +50,32 @@ class Utils
      */
     public static function checkName(string $name): bool
     {
-        if (strlen($name) <= 2) {
+        $length = mb_strlen($name, 'UTF-8');
+
+        if ($length <= 2) {
             throw new Exception(
                 QUI::getLocale()->get('quiqqer/core', 'exception.site.url.2.signs'),
                 701
             );
         }
 
-        if (strlen($name) > 200) {
+        if ($length > 200) {
             throw new Exception(
                 QUI::getLocale()->get('quiqqer/core', 'exception.site.url.200.signs'),
                 704
             );
         }
 
-        $signs = '@[.,:;#`!§$%&/?<>\=\'\"\@\_\]\[\+\-]@';
+        $signs = '@[.,:;#`!§$%&/?<>\=\'\"\@\_\]\[\+\-]@u';
 
 
         // @phpstan-ignore-next-line
         if (QUI\Rewrite::URL_SPACE_CHARACTER === '-') {
-            $signs = '@[.,:;#`!§$%&/?<>\=\'\"\@\_\]\[\+]@';
+            $signs = '@[.,:;#`!§$%&/?<>\=\'\"\@\_\]\[\+]@u';
         }
 
-        // Prüfung des Namens - Sonderzeichen
-        if (preg_match($signs, $name)) {
+        // Reject forbidden characters and invalid UTF-8 (preg_match returns false).
+        if (preg_match($signs, $name) !== 0) {
             throw new Exception(
                 QUI::getLocale()->get('quiqqer/core', 'exception.site.url.wrong.signs', [
                     'name' => $name,
