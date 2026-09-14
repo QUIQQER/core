@@ -6,13 +6,7 @@
         </locale>
     </groups>
 
-    <groups name="quiqqer/system" datatype="js,php">
-        <locale name="close">
-            <pl><![CDATA[Zamknij]]></pl>
-        </locale>
-    </groups>
-
-    <groups name="quiqqer/system" datatype="php,js">
+    <groups name="quiqqer/core" datatype="php,js">
         <locale name="packages.panel.category.systemcheck.loader">
             <pl><![CDATA[Sprawdzenie działania systemu może zająć do 30 sekund.]]></pl>
         </locale>
