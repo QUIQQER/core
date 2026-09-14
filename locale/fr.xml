@@ -2,507 +2,500 @@
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
         <locale name="yes">
-            <de><![CDATA[Ja]]></de>
+            <fr><![CDATA[Oui]]></fr>
         </locale>
         <locale name="no">
-            <de><![CDATA[Nein]]></de>
+            <fr><![CDATA[Non]]></fr>
         </locale>
         <locale name="id">
-            <de><![CDATA[ID]]></de>
+            <fr><![CDATA[ID]]></fr>
         </locale>
         <locale name="name">
-            <de><![CDATA[Name]]></de>
+            <fr><![CDATA[Nom]]></fr>
         </locale>
         <locale name="title">
-            <de><![CDATA[Titel]]></de>
+            <fr><![CDATA[Titre]]></fr>
         </locale>
         <locale name="extension">
-            <de><![CDATA[Endung]]></de>
+            <fr><![CDATA[Extension]]></fr>
         </locale>
         <locale name="workingtitle">
-            <de><![CDATA[Arbeitstitel]]></de>
+            <fr><![CDATA[Titre de travail]]></fr>
         </locale>
         <locale name="short">
-            <de><![CDATA[Kurzbeschreibung]]></de>
+            <fr><![CDATA[Description courte]]></fr>
         </locale>
         <locale name="content">
-            <de><![CDATA[Inhalt]]></de>
+            <fr><![CDATA[Contenu]]></fr>
         </locale>
         <locale name="information">
-            <de><![CDATA[Information]]></de>
+            <fr><![CDATA[Informations]]></fr>
         </locale>
         <locale name="settings">
-            <de><![CDATA[Einstellungen]]></de>
+            <fr><![CDATA[Paramètres]]></fr>
         </locale>
         <locale name="properties">
-            <de><![CDATA[Eigenschaften]]></de>
+            <fr><![CDATA[Propriétés]]></fr>
         </locale>
         <locale name="search">
-            <de><![CDATA[Suchen]]></de>
+            <fr><![CDATA[Rechercher]]></fr>
         </locale>
         <locale name="size">
-            <de><![CDATA[Größe]]></de>
+            <fr><![CDATA[Taille]]></fr>
         </locale>
         <locale name="description">
-            <de><![CDATA[Beschreibung]]></de>
+            <fr><![CDATA[Description]]></fr>
         </locale>
         <locale name="createdate">
-            <de><![CDATA[Erstellungsdatum]]></de>
+            <fr><![CDATA[Date de création]]></fr>
         </locale>
         <locale name="createuser">
-            <de><![CDATA[Ersteller]]></de>
+            <fr><![CDATA[Créateur]]></fr>
         </locale>
         <locale name="editdate">
-            <de><![CDATA[Letztes Bearbeitungsdatum]]></de>
+            <fr><![CDATA[Date de dernière modification]]></fr>
         </locale>
         <locale name="edituser">
-            <de><![CDATA[Bearbeiter]]></de>
+            <fr><![CDATA[Auteur de la modification]]></fr>
         </locale>
         <locale name="date">
-            <de><![CDATA[Datum]]></de>
+            <fr><![CDATA[Date]]></fr>
         </locale>
         <locale name="from">
-            <de><![CDATA[von]]></de>
+            <fr><![CDATA[de]]></fr>
         </locale>
         <locale name="to">
-            <de><![CDATA[nach]]></de>
+            <fr><![CDATA[vers]]></fr>
         </locale>
         <locale name="up">
-            <de><![CDATA[Hoch]]></de>
+            <fr><![CDATA[Monter]]></fr>
         </locale>
         <locale name="down">
-            <de><![CDATA[Runter]]></de>
+            <fr><![CDATA[Descendre]]></fr>
         </locale>
         <locale name="status">
-            <de><![CDATA[Status]]></de>
+            <fr><![CDATA[État]]></fr>
         </locale>
         <locale name="image">
-            <de><![CDATA[Bild]]></de>
+            <fr><![CDATA[Image]]></fr>
         </locale>
         <locale name="email">
-            <de><![CDATA[E-Mail]]></de>
+            <fr><![CDATA[E-mail]]></fr>
         </locale>
         <locale name="firstname">
-            <de><![CDATA[Vorname]]></de>
+            <fr><![CDATA[Prénom]]></fr>
         </locale>
         <locale name="lastname">
-            <de><![CDATA[Nachname]]></de>
+            <fr><![CDATA[Nom de famille]]></fr>
         </locale>
         <locale name="abbreviation">
-            <de><![CDATA[Kürzel]]></de>
+            <fr><![CDATA[Abréviation]]></fr>
         </locale>
         <locale name="addresses">
-            <de><![CDATA[Adressen]]></de>
+            <fr><![CDATA[Adresses]]></fr>
         </locale>
         <locale name="package.title">
-            <de><![CDATA[QUIQQER - Core]]></de>
+            <fr><![CDATA[QUIQQER - Core]]></fr>
         </locale>
         <locale name="package.description">
-            <de><![CDATA[QUIQQER - Start your Business]]></de>
+            <fr><![CDATA[QUIQQER - Lancez votre activité]]></fr>
         </locale>
         <locale name="numberFormat.numbering_system">
-            <de><![CDATA[latn]]></de>
+            <fr><![CDATA[latn]]></fr>
         </locale>
         <locale name="numberFormat.decimal_pattern">
-            <de><![CDATA[#,##0.###]]></de>
+            <fr><![CDATA[#,##0.###]]></fr>
         </locale>
         <locale name="numberFormat.percent_pattern">
-            <de><![CDATA[#,##0 %]]></de>
+            <fr><![CDATA[#,##0 %]]></fr>
         </locale>
         <locale name="numberFormat.currency_pattern">
-            <de><![CDATA[#,##0.00 ¤]]></de>
+            <fr><![CDATA[#,##0.00 ¤]]></fr>
         </locale>
         <locale name="numberFormat.accounting_currency_pattern">
-            <de><![CDATA[#,##0.00 ¤]]></de>
+            <fr><![CDATA[#,##0.00 ¤]]></fr>
         </locale>
         <locale name="numberFormat.decimal_separator">
-            <de><![CDATA[,]]></de>
+            <fr><![CDATA[,]]></fr>
         </locale>
         <locale name="numberFormat.grouping_separator">
-            <de><![CDATA[.]]></de>
+            <fr><![CDATA[ ]]></fr>
         </locale>
         <locale name="text.unverified">
-            <de><![CDATA[Nicht verifiziert]]></de>
+            <fr><![CDATA[Non vérifié]]></fr>
         </locale>
         <locale name="text.verified">
-            <de><![CDATA[Verifiziert]]></de>
+            <fr><![CDATA[Vérifié]]></fr>
         </locale>
 
         <locale name="activate">
-            <de><![CDATA[Aktivieren]]></de>
+            <fr><![CDATA[Activer]]></fr>
         </locale>
         <locale name="deactivate">
-            <de><![CDATA[Deaktivieren]]></de>
+            <fr><![CDATA[Désactiver]]></fr>
         </locale>
         <locale name="rename">
-            <de><![CDATA[Umbenennen]]></de>
+            <fr><![CDATA[Renommer]]></fr>
         </locale>
         <locale name="cancel">
-            <de><![CDATA[Abbrechen]]></de>
+            <fr><![CDATA[Annuler]]></fr>
         </locale>
         <locale name="create">
-            <de><![CDATA[Erstellen]]></de>
+            <fr><![CDATA[Créer]]></fr>
         </locale>
         <locale name="isActivate">
-            <de><![CDATA[Ist aktiviert]]></de>
+            <fr><![CDATA[Est activé]]></fr>
         </locale>
         <locale name="isDeactivate">
-            <de><![CDATA[Ist deaktiviert]]></de>
+            <fr><![CDATA[Est désactivé]]></fr>
         </locale>
         <locale name="order_field_asc">
-            <de><![CDATA[Manuelle Seitensortierung absteigend]]></de>
+            <fr><![CDATA[Tri manuel des pages décroissant]]></fr>
         </locale>
         <locale name="order_field_desc">
-            <de><![CDATA[Manuelle Seitensortierung aufsteigend]]></de>
+            <fr><![CDATA[Tri manuel des pages croissant]]></fr>
         </locale>
         <locale name="add">
-            <de><![CDATA[Hinzufügen]]></de>
+            <fr><![CDATA[Ajouter]]></fr>
         </locale>
         <locale name="remove">
-            <de><![CDATA[Entfernen]]></de>
+            <fr><![CDATA[Retirer]]></fr>
         </locale>
         <locale name="edit">
-            <de><![CDATA[Bearbeiten]]></de>
+            <fr><![CDATA[Modifier]]></fr>
         </locale>
         <locale name="save">
-            <de><![CDATA[Speichern]]></de>
+            <fr><![CDATA[Enregistrer]]></fr>
         </locale>
         <locale name="data">
-            <de><![CDATA[Daten]]></de>
+            <fr><![CDATA[Données]]></fr>
         </locale>
         <locale name="recipient">
-            <de><![CDATA[Empfänger]]></de>
+            <fr><![CDATA[Destinataire]]></fr>
         </locale>
         <locale name="username">
-            <de><![CDATA[Benutzername]]></de>
+            <fr><![CDATA[Nom d’utilisateur]]></fr>
         </locale>
         <locale name="password">
-            <de><![CDATA[Passwort]]></de>
+            <fr><![CDATA[Mot de passe]]></fr>
         </locale>
         <!-- region Time Units -->
         <locale name="second">
-            <de><![CDATA[Sekunde]]></de>
+            <fr><![CDATA[seconde]]></fr>
         </locale>
         <locale name="seconds">
-            <de><![CDATA[Sekunden]]></de>
+            <fr><![CDATA[secondes]]></fr>
         </locale>
         <locale name="seconds.dative">
-            <de><![CDATA[Sekunden]]></de>
+            <fr><![CDATA[secondes]]></fr>
         </locale>
 
         <locale name="minute">
-            <de><![CDATA[Minute]]></de>
+            <fr><![CDATA[minute]]></fr>
         </locale>
         <locale name="minutes">
-            <de><![CDATA[Minuten]]></de>
+            <fr><![CDATA[minutes]]></fr>
         </locale>
         <locale name="minutes.dative">
-            <de><![CDATA[Minuten]]></de>
+            <fr><![CDATA[minutes]]></fr>
         </locale>
 
         <locale name="hour">
-            <de><![CDATA[Stunde]]></de>
+            <fr><![CDATA[heure]]></fr>
         </locale>
         <locale name="hours">
-            <de><![CDATA[Stunden]]></de>
+            <fr><![CDATA[heures]]></fr>
         </locale>
         <locale name="hours.dative">
-            <de><![CDATA[Stunden]]></de>
+            <fr><![CDATA[heures]]></fr>
         </locale>
 
         <locale name="day">
-            <de><![CDATA[Tag]]></de>
+            <fr><![CDATA[jour]]></fr>
         </locale>
         <locale name="days">
-            <de><![CDATA[Tage]]></de>
+            <fr><![CDATA[jours]]></fr>
         </locale>
         <locale name="days.dative">
-            <de><![CDATA[Tagen]]></de>
+            <fr><![CDATA[jours]]></fr>
         </locale>
 
         <locale name="month">
-            <de><![CDATA[Monat]]></de>
+            <fr><![CDATA[mois]]></fr>
         </locale>
         <locale name="months">
-            <de><![CDATA[Monate]]></de>
+            <fr><![CDATA[mois]]></fr>
         </locale>
         <locale name="months.dative">
-            <de><![CDATA[Monaten]]></de>
+            <fr><![CDATA[mois]]></fr>
         </locale>
 
         <locale name="year">
-            <de><![CDATA[Jahr]]></de>
+            <fr><![CDATA[année]]></fr>
         </locale>
         <locale name="years">
-            <de><![CDATA[Jahre]]></de>
+            <fr><![CDATA[années]]></fr>
         </locale>
         <locale name="years.dative">
-            <de><![CDATA[Jahren]]></de>
+            <fr><![CDATA[années]]></fr>
         </locale>
         <!-- endregion -->
 
         <!-- region Months -->
         <locale name="month.01">
-            <de><![CDATA[Januar]]></de>
+            <fr><![CDATA[janvier]]></fr>
         </locale>
         <locale name="month.02">
-            <de><![CDATA[Februar]]></de>
+            <fr><![CDATA[février]]></fr>
         </locale>
         <locale name="month.03">
-            <de><![CDATA[März]]></de>
+            <fr><![CDATA[mars]]></fr>
         </locale>
         <locale name="month.04">
-            <de><![CDATA[April]]></de>
+            <fr><![CDATA[avril]]></fr>
         </locale>
         <locale name="month.05">
-            <de><![CDATA[Mai]]></de>
+            <fr><![CDATA[mai]]></fr>
         </locale>
         <locale name="month.06">
-            <de><![CDATA[Juni]]></de>
+            <fr><![CDATA[juin]]></fr>
         </locale>
         <locale name="month.07">
-            <de><![CDATA[Juli]]></de>
+            <fr><![CDATA[juillet]]></fr>
         </locale>
         <locale name="month.08">
-            <de><![CDATA[August]]></de>
+            <fr><![CDATA[août]]></fr>
         </locale>
         <locale name="month.09">
-            <de><![CDATA[September]]></de>
+            <fr><![CDATA[septembre]]></fr>
         </locale>
         <locale name="month.10">
-            <de><![CDATA[Oktober]]></de>
+            <fr><![CDATA[octobre]]></fr>
         </locale>
         <locale name="month.11">
-            <de><![CDATA[November]]></de>
+            <fr><![CDATA[novembre]]></fr>
         </locale>
         <locale name="month.12">
-            <de><![CDATA[Dezember]]></de>
+            <fr><![CDATA[décembre]]></fr>
         </locale>
         <!-- endregion -->
 
         <locale name="time.ago">
-            <de><![CDATA[vor [amount] [unit]]]></de>
+            <fr><![CDATA[il y a [amount] [unit]]]></fr>
         </locale>
 
         <locale name="exception.error">
-            <de><![CDATA[Es ist ein Fehler aufgetreten. Der Administrator wurde in Kenntnis gesetzt.]]></de>
+            <fr><![CDATA[Une erreur s’est produite. L’administrateur en a été informé.]]></fr>
         </locale>
         <locale name="exception.unknown.error">
-            <de><![CDATA[Leider ist ein Fehler aufgetreten. Bitte versuche es später erneut.]]></de>
+            <fr><![CDATA[Une erreur s’est produite. Veuillez réessayer plus tard.]]></fr>
         </locale>
         <locale name="exception.network.error">
-            <de><![CDATA[Leider ist ein Verbindungsfehler aufgetreten. Bitte versuche es später erneut.]]></de>
+            <fr><![CDATA[Une erreur de connexion s’est produite. Veuillez réessayer plus tard.]]></fr>
         </locale>
         <locale name="user_id">
-            <de><![CDATA[Benutzer-ID]]></de>
+            <fr><![CDATA[ID de l’utilisateur]]></fr>
         </locale>
         <locale name="user_uuid">
-            <de><![CDATA[Benutzer-UUID]]></de>
+            <fr><![CDATA[UUID de l’utilisateur]]></fr>
         </locale>
         <locale name="user_ip_adress">
-            <de><![CDATA[IP-Adresse des Benutzers]]></de>
+            <fr><![CDATA[Adresse IP de l’utilisateur]]></fr>
         </locale>
         <locale name="birthday">
-            <de><![CDATA[Geburtstag]]></de>
+            <fr><![CDATA[Date de naissance]]></fr>
         </locale>
         <locale name="salutation">
-            <de><![CDATA[Anrede]]></de>
+            <fr><![CDATA[Civilité]]></fr>
         </locale>
         <locale name="address">
-            <de><![CDATA[Anschrift]]></de>
+            <fr><![CDATA[Adresse]]></fr>
         </locale>
         <locale name="company">
-            <de><![CDATA[Firma]]></de>
+            <fr><![CDATA[Entreprise]]></fr>
         </locale>
         <locale name="street">
-            <de><![CDATA[Straße]]></de>
+            <fr><![CDATA[Rue]]></fr>
         </locale>
         <locale name="street_no">
-            <de><![CDATA[Straße und Hausnr.]]></de>
+            <fr><![CDATA[Rue et numéro]]></fr>
         </locale>
         <locale name="zip">
-            <de><![CDATA[PLZ]]></de>
+            <fr><![CDATA[Code postal]]></fr>
         </locale>
         <locale name="city">
-            <de><![CDATA[Stadt]]></de>
+            <fr><![CDATA[Ville]]></fr>
         </locale>
         <locale name="country">
-            <de><![CDATA[Land]]></de>
+            <fr><![CDATA[Pays]]></fr>
         </locale>
         <locale name="file">
-            <de><![CDATA[Datei]]></de>
+            <fr><![CDATA[Fichier]]></fr>
         </locale>
         <locale name="group">
-            <de><![CDATA[Gruppe]]></de>
+            <fr><![CDATA[Groupe]]></fr>
         </locale>
         <locale name="groups">
-            <de><![CDATA[Gruppen]]></de>
+            <fr><![CDATA[Groupes]]></fr>
         </locale>
         <locale name="groupname">
-            <de><![CDATA[Gruppenname]]></de>
+            <fr><![CDATA[Nom du groupe]]></fr>
         </locale>
         <locale name="parentGroup">
-            <de><![CDATA[Elterngruppe]]></de>
+            <fr><![CDATA[Groupe parent]]></fr>
         </locale>
         <locale name="toolbar">
-            <de><![CDATA[Toolbar]]></de>
+            <fr><![CDATA[Barre d’outils]]></fr>
         </locale>
         <locale name="group_id">
-            <de><![CDATA[Gruppen-ID]]></de>
+            <fr><![CDATA[ID du groupe]]></fr>
         </locale>
         <locale name="close">
-            <de><![CDATA[Schließen]]></de>
+            <fr><![CDATA[Fermer]]></fr>
         </locale>
         <locale name="ok">
-            <de><![CDATA[Ok]]></de>
+            <fr><![CDATA[OK]]></fr>
         </locale>
         <locale name="accept">
-            <de><![CDATA[Übernehmen]]></de>
+            <fr><![CDATA[Appliquer]]></fr>
         </locale>
         <locale name="delete">
-            <de><![CDATA[Löschen]]></de>
+            <fr><![CDATA[Supprimer]]></fr>
         </locale>
         <locale name="project">
-            <de><![CDATA[Projekt]]></de>
+            <fr><![CDATA[Projet]]></fr>
         </locale>
         <locale name="projects">
-            <de><![CDATA[Projekte]]></de>
+            <fr><![CDATA[Projets]]></fr>
         </locale>
         <locale name="type">
-            <de><![CDATA[Typ]]></de>
+            <fr><![CDATA[Type]]></fr>
         </locale>
         <locale name="c_date">
-            <de><![CDATA[Erstellungsdatum]]></de>
+            <fr><![CDATA[Date de création]]></fr>
         </locale>
         <locale name="c_user">
-            <de><![CDATA[Ersteller]]></de>
+            <fr><![CDATA[Créateur]]></fr>
         </locale>
         <locale name="e_date">
-            <de><![CDATA[Änderungsdatum]]></de>
+            <fr><![CDATA[Date de modification]]></fr>
         </locale>
         <locale name="e_user">
-            <de><![CDATA[Letzter Bearbeiter]]></de>
+            <fr><![CDATA[Dernier auteur de modification]]></fr>
         </locale>
         <locale name="site_id">
-            <de><![CDATA[Seiten-ID]]></de>
+            <fr><![CDATA[ID de la page]]></fr>
         </locale>
         <locale name="manually">
-            <de><![CDATA[manuell]]></de>
+            <fr><![CDATA[manuel]]></fr>
         </locale>
         <locale name="id_asc">
-            <de><![CDATA[ID aufsteigend]]></de>
+            <fr><![CDATA[ID croissant]]></fr>
         </locale>
         <locale name="id_desc">
-            <de><![CDATA[ID absteigend]]></de>
+            <fr><![CDATA[ID décroissant]]></fr>
         </locale>
         <locale name="name_asc">
-            <de><![CDATA[Name aufsteigend]]></de>
+            <fr><![CDATA[Nom croissant]]></fr>
         </locale>
         <locale name="name_desc">
-            <de><![CDATA[Name absteigend]]></de>
+            <fr><![CDATA[Nom décroissant]]></fr>
         </locale>
         <locale name="title_asc">
-            <de><![CDATA[Titel aufsteigend]]></de>
+            <fr><![CDATA[Titre croissant]]></fr>
         </locale>
         <locale name="title_desc">
-            <de><![CDATA[Title absteigend]]></de>
+            <fr><![CDATA[Titre décroissant]]></fr>
         </locale>
         <locale name="c_date_asc">
-            <de><![CDATA[Erstellungsdatum aufsteigend]]></de>
+            <fr><![CDATA[Date de création croissante]]></fr>
         </locale>
         <locale name="c_date_desc">
-            <de><![CDATA[Erstellungsdatum absteigend]]></de>
+            <fr><![CDATA[Date de création décroissante]]></fr>
         </locale>
         <locale name="e_date_asc">
-            <de><![CDATA[Editierungsdatum aufsteigend]]></de>
+            <fr><![CDATA[Date de modification croissante]]></fr>
         </locale>
         <locale name="e_date_desc">
-            <de><![CDATA[Editierungsdatum absteigend]]></de>
+            <fr><![CDATA[Date de modification décroissante]]></fr>
         </locale>
         <locale name="release_from_asc">
-            <de><![CDATA[Veröffentlichungsdatum aufsteigend]]></de>
+            <fr><![CDATA[Date de publication croissante]]></fr>
         </locale>
         <locale name="release_from_desc">
-            <de><![CDATA[Veröffentlichungsdatum absteigend]]></de>
+            <fr><![CDATA[Date de publication décroissante]]></fr>
         </locale>
         <locale name="priority_asc">
-            <de><![CDATA[Priorität aufsteigend]]></de>
+            <fr><![CDATA[Priorité croissante]]></fr>
         </locale>
         <locale name="priority_desc">
-            <de><![CDATA[Priorität absteigend]]></de>
+            <fr><![CDATA[Priorité décroissante]]></fr>
         </locale>
         <locale name="priority">
-            <de><![CDATA[Priorität]]></de>
+            <fr><![CDATA[Priorité]]></fr>
         </locale>
         <locale name="pause">
-            <de><![CDATA[Pause]]></de>
+            <fr><![CDATA[Pause]]></fr>
         </locale>
         <locale name="Resume">
-            <de><![CDATA[Forsetzen]]></de>
+            <fr><![CDATA[Reprendre]]></fr>
         </locale>
         <locale name="language">
-            <de><![CDATA[Sprache]]></de>
+            <fr><![CDATA[Langue]]></fr>
         </locale>
         <locale name="languages">
-            <de><![CDATA[Sprachen]]></de>
+            <fr><![CDATA[Langues]]></fr>
         </locale>
         <locale name="template">
-            <de><![CDATA[Template]]></de>
+            <fr><![CDATA[Modèle]]></fr>
         </locale>
         <locale name="number">
-            <de><![CDATA[Nummer]]></de>
+            <fr><![CDATA[Numéro]]></fr>
         </locale>
         <locale name="tel">
-            <de><![CDATA[Telefon]]></de>
+            <fr><![CDATA[Téléphone]]></fr>
         </locale>
         <locale name="phone">
-            <de><![CDATA[Telefon]]></de>
+            <fr><![CDATA[Téléphone]]></fr>
         </locale>
         <locale name="fax">
-            <de><![CDATA[Fax]]></de>
+            <fr><![CDATA[Fax]]></fr>
         </locale>
         <locale name="mobile">
-            <de><![CDATA[Handy / Mobil]]></de>
+            <fr><![CDATA[Téléphone portable]]></fr>
         </locale>
         <locale name="profile">
-            <de><![CDATA[Profil]]></de>
+            <fr><![CDATA[Profil]]></fr>
         </locale>
         <locale name="path">
-            <de><![CDATA[Pfad]]></de>
+            <fr><![CDATA[Chemin]]></fr>
         </locale>
         <locale name="no.results">
-            <de><![CDATA[Keine Ergebnisse gefunden]]></de>
+            <fr><![CDATA[Aucun résultat trouvé]]></fr>
         </locale>
         <locale name="copy">
-            <de><![CDATA[Kopieren]]></de>
+            <fr><![CDATA[Copier]]></fr>
         </locale>
         <locale name="cut">
-            <de><![CDATA[Ausschneiden]]></de>
+            <fr><![CDATA[Couper]]></fr>
         </locale>
         <locale name="paste">
-            <de><![CDATA[Einfügen]]></de>
+            <fr><![CDATA[Coller]]></fr>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 
         <locale name="exception.missing.missing.index.id">
-            <de><![CDATA[Undefinierter Index: id]]></de>
+            <fr><![CDATA[Index non défini : id]]></fr>
         </locale>
         <locale name="message.translation.file.not.found">
-            <de><![CDATA[Übersetzungsdatei für [file] nicht gefunden.]]></de>
+            <fr><![CDATA[Fichier de traduction de [file] introuvable.]]></fr>
         </locale>
         <locale name="exception.timeout">
-            <de><![CDATA[
-                Zeitüberschreitung der Anfrage. Bitte versuchen Sie es erneut oder zu einem späteren Zeitpunkt.
-            ]]></de>
+            <fr><![CDATA[Le délai de la requête a expiré. Veuillez réessayer maintenant ou plus tard.]]></fr>
         </locale>
         <locale name="exception.crud.child.not.found">
-            <de><![CDATA[Der Eintrag konnte nicht gefunden werden.]]></de>
-        </locale>
-    </groups>
-    <groups name="quiqqer/controls" datatype="php,js">
-        <locale name="package.title">
-            <de><![CDATA[QUIQQER Controls]]></de>
+            <fr><![CDATA[L’entrée est introuvable.]]></fr>
         </locale>
     </groups>
 </locales>

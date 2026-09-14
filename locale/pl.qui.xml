@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/qui" datatype="js">
+        <locale name="handler.button.clear">
+            <pl><![CDATA[Wyczyść komunikaty]]></pl>
+        </locale>
+        <locale name="handler.button.success">
+            <pl><![CDATA[Komunikaty o powodzeniu]]></pl>
+        </locale>
+        <locale name="handler.button.information">
+            <pl><![CDATA[Komunikaty informacyjne]]></pl>
+        </locale>
+        <locale name="handler.button.attention">
+            <pl><![CDATA[Komunikaty ostrzegawcze]]></pl>
+        </locale>
+        <locale name="handler.button.error">
+            <pl><![CDATA[Komunikaty o błędach]]></pl>
+        </locale>
+    </groups>
+</locales>

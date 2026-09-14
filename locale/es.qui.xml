@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/qui" datatype="js">
+        <locale name="handler.button.clear">
+            <es><![CDATA[Vaciar mensajes]]></es>
+        </locale>
+        <locale name="handler.button.success">
+            <es><![CDATA[Mensajes de éxito]]></es>
+        </locale>
+        <locale name="handler.button.information">
+            <es><![CDATA[Mensajes informativos]]></es>
+        </locale>
+        <locale name="handler.button.attention">
+            <es><![CDATA[Mensajes de aviso]]></es>
+        </locale>
+        <locale name="handler.button.error">
+            <es><![CDATA[Mensajes de error]]></es>
+        </locale>
+    </groups>
+</locales>

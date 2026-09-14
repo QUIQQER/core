@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="log.out.message">
+            <it><![CDATA[Esci dal tuo account prima di chiudere l'amministrazione. In caso contrario, i dati esistenti potrebbero andare persi. Vuoi comunque continuare?]]></it>
+        </locale>
+        <locale name="user.panel.password">
+            <it><![CDATA[Password e sicurezza]]></it>
+        </locale>
+        <locale name="user.panel.password.new">
+            <it><![CDATA[Nuova password]]></it>
+        </locale>
+        <locale name="user.panel.password.repeat">
+            <it><![CDATA[Ripeti la password]]></it>
+        </locale>
+        <locale name="user.panel.password.show">
+            <it><![CDATA[Mostra le password]]></it>
+        </locale>
+        <locale name="user.panel.password.old">
+            <it><![CDATA[Password attuale]]></it>
+        </locale>
+        <locale name="message.set.new.password">
+            <it><![CDATA[Devi cambiare la password. Inserisci una nuova password.]]></it>
+        </locale>
+        <locale name="exception.user.oldPassword.is.wrong">
+            <it><![CDATA[La vecchia password non è corretta.]]></it>
+        </locale>
+        <locale name="exception.user.mail.not.verified">
+            <it><![CDATA[L'indirizzo e-mail non è ancora verificato.]]></it>
+        </locale>
+        <locale name="user.settings.setNewPassword">
+            <it><![CDATA[Rinnova la password]]></it>
+        </locale>
+        <locale name="user.settings.setNewPassword.text">
+            <it><![CDATA[Al prossimo accesso, l'utente deve impostare una nuova password.]]></it>
+        </locale>
+        <locale name="quiqqer.auth.title">
+            <it><![CDATA[Autenticazione standard QUIQQER]]></it>
+        </locale>
+        <locale name="quiqqer.auth.frontendTitle">
+            <it><![CDATA[Nome utente e password]]></it>
+        </locale>
+        <locale name="quiqqer.auth.frontendTitle.email">
+            <it><![CDATA[Nome utente / E-mail e password]]></it>
+        </locale>
+        <locale name="quiqqer.auth.description">
+            <it><![CDATA[L'autenticazione standard di QUIQQER tramite nome utente e password.]]></it>
+        </locale>
+        <locale name="quiqqer.window.enable.2fa.title">
+            <it><![CDATA[Autenticazione a due fattori richiesta]]></it>
+        </locale>
+        <locale name="quiqqer.window.enable.2fa.description" html="true">
+            <it><![CDATA[<p>Per rendere il tuo accesso ancora più sicuro, devi attivare l'autenticazione a due fattori. Scegli un metodo e attivalo per continuare.</p>]]></it>
+        </locale>
+        <locale name="quiqqer.window.enable.2fa.backButton">
+            <it><![CDATA[Torna all'elenco dei metodi di autenticazione]]></it>
+        </locale>
+
+        <locale name="quiqqer.window.show.2fa.info.title">
+            <it><![CDATA[Configurare l'autenticazione a due fattori?]]></it>
+        </locale>
+        <locale name="quiqqer.window.show.2fa.info.description" html="true">
+            <it><![CDATA[<p>Per rendere il tuo accesso ancora più sicuro, puoi attivare l'autenticazione a due fattori. Scegli un metodo e attivalo per continuare.</p>]]></it>
+        </locale>
+        <locale name="quiqqer.window.show.2fa.info.button.2fa">
+            <it><![CDATA[Configura l'autenticazione a due fattori]]></it>
+        </locale>
+        <locale name="quiqqer.window.show.2fa.info.button.not">
+            <it><![CDATA[Non ora]]></it>
+        </locale>
+
+        <locale name="quiqqer.mail2fa.title">
+            <it><![CDATA[Autenticazione OTP tramite e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.description">
+            <it><![CDATA[L'autenticazione standard di QUIQQER tramite password monouso inviata a un indirizzo e-mail verificato. Solo gli account con un indirizzo e-mail verificato possono autenticarsi.]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.frontend.title">
+            <it><![CDATA[Autenticazione con codice monouso via e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.frontend.description">
+            <it><![CDATA[Con questo metodo ricevi un codice monouso via e-mail al momento dell'accesso. Il tuo account è così ulteriormente protetto: anche se qualcuno conosce la tua password, non può accedere senza avere accesso alla tua e-mail verificata.]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.control.description">
+            <it><![CDATA[Ti abbiamo inviato un codice di conferma via e-mail. Inserisci qui il codice per continuare.]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.control.codeLabel">
+            <it><![CDATA[Inserisci il codice:]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.control.code.button">
+            <it><![CDATA[Invia il codice ed esegui la verifica]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.control.frontend.sendCodeButton">
+            <it><![CDATA[Richiedi il codice via e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.control.frontend.description">
+            <it><![CDATA[<h1>Attiva l'autenticazione con codice monouso via e-mail</h1><p>Conferma il tuo indirizzo e-mail. Fai clic sul pulsante per ricevere un codice di conferma monouso via e-mail. Inserisci poi il codice ricevuto qui sotto per completare la verifica.</p>]]></it>
+        </locale>
+
+        <locale name="quiqqer.verified.mail2fa.control.backend.noVerifiedMail" html="true">
+            <it><![CDATA[<p>L'indirizzo e-mail non è ancora verificato.</p><p>Per utilizzare questo metodo di autenticazione, devi prima confermare l'indirizzo e-mail.</p><p>Contatta il tuo amministratore.</p>]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.control.backend.verifiedMail" html="true">
+            <it><![CDATA[<p>L'autenticazione è stata configurata correttamente. Da ora questo account dispone di una protezione aggiuntiva.</p><p>Ai prossimi accessi verrà richiesto un secondo fattore di autenticazione per aumentare ulteriormente la sicurezza.</p><p>Contatta il tuo amministratore.</p>]]></it>
+        </locale>
+
+        <locale name="quiqqer.settings.auth.global">
+            <it><![CDATA[Autenticatori globali]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.global.desc">
+            <it><![CDATA[Gli autenticatori globali sono metodi di autenticazione disponibili all'utente all'inizio dell'accesso. Tramite la gestione dei diritti di accesso puoi inoltre mettere a disposizione di ciascun gruppo o utente metodi di autenticazione multipla.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.primary">
+            <it><![CDATA[Autenticatori primari]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary">
+            <it><![CDATA[Autenticatori secondari]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.frontend">
+            <it><![CDATA[Frontend]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.backend">
+            <it><![CDATA[Backend]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary.type.information">
+            <it><![CDATA[Qui puoi stabilire che gli utenti debbano utilizzare un secondo autenticatore (2FA) oltre a quello primario. Puoi specificare separatamente se l'autenticazione a due fattori deve essere obbligatoria nel frontend, nel backend o in entrambi.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary.type.0">
+            <it><![CDATA[Gli utenti non possono configurare un secondo metodo di autenticazione.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary.type.1">
+            <it><![CDATA[Gli utenti devono configurare un secondo metodo di autenticazione.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary.type.2">
+            <it><![CDATA[Gli utenti ricevono un avviso e possono configurare un secondo metodo di autenticazione.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary.frontend.available">
+            <it><![CDATA[Metodi di autenticazione a due fattori disponibili nel frontend]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.secondary.backend.available">
+            <it><![CDATA[Metodi di autenticazione a due fattori disponibili nel backend]]></it>
+        </locale>
+
+
+        <locale name="logout">
+            <it><![CDATA[Esci]]></it>
+        </locale>
+        <locale name="message.session.auth.memcached.notinstalled">
+            <it><![CDATA[L'estensione Memcached non è presente su questo server.]]></it>
+        </locale>
+        <locale name="message.session.auth.memcached.missing.servers">
+            <it><![CDATA[Non sono stati specificati server Memcached. Impossibile eseguire il test.]]></it>
+        </locale>
+        <locale name="message.session.auth.memcached.empty.server">
+            <it><![CDATA[Un indirizzo del server è vuoto o non specificato.]]></it>
+        </locale>
+        <locale name="message.session.auth.memcached.empty.port">
+            <it><![CDATA[Una porta del server è vuota o non specificata.]]></it>
+        </locale>
+        <locale name="message.session.auth.memcached.error">
+            <it><![CDATA[Impossibile connettersi al server [server]:[port]]]></it>
+        </locale>
+        <locale name="message.session.auth.memcached.success">
+            <it><![CDATA[Non sono stati rilevati errori Memcached.<br />La connessione a tutti i server Memcached è riuscita.]]></it>
+        </locale>
+        <locale name="login">
+            <it><![CDATA[Accedi]]></it>
+        </locale>
+        <locale name="controls.users.auth.quiqqerlogin.send_mail_success">
+            <it><![CDATA[Se esiste un account utente associato all'indirizzo e-mail indicato, è stata inviata un'e-mail con un link per confermare l'operazione. Se non ricevi l'e-mail entro 10 minuti, ripeti l'operazione.]]></it>
+        </locale>
+        <locale name="controls.users.auth.quiqqerlogin.send_mail_error">
+            <it><![CDATA[Impossibile completare l'operazione:<br><br>[error]]]></it>
+        </locale>
+        <locale name="controls.users.auth.quiqqerLogin.already.logged.in" html="true">
+            <it><![CDATA[Hai già effettuato l'accesso con il nome utente <b>[username]</b>.]]></it>
+        </locale>
+        <locale name="exception.user.wrong.passwords">
+            <it><![CDATA[Le password non coincidono. Inserisci password corrispondenti.]]></it>
+        </locale>
+        <locale name="loginBox.aside.title">
+            <it><![CDATA[Bentornato!]]></it>
+        </locale>
+        <locale name="loginBox.aside.slogan">
+            <it><![CDATA[Gestione semplice, possibilità di personalizzazione e flessibilità modulare: la tua chiave per il successo digitale.]]></it>
+        </locale>
+        <locale name="loginBox.header.text">
+            <it><![CDATA[Accedi per entrare nel tuo sistema QUIQQER.]]></it>
+        </locale>
+        <locale name="loginBox.powered">
+            <it><![CDATA[Powered by]]></it>
+        </locale>
+        <locale name="loginBox.license">
+            <it><![CDATA[Licenza]]></it>
+        </locale>
+
+        <locale name="login.title">
+            <it><![CDATA[Accesso]]></it>
+        </locale>
+        <locale name="login.check.cookies">
+            <it><![CDATA[Per accedere sono necessari i cookie. Al momento il browser non riesce a salvarli. Consenti i cookie per questo sito e riprova. Se il problema persiste, elimina i dati salvati del sito e ricarica la pagina.]]></it>
+        </locale>
+        <locale name="login.check.session">
+            <it><![CDATA[Impossibile confermare la sessione di accesso. Ricarica la pagina e riprova. Se il problema persiste, contatta il gestore del sito.]]></it>
+        </locale>
+        <locale name="login.check.connection">
+            <it><![CDATA[Impossibile verificare la connessione per l'accesso. Controlla la connessione Internet e riprova. Se il problema persiste, contatta il gestore del sito.]]></it>
+        </locale>
+        <locale name="login.check.retry">
+            <it><![CDATA[Verifica di nuovo]]></it>
+        </locale>
+        <locale name="window.logout.title">
+            <it><![CDATA[Esci]]></it>
+        </locale>
+        <locale name="window.logout.text">
+            <it><![CDATA[Esci]]></it>
+        </locale>
+        <locale name="window.logout.information">
+            <it><![CDATA[Vuoi davvero uscire?]]></it>
+        </locale>
+        <locale name="window.logout.button.ok">
+            <it><![CDATA[Esci]]></it>
+        </locale>
+        <locale name="window.logout.button.cancel">
+            <it><![CDATA[Annulla]]></it>
+        </locale>
+        <locale name="users.user.btn.password.save">
+            <it><![CDATA[Salva password]]></it>
+        </locale>
+        <locale name="users.user.btn.password.generate">
+            <it><![CDATA[Genera password]]></it>
+        </locale>
+        <locale name="users.user.btn.password.generateAndSend">
+            <it><![CDATA[Crea una nuova password e inviala via e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.addServer">
+            <it><![CDATA[Aggiungi server]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.testServer">
+            <it><![CDATA[Verifica server]]></it>
+        </locale>
+        <locale name="quiqqer.auth.login.password_reset">
+            <it><![CDATA[Password dimenticata]]></it>
+        </locale>
+        <locale name="quiqqer.auth.login.btn_text">
+            <it><![CDATA[Accesso]]></it>
+        </locale>
+        <locale name="quiqqer.auth.login.password.message">
+            <it><![CDATA[Se hai dimenticato la password, inserisci qui il tuo indirizzo e-mail e fai clic su 'Reimposta password'. Riceverai un'e-mail con ulteriori istruzioni.]]></it>
+        </locale>
+        <locale name="exception.user.auth.handler.verification_package_not_installed">
+            <it><![CDATA[Impossibile inviare l'e-mail di conferma per la reimpostazione della password perché il pacchetto "quiqqer/verification" non è installato oppure la versione installata non è corretta (^3).]]></it>
+        </locale>
+        <locale name="exception.user.auth.handler.missing_user_email">
+            <it><![CDATA[Impossibile inviare l'e-mail di conferma per la reimpostazione della password perché l'utente non ha specificato un indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="exception.user.auth.send_password_reset_mail_error">
+            <it><![CDATA[Si è verificato un errore imprevisto durante la reimpostazione della password. Riprova più tardi.]]></it>
+        </locale>
+        <locale name="quiqqer.auth.login.label.email">
+            <it><![CDATA[Indirizzo e-mail]]></it>
+        </locale>
+        <locale name="users.auth.passwordresetverification.success">
+            <it><![CDATA[La reimpostazione della password è stata verificata correttamente. Ora riceverai un'e-mail con una nuova password di accesso.]]></it>
+        </locale>
+        <locale name="users.auth.passwordresetverification.error">
+            <it><![CDATA[La reimpostazione della password non è riuscita. Ripeti l'operazione oppure riprova più tardi.]]></it>
+        </locale>
+        <locale name="watch.unknown_user">
+            <it><![CDATA[Utente sconosciuto]]></it>
+        </locale>
+        <locale name="watch.authenticatorLoginError">
+            <it><![CDATA[Tentativo di accesso non riuscito: "[username]" (#[userId]) | Autenticatore: "[authenticator]" | Indirizzo IP: [ipAddress] | User Agent: "[userAgent]"]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth">
+            <it><![CDATA[Autenticazione]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.emaillogin">
+            <it><![CDATA[Consenti l'accesso tramite indirizzo e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.type">
+            <it><![CDATA[Tipo di autenticazione]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.type.standard">
+            <it><![CDATA[standard]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.session">
+            <it><![CDATA[Sessione]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.session.maxlife">
+            <it><![CDATA[Tempo massimo di inattività di un utente (durata massima della sessione)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.session.multible">
+            <it><![CDATA[Consenti accessi simultanei con lo stesso utente]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached">
+            <it><![CDATA[Server Memcached]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.text">
+            <it><![CDATA[Specifica qui un server Memcached per gestire i dati delle sessioni tramite un server Memcached]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.host">
+            <it><![CDATA[Host]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.port">
+            <it><![CDATA[Porta]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache">
+            <it><![CDATA[Server Memcache]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache.text">
+            <it><![CDATA[Specifica qui un server Memcache per gestire i dati delle sessioni tramite un server Memcache]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache.host">
+            <it><![CDATA[Host]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache.port">
+            <it><![CDATA[Porta]]></it>
+        </locale>
+        <locale name="message.password.save.success">
+            <it><![CDATA[La password è stata salvata correttamente]]></it>
+        </locale>
+        <locale name="exception.lib.user.register.specify.password">
+            <it><![CDATA[Questo nome utente esiste già. Usa un altro nome utente]]></it>
+        </locale>
+        <locale name="exception.lib.user.empty.password">
+            <it><![CDATA[La password non può essere vuota. Inserisci una password valida]]></it>
+        </locale>
+        <locale name="exception.lib.user.wrong.passwords">
+            <it><![CDATA[Le password non coincidono. Inserisci password corrispondenti]]></it>
+        </locale>
+        <locale name="exception.lib.user.activation.wrong.code">
+            <it><![CDATA[Il codice di attivazione non è corretto]]></it>
+        </locale>
+        <locale name="exception.lib.user.activation.no.groups">
+            <it><![CDATA[L'utente non è ancora assegnato ad alcun gruppo. Un utente deve appartenere ad almeno un gruppo.]]></it>
+        </locale>
+        <locale name="exception.lib.user.activation.no.password">
+            <it><![CDATA[Non è ancora stata impostata una password per l'utente. L'utente può essere attivato solo se dispone di una password]]></it>
+        </locale>
+        <locale name="exception.login.expire">
+            <it><![CDATA[Accesso non riuscito. Il tuo account utente è scaduto. [expire]]]></it>
+        </locale>
+        <locale name="exception.login.fail">
+            <it><![CDATA[Accesso non riuscito. Controlla nome utente e password.]]></it>
+        </locale>
+        <locale name="exception.login.fail.no.password">
+            <it><![CDATA[Accesso non riuscito. Inserisci una password.]]></it>
+        </locale>
+        <locale name="exception.login.fail.wrong.password.input">
+            <it><![CDATA[Accesso non riuscito. Inserisci una password corretta.]]></it>
+        </locale>
+        <locale name="exception.login.fail.wrong.username.input">
+            <it><![CDATA[Accesso non riuscito. Inserisci un nome utente corretto.]]></it>
+        </locale>
+        <locale name="exception.login.fail.user.not.found">
+            <it><![CDATA[Accesso non riuscito. Utente non trovato.]]></it>
+        </locale>
+        <locale name="exception.login.fail.user_not_active">
+            <it><![CDATA[Accesso non riuscito. L'utente non è attivo.]]></it>
+        </locale>
+        <locale name="exception.login.fail.user_deleted">
+            <it><![CDATA[Accesso non riuscito. L'utente è contrassegnato come eliminato.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.loginIpLimit">
+            <it><![CDATA[Tentativi di accesso per indirizzo IP (15 minuti)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.loginIpLimit.description">
+            <it><![CDATA[Limite condiviso per tutti i tentativi di accesso nel frontend e nel backend, anche con nomi utente sconosciuti e nuove sessioni. Gli indirizzi IP condivisi condividono il limite. Predefinito: 60.]]></it>
+        </locale>
+        <locale name="exception.login.fail.ip_throttled">
+            <it><![CDATA[Troppi tentativi di accesso da questo indirizzo IP. Riprova tra 15 minuti.]]></it>
+        </locale>
+        <locale name="exception.login.fail.login_locked">
+            <it><![CDATA[Accesso non riuscito. L'accesso per questo utente è temporaneamente bloccato. Riprova più tardi.]]></it>
+        </locale>
+        <locale name="exception.session.expired.from.other">
+            <it><![CDATA[Qualcuno ha effettuato l'accesso al tuo account da un altro computer. Per questo motivo la tua sessione è stata terminata. Accedi nuovamente.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.session.type">
+            <it><![CDATA[Memorizzazione dei dati delle sessioni]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.filesystem">
+            <it><![CDATA[Nel file system]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.database">
+            <it><![CDATA[Tramite il database QUIQQER]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.memcached">
+            <it><![CDATA[Tramite server Memcached]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.redis">
+            <it><![CDATA[Tramite server Redis]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.mongodb">
+            <it><![CDATA[Tramite MongoDB]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.standard">
+            <it><![CDATA[Autenticazione tramite QUIQQER (predefinita)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.header">
+            <it><![CDATA[Server Memcached]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.header.port">
+            <it><![CDATA[Porta]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.redis.header">
+            <it><![CDATA[Redis]]></it>
+        </locale>
+        <locale name="exception.lib.user.activasion.user.is.activated">
+            <it><![CDATA[Impossibile attivare l'utente perché è già attivo.]]></it>
+        </locale>
+        <locale name="controls.users.auth.login.or">
+            <it><![CDATA[oppure]]></it>
+        </locale>
+        <locale name="controls.users.auth.login.password_reset">
+            <it><![CDATA[oppure]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="message.ajax.user.setAndSendPassword.no_mail_sent">
+            <it><![CDATA[La password dell'utente [user] è stata reimpostata, ma non è stato possibile inviarla via e-mail perché nei dati dell'utente non è presente un indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="message.ajax.user.setAndSendPassword.success">
+            <it><![CDATA[La password dell'utente [user] è stata reimpostata e inviata via e-mail.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.showResetPasswordBackend">
+            <it><![CDATA["Password dimenticata" nell'accesso al backend]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.showResetPasswordFrontend">
+            <it><![CDATA["Password dimenticata" nell'accesso al frontend]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.forceNewPasswordOnReset">
+            <it><![CDATA[Obbliga a impostare una nuova password]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.showResetPasswordBackend.description" html="true">
+            <it><![CDATA[Mostra l'opzione "Password dimenticata" per l'accesso al backend (richiede il modulo <b>quiqqer/verification</b>!)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.showResetPasswordFrontend.description" html="true">
+            <it><![CDATA[Mostra l'opzione "Password dimenticata" per l'accesso al frontend (richiede il modulo <b>quiqqer/verification</b>!)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.forceNewPasswordOnReset.description">
+            <it><![CDATA[Gli utenti che reimpostano la password tramite la funzione "Password dimenticata" devono cambiarla dopo il primo accesso]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.passwordResetLinkValidTime">
+            <it><![CDATA[Durata di validità del link "Password dimenticata"]]></it>
+        </locale>
+        <locale name="quiqqer.settings.auth.passwordResetLinkValidTime.description" html="true">
+            <it><![CDATA[Durata di validità in <b>minuti</b> del link di conferma della reimpostazione della password.]]></it>
+        </locale>
+
+        <locale name="controls.users.auth.quiqqerlogin.btn.password_reset">
+            <it><![CDATA[Reimposta password]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="controls.SendPassword.title">
+            <it><![CDATA[Crea una nuova password per l'utente e inviala via e-mail]]></it>
+        </locale>
+        <locale name="controls.SendPassword.submit">
+            <it><![CDATA[Salva password e invia e-mail]]></it>
+        </locale>
+        <locale name="controls.SendPassword.passwords_not_equal">
+            <it><![CDATA[Le password non coincidono.]]></it>
+        </locale>
+
+        <locale name="message.user.has.no.password">
+            <it><![CDATA[L'utente non ha ancora una password]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="quiqqer.webauthn.title">
+            <it><![CDATA[Passkey / WebAuthn]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.description">
+            <it><![CDATA[Accesso con passkey e WebAuthn.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.frontend.title">
+            <it><![CDATA[Passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.frontend.description">
+            <it><![CDATA[Accedi con una passkey, l'impronta digitale, il riconoscimento facciale o una chiave di sicurezza.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.login.button">
+            <it><![CDATA[Accedi con passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.title">
+            <it><![CDATA[Gestisci passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.description">
+            <it><![CDATA[Crea e gestisci le passkey di questo utente.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.name.label">
+            <it><![CDATA[Nome della passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.name.placeholder">
+            <it><![CDATA[ad es. MacBook, iPhone o YubiKey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.create.button">
+            <it><![CDATA[Crea passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.list.title">
+            <it><![CDATA[Passkey configurate]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.unnamed">
+            <it><![CDATA[Passkey senza nome]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.created">
+            <it><![CDATA[Creato]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.empty">
+            <it><![CDATA[Non è ancora stata configurata una passkey per questo utente.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.delete.hint">
+            <it><![CDATA[La passkey è stata rimossa da QUIQQER. Se necessario, rimuovila anche dal gestore di password o dal dispositivo su cui era stata salvata.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.settings.activated_existing.hint">
+            <it><![CDATA[È stata trovata una voce passkey esistente. La passkey è stata quindi attivata.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.registrar.title">
+            <it><![CDATA[Registrazione con passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.registrar.description">
+            <it><![CDATA[Crea un account utente e configura subito una passkey.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.registration.username.label">
+            <it><![CDATA[Nome utente o e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.registration.button">
+            <it><![CDATA[Registrati con passkey]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.error.unsupported">
+            <it><![CDATA[Questo browser non supporta passkey/WebAuthn.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.error.already_registered_on_device">
+            <it><![CDATA[Su questo dispositivo o in questo gestore di password è già configurata una passkey per questo utente. Usa la passkey esistente oppure salvane una nuova su un altro dispositivo.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.error.cancelled">
+            <it><![CDATA[La richiesta della passkey è stata annullata.]]></it>
+        </locale>
+        <locale name="quiqqer.webauthn.error.failed">
+            <it><![CDATA[Impossibile completare la richiesta della passkey.]]></it>
+        </locale>
+        <locale name="exception.webauthn.credential_already_exists">
+            <it><![CDATA[Questa passkey è già registrata.]]></it>
+        </locale>
+        <locale name="exception.webauthn.challenge_missing">
+            <it><![CDATA[La richiesta della passkey è scaduta. Riprova.]]></it>
+        </locale>
+        <locale name="exception.webauthn.challenge_invalid_user">
+            <it><![CDATA[La richiesta della passkey non corrisponde all'utente.]]></it>
+        </locale>
+        <locale name="exception.webauthn.credential_not_found">
+            <it><![CDATA[La passkey non è stata trovata.]]></it>
+        </locale>
+        <locale name="exception.webauthn.assertion_missing">
+            <it><![CDATA[Mancano i dati di accesso della passkey.]]></it>
+        </locale>
+        <locale name="exception.webauthn.attestation_missing">
+            <it><![CDATA[Mancano i dati di registrazione della passkey.]]></it>
+        </locale>
+        <locale name="exception.webauthn.username_missing">
+            <it><![CDATA[Inserisci un nome utente o un indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="exception.webauthn.username_exists">
+            <it><![CDATA[Questo nome utente esiste già.]]></it>
+        </locale>
+    </groups>
+</locales>

@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="text.mail.subject">
+            <it><![CDATA[E-mail di prova QUIQQER]]></it>
+        </locale>
+        <locale name="text.mail.body" html="true">
+            <it><![CDATA[Questa è un'e-mail di prova]]></it>
+        </locale>
+        <locale name="test.mail.button">
+            <it><![CDATA[Verifica le impostazioni e-mail]]></it>
+        </locale>
+        <locale name="mail.settings.verify_peer">
+            <it><![CDATA[Richiedi la verifica del certificato SSL utilizzato.]]></it>
+        </locale>
+        <locale name="mail.settings.verify_peer_name">
+            <it><![CDATA[Richiedi la verifica del nome del peer.]]></it>
+        </locale>
+        <locale name="mail.settings.allow_self_signed">
+            <it><![CDATA[Consenti certificati autofirmati.]]></it>
+        </locale>
+        <locale name="message.testmail.success" html="true">
+            <it><![CDATA[E-mail di prova inviata correttamente.<br />Un log dettagliato è disponibile in mailtest.log o debug.log]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.mail.subject">
+            <it><![CDATA[Il tuo codice di accesso per [host]]]></it>
+        </locale>
+        <locale name="quiqqer.verified.mail2fa.mail.content" html="true">
+            <it><![CDATA[<p>Ciao,</p><p>il tuo codice di conferma per accedere a <strong>[host]</strong> è:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Inserisci questo codice per continuare. Il codice è valido solo per un breve periodo.</p><p>Se non hai effettuato tu questa richiesta, puoi ignorare questa e-mail.</p><p>Un saluto<br>Il team di [host]</p>]]></it>
+        </locale>
+        <locale name="quiqqer.enable.mail2fa.mail.subject">
+            <it><![CDATA[[host]: il tuo codice per attivare l'autenticazione con codice monouso via e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
+            <it><![CDATA[<p>Ciao,</p><p>il tuo codice per attivare l'autenticazione con codice monouso via e-mail su <strong>[host]</strong> è:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Inserisci questo codice per continuare. Il codice è valido solo per un breve periodo.</p><p>Se non hai effettuato tu questa richiesta, puoi ignorare questa e-mail.</p><p>Un saluto<br>Il team di [host]</p>]]></it>
+        </locale>
+        <locale name="message.contact.successful">
+            <it><![CDATA[<p>Grazie per la tua e-mail. Ti risponderemo al più presto.</p>]]></it>
+        </locale>
+        <locale name="control.contact.send.button">
+            <it><![CDATA[Invia]]></it>
+        </locale>
+        <locale name="users.invite.mail.subject">
+            <it><![CDATA[Invito alla registrazione utente per [domain]]]></it>
+        </locale>
+        <locale name="users.invite.mail.body">
+            <it><![CDATA[Ciao [email],<br><br>[username] ti ha invitato a creare un utente nel sistema [domain].<br>Puoi accedere a <a href="[backendUrl]">[backendUrl]</a> con il nome utente <b>[email]</b> e la password <b>[password]</b> per attivare il tuo account.<br><br>Dopo il primo accesso ti verrà chiesto di cambiare la password. Scegli una password sicura.<br><br>Ulteriori informazioni e istruzioni sul sistema sono disponibili qui: <a href="https://www.quiqqer.de/FAQ/onboarding">www.quiqqer.de/FAQ/onboarding</a>.]]></it>
+        </locale>
+        <locale name="mail.auth.password_reset_confirm.subject">
+            <it><![CDATA[Reimposta password]]></it>
+        </locale>
+        <locale name="mail.auth.password_reset_confirm.body">
+            <it><![CDATA[<h1>Ciao [username],</h1><p>Il [date] hai richiesto la reimpostazione della password di accesso. Per consentirti di impostare una nuova password, ti verrà inviata una nuova password con cui potrai accedere. Conferma l'operazione aprendo il seguente link:<br /><br /><a href="[confirmLink]">[confirmLink]</a></p><p><b>Nota:</b> Se non hai richiesto la reimpostazione della password di accesso, puoi ignorare questa e-mail.</p>]]></it>
+        </locale>
+        <locale name="mail.auth.password_reset_newpassword.subject">
+            <it><![CDATA[Nuova password di accesso]]></it>
+        </locale>
+        <locale name="mail.auth.password_reset_newpassword.body">
+            <it><![CDATA[<h1>Ciao [username],</h1><p>Hai richiesto la reimpostazione della password. Puoi accedere con la seguente password.<br /><br /><b>Password di accesso:</b> [newPassword]</p>]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.title">
+            <it><![CDATA[Impostazioni e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.admin">
+            <it><![CDATA[E-mail dell'amministrazione]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.admin.desc">
+            <it><![CDATA[I messaggi di errore e le informazioni vengono inviati a questo indirizzo e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.title">
+            <it><![CDATA[Impostazioni SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.activasion">
+            <it><![CDATA[Attiva l'invio di e-mail tramite SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.server">
+            <it><![CDATA[Server SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.port">
+            <it><![CDATA[Porta SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.secure">
+            <it><![CDATA[Sicurezza della connessione]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.SMTPIpVersion">
+            <it><![CDATA[Versione IP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.SMTPIpVersion.option.auto">
+            <it><![CDATA[automatico]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.SMTPIpVersion.option.ipv4">
+            <it><![CDATA[IPv4]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.SMTPIpVersion.option.ipv6">
+            <it><![CDATA[IPv6]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.title">
+            <it><![CDATA[Autenticazione SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.activasion">
+            <it><![CDATA[Attivare l'autenticazione SMTP?]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.user">
+            <it><![CDATA[Utente SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.password">
+            <it><![CDATA[Password SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFrom">
+            <it><![CDATA[Indirizzo e-mail del mittente]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFrom.description">
+            <it><![CDATA[Indirizzo e-mail del mittente visualizzato dal destinatario]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILReplyTo">
+            <it><![CDATA[Indirizzo e-mail di risposta]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILReplyTo.description">
+            <it><![CDATA[Indirizzo e-mail a cui deve essere inviata la risposta.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.logging">
+            <it><![CDATA[Registrazione delle e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.logging.description">
+            <it><![CDATA[QUIQQER registra l'intero processo di invio delle e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.debug">
+            <it><![CDATA[Livello di debug SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.admin_bcc">
+            <it><![CDATA[E-mail dell'amministrazione in Ccn]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.admin_bcc.description">
+            <it><![CDATA[Ogni e-mail viene inviata anche all'indirizzo dell'amministrazione in copia nascosta (Ccn). Questa impostazione può essere utilizzata per verificare il corretto funzionamento dell'invio delle e-mail.]]></it>
+        </locale>
+        <locale name="control.contact.name">
+            <it><![CDATA[Nome]]></it>
+        </locale>
+        <locale name="control.contact.name.placeholder">
+            <it><![CDATA[Il tuo nome e cognome]]></it>
+        </locale>
+        <locale name="control.contact.email">
+            <it><![CDATA[E-mail]]></it>
+        </locale>
+        <locale name="control.contact.email.placeholder">
+            <it><![CDATA[Il tuo indirizzo e-mail]]></it>
+        </locale>
+        <locale name="control.contact.message">
+            <it><![CDATA[Messaggio]]></it>
+        </locale>
+        <locale name="control.contact.message.placeholder">
+            <it><![CDATA[Il tuo messaggio per noi]]></it>
+        </locale>
+        <locale name="exception.contact.params.empty">
+            <it><![CDATA[Impossibile inviare l'e-mail di contatto. Compila tutti i campi obbligatori.]]></it>
+        </locale>
+        <locale name="exception.contact.wrong.email">
+            <it><![CDATA[Impossibile inviare l'e-mail di contatto. Inserisci un indirizzo e-mail valido.]]></it>
+        </locale>
+        <locale name="exception.not.correct.email">
+            <it><![CDATA[Inserisci un indirizzo e-mail valido]]></it>
+        </locale>
+        <locale name="exception.contact.send.mail">
+            <it><![CDATA[<p>Impossibile inviare l'e-mail di contatto.</p><p>Riprova più tardi.</p>]]></it>
+        </locale>
+        <locale name="lib.qui.exceptions.handler.mail.subject">
+            <it><![CDATA[Errore su [host] all'URL [url]]]></it>
+        </locale>
+        <locale name="templates.mail.header.title">
+            <it><![CDATA[]]></it>
+        </locale>
+        <locale name="templates.mail.footer.links">
+            <it><![CDATA[&nbsp;]]></it>
+        </locale>
+        <locale name="templates.mail.footer.text">
+            <it><![CDATA[&nbsp;]]></it>
+        </locale>
+        <locale name="templates.mail.body.header.social" html="true">
+            <it><![CDATA[
+                 <a href="https://www.facebook.com/Quiqqer" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                    <img alt="QUIQQER su Facebook" src="https://www.quiqqer.com/media/cache/quiqqer/email/facebook.png" />
+                 </a>
+
+                 <a href="https://twitter.com/PCSG_DEV" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/twitter.png"
+                          alt="QUIQQER su Twitter">
+                 </a>
+
+                 <a href="https://dev.quiqqer.com/" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/gitlab.png"
+                          alt="QUIQQER su Gitlab">
+                 </a>
+
+                 <a href="https://discord.gg/tjaMEgv" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/discord.png"
+                          alt="QUIQQER su Discord">
+                 </a>
+             ]]></it>
+        </locale>
+        <locale name="templates.mail.body.footer.text" html="true">
+            <it><![CDATA[<p style="padding: 0; margin: 0;">&copy; [year]<br/><a href="https://www.quiqqer.de">QUIQQER</a> Visita il sito web</p>]]></it>
+        </locale>
+        <locale name="templates.mail.body.footer.social" html="true">
+            <it><![CDATA[
+                 <a href="https://www.facebook.com/Quiqqer" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                    <img alt="QUIQQER su Facebook" src="https://www.quiqqer.com/media/cache/quiqqer/email/facebook.png" />
+                 </a>
+
+                 <a href="https://twitter.com/PCSG_DEV" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/twitter.png"
+                          alt="QUIQQER su Twitter">
+                 </a>
+
+                 <a href="https://dev.quiqqer.com/" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/gitlab.png"
+                          alt="QUIQQER su Gitlab">
+                 </a>
+
+                 <a href="https://discord.gg/tjaMEgv" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/discord.png"
+                          alt="QUIQQER su Discord">
+                 </a>
+             ]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFromText.description">
+            <it><![CDATA[Nome del mittente visualizzato dal destinatario.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFromText">
+            <it><![CDATA[Nome del mittente visualizzato]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.queueLimitPerHour">
+            <it><![CDATA[Numero massimo di e-mail all'ora]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.queueLimitPerHour.desc">
+            <it><![CDATA[Specifica il numero massimo di e-mail che possono essere inviate dalla coda in un'ora. <b>0 = nessun limite</b>.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.queueMaxRetries">
+            <it><![CDATA[Numero massimo di tentativi di invio per e-mail in coda]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.queueMaxRetries.desc">
+            <it><![CDATA[Definisce quante volte viene ritentato l'invio di un'e-mail in coda dopo un errore prima di annullarlo. <b>0 = nessun limite</b>.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.queue.desc">
+            <it><![CDATA[Le e-mail vengono mantenute in coda finché non è certo che siano state inviate.]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.queue">
+            <it><![CDATA[Attiva la coda e-mail]]></it>
+        </locale>
+        <locale name="mailqueue.panel.title">
+            <it><![CDATA[Coda e-mail]]></it>
+        </locale>
+        <locale name="mailqueue.filter.search.placeholder">
+            <it><![CDATA[Cerca nelle e-mail in coda (oggetto, mittente, destinatario, contenuto ...)]]></it>
+        </locale>
+        <locale name="mailqueue.grid.header.lastsend">
+            <it><![CDATA[Ultimo invio]]></it>
+        </locale>
+        <locale name="mailqueue.grid.header.status">
+            <it><![CDATA[Stato]]></it>
+        </locale>
+        <locale name="mailqueue.grid.header.retry">
+            <it><![CDATA[Tentativi]]></it>
+        </locale>
+        <locale name="mailqueue.grid.header.subject">
+            <it><![CDATA[Oggetto]]></it>
+        </locale>
+        <locale name="mailqueue.grid.header.to">
+            <it><![CDATA[A]]></it>
+        </locale>
+        <locale name="mailqueue.delete.button">
+            <it><![CDATA[Elimina]]></it>
+        </locale>
+        <locale name="mailqueue.delete.dialog.title">
+            <it><![CDATA[Elimina le e-mail in coda]]></it>
+        </locale>
+        <locale name="mailqueue.delete.dialog.text">
+            <it><![CDATA[Vuoi davvero eliminare le e-mail selezionate dalla coda?]]></it>
+        </locale>
+        <locale name="mailqueue.status.added">
+            <it><![CDATA[Aggiunta]]></it>
+        </locale>
+        <locale name="mailqueue.status.sent">
+            <it><![CDATA[Inviata]]></it>
+        </locale>
+        <locale name="mailqueue.status.sending">
+            <it><![CDATA[Invio in corso]]></it>
+        </locale>
+        <locale name="mailqueue.status.error">
+            <it><![CDATA[Errore]]></it>
+        </locale>
+        <locale name="mailqueue.status.canceled">
+            <it><![CDATA[Annullata]]></it>
+        </locale>
+        <locale name="mailqueue.mail.panel.title">
+            <it><![CDATA[E-mail in coda]]></it>
+        </locale>
+        <locale name="mailqueue.mail.panel.error.no_mail_id">
+            <it><![CDATA[Non è stato fornito un ID e-mail.]]></it>
+        </locale>
+        <locale name="mailqueue.mail.panel.error.not_found">
+            <it><![CDATA[E-mail non trovata.]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.status">
+            <it><![CDATA[Stato]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.lastsend">
+            <it><![CDATA[Ultimo invio]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.retry">
+            <it><![CDATA[Tentativi]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.from">
+            <it><![CDATA[Da]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.to">
+            <it><![CDATA[A]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.reply_to">
+            <it><![CDATA[Rispondi a]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.cc">
+            <it><![CDATA[Cc]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.bcc">
+            <it><![CDATA[Ccn]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.errors">
+            <it><![CDATA[Errore]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.body_html">
+            <it><![CDATA[Contenuto (HTML)]]></it>
+        </locale>
+        <locale name="mailqueue.mail.field.body_text">
+            <it><![CDATA[Contenuto (testo)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.maxAttachmentSize">
+            <it><![CDATA[Dimensione massima dell'allegato (byte)]]></it>
+        </locale>
+        <locale name="quiqqer.settings.email.maxAttachmentSize.desc">
+            <it><![CDATA[Specifica la dimensione massima di un singolo allegato e-mail in byte. Predefinito: <b>52428800</b> (50 MB).]]></it>
+        </locale>
+        <locale name="message.missing.admin.mail">
+            <it><![CDATA[Nota: imposta un indirizzo e-mail dell'amministrazione in Impostazioni -> Sistema -> E-mail. In questo modo QUIQQER potrà informarti in caso di errori.]]></it>
+        </locale>
+
+
+        <locale name="quiqqer.setup.mail.title">
+            <it><![CDATA[E-mail dell'amministratore]]></it>
+        </locale>
+        <locale name="quiqqer.setup.mail.description">
+            <it><![CDATA[Specifica l'indirizzo da utilizzare come e-mail generale. Qui riceverai, ad esempio, messaggi di errore e informazioni.]]></it>
+        </locale>
+        <locale name="quiqqer.setup.mail.label">
+            <it><![CDATA[Indirizzo e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.setup.mail.placeholder">
+            <it><![CDATA[hello@email.tld]]></it>
+        </locale>
+
+        <locale name="quiqqer.setup.mail.smtp.title">
+            <it><![CDATA[Impostazioni del server di posta SMTP]]></it>
+        </locale>
+        <locale name="quiqqer.setup.mail.smtp.description">
+            <it><![CDATA[Il server SMTP si occupa dell'invio delle e-mail. Se usi un server SMTP per inviare le e-mail, inserisci i dati del server.]]></it>
+        </locale>
+
+
+        <locale name="security.update.console.mail.subject">
+            <it><![CDATA[Aggiornamento automatico di sicurezza eseguito - [host]]]></it>
+        </locale>
+        <locale name="security.update.console.mail.body" html="true">
+            <it><![CDATA[<p>Ciao,</p><br /><p>ti informiamo che è stato eseguito correttamente un aggiornamento automatico di sicurezza. Il file di log dell'aggiornamento è allegato a questa e-mail.</p><p>Controlla il file di log.</o>]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="message.ajax.user.sendMail.success">
+            <it><![CDATA[L'e-mail è stata inviata correttamente all'utente [user].]]></it>
+        </locale>
+        <locale name="message.ajax.groups.sendMail.success">
+            <it><![CDATA[L'e-mail è stata inviata correttamente a [count] indirizzi e-mail univoci del gruppo [group].]]></it>
+        </locale>
+        <locale name="mails.user.new_password.subject">
+            <it><![CDATA[La tua nuova password di accesso]]></it>
+        </locale>
+        <locale name="mails.user.new_password.body">
+            <it><![CDATA[Ciao [name],
+<br/><br/>
+un amministratore ha reimpostato la tua password di accesso. Ora puoi accedere con il tuo indirizzo e-mail e la seguente password:
+<br/><br/>
+[password]
+<br/><br/>
+[forceNewMsg]]]></it>
+        </locale>
+        <locale name="mails.user.new_password.body.force_new">
+            <it><![CDATA[Al prossimo accesso ti verrà chiesto di impostare una nuova password.]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="controls.SendUserMail.title">
+            <it><![CDATA[Invia e-mail all'utente]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.tpl.labelMailSubject">
+            <it><![CDATA[Oggetto]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.tpl.labelMailContent">
+            <it><![CDATA[Contenuto]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.tpl.labelPlaceholders">
+            <it><![CDATA[Segnaposto disponibili]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.tpl.placeholdersHint">
+            <it><![CDATA[I dati dell'indirizzo vengono ricavati dall'indirizzo predefinito. I campi possono rimanere vuoti se nell'indirizzo non è presente un valore. Usa sempre i segnaposto tra parentesi quadre.]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userUuid">
+            <it><![CDATA[UUID utente]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userId">
+            <it><![CDATA[ID utente]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userSalutation">
+            <it><![CDATA[Titolo di cortesia]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userFirstname">
+            <it><![CDATA[Nome]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userLastname">
+            <it><![CDATA[Cognome]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userStreetNo">
+            <it><![CDATA[Via e numero civico]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userCity">
+            <it><![CDATA[Città]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userCountry">
+            <it><![CDATA[Paese]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userEmail">
+            <it><![CDATA[Indirizzo e-mail dell'utente]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userCompany">
+            <it><![CDATA[Azienda]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userZip">
+            <it><![CDATA[Codice postale]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.placeholder.userUsername">
+            <it><![CDATA[Nome utente]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.submit">
+            <it><![CDATA[Invia l'e-mail ora]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.user_no_mail">
+            <it><![CDATA[Al momento non è possibile inviare un'e-mail a questo utente perché nei suoi dati non è presente un indirizzo e-mail. Imposta prima un indirizzo e-mail per questo utente.]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.empty_subject">
+            <it><![CDATA[Inserisci un oggetto per l'e-mail.]]></it>
+        </locale>
+        <locale name="controls.SendUserMail.empty_body">
+            <it><![CDATA[Inserisci il contenuto dell'e-mail.]]></it>
+        </locale>
+
+        <locale name="controls.SendGroupMail.title">
+            <it><![CDATA[Invia e-mail agli utenti del gruppo]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.tpl.labelRecipientCount">
+            <it><![CDATA[Indirizzi e-mail univoci]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.tpl.labelMailSubject">
+            <it><![CDATA[Oggetto]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.tpl.labelMailContent">
+            <it><![CDATA[Contenuto]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.tpl.labelPlaceholders">
+            <it><![CDATA[Segnaposto disponibili]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.tpl.placeholdersHint">
+            <it><![CDATA[I dati dell'indirizzo vengono ricavati dall'indirizzo predefinito. I campi possono rimanere vuoti se nell'indirizzo non è presente un valore. Usa sempre i segnaposto tra parentesi quadre.]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userUuid">
+            <it><![CDATA[UUID utente]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userId">
+            <it><![CDATA[ID utente]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userSalutation">
+            <it><![CDATA[Titolo di cortesia]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userFirstname">
+            <it><![CDATA[Nome]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userLastname">
+            <it><![CDATA[Cognome]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userStreetNo">
+            <it><![CDATA[Via e numero civico]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userCity">
+            <it><![CDATA[Città]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userCountry">
+            <it><![CDATA[Paese]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userEmail">
+            <it><![CDATA[Indirizzo e-mail dell'utente]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userCompany">
+            <it><![CDATA[Azienda]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userZip">
+            <it><![CDATA[Codice postale]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.userUsername">
+            <it><![CDATA[Nome utente]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.groupTitle">
+            <it><![CDATA[Titolo del gruppo]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.groupUuid">
+            <it><![CDATA[UUID del gruppo]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.placeholder.groupId">
+            <it><![CDATA[ID gruppo]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.submit">
+            <it><![CDATA[Conferma l'e-mail con anteprima]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.no_recipients">
+            <it><![CDATA[Al momento non è possibile inviare un'e-mail a questo gruppo perché nessuno dei suoi utenti ha un indirizzo e-mail memorizzato.]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.empty_subject">
+            <it><![CDATA[Inserisci un oggetto per l'e-mail.]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.empty_body">
+            <it><![CDATA[Inserisci il contenuto dell'e-mail.]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.confirm.title">
+            <it><![CDATA[Conferma l'invio dell'e-mail]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.confirm.information">
+            <it><![CDATA[Stai per inviare un'e-mail a [count] indirizzi e-mail univoci del gruppo "[group]".]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.confirm.text">
+            <it><![CDATA[Vuoi davvero inviare l'e-mail ora?]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.confirm.preview.title">
+            <it><![CDATA[Anteprima dell'e-mail finale]]></it>
+        </locale>
+        <locale name="controls.SendGroupMail.confirm.submit">
+            <it><![CDATA[Invia definitivamente l'e-mail ora]]></it>
+        </locale>
+
+        <locale name="controls.email.select.email_invalid">
+            <it><![CDATA[Questo indirizzo e-mail non è valido. Inserisci un indirizzo e-mail valido.]]></it>
+        </locale>
+        <locale name="controls.email.select.email_already_added">
+            <it><![CDATA[Questo indirizzo e-mail è già presente nell'elenco.]]></it>
+        </locale>
+        <locale name="control.email.select.placeholder">
+            <it><![CDATA[Indirizzo e-mail]]></it>
+        </locale>
+    </groups>
+</locales>

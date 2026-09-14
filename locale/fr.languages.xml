@@ -1,0 +1,1862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="language.code">
+            <fr><![CDATA[Code de langue]]></fr>
+        </locale>
+        <locale name="language.aa">
+            <fr><![CDATA[afar]]></fr>
+        </locale>
+        <locale name="language.ab">
+            <fr><![CDATA[abkhaze]]></fr>
+        </locale>
+        <locale name="language.ace">
+            <fr><![CDATA[aceh]]></fr>
+        </locale>
+        <locale name="language.ach">
+            <fr><![CDATA[acoli]]></fr>
+        </locale>
+        <locale name="language.ad">
+            <fr><![CDATA[Andorre]]></fr>
+        </locale>
+        <locale name="language.ada">
+            <fr><![CDATA[adangme]]></fr>
+        </locale>
+        <locale name="language.ady">
+            <fr><![CDATA[adyguéen]]></fr>
+        </locale>
+        <locale name="language.ae">
+            <fr><![CDATA[avestique]]></fr>
+        </locale>
+        <locale name="language.aeb">
+            <fr><![CDATA[arabe tunisien]]></fr>
+        </locale>
+        <locale name="language.af">
+            <fr><![CDATA[afrikaans]]></fr>
+        </locale>
+        <locale name="language.afh">
+            <fr><![CDATA[afrihili]]></fr>
+        </locale>
+        <locale name="language.agq">
+            <fr><![CDATA[aghem]]></fr>
+        </locale>
+        <locale name="language.ain">
+            <fr><![CDATA[aïnou]]></fr>
+        </locale>
+        <locale name="language.ak">
+            <fr><![CDATA[akan]]></fr>
+        </locale>
+        <locale name="language.akk">
+            <fr><![CDATA[akkadien]]></fr>
+        </locale>
+        <locale name="language.akz">
+            <fr><![CDATA[alabama]]></fr>
+        </locale>
+        <locale name="language.ale">
+            <fr><![CDATA[aléoute]]></fr>
+        </locale>
+        <locale name="language.aln">
+            <fr><![CDATA[guègue]]></fr>
+        </locale>
+        <locale name="language.alt">
+            <fr><![CDATA[altaï du Sud]]></fr>
+        </locale>
+        <locale name="language.am">
+            <fr><![CDATA[amharique]]></fr>
+        </locale>
+        <locale name="language.an">
+            <fr><![CDATA[aragonais]]></fr>
+        </locale>
+        <locale name="language.ang">
+            <fr><![CDATA[ancien anglais]]></fr>
+        </locale>
+        <locale name="language.anp">
+            <fr><![CDATA[angika]]></fr>
+        </locale>
+        <locale name="language.ar">
+            <fr><![CDATA[arabe]]></fr>
+        </locale>
+        <locale name="language.ar-001">
+            <fr><![CDATA[arabe standard moderne]]></fr>
+        </locale>
+        <locale name="language.arc">
+            <fr><![CDATA[araméen]]></fr>
+        </locale>
+        <locale name="language.arn">
+            <fr><![CDATA[mapuche]]></fr>
+        </locale>
+        <locale name="language.aro">
+            <fr><![CDATA[araona]]></fr>
+        </locale>
+        <locale name="language.arp">
+            <fr><![CDATA[arapaho]]></fr>
+        </locale>
+        <locale name="language.arq">
+            <fr><![CDATA[arabe algérien]]></fr>
+        </locale>
+        <locale name="language.arw">
+            <fr><![CDATA[arawak]]></fr>
+        </locale>
+        <locale name="language.ary">
+            <fr><![CDATA[arabe marocain]]></fr>
+        </locale>
+        <locale name="language.arz">
+            <fr><![CDATA[arabe égyptien]]></fr>
+        </locale>
+        <locale name="language.as">
+            <fr><![CDATA[assamais]]></fr>
+        </locale>
+        <locale name="language.asa">
+            <fr><![CDATA[asu]]></fr>
+        </locale>
+        <locale name="language.ase">
+            <fr><![CDATA[langue des signes américaine]]></fr>
+        </locale>
+        <locale name="language.ast">
+            <fr><![CDATA[asturien]]></fr>
+        </locale>
+        <locale name="language.av">
+            <fr><![CDATA[avar]]></fr>
+        </locale>
+        <locale name="language.avk">
+            <fr><![CDATA[kotava]]></fr>
+        </locale>
+        <locale name="language.awa">
+            <fr><![CDATA[awadhi]]></fr>
+        </locale>
+        <locale name="language.ay">
+            <fr><![CDATA[aymara]]></fr>
+        </locale>
+        <locale name="language.az">
+            <fr><![CDATA[azerbaïdjanais]]></fr>
+        </locale>
+        <locale name="language.az-alt-short">
+            <fr><![CDATA[azéri]]></fr>
+        </locale>
+        <locale name="language.ba">
+            <fr><![CDATA[bachkir]]></fr>
+        </locale>
+        <locale name="language.bal">
+            <fr><![CDATA[baloutchi]]></fr>
+        </locale>
+        <locale name="language.ban">
+            <fr><![CDATA[balinais]]></fr>
+        </locale>
+        <locale name="language.bar">
+            <fr><![CDATA[bavarois]]></fr>
+        </locale>
+        <locale name="language.bas">
+            <fr><![CDATA[bassa]]></fr>
+        </locale>
+        <locale name="language.bax">
+            <fr><![CDATA[bamoun]]></fr>
+        </locale>
+        <locale name="language.bbc">
+            <fr><![CDATA[batak toba]]></fr>
+        </locale>
+        <locale name="language.bbj">
+            <fr><![CDATA[ghomalaʼ]]></fr>
+        </locale>
+        <locale name="language.be">
+            <fr><![CDATA[biélorusse]]></fr>
+        </locale>
+        <locale name="language.bej">
+            <fr><![CDATA[bedja]]></fr>
+        </locale>
+        <locale name="language.bem">
+            <fr><![CDATA[bemba]]></fr>
+        </locale>
+        <locale name="language.bew">
+            <fr><![CDATA[betawi]]></fr>
+        </locale>
+        <locale name="language.bez">
+            <fr><![CDATA[bena]]></fr>
+        </locale>
+        <locale name="language.bfd">
+            <fr><![CDATA[bafut]]></fr>
+        </locale>
+        <locale name="language.bfq">
+            <fr><![CDATA[badaga]]></fr>
+        </locale>
+        <locale name="language.bg">
+            <fr><![CDATA[bulgare]]></fr>
+        </locale>
+        <locale name="language.bgn">
+            <fr><![CDATA[baloutchi occidental]]></fr>
+        </locale>
+        <locale name="language.bho">
+            <fr><![CDATA[bhodjpouri]]></fr>
+        </locale>
+        <locale name="language.bi">
+            <fr><![CDATA[bichelamar]]></fr>
+        </locale>
+        <locale name="language.bik">
+            <fr><![CDATA[bikol]]></fr>
+        </locale>
+        <locale name="language.bin">
+            <fr><![CDATA[bini]]></fr>
+        </locale>
+        <locale name="language.bjn">
+            <fr><![CDATA[banjar]]></fr>
+        </locale>
+        <locale name="language.bkm">
+            <fr><![CDATA[kom]]></fr>
+        </locale>
+        <locale name="language.bla">
+            <fr><![CDATA[siksika]]></fr>
+        </locale>
+        <locale name="language.bm">
+            <fr><![CDATA[bambara]]></fr>
+        </locale>
+        <locale name="language.bn">
+            <fr><![CDATA[bengali]]></fr>
+        </locale>
+        <locale name="language.bo">
+            <fr><![CDATA[tibétain]]></fr>
+        </locale>
+        <locale name="language.bpy">
+            <fr><![CDATA[bishnupriya]]></fr>
+        </locale>
+        <locale name="language.bqi">
+            <fr><![CDATA[bakhtiari]]></fr>
+        </locale>
+        <locale name="language.br">
+            <fr><![CDATA[breton]]></fr>
+        </locale>
+        <locale name="language.bra">
+            <fr><![CDATA[braj]]></fr>
+        </locale>
+        <locale name="language.brh">
+            <fr><![CDATA[brahoui]]></fr>
+        </locale>
+        <locale name="language.brx">
+            <fr><![CDATA[bodo]]></fr>
+        </locale>
+        <locale name="language.bs">
+            <fr><![CDATA[bosniaque]]></fr>
+        </locale>
+        <locale name="language.bss">
+            <fr><![CDATA[akoose]]></fr>
+        </locale>
+        <locale name="language.bua">
+            <fr><![CDATA[bouriate]]></fr>
+        </locale>
+        <locale name="language.bug">
+            <fr><![CDATA[bugi]]></fr>
+        </locale>
+        <locale name="language.bum">
+            <fr><![CDATA[boulou]]></fr>
+        </locale>
+        <locale name="language.byn">
+            <fr><![CDATA[blin]]></fr>
+        </locale>
+        <locale name="language.byv">
+            <fr><![CDATA[médumba]]></fr>
+        </locale>
+        <locale name="language.ca">
+            <fr><![CDATA[catalan]]></fr>
+        </locale>
+        <locale name="language.cad">
+            <fr><![CDATA[caddo]]></fr>
+        </locale>
+        <locale name="language.car">
+            <fr><![CDATA[caribe]]></fr>
+        </locale>
+        <locale name="language.cay">
+            <fr><![CDATA[cayuga]]></fr>
+        </locale>
+        <locale name="language.cch">
+            <fr><![CDATA[atsam]]></fr>
+        </locale>
+        <locale name="language.ce">
+            <fr><![CDATA[tchétchène]]></fr>
+        </locale>
+        <locale name="language.ceb">
+            <fr><![CDATA[cebuano]]></fr>
+        </locale>
+        <locale name="language.cgg">
+            <fr><![CDATA[kiga]]></fr>
+        </locale>
+        <locale name="language.ch">
+            <fr><![CDATA[chamorro]]></fr>
+        </locale>
+        <locale name="language.chb">
+            <fr><![CDATA[chibcha]]></fr>
+        </locale>
+        <locale name="language.chg">
+            <fr><![CDATA[tchaghataï]]></fr>
+        </locale>
+        <locale name="language.chk">
+            <fr><![CDATA[chuuk]]></fr>
+        </locale>
+        <locale name="language.chm">
+            <fr><![CDATA[mari]]></fr>
+        </locale>
+        <locale name="language.chn">
+            <fr><![CDATA[jargon chinook]]></fr>
+        </locale>
+        <locale name="language.cho">
+            <fr><![CDATA[choctaw]]></fr>
+        </locale>
+        <locale name="language.chp">
+            <fr><![CDATA[chipewyan]]></fr>
+        </locale>
+        <locale name="language.chr">
+            <fr><![CDATA[cherokee]]></fr>
+        </locale>
+        <locale name="language.chy">
+            <fr><![CDATA[cheyenne]]></fr>
+        </locale>
+        <locale name="language.ckb">
+            <fr><![CDATA[sorani]]></fr>
+        </locale>
+        <locale name="language.co">
+            <fr><![CDATA[corse]]></fr>
+        </locale>
+        <locale name="language.cop">
+            <fr><![CDATA[copte]]></fr>
+        </locale>
+        <locale name="language.cps">
+            <fr><![CDATA[capiznon]]></fr>
+        </locale>
+        <locale name="language.cr">
+            <fr><![CDATA[cree]]></fr>
+        </locale>
+        <locale name="language.crh">
+            <fr><![CDATA[tatar de Crimée]]></fr>
+        </locale>
+        <locale name="language.cs">
+            <fr><![CDATA[tchèque]]></fr>
+        </locale>
+        <locale name="language.csb">
+            <fr><![CDATA[kachoube]]></fr>
+        </locale>
+        <locale name="language.cu">
+            <fr><![CDATA[slavon d’église]]></fr>
+        </locale>
+        <locale name="language.cv">
+            <fr><![CDATA[tchouvache]]></fr>
+        </locale>
+        <locale name="language.cy">
+            <fr><![CDATA[gallois]]></fr>
+        </locale>
+        <locale name="language.da">
+            <fr><![CDATA[danois]]></fr>
+        </locale>
+        <locale name="language.dak">
+            <fr><![CDATA[dakota]]></fr>
+        </locale>
+        <locale name="language.dar">
+            <fr><![CDATA[dargwa]]></fr>
+        </locale>
+        <locale name="language.dav">
+            <fr><![CDATA[taita]]></fr>
+        </locale>
+        <locale name="language.de">
+            <fr><![CDATA[allemand]]></fr>
+        </locale>
+        <locale name="language.de-AT">
+            <fr><![CDATA[allemand autrichien]]></fr>
+        </locale>
+        <locale name="language.de-CH">
+            <fr><![CDATA[allemand standard suisse]]></fr>
+        </locale>
+        <locale name="language.del">
+            <fr><![CDATA[delaware]]></fr>
+        </locale>
+        <locale name="language.den">
+            <fr><![CDATA[esclave]]></fr>
+        </locale>
+        <locale name="language.dgr">
+            <fr><![CDATA[dogrib]]></fr>
+        </locale>
+        <locale name="language.din">
+            <fr><![CDATA[dinka]]></fr>
+        </locale>
+        <locale name="language.dje">
+            <fr><![CDATA[zarma]]></fr>
+        </locale>
+        <locale name="language.doi">
+            <fr><![CDATA[dogri]]></fr>
+        </locale>
+        <locale name="language.dsb">
+            <fr><![CDATA[bas-sorabe]]></fr>
+        </locale>
+        <locale name="language.dtp">
+            <fr><![CDATA[dusun central]]></fr>
+        </locale>
+        <locale name="language.dua">
+            <fr><![CDATA[douala]]></fr>
+        </locale>
+        <locale name="language.dum">
+            <fr><![CDATA[moyen néerlandais]]></fr>
+        </locale>
+        <locale name="language.dv">
+            <fr><![CDATA[maldivien]]></fr>
+        </locale>
+        <locale name="language.dyo">
+            <fr><![CDATA[diola-fogny]]></fr>
+        </locale>
+        <locale name="language.dyu">
+            <fr><![CDATA[dioula]]></fr>
+        </locale>
+        <locale name="language.dz">
+            <fr><![CDATA[dzongkha]]></fr>
+        </locale>
+        <locale name="language.dzg">
+            <fr><![CDATA[dazaga]]></fr>
+        </locale>
+        <locale name="language.ebu">
+            <fr><![CDATA[embu]]></fr>
+        </locale>
+        <locale name="language.ee">
+            <fr><![CDATA[éwé]]></fr>
+        </locale>
+        <locale name="language.efi">
+            <fr><![CDATA[éfik]]></fr>
+        </locale>
+        <locale name="language.egl">
+            <fr><![CDATA[émilien]]></fr>
+        </locale>
+        <locale name="language.egy">
+            <fr><![CDATA[égyptien ancien]]></fr>
+        </locale>
+        <locale name="language.eka">
+            <fr><![CDATA[ékadjouk]]></fr>
+        </locale>
+        <locale name="language.el">
+            <fr><![CDATA[grec]]></fr>
+        </locale>
+        <locale name="language.elx">
+            <fr><![CDATA[élamite]]></fr>
+        </locale>
+        <locale name="language.en">
+            <fr><![CDATA[anglais]]></fr>
+        </locale>
+        <locale name="language.en-AU">
+            <fr><![CDATA[anglais australien]]></fr>
+        </locale>
+        <locale name="language.en-CA">
+            <fr><![CDATA[anglais canadien]]></fr>
+        </locale>
+        <locale name="language.en-GB">
+            <fr><![CDATA[anglais britannique]]></fr>
+        </locale>
+        <locale name="language.en-GB-alt-short">
+            <fr><![CDATA[anglais britannique]]></fr>
+        </locale>
+        <locale name="language.en-US">
+            <fr><![CDATA[anglais américain]]></fr>
+        </locale>
+        <locale name="language.en-US-alt-short">
+            <fr><![CDATA[anglais américain]]></fr>
+        </locale>
+        <locale name="language.enm">
+            <fr><![CDATA[moyen anglais]]></fr>
+        </locale>
+        <locale name="language.eo">
+            <fr><![CDATA[espéranto]]></fr>
+        </locale>
+        <locale name="language.es">
+            <fr><![CDATA[espagnol]]></fr>
+        </locale>
+        <locale name="language.es-419">
+            <fr><![CDATA[espagnol latino-américain]]></fr>
+        </locale>
+        <locale name="language.es-ES">
+            <fr><![CDATA[espagnol européen]]></fr>
+        </locale>
+        <locale name="language.es-MX">
+            <fr><![CDATA[espagnol mexicain]]></fr>
+        </locale>
+        <locale name="language.esu">
+            <fr><![CDATA[youpik central]]></fr>
+        </locale>
+        <locale name="language.et">
+            <fr><![CDATA[estonien]]></fr>
+        </locale>
+        <locale name="language.eu">
+            <fr><![CDATA[basque]]></fr>
+        </locale>
+        <locale name="language.ewo">
+            <fr><![CDATA[éwondo]]></fr>
+        </locale>
+        <locale name="language.ext">
+            <fr><![CDATA[estrémègne]]></fr>
+        </locale>
+        <locale name="language.fa">
+            <fr><![CDATA[persan]]></fr>
+        </locale>
+        <locale name="language.fan">
+            <fr><![CDATA[fang]]></fr>
+        </locale>
+        <locale name="language.fat">
+            <fr><![CDATA[fanti]]></fr>
+        </locale>
+        <locale name="language.ff">
+            <fr><![CDATA[peul]]></fr>
+        </locale>
+        <locale name="language.fi">
+            <fr><![CDATA[finnois]]></fr>
+        </locale>
+        <locale name="language.fil">
+            <fr><![CDATA[filipino]]></fr>
+        </locale>
+        <locale name="language.fit">
+            <fr><![CDATA[finnois tornédalien]]></fr>
+        </locale>
+        <locale name="language.fj">
+            <fr><![CDATA[fidjien]]></fr>
+        </locale>
+        <locale name="language.fo">
+            <fr><![CDATA[féroïen]]></fr>
+        </locale>
+        <locale name="language.fon">
+            <fr><![CDATA[fon]]></fr>
+        </locale>
+        <locale name="language.fr">
+            <fr><![CDATA[français]]></fr>
+        </locale>
+        <locale name="language.fr-CA">
+            <fr><![CDATA[français canadien]]></fr>
+        </locale>
+        <locale name="language.fr-CH">
+            <fr><![CDATA[français suisse]]></fr>
+        </locale>
+        <locale name="language.frc">
+            <fr><![CDATA[français cadien]]></fr>
+        </locale>
+        <locale name="language.frm">
+            <fr><![CDATA[moyen français]]></fr>
+        </locale>
+        <locale name="language.fro">
+            <fr><![CDATA[ancien français]]></fr>
+        </locale>
+        <locale name="language.frp">
+            <fr><![CDATA[francoprovençal]]></fr>
+        </locale>
+        <locale name="language.frr">
+            <fr><![CDATA[frison du Nord]]></fr>
+        </locale>
+        <locale name="language.frs">
+            <fr><![CDATA[frison oriental]]></fr>
+        </locale>
+        <locale name="language.fur">
+            <fr><![CDATA[frioulan]]></fr>
+        </locale>
+        <locale name="language.fy">
+            <fr><![CDATA[frison occidental]]></fr>
+        </locale>
+        <locale name="language.ga">
+            <fr><![CDATA[irlandais]]></fr>
+        </locale>
+        <locale name="language.gaa">
+            <fr><![CDATA[ga]]></fr>
+        </locale>
+        <locale name="language.gag">
+            <fr><![CDATA[gagaouze]]></fr>
+        </locale>
+        <locale name="language.gan">
+            <fr><![CDATA[gan]]></fr>
+        </locale>
+        <locale name="language.gay">
+            <fr><![CDATA[gayo]]></fr>
+        </locale>
+        <locale name="language.gba">
+            <fr><![CDATA[gbaya]]></fr>
+        </locale>
+        <locale name="language.gbz">
+            <fr><![CDATA[dari zoroastrien]]></fr>
+        </locale>
+        <locale name="language.gd">
+            <fr><![CDATA[gaélique écossais]]></fr>
+        </locale>
+        <locale name="language.gez">
+            <fr><![CDATA[guèze]]></fr>
+        </locale>
+        <locale name="language.gil">
+            <fr><![CDATA[gilbertin]]></fr>
+        </locale>
+        <locale name="language.gl">
+            <fr><![CDATA[galicien]]></fr>
+        </locale>
+        <locale name="language.glk">
+            <fr><![CDATA[gilaki]]></fr>
+        </locale>
+        <locale name="language.gmh">
+            <fr><![CDATA[moyen haut-allemand]]></fr>
+        </locale>
+        <locale name="language.gn">
+            <fr><![CDATA[guarani]]></fr>
+        </locale>
+        <locale name="language.goh">
+            <fr><![CDATA[ancien haut allemand]]></fr>
+        </locale>
+        <locale name="language.gom">
+            <fr><![CDATA[konkani de Goa]]></fr>
+        </locale>
+        <locale name="language.gon">
+            <fr><![CDATA[gondi]]></fr>
+        </locale>
+        <locale name="language.gor">
+            <fr><![CDATA[gorontalo]]></fr>
+        </locale>
+        <locale name="language.got">
+            <fr><![CDATA[gotique]]></fr>
+        </locale>
+        <locale name="language.grb">
+            <fr><![CDATA[grebo]]></fr>
+        </locale>
+        <locale name="language.grc">
+            <fr><![CDATA[grec ancien]]></fr>
+        </locale>
+        <locale name="language.gsw">
+            <fr><![CDATA[suisse allemand]]></fr>
+        </locale>
+        <locale name="language.gu">
+            <fr><![CDATA[goudjarati]]></fr>
+        </locale>
+        <locale name="language.guc">
+            <fr><![CDATA[wayuu]]></fr>
+        </locale>
+        <locale name="language.gur">
+            <fr><![CDATA[gurenne]]></fr>
+        </locale>
+        <locale name="language.guz">
+            <fr><![CDATA[gusii]]></fr>
+        </locale>
+        <locale name="language.gv">
+            <fr><![CDATA[mannois]]></fr>
+        </locale>
+        <locale name="language.gwi">
+            <fr><![CDATA[gwichʼin]]></fr>
+        </locale>
+        <locale name="language.ha">
+            <fr><![CDATA[haoussa]]></fr>
+        </locale>
+        <locale name="language.hai">
+            <fr><![CDATA[haida]]></fr>
+        </locale>
+        <locale name="language.hak">
+            <fr><![CDATA[hakka]]></fr>
+        </locale>
+        <locale name="language.haw">
+            <fr><![CDATA[hawaïen]]></fr>
+        </locale>
+        <locale name="language.he">
+            <fr><![CDATA[hébreu]]></fr>
+        </locale>
+        <locale name="language.hi">
+            <fr><![CDATA[hindi]]></fr>
+        </locale>
+        <locale name="language.hif">
+            <fr><![CDATA[hindi fidjien]]></fr>
+        </locale>
+        <locale name="language.hil">
+            <fr><![CDATA[hiligaynon]]></fr>
+        </locale>
+        <locale name="language.hit">
+            <fr><![CDATA[hittite]]></fr>
+        </locale>
+        <locale name="language.hmn">
+            <fr><![CDATA[hmong]]></fr>
+        </locale>
+        <locale name="language.ho">
+            <fr><![CDATA[hiri motu]]></fr>
+        </locale>
+        <locale name="language.hr">
+            <fr><![CDATA[croate]]></fr>
+        </locale>
+        <locale name="language.hsb">
+            <fr><![CDATA[haut-sorabe]]></fr>
+        </locale>
+        <locale name="language.hsn">
+            <fr><![CDATA[xiang]]></fr>
+        </locale>
+        <locale name="language.ht">
+            <fr><![CDATA[créole haïtien]]></fr>
+        </locale>
+        <locale name="language.hu">
+            <fr><![CDATA[hongrois]]></fr>
+        </locale>
+        <locale name="language.hup">
+            <fr><![CDATA[hupa]]></fr>
+        </locale>
+        <locale name="language.hy">
+            <fr><![CDATA[arménien]]></fr>
+        </locale>
+        <locale name="language.hz">
+            <fr><![CDATA[héréro]]></fr>
+        </locale>
+        <locale name="language.ia">
+            <fr><![CDATA[interlingua]]></fr>
+        </locale>
+        <locale name="language.iba">
+            <fr><![CDATA[iban]]></fr>
+        </locale>
+        <locale name="language.ibb">
+            <fr><![CDATA[ibibio]]></fr>
+        </locale>
+        <locale name="language.id">
+            <fr><![CDATA[indonésien]]></fr>
+        </locale>
+        <locale name="language.ie">
+            <fr><![CDATA[interlingue]]></fr>
+        </locale>
+        <locale name="language.ig">
+            <fr><![CDATA[igbo]]></fr>
+        </locale>
+        <locale name="language.ii">
+            <fr><![CDATA[yi du Sichuan]]></fr>
+        </locale>
+        <locale name="language.ik">
+            <fr><![CDATA[inupiaq]]></fr>
+        </locale>
+        <locale name="language.ilo">
+            <fr><![CDATA[ilocano]]></fr>
+        </locale>
+        <locale name="language.inh">
+            <fr><![CDATA[ingouche]]></fr>
+        </locale>
+        <locale name="language.io">
+            <fr><![CDATA[ido]]></fr>
+        </locale>
+        <locale name="language.is">
+            <fr><![CDATA[islandais]]></fr>
+        </locale>
+        <locale name="language.it">
+            <fr><![CDATA[italien]]></fr>
+        </locale>
+        <locale name="language.iu">
+            <fr><![CDATA[inuktitut]]></fr>
+        </locale>
+        <locale name="language.izh">
+            <fr><![CDATA[ingrien]]></fr>
+        </locale>
+        <locale name="language.ja">
+            <fr><![CDATA[japonais]]></fr>
+        </locale>
+        <locale name="language.jam">
+            <fr><![CDATA[créole jamaïcain]]></fr>
+        </locale>
+        <locale name="language.jbo">
+            <fr><![CDATA[lojban]]></fr>
+        </locale>
+        <locale name="language.jgo">
+            <fr><![CDATA[ngomba]]></fr>
+        </locale>
+        <locale name="language.jmc">
+            <fr><![CDATA[matchamé]]></fr>
+        </locale>
+        <locale name="language.jpr">
+            <fr><![CDATA[judéo-persan]]></fr>
+        </locale>
+        <locale name="language.jrb">
+            <fr><![CDATA[judéo-arabe]]></fr>
+        </locale>
+        <locale name="language.jut">
+            <fr><![CDATA[jute]]></fr>
+        </locale>
+        <locale name="language.jv">
+            <fr><![CDATA[javanais]]></fr>
+        </locale>
+        <locale name="language.ka">
+            <fr><![CDATA[géorgien]]></fr>
+        </locale>
+        <locale name="language.kaa">
+            <fr><![CDATA[karakalpak]]></fr>
+        </locale>
+        <locale name="language.kab">
+            <fr><![CDATA[kabyle]]></fr>
+        </locale>
+        <locale name="language.kac">
+            <fr><![CDATA[kachin]]></fr>
+        </locale>
+        <locale name="language.kaj">
+            <fr><![CDATA[jju]]></fr>
+        </locale>
+        <locale name="language.kam">
+            <fr><![CDATA[kamba]]></fr>
+        </locale>
+        <locale name="language.kaw">
+            <fr><![CDATA[kawi]]></fr>
+        </locale>
+        <locale name="language.kbd">
+            <fr><![CDATA[kabarde]]></fr>
+        </locale>
+        <locale name="language.kbl">
+            <fr><![CDATA[kanembou]]></fr>
+        </locale>
+        <locale name="language.kcg">
+            <fr><![CDATA[tyap]]></fr>
+        </locale>
+        <locale name="language.kde">
+            <fr><![CDATA[makondé]]></fr>
+        </locale>
+        <locale name="language.kea">
+            <fr><![CDATA[capverdien]]></fr>
+        </locale>
+        <locale name="language.ken">
+            <fr><![CDATA[kényang]]></fr>
+        </locale>
+        <locale name="language.kfo">
+            <fr><![CDATA[koro]]></fr>
+        </locale>
+        <locale name="language.kg">
+            <fr><![CDATA[kikongo]]></fr>
+        </locale>
+        <locale name="language.kgp">
+            <fr><![CDATA[caingangue]]></fr>
+        </locale>
+        <locale name="language.kha">
+            <fr><![CDATA[khasi]]></fr>
+        </locale>
+        <locale name="language.kho">
+            <fr><![CDATA[khotanais]]></fr>
+        </locale>
+        <locale name="language.khq">
+            <fr><![CDATA[koyra chiini]]></fr>
+        </locale>
+        <locale name="language.khw">
+            <fr><![CDATA[khowar]]></fr>
+        </locale>
+        <locale name="language.ki">
+            <fr><![CDATA[kikuyu]]></fr>
+        </locale>
+        <locale name="language.kiu">
+            <fr><![CDATA[kirmanjki]]></fr>
+        </locale>
+        <locale name="language.kj">
+            <fr><![CDATA[kuanyama]]></fr>
+        </locale>
+        <locale name="language.kk">
+            <fr><![CDATA[kazakh]]></fr>
+        </locale>
+        <locale name="language.kkj">
+            <fr><![CDATA[kako]]></fr>
+        </locale>
+        <locale name="language.kl">
+            <fr><![CDATA[groenlandais]]></fr>
+        </locale>
+        <locale name="language.kln">
+            <fr><![CDATA[kalendjin]]></fr>
+        </locale>
+        <locale name="language.km">
+            <fr><![CDATA[khmer]]></fr>
+        </locale>
+        <locale name="language.kmb">
+            <fr><![CDATA[kimboundou]]></fr>
+        </locale>
+        <locale name="language.kn">
+            <fr><![CDATA[kannada]]></fr>
+        </locale>
+        <locale name="language.ko">
+            <fr><![CDATA[coréen]]></fr>
+        </locale>
+        <locale name="language.koi">
+            <fr><![CDATA[komi-permiak]]></fr>
+        </locale>
+        <locale name="language.kok">
+            <fr><![CDATA[konkani]]></fr>
+        </locale>
+        <locale name="language.kos">
+            <fr><![CDATA[kosraéen]]></fr>
+        </locale>
+        <locale name="language.kpe">
+            <fr><![CDATA[kpellé]]></fr>
+        </locale>
+        <locale name="language.kr">
+            <fr><![CDATA[kanouri]]></fr>
+        </locale>
+        <locale name="language.krc">
+            <fr><![CDATA[karatchaï balkar]]></fr>
+        </locale>
+        <locale name="language.kri">
+            <fr><![CDATA[krio]]></fr>
+        </locale>
+        <locale name="language.krj">
+            <fr><![CDATA[kinaray-a]]></fr>
+        </locale>
+        <locale name="language.krl">
+            <fr><![CDATA[carélien]]></fr>
+        </locale>
+        <locale name="language.kru">
+            <fr><![CDATA[kouroukh]]></fr>
+        </locale>
+        <locale name="language.ks">
+            <fr><![CDATA[cachemiri]]></fr>
+        </locale>
+        <locale name="language.ksb">
+            <fr><![CDATA[shambala]]></fr>
+        </locale>
+        <locale name="language.ksf">
+            <fr><![CDATA[bafia]]></fr>
+        </locale>
+        <locale name="language.ksh">
+            <fr><![CDATA[kölsch]]></fr>
+        </locale>
+        <locale name="language.ku">
+            <fr><![CDATA[kurde]]></fr>
+        </locale>
+        <locale name="language.kum">
+            <fr><![CDATA[koumyk]]></fr>
+        </locale>
+        <locale name="language.kut">
+            <fr><![CDATA[kutenai]]></fr>
+        </locale>
+        <locale name="language.kv">
+            <fr><![CDATA[komi]]></fr>
+        </locale>
+        <locale name="language.kw">
+            <fr><![CDATA[cornique]]></fr>
+        </locale>
+        <locale name="language.ky">
+            <fr><![CDATA[kirghize]]></fr>
+        </locale>
+        <locale name="language.la">
+            <fr><![CDATA[latin]]></fr>
+        </locale>
+        <locale name="language.lad">
+            <fr><![CDATA[ladino]]></fr>
+        </locale>
+        <locale name="language.lag">
+            <fr><![CDATA[langi]]></fr>
+        </locale>
+        <locale name="language.lah">
+            <fr><![CDATA[lahnda]]></fr>
+        </locale>
+        <locale name="language.lam">
+            <fr><![CDATA[lamba]]></fr>
+        </locale>
+        <locale name="language.lb">
+            <fr><![CDATA[luxembourgeois]]></fr>
+        </locale>
+        <locale name="language.lez">
+            <fr><![CDATA[lezghien]]></fr>
+        </locale>
+        <locale name="language.lfn">
+            <fr><![CDATA[lingua franca nova]]></fr>
+        </locale>
+        <locale name="language.lg">
+            <fr><![CDATA[ganda]]></fr>
+        </locale>
+        <locale name="language.li">
+            <fr><![CDATA[limbourgeois]]></fr>
+        </locale>
+        <locale name="language.lij">
+            <fr><![CDATA[ligure]]></fr>
+        </locale>
+        <locale name="language.liv">
+            <fr><![CDATA[livonien]]></fr>
+        </locale>
+        <locale name="language.lkt">
+            <fr><![CDATA[lakota]]></fr>
+        </locale>
+        <locale name="language.lmo">
+            <fr><![CDATA[lombard]]></fr>
+        </locale>
+        <locale name="language.ln">
+            <fr><![CDATA[lingala]]></fr>
+        </locale>
+        <locale name="language.lo">
+            <fr><![CDATA[lao]]></fr>
+        </locale>
+        <locale name="language.lol">
+            <fr><![CDATA[mongo]]></fr>
+        </locale>
+        <locale name="language.loz">
+            <fr><![CDATA[lozi]]></fr>
+        </locale>
+        <locale name="language.lrc">
+            <fr><![CDATA[lori du Nord]]></fr>
+        </locale>
+        <locale name="language.lt">
+            <fr><![CDATA[lituanien]]></fr>
+        </locale>
+        <locale name="language.ltg">
+            <fr><![CDATA[latgalien]]></fr>
+        </locale>
+        <locale name="language.lu">
+            <fr><![CDATA[luba-katanga (kiluba)]]></fr>
+        </locale>
+        <locale name="language.lua">
+            <fr><![CDATA[luba-kasaï (ciluba)]]></fr>
+        </locale>
+        <locale name="language.lui">
+            <fr><![CDATA[luiseño]]></fr>
+        </locale>
+        <locale name="language.lun">
+            <fr><![CDATA[lunda]]></fr>
+        </locale>
+        <locale name="language.luo">
+            <fr><![CDATA[luo]]></fr>
+        </locale>
+        <locale name="language.lus">
+            <fr><![CDATA[lushaï]]></fr>
+        </locale>
+        <locale name="language.luy">
+            <fr><![CDATA[luyia]]></fr>
+        </locale>
+        <locale name="language.lv">
+            <fr><![CDATA[letton]]></fr>
+        </locale>
+        <locale name="language.lzh">
+            <fr><![CDATA[chinois littéraire]]></fr>
+        </locale>
+        <locale name="language.lzz">
+            <fr><![CDATA[laze]]></fr>
+        </locale>
+        <locale name="language.mad">
+            <fr><![CDATA[madurais]]></fr>
+        </locale>
+        <locale name="language.maf">
+            <fr><![CDATA[mafa]]></fr>
+        </locale>
+        <locale name="language.mag">
+            <fr><![CDATA[magahi]]></fr>
+        </locale>
+        <locale name="language.mai">
+            <fr><![CDATA[maïthili]]></fr>
+        </locale>
+        <locale name="language.mak">
+            <fr><![CDATA[makassar]]></fr>
+        </locale>
+        <locale name="language.man">
+            <fr><![CDATA[mandingue]]></fr>
+        </locale>
+        <locale name="language.mas">
+            <fr><![CDATA[maasaï]]></fr>
+        </locale>
+        <locale name="language.mde">
+            <fr><![CDATA[maba]]></fr>
+        </locale>
+        <locale name="language.mdf">
+            <fr><![CDATA[mokcha]]></fr>
+        </locale>
+        <locale name="language.mdh">
+            <fr><![CDATA[maguindanao]]></fr>
+        </locale>
+        <locale name="language.mdr">
+            <fr><![CDATA[mandar]]></fr>
+        </locale>
+        <locale name="language.men">
+            <fr><![CDATA[mendé]]></fr>
+        </locale>
+        <locale name="language.mer">
+            <fr><![CDATA[meru]]></fr>
+        </locale>
+        <locale name="language.mfe">
+            <fr><![CDATA[créole mauricien]]></fr>
+        </locale>
+        <locale name="language.mg">
+            <fr><![CDATA[malgache]]></fr>
+        </locale>
+        <locale name="language.mga">
+            <fr><![CDATA[moyen irlandais]]></fr>
+        </locale>
+        <locale name="language.mgh">
+            <fr><![CDATA[makua]]></fr>
+        </locale>
+        <locale name="language.mgo">
+            <fr><![CDATA[metaʼ]]></fr>
+        </locale>
+        <locale name="language.mh">
+            <fr><![CDATA[marshallais]]></fr>
+        </locale>
+        <locale name="language.mi">
+            <fr><![CDATA[maori]]></fr>
+        </locale>
+        <locale name="language.mic">
+            <fr><![CDATA[micmac]]></fr>
+        </locale>
+        <locale name="language.min">
+            <fr><![CDATA[minangkabau]]></fr>
+        </locale>
+        <locale name="language.mis">
+            <fr><![CDATA[langues non codées]]></fr>
+        </locale>
+        <locale name="language.mk">
+            <fr><![CDATA[macédonien]]></fr>
+        </locale>
+        <locale name="language.ml">
+            <fr><![CDATA[malayalam]]></fr>
+        </locale>
+        <locale name="language.mn">
+            <fr><![CDATA[mongol]]></fr>
+        </locale>
+        <locale name="language.mnc">
+            <fr><![CDATA[mandchou]]></fr>
+        </locale>
+        <locale name="language.mni">
+            <fr><![CDATA[manipuri]]></fr>
+        </locale>
+        <locale name="language.moh">
+            <fr><![CDATA[mohawk]]></fr>
+        </locale>
+        <locale name="language.mos">
+            <fr><![CDATA[moré]]></fr>
+        </locale>
+        <locale name="language.mr">
+            <fr><![CDATA[marathi]]></fr>
+        </locale>
+        <locale name="language.mrj">
+            <fr><![CDATA[mari occidental]]></fr>
+        </locale>
+        <locale name="language.ms">
+            <fr><![CDATA[malais]]></fr>
+        </locale>
+        <locale name="language.mt">
+            <fr><![CDATA[maltais]]></fr>
+        </locale>
+        <locale name="language.mua">
+            <fr><![CDATA[moundang]]></fr>
+        </locale>
+        <locale name="language.mul">
+            <fr><![CDATA[multilingue]]></fr>
+        </locale>
+        <locale name="language.mus">
+            <fr><![CDATA[creek]]></fr>
+        </locale>
+        <locale name="language.mwl">
+            <fr><![CDATA[mirandais]]></fr>
+        </locale>
+        <locale name="language.mwr">
+            <fr><![CDATA[marwarî]]></fr>
+        </locale>
+        <locale name="language.mwv">
+            <fr><![CDATA[mentawaï]]></fr>
+        </locale>
+        <locale name="language.my">
+            <fr><![CDATA[birman]]></fr>
+        </locale>
+        <locale name="language.mye">
+            <fr><![CDATA[myènè]]></fr>
+        </locale>
+        <locale name="language.myv">
+            <fr><![CDATA[erzya]]></fr>
+        </locale>
+        <locale name="language.mzn">
+            <fr><![CDATA[mazandérani]]></fr>
+        </locale>
+        <locale name="language.na">
+            <fr><![CDATA[nauruan]]></fr>
+        </locale>
+        <locale name="language.nan">
+            <fr><![CDATA[minnan]]></fr>
+        </locale>
+        <locale name="language.nap">
+            <fr><![CDATA[napolitain]]></fr>
+        </locale>
+        <locale name="language.naq">
+            <fr><![CDATA[nama]]></fr>
+        </locale>
+        <locale name="language.nb">
+            <fr><![CDATA[norvégien bokmål]]></fr>
+        </locale>
+        <locale name="language.nd">
+            <fr><![CDATA[ndébélé du Nord]]></fr>
+        </locale>
+        <locale name="language.nds">
+            <fr><![CDATA[bas-allemand]]></fr>
+        </locale>
+        <locale name="language.nds-NL">
+            <fr><![CDATA[bas-saxon]]></fr>
+        </locale>
+        <locale name="language.ne">
+            <fr><![CDATA[népalais]]></fr>
+        </locale>
+        <locale name="language.new">
+            <fr><![CDATA[newari]]></fr>
+        </locale>
+        <locale name="language.ng">
+            <fr><![CDATA[ndonga]]></fr>
+        </locale>
+        <locale name="language.nia">
+            <fr><![CDATA[niha]]></fr>
+        </locale>
+        <locale name="language.niu">
+            <fr><![CDATA[niuéen]]></fr>
+        </locale>
+        <locale name="language.njo">
+            <fr><![CDATA[Ao]]></fr>
+        </locale>
+        <locale name="language.nl">
+            <fr><![CDATA[néerlandais]]></fr>
+        </locale>
+        <locale name="language.nl-BE">
+            <fr><![CDATA[flamand]]></fr>
+        </locale>
+        <locale name="language.nmg">
+            <fr><![CDATA[ngoumba]]></fr>
+        </locale>
+        <locale name="language.nn">
+            <fr><![CDATA[norvégien nynorsk]]></fr>
+        </locale>
+        <locale name="language.nnh">
+            <fr><![CDATA[ngiemboon]]></fr>
+        </locale>
+        <locale name="language.no">
+            <fr><![CDATA[norvégien]]></fr>
+        </locale>
+        <locale name="language.nog">
+            <fr><![CDATA[nogaï]]></fr>
+        </locale>
+        <locale name="language.non">
+            <fr><![CDATA[vieux norrois]]></fr>
+        </locale>
+        <locale name="language.nov">
+            <fr><![CDATA[novial]]></fr>
+        </locale>
+        <locale name="language.nqo">
+            <fr><![CDATA[n’ko]]></fr>
+        </locale>
+        <locale name="language.nr">
+            <fr><![CDATA[ndébélé du Sud]]></fr>
+        </locale>
+        <locale name="language.nso">
+            <fr><![CDATA[sotho du Nord]]></fr>
+        </locale>
+        <locale name="language.nus">
+            <fr><![CDATA[nuer]]></fr>
+        </locale>
+        <locale name="language.nv">
+            <fr><![CDATA[navajo]]></fr>
+        </locale>
+        <locale name="language.nwc">
+            <fr><![CDATA[newarî classique]]></fr>
+        </locale>
+        <locale name="language.ny">
+            <fr><![CDATA[chewa]]></fr>
+        </locale>
+        <locale name="language.nym">
+            <fr><![CDATA[nyamwezi]]></fr>
+        </locale>
+        <locale name="language.nyn">
+            <fr><![CDATA[nyankolé]]></fr>
+        </locale>
+        <locale name="language.nyo">
+            <fr><![CDATA[nyoro]]></fr>
+        </locale>
+        <locale name="language.nzi">
+            <fr><![CDATA[nzema]]></fr>
+        </locale>
+        <locale name="language.oc">
+            <fr><![CDATA[occitan]]></fr>
+        </locale>
+        <locale name="language.oj">
+            <fr><![CDATA[ojibwa]]></fr>
+        </locale>
+        <locale name="language.om">
+            <fr><![CDATA[oromo]]></fr>
+        </locale>
+        <locale name="language.or">
+            <fr><![CDATA[odia]]></fr>
+        </locale>
+        <locale name="language.os">
+            <fr><![CDATA[ossète]]></fr>
+        </locale>
+        <locale name="language.osa">
+            <fr><![CDATA[osage]]></fr>
+        </locale>
+        <locale name="language.ota">
+            <fr><![CDATA[turc ottoman]]></fr>
+        </locale>
+        <locale name="language.pa">
+            <fr><![CDATA[pendjabi]]></fr>
+        </locale>
+        <locale name="language.pag">
+            <fr><![CDATA[pangasinan]]></fr>
+        </locale>
+        <locale name="language.pal">
+            <fr><![CDATA[pahlavi]]></fr>
+        </locale>
+        <locale name="language.pam">
+            <fr><![CDATA[pampangan]]></fr>
+        </locale>
+        <locale name="language.pap">
+            <fr><![CDATA[papiamento]]></fr>
+        </locale>
+        <locale name="language.pau">
+            <fr><![CDATA[palau]]></fr>
+        </locale>
+        <locale name="language.pcd">
+            <fr><![CDATA[picard]]></fr>
+        </locale>
+        <locale name="language.pdc">
+            <fr><![CDATA[pennsilfaanisch]]></fr>
+        </locale>
+        <locale name="language.pdt">
+            <fr><![CDATA[bas-prussien]]></fr>
+        </locale>
+        <locale name="language.peo">
+            <fr><![CDATA[persan ancien]]></fr>
+        </locale>
+        <locale name="language.pfl">
+            <fr><![CDATA[allemand palatin]]></fr>
+        </locale>
+        <locale name="language.phn">
+            <fr><![CDATA[phénicien]]></fr>
+        </locale>
+        <locale name="language.pi">
+            <fr><![CDATA[pali]]></fr>
+        </locale>
+        <locale name="language.pl">
+            <fr><![CDATA[polonais]]></fr>
+        </locale>
+        <locale name="language.pms">
+            <fr><![CDATA[piémontais]]></fr>
+        </locale>
+        <locale name="language.pnt">
+            <fr><![CDATA[pontique]]></fr>
+        </locale>
+        <locale name="language.pon">
+            <fr><![CDATA[pohnpei]]></fr>
+        </locale>
+        <locale name="language.prg">
+            <fr><![CDATA[prussien]]></fr>
+        </locale>
+        <locale name="language.pro">
+            <fr><![CDATA[provençal ancien]]></fr>
+        </locale>
+        <locale name="language.ps">
+            <fr><![CDATA[pachto]]></fr>
+        </locale>
+        <locale name="language.pt">
+            <fr><![CDATA[portugais]]></fr>
+        </locale>
+        <locale name="language.pt-BR">
+            <fr><![CDATA[portugais brésilien]]></fr>
+        </locale>
+        <locale name="language.pt-PT">
+            <fr><![CDATA[portugais européen]]></fr>
+        </locale>
+        <locale name="language.qu">
+            <fr><![CDATA[quechua]]></fr>
+        </locale>
+        <locale name="language.quc">
+            <fr><![CDATA[quiché]]></fr>
+        </locale>
+        <locale name="language.qug">
+            <fr><![CDATA[quichua du Haut-Chimborazo]]></fr>
+        </locale>
+        <locale name="language.raj">
+            <fr><![CDATA[rajasthani]]></fr>
+        </locale>
+        <locale name="language.rap">
+            <fr><![CDATA[rapanui]]></fr>
+        </locale>
+        <locale name="language.rar">
+            <fr><![CDATA[rarotongien]]></fr>
+        </locale>
+        <locale name="language.rgn">
+            <fr><![CDATA[romagnol]]></fr>
+        </locale>
+        <locale name="language.rif">
+            <fr><![CDATA[rifain]]></fr>
+        </locale>
+        <locale name="language.rm">
+            <fr><![CDATA[romanche]]></fr>
+        </locale>
+        <locale name="language.rn">
+            <fr><![CDATA[roundi]]></fr>
+        </locale>
+        <locale name="language.ro">
+            <fr><![CDATA[roumain]]></fr>
+        </locale>
+        <locale name="language.ro-MD">
+            <fr><![CDATA[moldave]]></fr>
+        </locale>
+        <locale name="language.rof">
+            <fr><![CDATA[rombo]]></fr>
+        </locale>
+        <locale name="language.rom">
+            <fr><![CDATA[romani]]></fr>
+        </locale>
+        <locale name="language.root">
+            <fr><![CDATA[racine]]></fr>
+        </locale>
+        <locale name="language.rtm">
+            <fr><![CDATA[rotuman]]></fr>
+        </locale>
+        <locale name="language.ru">
+            <fr><![CDATA[russe]]></fr>
+        </locale>
+        <locale name="language.rue">
+            <fr><![CDATA[ruthène]]></fr>
+        </locale>
+        <locale name="language.rug">
+            <fr><![CDATA[roviana]]></fr>
+        </locale>
+        <locale name="language.rup">
+            <fr><![CDATA[aroumain]]></fr>
+        </locale>
+        <locale name="language.rw">
+            <fr><![CDATA[kinyarwanda]]></fr>
+        </locale>
+        <locale name="language.rwk">
+            <fr><![CDATA[rwa]]></fr>
+        </locale>
+        <locale name="language.sa">
+            <fr><![CDATA[sanskrit]]></fr>
+        </locale>
+        <locale name="language.sad">
+            <fr><![CDATA[sandawe]]></fr>
+        </locale>
+        <locale name="language.sah">
+            <fr><![CDATA[iakoute]]></fr>
+        </locale>
+        <locale name="language.sam">
+            <fr><![CDATA[araméen samaritain]]></fr>
+        </locale>
+        <locale name="language.saq">
+            <fr><![CDATA[samburu]]></fr>
+        </locale>
+        <locale name="language.sas">
+            <fr><![CDATA[sasak]]></fr>
+        </locale>
+        <locale name="language.sat">
+            <fr><![CDATA[santali]]></fr>
+        </locale>
+        <locale name="language.saz">
+            <fr><![CDATA[saurashtra]]></fr>
+        </locale>
+        <locale name="language.sba">
+            <fr><![CDATA[ngambay]]></fr>
+        </locale>
+        <locale name="language.sbp">
+            <fr><![CDATA[isangu]]></fr>
+        </locale>
+        <locale name="language.sc">
+            <fr><![CDATA[sarde]]></fr>
+        </locale>
+        <locale name="language.scn">
+            <fr><![CDATA[sicilien]]></fr>
+        </locale>
+        <locale name="language.sco">
+            <fr><![CDATA[écossais]]></fr>
+        </locale>
+        <locale name="language.sd">
+            <fr><![CDATA[sindhi]]></fr>
+        </locale>
+        <locale name="language.sdc">
+            <fr><![CDATA[sarde sassarais]]></fr>
+        </locale>
+        <locale name="language.sdh">
+            <fr><![CDATA[kurde du Sud]]></fr>
+        </locale>
+        <locale name="language.se">
+            <fr><![CDATA[same du Nord]]></fr>
+        </locale>
+        <locale name="language.see">
+            <fr><![CDATA[seneca]]></fr>
+        </locale>
+        <locale name="language.seh">
+            <fr><![CDATA[cisena]]></fr>
+        </locale>
+        <locale name="language.sei">
+            <fr><![CDATA[séri]]></fr>
+        </locale>
+        <locale name="language.sel">
+            <fr><![CDATA[selkoupe]]></fr>
+        </locale>
+        <locale name="language.ses">
+            <fr><![CDATA[koyraboro senni]]></fr>
+        </locale>
+        <locale name="language.sg">
+            <fr><![CDATA[sango]]></fr>
+        </locale>
+        <locale name="language.sga">
+            <fr><![CDATA[ancien irlandais]]></fr>
+        </locale>
+        <locale name="language.sgs">
+            <fr><![CDATA[samogitien]]></fr>
+        </locale>
+        <locale name="language.sh">
+            <fr><![CDATA[serbo-croate]]></fr>
+        </locale>
+        <locale name="language.shi">
+            <fr><![CDATA[chleuh]]></fr>
+        </locale>
+        <locale name="language.shn">
+            <fr><![CDATA[shan]]></fr>
+        </locale>
+        <locale name="language.shu">
+            <fr><![CDATA[arabe tchadien]]></fr>
+        </locale>
+        <locale name="language.si">
+            <fr><![CDATA[cingalais]]></fr>
+        </locale>
+        <locale name="language.sid">
+            <fr><![CDATA[sidamo]]></fr>
+        </locale>
+        <locale name="language.sk">
+            <fr><![CDATA[slovaque]]></fr>
+        </locale>
+        <locale name="language.sl">
+            <fr><![CDATA[slovène]]></fr>
+        </locale>
+        <locale name="language.sli">
+            <fr><![CDATA[bas-silésien]]></fr>
+        </locale>
+        <locale name="language.sly">
+            <fr><![CDATA[sélayar]]></fr>
+        </locale>
+        <locale name="language.sm">
+            <fr><![CDATA[samoan]]></fr>
+        </locale>
+        <locale name="language.sma">
+            <fr><![CDATA[same du Sud]]></fr>
+        </locale>
+        <locale name="language.smj">
+            <fr><![CDATA[same de Lule]]></fr>
+        </locale>
+        <locale name="language.smn">
+            <fr><![CDATA[same d’Inari]]></fr>
+        </locale>
+        <locale name="language.sms">
+            <fr><![CDATA[same skolt]]></fr>
+        </locale>
+        <locale name="language.sn">
+            <fr><![CDATA[shona]]></fr>
+        </locale>
+        <locale name="language.snk">
+            <fr><![CDATA[soninké]]></fr>
+        </locale>
+        <locale name="language.so">
+            <fr><![CDATA[somali]]></fr>
+        </locale>
+        <locale name="language.sog">
+            <fr><![CDATA[sogdien]]></fr>
+        </locale>
+        <locale name="language.sq">
+            <fr><![CDATA[albanais]]></fr>
+        </locale>
+        <locale name="language.sr">
+            <fr><![CDATA[serbe]]></fr>
+        </locale>
+        <locale name="language.srn">
+            <fr><![CDATA[sranan tongo]]></fr>
+        </locale>
+        <locale name="language.srr">
+            <fr><![CDATA[sérère]]></fr>
+        </locale>
+        <locale name="language.ss">
+            <fr><![CDATA[swati]]></fr>
+        </locale>
+        <locale name="language.ssy">
+            <fr><![CDATA[saho]]></fr>
+        </locale>
+        <locale name="language.st">
+            <fr><![CDATA[sotho du Sud]]></fr>
+        </locale>
+        <locale name="language.stq">
+            <fr><![CDATA[saterlandais]]></fr>
+        </locale>
+        <locale name="language.su">
+            <fr><![CDATA[soundanais]]></fr>
+        </locale>
+        <locale name="language.suk">
+            <fr><![CDATA[soukouma]]></fr>
+        </locale>
+        <locale name="language.sus">
+            <fr><![CDATA[soussou]]></fr>
+        </locale>
+        <locale name="language.sux">
+            <fr><![CDATA[sumérien]]></fr>
+        </locale>
+        <locale name="language.sv">
+            <fr><![CDATA[suédois]]></fr>
+        </locale>
+        <locale name="language.sw">
+            <fr><![CDATA[swahili]]></fr>
+        </locale>
+        <locale name="language.sw-CD">
+            <fr><![CDATA[swahili du Congo]]></fr>
+        </locale>
+        <locale name="language.swb">
+            <fr><![CDATA[comorien]]></fr>
+        </locale>
+        <locale name="language.syc">
+            <fr><![CDATA[syriaque classique]]></fr>
+        </locale>
+        <locale name="language.syr">
+            <fr><![CDATA[syriaque]]></fr>
+        </locale>
+        <locale name="language.szl">
+            <fr><![CDATA[silésien]]></fr>
+        </locale>
+        <locale name="language.ta">
+            <fr><![CDATA[tamoul]]></fr>
+        </locale>
+        <locale name="language.tcy">
+            <fr><![CDATA[toulou]]></fr>
+        </locale>
+        <locale name="language.te">
+            <fr><![CDATA[télougou]]></fr>
+        </locale>
+        <locale name="language.tem">
+            <fr><![CDATA[timné]]></fr>
+        </locale>
+        <locale name="language.teo">
+            <fr><![CDATA[teso]]></fr>
+        </locale>
+        <locale name="language.ter">
+            <fr><![CDATA[tereno]]></fr>
+        </locale>
+        <locale name="language.tet">
+            <fr><![CDATA[tétoum]]></fr>
+        </locale>
+        <locale name="language.tg">
+            <fr><![CDATA[tadjik]]></fr>
+        </locale>
+        <locale name="language.th">
+            <fr><![CDATA[thaï]]></fr>
+        </locale>
+        <locale name="language.ti">
+            <fr><![CDATA[tigrigna]]></fr>
+        </locale>
+        <locale name="language.tig">
+            <fr><![CDATA[tigré]]></fr>
+        </locale>
+        <locale name="language.tiv">
+            <fr><![CDATA[tiv]]></fr>
+        </locale>
+        <locale name="language.tk">
+            <fr><![CDATA[turkmène]]></fr>
+        </locale>
+        <locale name="language.tkl">
+            <fr><![CDATA[tokelau]]></fr>
+        </locale>
+        <locale name="language.tkr">
+            <fr><![CDATA[tsakhour]]></fr>
+        </locale>
+        <locale name="language.tl">
+            <fr><![CDATA[tagalog]]></fr>
+        </locale>
+        <locale name="language.tlh">
+            <fr><![CDATA[klingon]]></fr>
+        </locale>
+        <locale name="language.tli">
+            <fr><![CDATA[tlingit]]></fr>
+        </locale>
+        <locale name="language.tly">
+            <fr><![CDATA[talysh]]></fr>
+        </locale>
+        <locale name="language.tmh">
+            <fr><![CDATA[tamacheq]]></fr>
+        </locale>
+        <locale name="language.tn">
+            <fr><![CDATA[tswana]]></fr>
+        </locale>
+        <locale name="language.to">
+            <fr><![CDATA[tongien]]></fr>
+        </locale>
+        <locale name="language.tog">
+            <fr><![CDATA[tonga nyasa]]></fr>
+        </locale>
+        <locale name="language.tpi">
+            <fr><![CDATA[tok pisin]]></fr>
+        </locale>
+        <locale name="language.tr">
+            <fr><![CDATA[turc]]></fr>
+        </locale>
+        <locale name="language.tru">
+            <fr><![CDATA[touroyo]]></fr>
+        </locale>
+        <locale name="language.trv">
+            <fr><![CDATA[taroko]]></fr>
+        </locale>
+        <locale name="language.ts">
+            <fr><![CDATA[tsonga]]></fr>
+        </locale>
+        <locale name="language.tsd">
+            <fr><![CDATA[tsakonien]]></fr>
+        </locale>
+        <locale name="language.tsi">
+            <fr><![CDATA[tsimshian]]></fr>
+        </locale>
+        <locale name="language.tt">
+            <fr><![CDATA[tatar]]></fr>
+        </locale>
+        <locale name="language.ttt">
+            <fr><![CDATA[tati caucasien]]></fr>
+        </locale>
+        <locale name="language.tum">
+            <fr><![CDATA[tumbuka]]></fr>
+        </locale>
+        <locale name="language.tvl">
+            <fr><![CDATA[tuvalu]]></fr>
+        </locale>
+        <locale name="language.tw">
+            <fr><![CDATA[twi]]></fr>
+        </locale>
+        <locale name="language.twq">
+            <fr><![CDATA[tasawaq]]></fr>
+        </locale>
+        <locale name="language.ty">
+            <fr><![CDATA[tahitien]]></fr>
+        </locale>
+        <locale name="language.tyv">
+            <fr><![CDATA[touvain]]></fr>
+        </locale>
+        <locale name="language.tzm">
+            <fr><![CDATA[amazighe de l’Atlas central]]></fr>
+        </locale>
+        <locale name="language.udm">
+            <fr><![CDATA[oudmourte]]></fr>
+        </locale>
+        <locale name="language.ug">
+            <fr><![CDATA[ouïghour]]></fr>
+        </locale>
+        <locale name="language.uga">
+            <fr><![CDATA[ougaritique]]></fr>
+        </locale>
+        <locale name="language.uk">
+            <fr><![CDATA[ukrainien]]></fr>
+        </locale>
+        <locale name="language.umb">
+            <fr><![CDATA[umbundu]]></fr>
+        </locale>
+        <locale name="language.und">
+            <fr><![CDATA[langue indéterminée]]></fr>
+        </locale>
+        <locale name="language.ur">
+            <fr><![CDATA[ourdou]]></fr>
+        </locale>
+        <locale name="language.uz">
+            <fr><![CDATA[ouzbek]]></fr>
+        </locale>
+        <locale name="language.vai">
+            <fr><![CDATA[vaï]]></fr>
+        </locale>
+        <locale name="language.ve">
+            <fr><![CDATA[venda]]></fr>
+        </locale>
+        <locale name="language.vec">
+            <fr><![CDATA[vénitien]]></fr>
+        </locale>
+        <locale name="language.vep">
+            <fr><![CDATA[vepse]]></fr>
+        </locale>
+        <locale name="language.vi">
+            <fr><![CDATA[vietnamien]]></fr>
+        </locale>
+        <locale name="language.vls">
+            <fr><![CDATA[flamand occidental]]></fr>
+        </locale>
+        <locale name="language.vmf">
+            <fr><![CDATA[franconien du Main]]></fr>
+        </locale>
+        <locale name="language.vo">
+            <fr><![CDATA[volapük]]></fr>
+        </locale>
+        <locale name="language.vot">
+            <fr><![CDATA[vote]]></fr>
+        </locale>
+        <locale name="language.vro">
+            <fr><![CDATA[võro]]></fr>
+        </locale>
+        <locale name="language.vun">
+            <fr><![CDATA[vunjo]]></fr>
+        </locale>
+        <locale name="language.wa">
+            <fr><![CDATA[wallon]]></fr>
+        </locale>
+        <locale name="language.wae">
+            <fr><![CDATA[walser]]></fr>
+        </locale>
+        <locale name="language.wal">
+            <fr><![CDATA[walamo]]></fr>
+        </locale>
+        <locale name="language.war">
+            <fr><![CDATA[waray]]></fr>
+        </locale>
+        <locale name="language.was">
+            <fr><![CDATA[washo]]></fr>
+        </locale>
+        <locale name="language.wbp">
+            <fr><![CDATA[warlpiri]]></fr>
+        </locale>
+        <locale name="language.wo">
+            <fr><![CDATA[wolof]]></fr>
+        </locale>
+        <locale name="language.wuu">
+            <fr><![CDATA[wu]]></fr>
+        </locale>
+        <locale name="language.xal">
+            <fr><![CDATA[kalmouk]]></fr>
+        </locale>
+        <locale name="language.xh">
+            <fr><![CDATA[xhosa]]></fr>
+        </locale>
+        <locale name="language.xmf">
+            <fr><![CDATA[mingrélien]]></fr>
+        </locale>
+        <locale name="language.xog">
+            <fr><![CDATA[soga]]></fr>
+        </locale>
+        <locale name="language.yao">
+            <fr><![CDATA[yao]]></fr>
+        </locale>
+        <locale name="language.yap">
+            <fr><![CDATA[yapois]]></fr>
+        </locale>
+        <locale name="language.yav">
+            <fr><![CDATA[yangben]]></fr>
+        </locale>
+        <locale name="language.ybb">
+            <fr><![CDATA[yemba]]></fr>
+        </locale>
+        <locale name="language.yi">
+            <fr><![CDATA[yiddish]]></fr>
+        </locale>
+        <locale name="language.yo">
+            <fr><![CDATA[yoruba]]></fr>
+        </locale>
+        <locale name="language.yrl">
+            <fr><![CDATA[nheengatou]]></fr>
+        </locale>
+        <locale name="language.yue">
+            <fr><![CDATA[cantonais]]></fr>
+        </locale>
+        <locale name="language.za">
+            <fr><![CDATA[zhuang]]></fr>
+        </locale>
+        <locale name="language.zap">
+            <fr><![CDATA[zapotèque]]></fr>
+        </locale>
+        <locale name="language.zbl">
+            <fr><![CDATA[symboles Bliss]]></fr>
+        </locale>
+        <locale name="language.zea">
+            <fr><![CDATA[zélandais]]></fr>
+        </locale>
+        <locale name="language.zen">
+            <fr><![CDATA[zenaga]]></fr>
+        </locale>
+        <locale name="language.zgh">
+            <fr><![CDATA[amazighe standard marocain]]></fr>
+        </locale>
+        <locale name="language.zh">
+            <fr><![CDATA[chinois]]></fr>
+        </locale>
+        <locale name="language.zh-Hans">
+            <fr><![CDATA[chinois simplifié]]></fr>
+        </locale>
+        <locale name="language.zh-Hant">
+            <fr><![CDATA[chinois traditionnel]]></fr>
+        </locale>
+        <locale name="language.zu">
+            <fr><![CDATA[zoulou]]></fr>
+        </locale>
+        <locale name="language.zun">
+            <fr><![CDATA[zuñi]]></fr>
+        </locale>
+        <locale name="language.zxx">
+            <fr><![CDATA[sans contenu linguistique]]></fr>
+        </locale>
+        <locale name="language.zza">
+            <fr><![CDATA[zazaki]]></fr>
+        </locale>
+    </groups>
+</locales>

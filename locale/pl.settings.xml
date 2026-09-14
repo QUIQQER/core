@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="processLocks.title">
+            <pl><![CDATA[Blokady procesów]]></pl>
+        </locale>
+        <locale name="processLocks.backend">
+            <pl><![CDATA[Backend]]></pl>
+        </locale>
+        <locale name="processLocks.flock">
+            <pl><![CDATA[System plików]]></pl>
+        </locale>
+        <locale name="processLocks.dbal">
+            <pl><![CDATA[Baza danych QUIQQER]]></pl>
+        </locale>
+        <locale name="processLocks.namespace">
+            <pl><![CDATA[Przestrzeń nazw]]></pl>
+        </locale>
+        <locale name="processLocks.namespaceHelp">
+            <pl><![CDATA[Używaj tego samego identyfikatora na wszystkich serwerach tej instalacji. Puste pole: identyfikator ze ścieżki instalacji.]]></pl>
+        </locale>
+        <locale name="processLocks.path">
+            <pl><![CDATA[Katalog]]></pl>
+        </locale>
+        <locale name="processLocks.pathHelp">
+            <pl><![CDATA[Pozostaw puste, aby użyć domyślnego katalogu var/locks/. Blokady plików koordynują procesy na tym samym serwerze.]]></pl>
+        </locale>
+        <locale name="processLocks.dbalHelp">
+            <pl><![CDATA[Korzysta ze skonfigurowanej bazy danych QUIQQER i osobnej tabeli blokad procesów.]]></pl>
+        </locale>
+        <locale name="processLocks.host">
+            <pl><![CDATA[Host Redis]]></pl>
+        </locale>
+        <locale name="processLocks.port">
+            <pl><![CDATA[Port]]></pl>
+        </locale>
+        <locale name="processLocks.database">
+            <pl><![CDATA[Baza danych Redis]]></pl>
+        </locale>
+        <locale name="processLocks.username">
+            <pl><![CDATA[Nazwa użytkownika]]></pl>
+        </locale>
+        <locale name="processLocks.password">
+            <pl><![CDATA[Hasło]]></pl>
+        </locale>
+        <locale name="processLocks.clearPassword">
+            <pl><![CDATA[Usuń zapisane hasło]]></pl>
+        </locale>
+        <locale name="processLocks.passwordKept">
+            <pl><![CDATA[Zachowaj zapisane hasło]]></pl>
+        </locale>
+        <locale name="processLocks.tls">
+            <pl><![CDATA[Używaj TLS]]></pl>
+        </locale>
+        <locale name="processLocks.redisHelp">
+            <pl><![CDATA[Użyj osobnej bazy danych Redis, która zostanie zachowana podczas czyszczenia pamięci podręcznej aplikacji. Puste pole hasła zachowuje zapisane hasło. Na serwerze musi być zainstalowany klient Redis.]]></pl>
+        </locale>
+        <locale name="processLocks.custom">
+            <pl><![CDATA[Niestandardowy (już skonfigurowany)]]></pl>
+        </locale>
+        <locale name="processLocks.customHelp">
+            <pl><![CDATA[Ten magazyn został skonfigurowany poza tym interfejsem. Jego połączenie zostanie zachowane przy zapisywaniu, o ile nie wybierzesz innego backendu.]]></pl>
+        </locale>
+        <locale name="processLocks.changeHelp">
+            <pl><![CDATA[Podczas zmiany backendu chronione zadania mogą przez chwilę działać równolegle. Stale działające procesy robocze użyją nowego magazynu po ponownym uruchomieniu.]]></pl>
+        </locale>
+        <locale name="processLocks.test">
+            <pl><![CDATA[Sprawdź połączenie]]></pl>
+        </locale>
+        <locale name="processLocks.testing">
+            <pl><![CDATA[Sprawdzanie blokady …]]></pl>
+        </locale>
+        <locale name="processLocks.testSuccess">
+            <pl><![CDATA[Połączenie działa. Możesz teraz zapisać te ustawienia.]]></pl>
+        </locale>
+        <locale name="processLocks.testFailed">
+            <pl><![CDATA[Test połączenia nie powiódł się. Sprawdź dane połączenia, dostępność serwera, uprawnienia i zainstalowanego klienta Redis.]]></pl>
+        </locale>
+        <locale name="processLocks.loadFailed">
+            <pl><![CDATA[Nie udało się załadować ustawień. Otwórz kategorię ponownie.]]></pl>
+        </locale>
+        <locale name="processLocks.notReady">
+            <pl><![CDATA[Poczekaj na zakończenie ładowania lub testu połączenia.]]></pl>
+        </locale>
+        <locale name="processLocks.saved">
+            <pl><![CDATA[Ustawienia blokad procesów zostały zapisane.]]></pl>
+        </locale>
+        <locale name="processLocks.saveFailed">
+            <pl><![CDATA[Nie udało się zapisać blokad procesów. Sprawdź dane i uprawnienia.]]></pl>
+        </locale>
+        <locale name="processLocks.invalid">
+            <pl><![CDATA[Nieprawidłowe ustawienia blokad procesów.]]></pl>
+        </locale>
+        <locale name="message.setup.is.currently.running">
+            <pl><![CDATA[Trwa konfiguracja. Poczekaj na jej zakończenie.]]></pl>
+        </locale>
+        <locale name="message.setup.runs">
+            <pl><![CDATA[Trwa konfiguracja.]]></pl>
+        </locale>
+        <locale name="system.forwarding.from">
+            <pl><![CDATA[Z]]></pl>
+        </locale>
+        <locale name="system.forwarding.target">
+            <pl><![CDATA[Do]]></pl>
+        </locale>
+        <locale name="system.forwarding.code">
+            <pl><![CDATA[Kod HTTP]]></pl>
+        </locale>
+        <locale name="exception.forwarding.already.exists">
+            <pl><![CDATA[To przekierowanie już istnieje.]]></pl>
+        </locale>
+        <locale name="exception.forwarding.not.found">
+            <pl><![CDATA[Nie znaleziono tego przekierowania.]]></pl>
+        </locale>
+        <locale name="exception.config.save.not.allowed">
+            <pl><![CDATA[Nie masz uprawnień potrzebnych do zapisania konfiguracji.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.title">
+            <pl><![CDATA[Serwer WWW]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.forcehttps.title">
+            <pl><![CDATA[Wymuszaj HTTPS]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.forcehttps.description">
+            <pl><![CDATA[Wszystkie żądania HTTP są przekierowywane na HTTPS za pomocą przekierowania 301]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.wwwredirect.title">
+            <pl><![CDATA[Przekierowanie WWW]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.wwwredirect.description">
+            <pl><![CDATA[Określa, czy żądania są globalnie przekierowywane na domenę z www czy bez www.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.wwwredirect.none">
+            <pl><![CDATA[Bez przekierowania]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.wwwredirect.www">
+            <pl><![CDATA[Przekierowuj na www]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.webserver.wwwredirect.nonwww">
+            <pl><![CDATA[Przekierowuj na adres bez www]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.favicon">
+            <pl><![CDATA[Ikona favicon administracji QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.webserver.type.title">
+            <pl><![CDATA[Typ]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.webserver.type.desc">
+            <pl><![CDATA[Serwer WWW używany w Twoim systemie]]></pl>
+        </locale>
+        <locale name="message.clear.cache.successful">
+            <pl><![CDATA[Pamięć podręczna została opróżniona.]]></pl>
+        </locale>
+        <locale name="message.clear.cache.purged">
+            <pl><![CDATA[Pamięć podręczna została oczyszczona.]]></pl>
+        </locale>
+        <locale name="development.info">
+            <pl><![CDATA[System jest w trybie deweloperskim]]></pl>
+        </locale>
+        <locale name="system.vhost.table.hostdata">
+            <pl><![CDATA[Dane hosta]]></pl>
+        </locale>
+        <locale name="system.vhost.table.redirects">
+            <pl><![CDATA[Przekierowania]]></pl>
+        </locale>
+        <locale name="system.vhost.domain.variants">
+            <pl><![CDATA[Domena z www i bez www używa tych ustawień, o ile drugi wariant nie jest utworzony jako osobny VHost. Obie domeny muszą być skonfigurowane w DNS i na serwerze WWW.]]></pl>
+        </locale>
+        <locale name="system.vhost.wwwRedirect.global">
+            <pl><![CDATA[Użyj ustawienia globalnego]]></pl>
+        </locale>
+        <locale name="system.vhost.wwwRedirect.description">
+            <pl><![CDATA[Ten wybór ma pierwszeństwo przed globalnym ustawieniem WWW. Bez przekierowania WWW żądany wariant hosta pozostaje bez zmian; globalne przekierowanie HTTPS nadal działa.]]></pl>
+        </locale>
+        <locale name="system.vhost.httpshost.description">
+            <pl><![CDATA[Opcjonalny inny host dla HTTPS. Wpisany host HTTPS ma pierwszeństwo przed wyborem WWW przy żądaniach HTTPS.]]></pl>
+        </locale>
+        <locale name="exception.vhost.invalid.wwwRedirect">
+            <pl><![CDATA[Nieprawidłowe przekierowanie WWW. Dozwolone są ustawienie globalne, www, nonwww lub none.]]></pl>
+        </locale>
+        <locale name="exception.vhost.conflicting.wwwRedirect">
+            <pl><![CDATA[To przekierowanie WWW jest sprzeczne z ustawieniem [host] i spowodowałoby pętlę przekierowań. Dostosuj ustawienia obu VHostów.]]></pl>
+        </locale>
+        <locale name="system.vhost.table.languages">
+            <pl><![CDATA[Przypisania języków]]></pl>
+        </locale>
+        <locale name="system.vhost.table.language.noproject.info">
+            <pl><![CDATA[Aby przypisać języki, musisz wybrać projekt]]></pl>
+        </locale>
+        <locale name="system.vhost.table.language.description">
+            <pl><![CDATA[Jeśli projekt ma kilka języków, możesz tutaj określić hosty dla dodatkowych języków.]]></pl>
+        </locale>
+        <locale name="system.vhost.label.rootLanguage">
+            <pl><![CDATA[Język główny]]></pl>
+        </locale>
+        <locale name="system.vhost.table.pathLanguages">
+            <pl><![CDATA[Języki w ścieżce]]></pl>
+        </locale>
+        <locale name="system.vhost.table.pathLanguages.description">
+            <pl><![CDATA[Dodatkowe języki są automatycznie udostępniane na tym hoście pod /SPRACHE/.]]></pl>
+        </locale>
+        <locale name="system.vhost.language.assigned">
+            <pl><![CDATA[Już przypisano do [host][path]]]></pl>
+        </locale>
+        <locale name="system.vhost.language.assigned.option">
+            <pl><![CDATA[[language] – już przypisano do [host]]]></pl>
+        </locale>
+        <locale name="system.vhost.label.domain">
+            <pl><![CDATA[Domena]]></pl>
+        </locale>
+        <locale name="system.vhost.label.errorsite">
+            <pl><![CDATA[Strona błędu]]></pl>
+        </locale>
+        <locale name="system.vhost.label.httpshost">
+            <pl><![CDATA[Host HTTPS]]></pl>
+        </locale>
+
+        <locale name="system.vhosts.title">
+            <pl><![CDATA[Ustawienia hostów wirtualnych]]></pl>
+        </locale>
+        <locale name="system.vhosts.btn.add">
+            <pl><![CDATA[Dodaj host wirtualny]]></pl>
+        </locale>
+        <locale name="system.vhosts.btn.edit.marked">
+            <pl><![CDATA[Edytuj zaznaczony host]]></pl>
+        </locale>
+        <locale name="system.vhosts.btn.del.marked">
+            <pl><![CDATA[Usuń zaznaczone hosty]]></pl>
+        </locale>
+        <locale name="system.vhosts.table.domain">
+            <pl><![CDATA[Domena]]></pl>
+        </locale>
+        <locale name="system.vhosts.add.window.title">
+            <pl><![CDATA[Dodaj nowy host wirtualny]]></pl>
+        </locale>
+        <locale name="system.vhosts.add.window.information">
+            <pl><![CDATA[Podaj nowy host.<br />Na przykład: www.meine-domain.de]]></pl>
+        </locale>
+        <locale name="system.vhosts.del.window.title">
+            <pl><![CDATA[Usuń host wirtualny]]></pl>
+        </locale>
+        <locale name="system.vhosts.del.window.text">
+            <pl><![CDATA[Czy na pewno chcesz usunąć host [vhost]?]]></pl>
+        </locale>
+        <locale name="system.vhosts.del.window.information">
+            <pl><![CDATA[Uwaga! Wpis hosta zostanie trwale usunięty! Przywrócenie nie będzie możliwe!]]></pl>
+        </locale>
+        <locale name="system.vhosts.edit.sheet.title">
+            <pl><![CDATA[Edytuj [vhost]]]></pl>
+        </locale>
+        <locale name="system.vhosts.edit.sheet.btn.save">
+            <pl><![CDATA[Zapisz zmiany]]></pl>
+        </locale>
+        <locale name="system.vhosts.edit.window.title">
+            <pl><![CDATA[Edytuj [vhost]]]></pl>
+        </locale>
+        <locale name="system.vhosts.edit.window.btn.save">
+            <pl><![CDATA[Zapisz VHost]]></pl>
+        </locale>
+        <locale name="system.vhosts.edit.window.btn.cancel">
+            <pl><![CDATA[Anuluj]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.complete">
+            <pl><![CDATA[Wyczyść całą pamięć podręczną]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.complete.title">
+            <pl><![CDATA[Usuwa wszystkie dane systemu i rozszerzeń z pamięci podręcznej. Wyjątkiem są pamięć długoterminowa, pamięć mediów oraz rozszerzenia z własnym zarządzaniem pamięcią podręczną, takie jak pamięć witryny lub zarządzanie produktami.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.complete.confirm.information">
+            <pl><![CDATA[Wyczyszczenie całej pamięci podręcznej QUIQQER może usunąć duże ilości danych, których ponowne utworzenie zajmie więcej czasu. W tym czasie witryna może działać znacznie wolniej.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.complete.confirm.text">
+            <pl><![CDATA[Czy na pewno chcesz usunąć całą pamięć podręczną QUIQQER?]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.complete.confirm.submit">
+            <pl><![CDATA[Usuń teraz całą pamięć podręczną QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.description" html="true">
+            <pl><![CDATA[<h1>Zarządzanie pamięcią podręczną</h1><p>QUIQQER i jego rozszerzenia zapisują wiele danych w pamięci podręcznej, aby zwiększyć szybkość działania systemu. Podczas normalnej pracy nie trzeba czyścić jej ręcznie. Jednak po zmianach w systemie (ustawieniach, aktualizacjach, szablonach, bazach danych itp.) może być konieczne usunięcie danych z pamięci podręcznej.</p>]]></pl>
+        </locale>
+
+        <locale name="quiqqer.settings.cache.longtime.title">
+            <pl><![CDATA[Długoterminowa pamięć podręczna]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.longtime.text">
+            <pl><![CDATA[Długoterminowa pamięć podręczna]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longtime.title">
+            <pl><![CDATA[Długoterminowa pamięć podręczna]]></pl>
+        </locale>
+
+        <locale name="quiqqer.settings.longtime.file">
+            <pl><![CDATA[System plików]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longtime.mongo">
+            <pl><![CDATA[MongoDB]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longtime.redis">
+            <pl><![CDATA[Redis]]></pl>
+        </locale>
+
+        <locale name="quiqqer.settings.longtime.cache">
+            <pl><![CDATA[Typ długoterminowej pamięci podręcznej]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longtime.cache.description">
+            <pl><![CDATA[Określ sposób przechowywania długoterminowej pamięci podręcznej.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.redis.title">
+            <pl><![CDATA[Długoterminowa pamięć podręczna na serwerze Redis]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.redis.server">
+            <pl><![CDATA[Serwer Redis]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.redis.server.description" html="true">
+            <pl><![CDATA[Zapoznaj się z naszym wpisem wiki: <a href="https://dev.quiqqer.com/quiqqer/core/wikis/caching/redis" target="_blank">Pamięć podręczna Redis w QUIQQER</a>]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.file.title">
+            <pl><![CDATA[Długoterminowa pamięć podręczna w systemie plików]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.file.path">
+            <pl><![CDATA[Ścieżka w systemie plików]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.file.path.description">
+            <pl><![CDATA[Jeśli nie podasz ścieżki, w domyślnym folderze VAR zostanie utworzony katalog cache/longtime/.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.mongo.title">
+            <pl><![CDATA[Długoterminowa pamięć podręczna w MongoDB]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.mongo.server">
+            <pl><![CDATA[Serwer]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.mongo.database">
+            <pl><![CDATA[Baza danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.mongo.username">
+            <pl><![CDATA[Nazwa użytkownika]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.mongo.password">
+            <pl><![CDATA[Hasło]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.longTimeCache.mongo_collection.server">
+            <pl><![CDATA[Kolekcja]]></pl>
+        </locale>
+
+        <locale name="quiqqer.settings.cache.clear.quiqqer">
+            <pl><![CDATA[Wyczyść całą pamięć podręczną QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer.title">
+            <pl><![CDATA[Usuwa wszystkie dane QUIQQER z pamięci podręcznej: ustawienia, użytkowników, grupy, uprawnienia, projekty itp. Dane rozszerzeń i modułów w pamięci podręcznej nie zostaną usunięte.]]></pl>
+        </locale>
+
+        <locale name="quiqqer.settings.cache.quiqqer.title">
+            <pl><![CDATA[Pamięć podręczna systemu QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-projects">
+            <pl><![CDATA[Wyczyść pamięć podręczną projektów QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-projects.title">
+            <pl><![CDATA[Usuwa wszystkie dane projektów i stron z pamięci podręcznej.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-settings">
+            <pl><![CDATA[Wyczyść pamięć podręczną ustawień QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-settings.title">
+            <pl><![CDATA[Usuwa dane różnych ustawień QUIQQER z pamięci podręcznej (np. struktury menu)]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-groups">
+            <pl><![CDATA[Wyczyść pamięć podręczną grup QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-users">
+            <pl><![CDATA[Wyczyść pamięć podręczną użytkowników QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-users-groups">
+            <pl><![CDATA[Wyczyść pamięć podręczną użytkowników i grup QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-users-groups.title">
+            <pl><![CDATA[Usuwa wszystkie dane i uprawnienia użytkowników oraz grup z pamięci podręcznej.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-permissions">
+            <pl><![CDATA[Wyczyść pamięć podręczną uprawnień QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-packages">
+            <pl><![CDATA[Wyczyść pamięć podręczną pakietów QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-packages.title">
+            <pl><![CDATA[Usuwa wszystkie dane zainstalowanych pakietów z pamięci podręcznej. Uwaga: ta opcja nie czyści pamięci podręcznej pakietów, które mają własne metody buforowania.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-template">
+            <pl><![CDATA[Wyczyść pamięć podręczną szablonów]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-quiqqer-template.title">
+            <pl><![CDATA[Usuwa tylko pamięć podręczną HTML silnika szablonów. Jest to potrzebne po ręcznej zmianie plików HTML.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-media">
+            <pl><![CDATA[Wyczyść pamięć podręczną mediów QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.quiqqer-media.title">
+            <pl><![CDATA[Usuwa wszystkie pliki pamięci podręcznej mediów, więc trzeba będzie je utworzyć ponownie.]]></pl>
+        </locale>
+
+        <locale name="quiqqer.settings.cache.clear.compile">
+            <pl><![CDATA[Wyczyść pamięć podręczną systemu]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.plugins">
+            <pl><![CDATA[Wyczyść pamięć podręczną wtyczek]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.templates">
+            <pl><![CDATA[Wyczyść pamięć podręczną szablonów]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.purge.button">
+            <pl><![CDATA[Oczyść pamięć podręczną]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.purge.button.title">
+            <pl><![CDATA[Przeprowadza porządkowanie systemu pamięci podręcznej. Usuwa wszystkie dane, których termin ważności minął. Aktualne dane pamięci podręcznej pozostają bez zmian.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.title">
+            <pl><![CDATA[System]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.title">
+            <pl><![CDATA[Ogólne]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.title">
+            <pl><![CDATA[Ustawienia ogólne]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.mailprotection">
+            <pl><![CDATA[Ochrona adresów e-mail]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.mailprotection.description">
+            <pl><![CDATA[Wszystkie adresy e-mail są ukrywane przed botami szpiegującymi]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.globals.sitePermissionDeniedErrorCode.title">
+            <pl><![CDATA[Kod statusu HTTP przy braku uprawnień do strony]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.globals.sitePermissionDeniedErrorCode.desc">
+            <pl><![CDATA[Określa kod statusu HTTP wysyłany, gdy użytkownik otwiera stronę, której nie ma prawa wyświetlić.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.htmlSuffix">
+            <pl><![CDATA[Rozszerzenie HTML w adresach stron]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.htmlSuffix.description">
+            <pl><![CDATA[Do adresów stron jest dodawane rozszerzenie .html. Strony projektu mają końcówkę .html]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.management.title">
+            <pl><![CDATA[Zarządzanie pamięcią podręczną]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.management.text">
+            <pl><![CDATA[Zarządzanie pamięcią podręczną]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.title">
+            <pl><![CDATA[Wyczyść pamięci podręczne]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.purge.title">
+            <pl><![CDATA[Oczyść pamięć podręczną]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.template.title">
+            <pl><![CDATA[Ustawienia silnika szablonów]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.template.use">
+            <pl><![CDATA[Używany silnik szablonów]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.template.compilecheck">
+            <pl><![CDATA[Sprawdzanie kompilacji Smarty]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.title">
+            <pl><![CDATA[Ustawienia dla programistów i administratorów systemu]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.maintenance">
+            <pl><![CDATA[Włącz tryb konserwacji]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.debug">
+            <pl><![CDATA[Tryb debugowania (dla programistów)]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.development">
+            <pl><![CDATA[Tryb deweloperski (dla programistów)]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.no_ajax_bundler">
+            <pl><![CDATA[Nie grupuj żądań Ajax]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.no_ajax_bundler.description">
+            <pl><![CDATA[Grupowanie żądań Ajax zmniejsza liczbę żądań wysyłanych do serwera.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.phpCommand">
+            <pl><![CDATA[Polecenie PHP dla CLI]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.phpCommand.description">
+            <pl><![CDATA[Określa polecenie uruchamiające plik wykonywalny PHP. Jest używane w CLI, gdy QUIQQER musi wykonać polecenie PHP.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database">
+            <pl><![CDATA[Baza danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database.title">
+            <pl><![CDATA[Ustawienia bazy danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database.type">
+            <pl><![CDATA[Typ bazy danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database.host">
+            <pl><![CDATA[Host bazy danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database.name">
+            <pl><![CDATA[Nazwa bazy danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database.user">
+            <pl><![CDATA[Użytkownik bazy danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.database.password">
+            <pl><![CDATA[Hasło bazy danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache">
+            <pl><![CDATA[Pamięć podręczna]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.title">
+            <pl><![CDATA[Które rodzaje pamięci podręcznej mają być używane?]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.text">
+            <pl><![CDATA[Rodzaje pamięci podręcznej]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.general.nocache">
+            <pl><![CDATA[Wyłącz całą pamięć podręczną]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.general.nocache.description">
+            <pl><![CDATA[Wyłącza całą pamięć podręczną. Zalecane tylko w trybie deweloperskim.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.title">
+            <pl><![CDATA[Typ pamięci podręcznej]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.filesystem">
+            <pl><![CDATA[System plików]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.mongo">
+            <pl><![CDATA[MongoDB]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.apc">
+            <pl><![CDATA[APC]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.memcache">
+            <pl><![CDATA[MemCache]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.sqlite">
+            <pl><![CDATA[SQLite]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.redis">
+            <pl><![CDATA[Redis]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.title">
+            <pl><![CDATA[Ustawienia APC]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.text">
+            <pl><![CDATA[APC]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.namespace">
+            <pl><![CDATA[Przestrzeń nazw]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.ttl">
+            <pl><![CDATA[Czas ważności (ttl)]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.title">
+            <pl><![CDATA[Ustawienia MemCache]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.text">
+            <pl><![CDATA[MemCache]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.servers">
+            <pl><![CDATA[Liczba serwerów]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.prefix_key">
+            <pl><![CDATA[Prefiks pamięci podręcznej]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.serializer">
+            <pl><![CDATA[Serializator (json, php, igbinary)]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.libketama_compatible">
+            <pl><![CDATA[Zgodność z libketama?]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.memcache.cache_lookups">
+            <pl><![CDATA[Wyszukiwanie w pamięci podręcznej DNS]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.title">
+            <pl><![CDATA[Ustawienia systemu plików]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.text">
+            <pl><![CDATA[System plików]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.path">
+            <pl><![CDATA[Ścieżka do pamięci podręcznej]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.path.description">
+            <pl><![CDATA[Jeśli nie podasz ścieżki, w domyślnym folderze VAR zostanie utworzony katalog cache/stack/]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.mongo.title">
+            <pl><![CDATA[Ustawienia pamięci podręcznej MongoDB]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.mongo.server">
+            <pl><![CDATA[Serwer]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.mongo.database">
+            <pl><![CDATA[Baza danych]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.mongo.collection">
+            <pl><![CDATA[Nazwa kolekcji]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.mongo.username">
+            <pl><![CDATA[Nazwa użytkownika]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.mongo.password">
+            <pl><![CDATA[Hasło]]></pl>
+        </locale>
+        <locale name="message.quiqqer.mongo.missing">
+            <pl><![CDATA[MongoDB nie jest dostępne w Twoim systemie. Zainstaluj pakiet mongodb/mongodb oraz rozszerzenie PHP MongoDB (https://www.php.net/manual/de/mongodb.setup.php).]]></pl>
+        </locale>
+        <locale name="message.quiqqer.mongo.button">
+            <pl><![CDATA[Przetestuj dane MongoDB]]></pl>
+        </locale>
+        <locale name="message.quiqqer.mongo.success">
+            <pl><![CDATA[Udało się użyć MongoDB]]></pl>
+        </locale>
+        <locale name="message.quiqqer.mongo.error">
+            <pl><![CDATA[Wystąpił błąd. Nie udało się zapisać danych w MongoDB.]]></pl>
+        </locale>
+
+        <locale name="exception.system.health.not.writable">
+            <pl><![CDATA[Sprawdź uprawnienia plików. Niektóre pliki lub foldery nie są dostępne do zapisu.]]></pl>
+        </locale>
+        <locale name="exception.system.health.checklist.md5.not.found">
+            <pl><![CDATA[Nie znaleziono pliku sum MD5. Nie można więc sprawdzić stanu systemu. Uwaga: jeśli QUIQQER jest zainstalowany jako repozytorium GIT, plik sum MD5 nie istnieje.]]></pl>
+        </locale>
+        <locale name="exception.lib.cache.manager.not.exist">
+            <pl><![CDATA[Pamięć podręczna nie istnieje]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.timezone.title">
+            <pl><![CDATA[Ustawienie strefy czasowej]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cookies.title">
+            <pl><![CDATA[Pliki cookie]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cookies.description">
+            <pl><![CDATA[Ogólne ustawienia plików cookie.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cookies.sameSite">
+            <pl><![CDATA[SameSite]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cookies.sameSite.description" html="true">
+            <pl><![CDATA[SameSite zapobiega wysyłaniu tego pliku cookie przez przeglądarkę wraz z żądaniami między witrynami. Głównym celem jest ograniczenie ryzyka wycieku informacji między domenami. Zapewnia również częściową ochronę przed atakami fałszowania żądań między witrynami.<br /><a href="https://owasp.org/www-community/SameSite" target="_blank">Więcej informacji</a>]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers">
+            <pl><![CDATA[Polityka bezpieczeństwa treści]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.title">
+            <pl><![CDATA[HTTP Strict Transport Security]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.description">
+            <pl><![CDATA[HTTP Strict Transport Security (HSTS) to mechanizm bezpieczeństwa połączeń HTTPS, który chroni przed obchodzeniem szyfrowania przez ataki obniżające poziom zabezpieczeń oraz przed przejęciem sesji.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.max_age">
+            <pl><![CDATA[Max-age]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.max_age.description">
+            <pl><![CDATA[<b>max-age</b> określa czas w sekundach, przez który przeglądarka ma przechowywać regułę HSTS w pamięci podręcznej.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.subdomains">
+            <pl><![CDATA[Subdomeny]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.subdomains.description">
+            <pl><![CDATA[Opcjonalnie można rozszerzyć parametry HSTS na wszystkie subdomeny.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.preload">
+            <pl><![CDATA[Preload]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.preload.description">
+            <pl><![CDATA[Lista wstępnego ładowania HSTS, utrzymywana przez Google Chrome i używana przez inne główne przeglądarki, pozwala ominąć ograniczenia zasady zaufania przy pierwszym użyciu dla określonej listy domen.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.title">
+            <pl><![CDATA[Content Security Policy (CSP)]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.timezone">
+            <pl><![CDATA[Strefa czasowa]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.timezone.description">
+            <pl><![CDATA[<p>To ustawienie wpływa na wszystkie godziny i daty.</p><p>Lista wszystkich stref czasowych jest dostępna pod adresem: <a href="https://php.net/manual/de/timezones.php" target="_blank">https://php.net/manual/de/timezones.php</a></p>]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.date_formats">
+            <pl><![CDATA[Format daty]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.languages.title">
+            <pl><![CDATA[Ogólne ustawienia języka]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.language_settings">
+            <pl><![CDATA[Ustawienia języka]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.country_settings">
+            <pl><![CDATA[Ustawienia krajów]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.country.title">
+            <pl><![CDATA[Ustawienia kraju]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.country.default.title">
+            <pl><![CDATA[Kraj domyślny]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.available.countries.title">
+            <pl><![CDATA[Dostępne kraje]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.date_formats.title">
+            <pl><![CDATA[Globalny format daty]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.date_formats.description">
+            <pl><![CDATA[<p>Ustawienia i dostępne formaty daty znajdziesz tutaj:</p><p><a href="https://php.net/manual/de/function.strftime.php#refsect1-function.strftime-parameters" target="_blank">https://php.net/manual/de/function.strftime.php#refsect1-function.strftime-parameters</a></p>]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.delimiter_formats.title">
+            <pl><![CDATA[Separator]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.standardLanguage">
+            <pl><![CDATA[Język domyślny]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.country.title">
+            <pl><![CDATA[Ustawienie kraju]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.country.description">
+            <pl><![CDATA[Wybierz kraj domyślny dla QUIQQER. To ustawienie może wpływać na różne moduły i wtyczki.]]></pl>
+        </locale>
+
+        <locale name="quiqqer.setup.cron.title">
+            <pl><![CDATA[Usługa Cron]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.cron.description">
+            <pl><![CDATA[<p>Aby QUIQQER automatycznie wykonywał cykliczne zadania, potrzebuje zewnętrznego systemu. Zalecamy Cron, standardowo dostępny w systemach Unix.</p><p>Jeśli nie możesz skonfigurować własnego Crona, twórcy QUIQQER oferują usługę, która zrobi to za Ciebie.</p>]]></pl>
+        </locale>
+
+        <locale name="quiqqer.setup.finish.title">
+            <pl><![CDATA[Jeszcze tylko jeden mały krok]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.finish.description">
+            <pl><![CDATA[<p>Dziękujemy za wybór QUIQQER. Już prawie gotowe. Twój system QUIQQER jest teraz konfigurowany.</p><p>Chcesz dowiedzieć się więcej o QUIQQER? Zajrzyj tutaj:</p><ul><li><a href="https://www.quiqqer.de" target="_blank">https://www.quiqqer.de</a></li><li><a href="https://www.ecoyn.de" target="_blank">https://www.ecoyn.de</a></li></ul>]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.cron.button.cronservice">
+            <pl><![CDATA[Użyj usługi Cron]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.cron.button.no.cronservice">
+            <pl><![CDATA[Pomiń i nie używaj usługi Cron]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.cron.button.register">
+            <pl><![CDATA[Zarejestruj]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.cron.button.next">
+            <pl><![CDATA[Kontynuuj bez rejestracji]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.window.title">
+            <pl><![CDATA[Witaj w kreatorze ustawień QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.success">
+            <pl><![CDATA[Konfiguracja została zakończona. Dziękujemy za wybór QUIQQER.]]></pl>
+        </locale>
+
+        <locale name="set.up.execute.button.text">
+            <pl><![CDATA[Uruchom konfigurację]]></pl>
+        </locale>
+        <locale name="settings.security.title">
+            <pl><![CDATA[Bezpieczeństwo]]></pl>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="message.config.saved">
+            <pl><![CDATA[Konfiguracja została zapisana.]]></pl>
+        </locale>
+        <locale name="exception.config.save.file.not.found">
+            <pl><![CDATA[Nie udało się zapisać konfiguracji. Nie znaleziono pliku [file].]]></pl>
+        </locale>
+        <locale name="message.config.webserver.changed">
+            <pl><![CDATA[Jeśli używasz serwera NGINX, musisz dostosować konfigurację]]></pl>
+        </locale>
+        <locale name="exception.vhost.not.found">
+            <pl><![CDATA[Nie znaleziono VHosta]]></pl>
+        </locale>
+        <locale name="exception.vhost.missing.data.project">
+            <pl><![CDATA[Brak wymaganej wartości: projekt]]></pl>
+        </locale>
+        <locale name="exception.vhost.missing.data.lang">
+            <pl><![CDATA[Brak wymaganej wartości: język]]></pl>
+        </locale>
+        <locale name="exception.vhost.same.host.already.exists">
+            <pl><![CDATA[VHost z tymi samymi danymi hosta już istnieje.]]></pl>
+        </locale>
+        <locale name="exception.vhost.invalid.project.language">
+            <pl><![CDATA[Język [language] nie należy do wybranego projektu.]]></pl>
+        </locale>
+        <locale name="exception.vhost.language.already.assigned">
+            <pl><![CDATA[Język [language] jest już przypisany do VHosta [host].]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.redis.title">
+            <pl><![CDATA[Ustawienia Redis]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.redis.server">
+            <pl><![CDATA[Serwer Redis]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.redis.server.description" html="true">
+            <pl><![CDATA[Zapoznaj się z naszym wpisem wiki: <a href="https://dev.quiqqer.com/quiqqer/core/wikis/caching/redis" target="_blank">Pamięć podręczna Redis w QUIQQER</a>]]></pl>
+        </locale>
+        <locale name="message.redis.ok">
+            <pl><![CDATA[Redis jest gotowy do użycia.]]></pl>
+        </locale>
+        <locale name="message.redis.connection.ok">
+            <pl><![CDATA[Nawiązano połączenie z serwerem Redis.]]></pl>
+        </locale>
+        <locale name="message.redis.classes.missing">
+            <pl><![CDATA[Nie można użyć Redis. Zainstaluj rozszerzenie PHP Redis (php-redis)]]></pl>
+        </locale>
+        <locale name="set.up.title">
+            <pl><![CDATA[Konfiguracja QUIQQER]]></pl>
+        </locale>
+        <locale name="set.up.description">
+            <pl><![CDATA[Skonfiguruj podstawowy system QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.welcome.title">
+            <pl><![CDATA[Witaj w QUIQQER]]></pl>
+        </locale>
+        <locale name="quiqqer.setup.welcome.description">
+            <pl><![CDATA[<p>Dziękujemy za wybór QUIQQER. QUIQQER to wszechstronny system. Skonfiguruj go zgodnie ze swoimi potrzebami.</p><p>Nasz kreator przeprowadzi Cię krok po kroku przez dostępne ustawienia, aby QUIQQER idealnie pasował do Ciebie i Twojego projektu.</p>]]></pl>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="message.setup.successfull.title">
+            <pl><![CDATA[Konfiguracja została przeprowadzona.]]></pl>
+        </locale>
+        <locale name="message.setup.successfull">
+            <pl><![CDATA[Konfiguracja została przeprowadzona.]]></pl>
+        </locale>
+        <locale name="system.forwarding.panel.title">
+            <pl><![CDATA[Globalne przekierowania]]></pl>
+        </locale>
+        <locale name="system.forwarding.window.create.title">
+            <pl><![CDATA[Dodaj globalne przekierowanie]]></pl>
+        </locale>
+        <locale name="system.forwarding.window.edit.title">
+            <pl><![CDATA[Edytuj globalne przekierowanie]]></pl>
+        </locale>
+        <locale name="system.forwarding.window.remove.title">
+            <pl><![CDATA[Usuń globalne przekierowanie]]></pl>
+        </locale>
+        <locale name="system.forwarding.window.remove.text" html="true">
+            <pl><![CDATA[Czy na pewno chcesz usunąć następujące przekierowania?<br /><br />[list]]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.value">
+            <pl><![CDATA[Wartość]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.directive">
+            <pl><![CDATA[Dyrektywa]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.delete.title">
+            <pl><![CDATA[Usuń dyrektywę]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.delete.text" html="true">
+            <pl><![CDATA[Czy na pewno chcesz usunąć następujące wpisy CSP?<br /><br />[list]]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.add.title">
+            <pl><![CDATA[Dodaj nową dyrektywę]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.edit.title">
+            <pl><![CDATA[Edytuj dyrektywę]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.valuePlaceholder">
+            <pl><![CDATA[Wartości predefiniowane:]]></pl>
+        </locale>
+        <locale name="message.maintenance" html="true">
+            <pl><![CDATA[Trwają prace konserwacyjne.<br />Funkcjonalność systemu może być ograniczona.<br />Skontaktuj się z administratorem.]]></pl>
+        </locale>
+        <locale name="quiqqer.settings.cache.redis.check.button">
+            <pl><![CDATA[Sprawdź serwer Redis]]></pl>
+        </locale>
+        <locale name="window.long.term.cache.clear.title">
+            <pl><![CDATA[Usuń długoterminową pamięć podręczną!]]></pl>
+        </locale>
+        <locale name="window.long.term.cache.clear.text">
+            <pl><![CDATA[Czy na pewno usunąć długoterminową pamięć podręczną?]]></pl>
+        </locale>
+        <locale name="window.long.term.cache.clear.information">
+            <pl><![CDATA[Cała długoterminowa pamięć podręczna zostanie trwale usunięta i będzie musiała zostać odbudowana. Odbudowa może potrwać nawet kilka dni.]]></pl>
+        </locale>
+        <locale name="message.long.term.cache.clear.success">
+            <pl><![CDATA[Długoterminowa pamięć podręczna została usunięta.]]></pl>
+        </locale>
+        <locale name="delete.long.term.cache.button">
+            <pl><![CDATA[Wyczyść całą długoterminową pamięć podręczną]]></pl>
+        </locale>
+        <locale name="panel.settings.title">
+            <pl><![CDATA[Ustawienia: [title] - [category]]]></pl>
+        </locale>
+        <locale name="set.up.next.button.text">
+            <pl><![CDATA[Dalej]]></pl>
+        </locale>
+    </groups>
+</locales>

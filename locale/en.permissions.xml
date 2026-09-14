@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="permission.permission._header">
+            <en><![CDATA[Permissions]]></en>
+        </locale>
+        <locale name="permission.quiqqer._header">
+            <en><![CDATA[QUIQQER]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core._header">
+            <en><![CDATA[Core]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp._header">
+            <en><![CDATA[MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.canUse">
+            <en><![CDATA[Can use the core MCP tools]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.users._header">
+            <en><![CDATA[Users]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.users.canUse">
+            <en><![CDATA[Can use user administration via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.groups._header">
+            <en><![CDATA[Groups]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.groups.canUse">
+            <en><![CDATA[Can use group administration via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.permissions._header">
+            <en><![CDATA[Permissions]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.permissions.canUse">
+            <en><![CDATA[Can use permission administration via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.clearCache">
+            <en><![CDATA[Can clear the QUIQQER cache via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.viewSystemInfo">
+            <en><![CDATA[Can view protected system information via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.updateAllowed">
+            <en><![CDATA[Can run QUIQQER updates via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.manageVhosts">
+            <en><![CDATA[Can create, update and delete VHosts via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.core.mcp.manageForwardings">
+            <en><![CDATA[Can manage global forwardings via MCP]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects._header">
+            <en><![CDATA[Projects]]></en>
+        </locale>
+        <locale name="permission.quiqqer.project._header">
+            <en><![CDATA[Project]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.site._header">
+            <en><![CDATA[A site]]></en>
+        </locale>
+        <locale name="permission.quiqqer.packages._header">
+            <en><![CDATA[Packages]]></en>
+        </locale>
+        <locale name="permission.package.canUse">
+            <en><![CDATA[Is allowed to use it]]></en>
+        </locale>
+        <locale name="permission.quiqqer.editors._header">
+            <en><![CDATA[Editor / WYSIWYG]]></en>
+        </locale>
+        <locale name="permission.quiqqer.editors.toolbar._header">
+            <en><![CDATA[Toolbar]]></en>
+        </locale>
+        <locale name="permission.quiqqer.system._header">
+            <en><![CDATA[System]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin._header">
+            <en><![CDATA[Administration]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.groups._header">
+            <en><![CDATA[Groups]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.users._header">
+            <en><![CDATA[Users]]></en>
+        </locale>
+        <locale name="permission.quiqqer.settings">
+            <en><![CDATA[Allows to make settings]]></en>
+        </locale>
+        <locale name="permission.quiqqer.users._header">
+            <en><![CDATA[Users]]></en>
+        </locale>
+        <locale name="permission.quiqqer.users.delete_self">
+            <en><![CDATA[Can delete his own user account]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.sites._header">
+            <en><![CDATA[Sites]]></en>
+        </locale>
+        <locale name="permission.quiqqer.auth._header">
+            <en><![CDATA[Authentication]]></en>
+        </locale>
+        <locale name="permission.quiqqer.menu._header">
+            <en><![CDATA[Menu]]></en>
+        </locale>
+        <locale name="permission.quiqqer.menu.quiqqer">
+            <en><![CDATA[Can see the QUIQQER menu]]></en>
+        </locale>
+        <locale name="permission.quiqqer.menu.apps">
+            <en><![CDATA[Can see the App menu]]></en>
+        </locale>
+        <locale name="permission.quiqqer.menu.extras">
+            <en><![CDATA[Can see the extras menu]]></en>
+        </locale>
+        <locale name="permission.quiqqer.menu.settings">
+            <en><![CDATA[Can see the settings menu]]></en>
+        </locale>
+        <locale name="permission.quiqqer.login">
+            <en><![CDATA[Is allowed to logged in to the frontend]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin">
+            <en><![CDATA[Is allowed to logged in to the backend (Administration)]]></en>
+        </locale>
+        <locale name="permission.quiqqer.su">
+            <en><![CDATA[Is Superuser]]></en>
+        </locale>
+        <locale name="permission.quiqqer.system.update">
+            <en><![CDATA[Is allowed to update the system.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.system.permissions">
+            <en><![CDATA[Is allowed to edit permissions]]></en>
+        </locale>
+        <locale name="permission.quiqqer.system.cache">
+            <en><![CDATA[Is allowed to delete the cache.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.system.console">
+            <en><![CDATA[Is allowed to loged in to the QUIQQER console]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.groups.view">
+            <en><![CDATA[Can see the group management.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.groups.edit">
+            <en><![CDATA[Is allowed to edit groups.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.groups.create">
+            <en><![CDATA[Is allowed to create groups.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.users.view">
+            <en><![CDATA[Can see the user management]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.users.edit">
+            <en><![CDATA[Is allowed to edit users.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.users.create">
+            <en><![CDATA[Is allowed to create users.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.users.delete">
+            <en><![CDATA[Is allowed to delete users.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.admin.users.send_mail">
+            <en><![CDATA[Is allowed to send emails to users (via QUIQQER user panel).]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.create">
+            <en><![CDATA[Is allowed to create projects.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.edit">
+            <en><![CDATA[Is allowed to edit projects.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.destroy">
+            <en><![CDATA[Is allowed to delete projects.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.setconfig">
+            <en><![CDATA[Is allowed to edit project settings.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.editCustomCSS">
+            <en><![CDATA[Is allowed to edit Custom-CSS from a project.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.editCustomJS">
+            <en><![CDATA[Is allowed to edit Custom-JavaScript from a project.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.project.edit">
+            <en><![CDATA[Is allowed to edit projects.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.project.destroy">
+            <en><![CDATA[Is allowed to delete projects.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.project.setconfig">
+            <en><![CDATA[Is allowed to edit project settings.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.project.editCustomCSS">
+            <en><![CDATA[Is allowed to edit Custom-CSS]]></en>
+        </locale>
+        <locale name="permission.quiqqer.project.editCustomJS">
+            <en><![CDATA[Is allowed to edit Custom-JavaScript]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.site.view">
+            <en><![CDATA[Can view the site.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.site.edit">
+            <en><![CDATA[Is allowed to edit the site.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.site.del">
+            <en><![CDATA[Is allowed to delete the site.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.site.new">
+            <en><![CDATA[Is allowed to create children sites.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.sites.set_permissions">
+            <en><![CDATA[Is allowed to set and edit permissions to sites.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.sites.view">
+            <en><![CDATA[Is allowed to view sites]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.sites.edit">
+            <en><![CDATA[Is allowed to edit sites.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.sites.del">
+            <en><![CDATA[Is allowed to delete sites.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.sites.new">
+            <en><![CDATA[Is allowed to create children sites.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.editors.toolbar.delete">
+            <en><![CDATA[Is allowed to delete editor toolbars.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.frontend._header">
+            <en><![CDATA[Frontend]]></en>
+        </locale>
+        <locale name="permission.quiqqer.frontend.upload">
+            <en><![CDATA[May upload files in the frontend.]]></en>
+        </locale>
+        <locale name="exception.permission.session.expired">
+            <en><![CDATA[Your session has expired, please login.]]></en>
+        </locale>
+        <locale name="exception.permission.no.admin">
+            <en><![CDATA[You do not have the necessary permissions to log on to the administration.]]></en>
+        </locale>
+        <locale name="exception.permissions.are.empty">
+            <en><![CDATA[Permissions are empty.]]></en>
+        </locale>
+        <locale name="permissions.panel.title">
+            <en><![CDATA[Permissions-Manager]]></en>
+        </locale>
+        <locale name="permission.control.edit.title">
+            <en><![CDATA[Edit permissions of: [name]]]></en>
+        </locale>
+        <locale name="permission.control.editcreate.title">
+            <en><![CDATA[Edit permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.add.permission">
+            <en><![CDATA[Add permission]]></en>
+        </locale>
+        <locale name="permission.control.btn.group.save">
+            <en><![CDATA[Save group permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.user.save">
+            <en><![CDATA[Save user permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.project.save">
+            <en><![CDATA[Save project permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.site.save">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="permission.control.btn.site.save.title">
+            <en><![CDATA[Save page permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.site.save.recursive">
+            <en><![CDATA[Apply page permissions recursively]]></en>
+        </locale>
+        <locale name="permission.control.site.recursive.win.title">
+            <en><![CDATA[Apply permissions recursively]]></en>
+        </locale>
+        <locale name="permission.control.site.recursive.win.text">
+            <en><![CDATA[Apply permissions recursively]]></en>
+        </locale>
+        <locale name="permission.control.site.recursive.win.information">
+            <en><![CDATA[The current permissions are applied to all pages and on the selected page.]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.sitemap.alt">
+            <en><![CDATA[Show permissions]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.sitemap.title">
+            <en><![CDATA[Show permissions]]></en>
+        </locale>
+        <locale name="permissions.panel.message.no.rights">
+            <en><![CDATA[No rights exist]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.add.alt">
+            <en><![CDATA[Add a permission]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.add.title">
+            <en><![CDATA[Add a permission]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.add.text">
+            <en><![CDATA[Add a permission]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.save.alt">
+            <en><![CDATA[Save all changes]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.save.title">
+            <en><![CDATA[Save all changes]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.save.text">
+            <en><![CDATA[save]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.delete.right.alt">
+            <en><![CDATA[Delete permission [right]]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.delete.right.title">
+            <en><![CDATA[Delete permission [right]]]></en>
+        </locale>
+        <locale name="permissions.panel.window.delete.title">
+            <en><![CDATA[You realy want to delete the permission?]]></en>
+        </locale>
+        <locale name="permissions.panel.window.delete.text">
+            <en><![CDATA[You realy want to delete the permission [right]?]]></en>
+        </locale>
+        <locale name="permissions.panel.window.delete.information">
+            <en><![CDATA[The permission will be permanently deleted.]]></en>
+        </locale>
+        <locale name="permissions.panel.welcome.message">
+            <en><![CDATA[
+            <h1>Manage access privileges</h1>
+            Use the sidebar list to allow or deny users and groups access to specific pages, projects, or features.
+            ]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.title">
+            <en><![CDATA[Add permission]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.text">
+            <en><![CDATA[Add a permission. For example: my.custom.right]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.information">
+            <en><![CDATA[Add a permission for groups, users, projects, media-files or sites]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.user">
+            <en><![CDATA[Permission for an user and group]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.site">
+            <en><![CDATA[Permission for a page]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.media">
+            <en><![CDATA[Permission for the media]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.project">
+            <en><![CDATA[Permission for a project]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.user">
+            <en><![CDATA[For an user]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.group">
+            <en><![CDATA[For a group]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.site">
+            <en><![CDATA[For a single project page]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.project">
+            <en><![CDATA[For a project]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.media">
+            <en><![CDATA[For a media area]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.manage">
+            <en><![CDATA[Permission management only]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.open.alt">
+            <en><![CDATA[Set permission for an specific group / user]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.open.title">
+            <en><![CDATA[Set permission for an specific group / user]]></en>
+        </locale>
+        <locale name="permissions.panel.select.title">
+            <en><![CDATA[For which group want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.group.title">
+            <en><![CDATA[For which group want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.group.description" html="true">
+            <en><![CDATA[Please select a group to set the access rights for this group.]]></en>
+        </locale>
+        <locale name="permissions.panel.select.user.title">
+            <en><![CDATA[For which user want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.user.description" html="true">
+            <en><![CDATA[Please select a user to set the access rights for these users.]]></en>
+        </locale>
+        <locale name="permissions.panel.select.project.title">
+            <en><![CDATA[For which project want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.site.title">
+            <en><![CDATA[For which page want you to set the permissions?]]></en>
+        </locale>
+        <locale name="exception.permissions.edit">
+            <en><![CDATA[You have no rights to edit this page.]]></en>
+        </locale>
+        <locale name="permissions.message.save.success">
+            <en><![CDATA[Permissions successfuly saved.]]></en>
+        </locale>
+        <locale name="permissions.message.delete.success">
+            <en><![CDATA[Permission successfuly deleted.]]></en>
+        </locale>
+        <locale name="exception.permissions.exists">
+            <en><![CDATA[The Permission still exists.]]></en>
+        </locale>
+        <locale name="exception.permissions.permission.not.found">
+            <en><![CDATA[The Permission could not be found.]]></en>
+        </locale>
+        <locale name="exception.permissions.delete.only.user.permissions">
+            <en><![CDATA[This permission can not be deleted. You can only delete user created permissions.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.permissions.package">
+            <en><![CDATA[Use package permissions]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.permissions.description">
+            <en><![CDATA[
+            Use package rights if you want to provide multiple users with different rights. <br />
+            If no package rights are used, some functions in the system perform better.
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.permissions.media">
+            <en><![CDATA[Use media rights]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.permissions.media.description">
+            <en><![CDATA[
+                Use media permissions if you want to assign different rights to files in the media.<br />
+                If no media permissions are used, some functions in the system perform better.
+            ]]></en>
+        </locale>
+        <locale name="exception.no.permission">
+            <en><![CDATA[You have not the necessary rights to perform this action.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.media._header">
+            <en><![CDATA[Media permissions]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.media.set_permissions">
+            <en><![CDATA[Is allowed to edit media permissions]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.media.view">
+            <en><![CDATA[Is allowed to see the file / folder]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.media.upload">
+            <en><![CDATA[Is allowed to upload files]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.media.del">
+            <en><![CDATA[Is allowed to delete the file / folder]]></en>
+        </locale>
+        <locale name="permission.quiqqer.projects.media.edit">
+            <en><![CDATA[Is allowed to edit the file / folder]]></en>
+        </locale>
+
+        <locale name="permission.quiqqer.upload._header">
+            <en><![CDATA[Upload]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.maxUploadCount">
+            <en><![CDATA[Max. uploads]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.maxUploadCount.description">
+            <en><![CDATA[Sets the maximum number of uploads for the user. All files uploaded during a single upload process count towards this limit.]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.maxFileUploadSize">
+            <en><![CDATA[Max. Size of an upload]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.maxFileUploadSize.description">
+            <en><![CDATA[
+            Defines the maximum size of a file during an upload process.
+            ]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.allowedTypes">
+            <en><![CDATA[Allowed file types]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.allowedTypes.description">
+            <en><![CDATA[
+            Please enter the ALLOWED file types separated by commas. Additionally you can use wildcards.
+            Example: images/*,application/*
+            ]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.allowedEndings">
+            <en><![CDATA[Allowed file extensions]]></en>
+        </locale>
+        <locale name="permission.quiqqer.upload.allowedEndings.description">
+            <en><![CDATA[
+            Please enter the ALLOWED file extension separated by commas. Additionally you can use wildcards.
+            Example: .gif, .jpg, .jpeg, .pdf
+            ]]></en>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.missing.permission.entry">
+            <en><![CDATA[Cannot find permissions for the Object.]]></en>
+        </locale>
+    </groups>
+</locales>

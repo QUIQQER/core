@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.project.settings.panel.mediaSettings.imageLibrary">
+            <it><![CDATA[Libreria di immagini utilizzata]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageLibrary.auto">
+            <it><![CDATA[QUIQQER determina quale libreria utilizzare.]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.createCacheOnSave">
+            <it><![CDATA[Crea la cache delle immagini al volo.]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadFileSize">
+            <it><![CDATA[Dimensione massima del file]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadFileSize.description" html="true">
+            <it><![CDATA[I file la cui dimensione supera il valore indicato vengono bloccati durante il caricamento.]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxImageCacheSize">
+            <it><![CDATA[Dimensione massima delle immagini nella cache]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxImageCacheSize.description">
+            <it><![CDATA[Per non sovraccaricare lo spazio di archiviazione del server, questa impostazione consente di limitare la dimensione massima di un'immagine nella cache. (Predefinito: 4000px)]]></it>
+        </locale>
+
+        <locale name="exception.media.upload.fileSize.is.to.big">
+            <it><![CDATA[Il file [file] è troppo grande. La dimensione massima di caricamento per un file è [size]]]></it>
+        </locale>
+        <locale name="exception.media.upload.fileType.not.allowed">
+            <it><![CDATA[Il tipo del file [file] non è consentito. Usa solo i seguenti tipi di file: [filetypes]]]></it>
+        </locale>
+        <locale name="exception.media.move.is.no.folder">
+            <it><![CDATA[Seleziona una cartella in cui spostare i file.]]></it>
+        </locale>
+        <locale name="exception.media.move">
+            <it><![CDATA[Impossibile spostare il file [file].]]></it>
+        </locale>
+        <locale name="exception.media.copy.is.no.folder">
+            <it><![CDATA[Seleziona una cartella in cui copiare i file.]]></it>
+        </locale>
+        <locale name="exception.media.restore.is.no.folder">
+            <it><![CDATA[Seleziona una cartella in cui ripristinare una cartella.]]></it>
+        </locale>
+        <locale name="exception.media.upload.is.no.folder">
+            <it><![CDATA[Seleziona una cartella. Puoi caricare i file solo in una cartella]]></it>
+        </locale>
+        <locale name="exception.media.upload.no.data">
+            <it><![CDATA[Non sono stati inviati dati relativi ai file.]]></it>
+        </locale>
+        <locale name="exception.media.upload.max.filesize">
+            <it><![CDATA[Il file caricato supera upload_max_filesize.]]></it>
+        </locale>
+        <locale name="exception.media.upload.max.form.filesize">
+            <it><![CDATA[Il file caricato supera MAX_FILE_SIZE.]]></it>
+        </locale>
+        <locale name="exception.media.upload.partially.uploaded">
+            <it><![CDATA[Il file è stato caricato solo parzialmente.]]></it>
+        </locale>
+        <locale name="exception.media.upload.missing.temp">
+            <it><![CDATA[Manca una cartella temporanea.]]></it>
+        </locale>
+        <locale name="exception.media.upload.unsupported.archive">
+            <it><![CDATA[È stato caricato un archivio non supportato. Impossibile estrarre l'archivio.]]></it>
+        </locale>
+        <locale name="exception.media.file.not.found">
+            <it><![CDATA[File non trovato.]]></it>
+        </locale>
+        <locale name="exception.media.file.not.found.NAME">
+            <it><![CDATA[Il file [file] non è stato trovato.]]></it>
+        </locale>
+        <locale name="exception.media.folder.name.invalid">
+            <it><![CDATA[Questo nome non è valido per una cartella.]]></it>
+        </locale>
+        <locale name="exception.media.root.folder.rename">
+            <it><![CDATA[La directory principale dei media di un progetto non può essere rinominata.]]></it>
+        </locale>
+        <locale name="exception.media.folder.with.same.name.exists">
+            <it><![CDATA[Esiste già una cartella con lo stesso nome.]]></it>
+        </locale>
+        <locale name="exception.media.folder.could.not.be.created">
+            <it><![CDATA[Impossibile creare la cartella.]]></it>
+        </locale>
+
+        <locale name="template.project.media.effect.header">
+            <it><![CDATA[Effetti immagine]]></it>
+        </locale>
+        <locale name="template.project.media.effect.preview.header">
+            <it><![CDATA[Anteprima immagine]]></it>
+        </locale>
+        <locale name="template.project.media.folder.order">
+            <it><![CDATA[Ordinamento]]></it>
+        </locale>
+        <locale name="media.blur">
+            <it><![CDATA[Sfocatura]]></it>
+        </locale>
+        <locale name="media.brightness">
+            <it><![CDATA[Luminosità]]></it>
+        </locale>
+        <locale name="media.contrast">
+            <it><![CDATA[Contrasto]]></it>
+        </locale>
+        <locale name="media.greyscale">
+            <it><![CDATA[Scala di grigi]]></it>
+        </locale>
+        <locale name="media.watermark">
+            <it><![CDATA[Filigrana]]></it>
+        </locale>
+        <locale name="media.watermark.position">
+            <it><![CDATA[Posizione della filigrana]]></it>
+        </locale>
+        <locale name="exception.media.check.name.dots">
+            <it><![CDATA[<p>Il nome contiene caratteri non consentiti.<br />Non è consentito utilizzare punti.<br />&nbsp;</p>]]></it>
+        </locale>
+        <locale name="exception.media.check.name.underline">
+            <it><![CDATA[<p>Il nome contiene caratteri non consentiti.<br />Non è consentito utilizzare doppi trattini bassi.</p>]]></it>
+        </locale>
+        <locale name="exception.media.check.name.allowed.signs">
+            <it><![CDATA[<p>Il nome &quot;[filename]&quot; contiene caratteri non consentiti.<br />Sono consentiti i seguenti caratteri: 0-9 a-z A-Z _ -</p>]]></it>
+        </locale>
+        <locale name="exception.media.check.foldername.allowed.signs">
+            <it><![CDATA[<p>Il nome &quot;[foldername]&quot; contiene caratteri non consentiti.<br />Sono consentiti i seguenti caratteri: 0-9 a-z A-Z _ -</p>]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.message.save.success">
+            <it><![CDATA[Il file è stato salvato correttamente]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.message.save.success">
+            <it><![CDATA[La cartella è stata salvata correttamente]]></it>
+        </locale>
+        <locale name="upload.manager.title">
+            <it><![CDATA[Caricamenti]]></it>
+        </locale>
+        <locale name="upload.manager.clear">
+            <it><![CDATA[Svuota i caricamenti]]></it>
+        </locale>
+        <locale name="projects.project.sitemap.media">
+            <it><![CDATA[Media]]></it>
+        </locale>
+        <locale name="projects.project.site.media.input.select.alt">
+            <it><![CDATA[Seleziona immagine]]></it>
+        </locale>
+        <locale name="projects.project.site.media.input.select.title">
+            <it><![CDATA[Seleziona immagine]]></it>
+        </locale>
+        <locale name="projects.project.site.media.input.clear.alt">
+            <it><![CDATA[Svuota campo]]></it>
+        </locale>
+        <locale name="projects.project.site.media.input.clear.title">
+            <it><![CDATA[Svuota campo]]></it>
+        </locale>
+        <locale name="projects.project.site.media.input.cssclass.alt">
+            <it><![CDATA[Seleziona icona]]></it>
+        </locale>
+        <locale name="projects.project.site.media.input.cssclass.title">
+            <it><![CDATA[Seleziona icona]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.save.text">
+            <it><![CDATA[Salva]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.delete.text">
+            <it><![CDATA[Elimina]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.replace.text">
+            <it><![CDATA[Sostituisci con ...]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.activate.text">
+            <it><![CDATA[Attiva]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.deactivate.text">
+            <it><![CDATA[Disattiva]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.details.text">
+            <it><![CDATA[Dettagli]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.preview.text">
+            <it><![CDATA[Anteprima]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.openFile.title">
+            <it><![CDATA[Apri file]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.openFile.alt">
+            <it><![CDATA[Apri file]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.downloadFile.title">
+            <it><![CDATA[Scarica file]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.downloadFile.alt">
+            <it><![CDATA[Il file verrà spostato nel cestino e potrà essere ripristinato]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.cache.clear">
+            <it><![CDATA[Svuota la cache dei media per questo file.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.title">
+            <it><![CDATA[Vuoi davvero eliminare il file [file]?]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.text">
+            <it><![CDATA[Vuoi davvero eliminare il file [file]?]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.information">
+            <it><![CDATA[Vuoi davvero eliminare il file [file]?]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.permissions">
+            <it><![CDATA[Imposta i diritti di accesso ai media]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.title">
+            <it><![CDATA[Gestione dei media]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.text">
+            <it><![CDATA[Generale]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.title">
+            <it><![CDATA[Generale]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.select">
+            <it><![CDATA[Seleziona un progetto per il calcolo MD5...]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.title">
+            <it><![CDATA[Avvia calcolo]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.alt">
+            <it><![CDATA[Avvia calcolo MD5]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.select">
+            <it><![CDATA[Seleziona un progetto per il calcolo SHA1...]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.title">
+            <it><![CDATA[Avvia calcolo]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.alt">
+            <it><![CDATA[Avvia calcolo SHA1]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.sitemap.show">
+            <it><![CDATA[Mostra mappa del sito]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.title">
+            <it><![CDATA[Vista:]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.symbols">
+            <it><![CDATA[Vista a icone]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.details">
+            <it><![CDATA[Elenco dettagliato]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.preview">
+            <it><![CDATA[Anteprima]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.create">
+            <it><![CDATA[Crea nuova cartella]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload">
+            <it><![CDATA[Carica file]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload.files">
+            <it><![CDATA[Carica file]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload.archive">
+            <it><![CDATA[Carica ed estrai archivio]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.filter.placeholder">
+            <it><![CDATA[Filtro...]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.title">
+            <it><![CDATA[Media ([project])]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.hide">
+            <it><![CDATA[Avvisi disattivati]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.hide.title">
+            <it><![CDATA[Nascondi gli avvisi per titoli e testi alternativi mancanti]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.show">
+            <it><![CDATA[Avvisi attivati]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.show.title">
+            <it><![CDATA[Mostra gli avvisi per titoli e testi alternativi mancanti]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.badge.title.missing">
+            <it><![CDATA[Titolo mancante]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.badge.alt.missing">
+            <it><![CDATA[Testo alternativo mancante]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.file.broken">
+            <it><![CDATA[Il file è danneggiato #[id] [name]]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.grid.alt">
+            <it><![CDATA[Attributo alt]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.upload.extract.text">
+            <it><![CDATA[<h2><span class="fa fa-upload"></span>Caricamento archivio</h2><p>Carica file di archivio nella cartella media.</p><p>Gli archivi verranno estratti immediatamente.</p>]]></it>
+        </locale>
+        <locale name="projects.project.site.media.panel.upload.text">
+            <it><![CDATA[<h2><span class="fa fa-upload"></span>Caricamento file</h2><p>Carica file nella cartella media.</p>]]></it>
+        </locale>
+        <locale name="projects.project.site.media.priority.btn.save">
+            <it><![CDATA[Salva priorità]]></it>
+        </locale>
+        <locale name="projects.project.site.media.priority.sheet.title">
+            <it><![CDATA[Modifica priorità]]></it>
+        </locale>
+        <locale name="projects.project.site.folder.create.title">
+            <it><![CDATA[Crea nuova cartella]]></it>
+        </locale>
+        <locale name="projects.project.site.folder.create.information">
+            <it><![CDATA[Inserisci il nome della nuova cartella]]></it>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.title">
+            <it><![CDATA[Sono stati rilevati caratteri non consentiti]]></it>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.text">
+            <it><![CDATA[Sono stati rilevati caratteri non consentiti]]></it>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.information">
+            <it><![CDATA[Vuoi sostituire i caratteri?<br /><br />Verrà utilizzato il seguente nome di cartella:<br /><b>[newName]</b>]]></it>
+        </locale>
+        <locale name="projects.project.site.panel.btn.media">
+            <it><![CDATA[Media]]></it>
+        </locale>
+        <locale name="projects.project.panel.media">
+            <it><![CDATA[Media]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.trash">
+            <it><![CDATA[Sposta nel cestino]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.allElements">
+            <it><![CDATA[Tutti gli elementi selezionati]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.move">
+            <it><![CDATA[Sposta in un'altra cartella]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.replace">
+            <it><![CDATA[Sostituisci file ...]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.download">
+            <it><![CDATA[Scarica file]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.folder.download">
+            <it><![CDATA[Scarica cartella]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.markAll">
+            <it><![CDATA[Seleziona tutto]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.replaceFile">
+            <it><![CDATA[Sostituisci il file con [file]]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.copyLocation">
+            <it><![CDATA[Copia qui]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.moveLocation">
+            <it><![CDATA[Sposta qui]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.uploadLocation">
+            <it><![CDATA[Carica qui]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.publish">
+            <it><![CDATA[Pubblica]]></it>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.unpublish">
+            <it><![CDATA[Non pubblicare]]></it>
+        </locale>
+        <locale name="file.message.corrupt.file">
+            <it><![CDATA[Il file contiene errori e non può essere caricato.<br />Carica un altro file.]]></it>
+        </locale>
+        <locale name="file.upload.cancel.title">
+            <it><![CDATA[Annulla caricamento]]></it>
+        </locale>
+        <locale name="file.upload.cancel.text">
+            <it><![CDATA[Vuoi davvero annullare il caricamento?]]></it>
+        </locale>
+        <locale name="file.upload.cancel.information">
+            <it><![CDATA[Vuoi davvero annullare il caricamento del file <b>[file]</b>?]]></it>
+        </locale>
+        <locale name="file.upload.remove">
+            <it><![CDATA[Rimuovi dall'elenco]]></it>
+        </locale>
+        <locale name="file.upload.unknown.filetype">
+            <it><![CDATA[Il tipo di file è sconosciuto.<br />Seleziona solo file e immagini per il caricamento.<br />Le cartelle possono essere caricate solo come archivi.]]></it>
+        </locale>
+        <locale name="upload.manager.message.not.finish">
+            <it><![CDATA[Ci sono caricamenti incompleti nella gestione dei caricamenti.<br />Riprendili o annullali.]]></it>
+        </locale>
+        <locale name="upload.manager.message.archivfile.title">
+            <it><![CDATA[Trovati file di archivio]]></it>
+        </locale>
+        <locale name="upload.manager.message.archivfile.text">
+            <it><![CDATA[Stai per caricare i seguenti archivi.<br />Vuoi estrarli subito?]]></it>
+        </locale>
+        <locale name="upload.manager.message.archivfile.btn.start">
+            <it><![CDATA[Avvia caricamento]]></it>
+        </locale>
+        <locale name="upload.manager.message.archivfile.label">
+            <it><![CDATA[Estrai [file]]]></it>
+        </locale>
+        <locale name="upload.form.btn.add.text">
+            <it><![CDATA[Seleziona file]]></it>
+        </locale>
+        <locale name="upload.form.btn.send.text">
+            <it><![CDATA[Avvia il caricamento]]></it>
+        </locale>
+        <locale name="upload.form.btn.send.title">
+            <it><![CDATA[Avvia caricamento]]></it>
+        </locale>
+        <locale name="upload.form.btn.send.alt">
+            <it><![CDATA[Avvia caricamento]]></it>
+        </locale>
+        <locale name="upload.form.btn.change.alt">
+            <it><![CDATA[Avvia caricamento]]></it>
+        </locale>
+        <locale name="upload.form.btn.change.title">
+            <it><![CDATA[Fai clic per selezionare un altro file ...]]></it>
+        </locale>
+        <locale name="upload.form.message.limit">
+            <it><![CDATA[Puoi caricare al massimo [limit] file contemporaneamente.]]></it>
+        </locale>
+        <locale name="upload.form.info.text">
+            <it><![CDATA[Caricamento ...]]></it>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.title">
+            <it><![CDATA[Inserimento di un file / una cartella inattivi]]></it>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.text">
+            <it><![CDATA[Stai per inserire un file o una cartella inattivi.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.popup.noProject.text">
+            <it><![CDATA[Non è stato assegnato alcun progetto.<br />Seleziona un progetto dal quale scegliere i file.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.information">
+            <it><![CDATA[I file inattivi non possono essere inseriti. Vuoi attivare questo file?]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.btn.cancel">
+            <it><![CDATA[Annulla]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.btn.start">
+            <it><![CDATA[Continua]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.message">
+            <it><![CDATA[<p>Vuoi davvero caricare i file?</p>]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.text">
+            <it><![CDATA[Avvia calcolo MD5]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.no.folder">
+            <it><![CDATA[Non è stata selezionata alcuna cartella.]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.empty">
+            <it><![CDATA[Non ci sono immagini in questa cartella.]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.createNewFolderButton">
+            <it><![CDATA[Crea nuova cartella media]]></it>
+        </locale>
+        <locale name="projects.project.media.fileviewer.empty">
+            <it><![CDATA[Non ci sono file in questa cartella.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.btn.effectsRecursive">
+            <it><![CDATA[Applica gli effetti ricorsivamente]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.no.watermark">
+            <it><![CDATA[Nessuna filigrana]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.project.watermark">
+            <it><![CDATA[Usa la filigrana del progetto]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.own.watermark">
+            <it><![CDATA[Usa una filigrana personalizzata]]></it>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.title">
+            <it><![CDATA[Applica gli effetti ricorsivamente]]></it>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.text">
+            <it><![CDATA[Vuoi applicare ricorsivamente gli effetti della cartella?]]></it>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.information">
+            <it><![CDATA[Tutte le modifiche alla cartella verranno salvate. Gli effetti della cartella verranno applicati ricorsivamente a tutte le <u>immagini</u> e le <u>cartelle</u>.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.title">
+            <it><![CDATA[Vuoi davvero eliminare la cartella [folder]?]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.text">
+            <it><![CDATA[Vuoi davvero eliminare la cartella [folder]?]]></it>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.information">
+            <it><![CDATA[Tutte le immagini e le sottocartelle verranno spostate nel cestino.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.effects.text">
+            <it><![CDATA[Effetti immagine]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.external">
+            <it><![CDATA[URL esterno]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.external.description">
+            <it><![CDATA[Inserisci qui l'URL di un'immagine esterna. QUIQQER scaricherà regolarmente l'immagine esterna e aggiornerà questa immagine. Tieni presente che, se l'immagine esterna non è più raggiungibile, questa immagine verrà disattivata.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.external.button">
+            <it><![CDATA[Aggiorna immagine]]></it>
+        </locale>
+        <locale name="projects.project.media.folderviewer.btn.diashow">
+            <it><![CDATA[Avvia presentazione]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.text">
+            <it><![CDATA[Avvia calcolo SHA1]]></it>
+        </locale>
+        <locale name="projects.project.site.folder.has.no.images">
+            <it><![CDATA[Non sono state trovate immagini nella cartella.]]></it>
+        </locale>
+        <locale name="upload.form.btn.cancel.alt">
+            <it><![CDATA[Annulla caricamento]]></it>
+        </locale>
+        <locale name="upload.form.btn.cancel.title">
+            <it><![CDATA[Annulla caricamento]]></it>
+        </locale>
+        <locale name="upload.form.btn.cancel.text">
+            <it><![CDATA[Annulla il caricamento]]></it>
+        </locale>
+        <locale name="upload.form.info.max.text">
+            <it><![CDATA[[count] caricamenti utilizzati su [max].]]></it>
+        </locale>
+        <locale name="upload.form.background.text">
+            <it><![CDATA[<p>Per aggiungere un file, fai clic su <u>Seleziona file</u> oppure<br />trascina un file in questo campo.</p>]]></it>
+        </locale>
+        <locale name="exception.media.not.a.folder">
+            <it><![CDATA[Questa non è una cartella.]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.tpl.title">
+            <it><![CDATA[Ricalcola gli hash dei file]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.recalc.md5">
+            <it><![CDATA[Ricalcola gli hash MD5 dei file:]]></it>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.recalc.sha1">
+            <it><![CDATA[Ricalcola gli hash SHA1 dei file:]]></it>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media">
+            <it><![CDATA[Impostazioni dei media]]></it>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.info">
+            <it><![CDATA[Specifica quali immagini sono associate alla pagina.]]></it>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.emotion_image">
+            <it><![CDATA[Immagine emozionale]]></it>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.site_image">
+            <it><![CDATA[Immagine della pagina]]></it>
+        </locale>
+        <locale name="template.project.media.file.header">
+            <it><![CDATA[Informazioni sul file]]></it>
+        </locale>
+        <locale name="template.project.media.file.alttext">
+            <it><![CDATA[Testo alternativo]]></it>
+        </locale>
+        <locale name="template.project.media.folder.path">
+            <it><![CDATA[Percorso della cartella]]></it>
+        </locale>
+        <locale name="template.project.media.folder.size">
+            <it><![CDATA[Dimensione della cartella]]></it>
+        </locale>
+        <locale name="template.project.media.file.path">
+            <it><![CDATA[Percorso del file]]></it>
+        </locale>
+        <locale name="template.project.media.file.lastedit">
+            <it><![CDATA[Ultima modifica il]]></it>
+        </locale>
+        <locale name="template.project.media.file.dimension">
+            <it><![CDATA[Dimensioni]]></it>
+        </locale>
+        <locale name="template.project.media.properties.header">
+            <it><![CDATA[Proprietà del file]]></it>
+        </locale>
+        <locale name="exception.file.not.found">
+            <it><![CDATA[Il file [file] non è stato trovato.]]></it>
+        </locale>
+        <locale name="template.project.media.watermark.header">
+            <it><![CDATA[Impostazione della filigrana]]></it>
+        </locale>
+        <locale name="exception.media.file.already.exists">
+            <it><![CDATA[Esiste già un file con il nome [filename].]]></it>
+        </locale>
+        <locale name="exception.media.folder.already.exists">
+            <it><![CDATA[Esiste già una cartella con il nome [name].]]></it>
+        </locale>
+        <locale name="watermark.position.top.right">
+            <it><![CDATA[in alto a destra]]></it>
+        </locale>
+        <locale name="watermark.position.top">
+            <it><![CDATA[in alto al centro]]></it>
+        </locale>
+        <locale name="watermark.position.top.left">
+            <it><![CDATA[in alto a sinistra]]></it>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.media">
+            <it><![CDATA[Impostazioni dei media]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize">
+            <it><![CDATA[Dimensione massima di un'immagine]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize.description">
+            <it><![CDATA[Le immagini che superano il valore indicato in larghezza o altezza vengono ridimensionate automaticamente dopo il caricamento.]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.description">
+            <it><![CDATA[Nota: modificare la filigrana elimina l'intera cache dei media.]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.title">
+            <it><![CDATA[Impostazioni dei media]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.upload.title">
+            <it><![CDATA[Impostazioni di caricamento dei media]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark">
+            <it><![CDATA[Filigrana globale]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.position">
+            <it><![CDATA[Posizione della filigrana]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.ratio">
+            <it><![CDATA[Dimensione della filigrana]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.media_useImageScale">
+            <it><![CDATA[Immagini responsive (fattore di scala)]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.media_useImageScale.description">
+            <it><![CDATA[Questo valore determina il DPR con cui caricare l'immagine. 1x corrisponde a uno schermo normale con densità di pixel singola, 2x indica schermi ad alta risoluzione con densità di pixel pari a 2 (ad esempio i display Retina di Apple), 3x e oltre indica schermi con risoluzioni ancora maggiori. (Predefinito: 2x)]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheSizeRounding">
+            <it><![CDATA[Raggruppa le dimensioni delle immagini nella cache]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheSizeRounding.description">
+            <it><![CDATA[Arrotonda le dimensioni maggiori delle immagini nella cache a intervalli fissi per limitare il numero di varianti generate. Se l'opzione è disattivata, vengono generate esattamente tutte le dimensioni richieste.]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheExactSizeThreshold">
+            <it><![CDATA[Dimensioni esatte delle immagini nella cache fino a]]></it>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheExactSizeThreshold.description">
+            <it><![CDATA[Le immagini il cui lato di destinazione più corto non supera questo valore non vengono arrotondate. In questo modo soprattutto loghi e icone piccoli rimangono nitidi. Il valore 0 disattiva questa eccezione.]]></it>
+        </locale>
+
+
+        <locale name="watermark.position.bottom.right">
+            <it><![CDATA[in basso a destra]]></it>
+        </locale>
+        <locale name="watermark.position.bottom">
+            <it><![CDATA[in basso al centro]]></it>
+        </locale>
+        <locale name="watermark.position.left">
+            <it><![CDATA[a sinistra al centro]]></it>
+        </locale>
+        <locale name="watermark.position.center">
+            <it><![CDATA[al centro]]></it>
+        </locale>
+        <locale name="watermark.position.right">
+            <it><![CDATA[a destra al centro]]></it>
+        </locale>
+        <locale name="watermark.position.bottom.left">
+            <it><![CDATA[in basso a sinistra]]></it>
+        </locale>
+        <locale name="media.item.hide">
+            <it><![CDATA[Nascondi]]></it>
+        </locale>
+        <locale name="media.item.visible">
+            <it><![CDATA[Mostra]]></it>
+        </locale>
+        <locale name="media.items.hide">
+            <it><![CDATA[Nascondi tutto]]></it>
+        </locale>
+        <locale name="media.items.visible">
+            <it><![CDATA[Mostra tutto]]></it>
+        </locale>
+        <locale name="media.panel.view.hiddenItems.show">
+            <it><![CDATA[Mostra file nascosti]]></it>
+        </locale>
+        <locale name="media.panel.view.hiddenItems.hide">
+            <it><![CDATA[Nascondi file nascosti]]></it>
+        </locale>
+
+        <locale name="exception.upload.error">
+            <it><![CDATA[Si è verificato un errore durante il caricamento del file. Controlla la connessione di rete.]]></it>
+        </locale>
+        <locale name="upload.successful">
+            <it><![CDATA[[file] è stato caricato correttamente]]></it>
+        </locale>
+        <locale name="upload.bulk.successful">
+            <it><![CDATA[[count] file sono stati caricati correttamente in [folder].]]></it>
+        </locale>
+        <locale name="upload.bulk.message">
+            <it><![CDATA[[done] file caricati su [total]]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.delete.originalfile.notfound">
+            <it><![CDATA[Il file non è stato trovato nel file system. Per questo motivo verrà eliminato completamente.]]></it>
+        </locale>
+        <locale name="exception.delete.root.file">
+            <it><![CDATA[Non puoi eliminare la cartella principale.]]></it>
+        </locale>
+        <locale name="exception.zip.extension.not.installed">
+            <it><![CDATA[Impossibile eseguire l'azione. L'estensione ZIP di PHP non è presente nel sistema.]]></it>
+        </locale>
+        <locale name="exception.zip.folder.is.empty">
+            <it><![CDATA[Impossibile creare un file ZIP perché la cartella è vuota.]]></it>
+        </locale>
+        <locale name="exception.image.upload.image.corrupted">
+            <it><![CDATA[L'immagine contiene dati errati o danneggiati. Per questo motivo il caricamento non è riuscito. Ulteriori informazioni sull'errore sono disponibili in error.log.]]></it>
+        </locale>
+        <locale name="exception.media.already.deleted">
+            <it><![CDATA[Il file è già stato eliminato.]]></it>
+        </locale>
+        <locale name="exception.media.file.with.same.name.exists">
+            <it><![CDATA[Esiste già un file con il nome [name]. Scegli un altro nome.]]></it>
+        </locale>
+        <locale name="exception.media.create.folder.only.in.folder">
+            <it><![CDATA[Puoi creare una cartella solo all'interno di un'altra cartella.]]></it>
+        </locale>
+
+        <locale name="exception.trash.file.not.found">
+            <it><![CDATA[Non sono stati trovati dati per il file. Il file non può essere ripristinato.]]></it>
+        </locale>
+        <locale name="exception.trash.file.id.not.found">
+            <it><![CDATA[Impossibile trovare il file con ID #[id] nel cestino.]]></it>
+        </locale>
+        <locale name="exception.folder.has.no.images">
+            <it><![CDATA[La cartella non contiene immagini.]]></it>
+        </locale>
+        <locale name="exception.folder.has.no.files">
+            <it><![CDATA[La cartella non contiene file.]]></it>
+        </locale>
+        <locale name="exception.upload.count.limit">
+            <it><![CDATA[Non puoi caricare altri file.]]></it>
+        </locale>
+        <locale name="exception.upload.not.allowed.mimetype">
+            <it><![CDATA[Non sei autorizzato a caricare questo file.]]></it>
+        </locale>
+        <locale name="exception.upload.not.allowed.ending">
+            <it><![CDATA[Non sei autorizzato a caricare questo file.]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="folderviewer.create.folder" html="true">
+            <it><![CDATA[<p>Non è stata assegnata alcuna cartella.</p><p>Vuoi creare una nuova cartella?</p><br />]]></it>
+        </locale>
+        <locale name="control.media.select.search.field.placeholder">
+            <it><![CDATA[Cerca un file multimediale ...]]></it>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.title">
+            <it><![CDATA[File già presente]]></it>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.text">
+            <it><![CDATA[Vuoi rinominare il file appena caricato?]]></it>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.information" html="true">
+            <it><![CDATA[I seguenti nomi esistono già. Durante la ridenominazione verranno utilizzati nomi disponibili: [files]]]></it>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.rename">
+            <it><![CDATA[Rinomina]]></it>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.overwrite">
+            <it><![CDATA[Sovrascrivi]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.title">
+            <it><![CDATA[Carica file]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.text">
+            <it><![CDATA[Caricare i file ora?]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.information" html="true">
+            <it><![CDATA[I file dagli appunti verranno caricati nella seguente cartella: <b>[folder]</b>]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.submit">
+            <it><![CDATA[Carica ora]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.title">
+            <it><![CDATA[Sostituisci immagine]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.text">
+            <it><![CDATA[Sostituire l'immagine ora?]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.information" html="true">
+            <it><![CDATA[L'immagine dagli appunti sostituirà il seguente file: <b>[file]</b>]]></it>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.submit">
+            <it><![CDATA[Sostituisci ora]]></it>
+        </locale>
+        <locale name="projects.media.context.move.element.select.message">
+            <it><![CDATA[Seleziona una cartella]]></it>
+        </locale>
+        <locale name="control.media.create.folder.window.title">
+            <it><![CDATA[Crea nuova cartella media]]></it>
+        </locale>
+        <locale name="control.media.create.folder.window.back.button.title">
+            <it><![CDATA[Indietro]]></it>
+        </locale>
+        <locale name="control.media.create.folder.window.continue.button.title">
+            <it><![CDATA[Avanti]]></it>
+        </locale>
+
+        <locale name="control.upload.icon.submit">
+            <it><![CDATA[Carica]]></it>
+        </locale>
+        <locale name="control.upload.placeholder">
+            <it><![CDATA[Seleziona un file...]]></it>
+        </locale>
+
+        <locale name="message.quiqqer.project.media.fileCacheClear.success">
+            <it><![CDATA[La cache dei media è stata eliminata correttamente.]]></it>
+        </locale>
+
+        <locale name="control.project.input.ratio.warning">
+            <it><![CDATA[Le immagini potrebbero risultare sfocate durante il ridimensionamento perché la larghezza o l'altezza è dispari.]]></it>
+        </locale>
+    </groups>
+</locales>
