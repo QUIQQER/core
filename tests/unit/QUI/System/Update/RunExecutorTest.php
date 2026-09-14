@@ -41,6 +41,8 @@ class RunExecutorTest extends TestCase
         $this->assertSame([$run->getState()->getId()], $action->executedRunIds);
         $this->assertSame(RunState::PHASE_PREPARED, $state->getPhase());
         $this->assertSame(RunState::PHASE_PREPARED, $loaded->getPhase());
+        $this->assertSame(getmypid(), $loaded->getProcess()['pid']);
+        $this->assertSame('runner', $loaded->getProcess()['method']);
     }
 
     public function testExecuteCanMarkRestartRequired(): void
@@ -134,6 +136,46 @@ class RunExecutorTest extends TestCase
 
         $this->assertSame(RunState::PHASE_FAILED, $state->getPhase());
         $this->assertSame('action failed', $state->toArray()['errorMessage']);
+    }
+
+    public function testExecuteRestoresSignalHandlersAfterSuccessAndFailure(): void
+    {
+        if (!extension_loaded('pcntl')) {
+            $this->markTestSkipped('Signal handler restoration requires pcntl.');
+        }
+
+        $previousInt = pcntl_signal_get_handler(SIGINT);
+        $previousTerm = pcntl_signal_get_handler(SIGTERM);
+        $previousAsync = pcntl_async_signals();
+        $handler = static function (): void {
+        };
+        pcntl_signal(SIGINT, $handler);
+        pcntl_signal(SIGTERM, $handler);
+        pcntl_async_signals(false);
+
+        try {
+            foreach ([new RecordingUpdateRunAction(RunActionResult::finished()), new FailingUpdateRunAction()] as $action) {
+                $repository = new RunRepository($this->root);
+                $run = $repository->create();
+
+                try {
+                    (new RunExecutor($repository, [RunState::PHASE_CREATED => $action]))->execute(
+                        $run->getState()->getId(),
+                        $run->getToken()
+                    );
+                } catch (RuntimeException $exception) {
+                    $this->assertSame('action failed', $exception->getMessage());
+                }
+
+                $this->assertSame($handler, pcntl_signal_get_handler(SIGINT));
+                $this->assertSame($handler, pcntl_signal_get_handler(SIGTERM));
+                $this->assertFalse(pcntl_async_signals());
+            }
+        } finally {
+            pcntl_signal(SIGINT, $previousInt);
+            pcntl_signal(SIGTERM, $previousTerm);
+            pcntl_async_signals($previousAsync);
+        }
     }
 
     private function deleteDirectory(string $directory): void

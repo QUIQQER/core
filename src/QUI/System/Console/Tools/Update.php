@@ -29,7 +29,6 @@ use function ob_start;
 use function preg_replace;
 use function preg_split;
 use function proc_close;
-use function proc_get_status;
 use function proc_open;
 use function rtrim;
 use function flush;
@@ -552,7 +551,7 @@ class Update extends QUI\System\Console\Tool
         $maxRuns = 5;
 
         do {
-            $exitCode = $this->executeRunProcess($Repository, $Launch);
+            $exitCode = $this->executeRunProcess($Launch);
 
             if ($exitCode !== 0) {
                 exit($exitCode);
@@ -571,10 +570,8 @@ class Update extends QUI\System\Console\Tool
         }
     }
 
-    private function executeRunProcess(
-        QUI\System\Update\RunRepository $Repository,
-        QUI\System\Update\RunLaunch $Launch
-    ): int {
+    private function executeRunProcess(QUI\System\Update\RunLaunch $Launch): int
+    {
         $command = $Launch->getCliCommand();
 
         if (!function_exists('proc_open')) {
@@ -590,15 +587,6 @@ class Update extends QUI\System\Console\Tool
 
         if (!is_resource($process)) {
             return 1;
-        }
-
-        $status = proc_get_status($process);
-        $pid = (int)$status['pid'];
-
-        if ($pid > 0) {
-            $State = $Repository->load($Launch->getRun()->getState()->getId());
-            $State->setProcess($pid, $command, time());
-            $Repository->save($State);
         }
 
         return proc_close($process);
