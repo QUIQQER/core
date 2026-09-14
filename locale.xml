@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
-    <file file="/src/locale/de.xml"/>
-    <file file="/src/locale/de.system.xml"/>
-    <file file="/src/locale/de.languages.xml"/>
-    <file file="/src/locale/de.qui.xml"/>
+    <file file="/locale/de.xml"/>
+    <file file="/locale/de.system.xml"/>
+    <file file="/locale/de.qui.xml"/>
 
-    <file file="/src/locale/en.xml"/>
-    <file file="/src/locale/en.system.xml"/>
-    <file file="/src/locale/en.languages.xml"/>
-    <file file="/src/locale/en.qui.xml"/>
+    <file file="/locale/en.xml"/>
+    <file file="/locale/en.system.xml"/>
+    <file file="/locale/en.qui.xml"/>
 
-    <file file="/src/locale/pl.xml"/>
+    <file file="/locale/pl.xml"/>
 </locales>

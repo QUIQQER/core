@@ -389,7 +389,7 @@ final class ConsolePasswordResetTest extends TestCase
 
     private function getLocaleText(string $language, string $localeName): string
     {
-        $localeFile = dirname(__DIR__, 4) . '/src/locale/' . $language . '.xml';
+        $localeFile = dirname(__DIR__, 4) . '/locale/' . $language . '.xml';
         $Xml = simplexml_load_file($localeFile);
 
         self::assertInstanceOf(SimpleXMLElement::class, $Xml);

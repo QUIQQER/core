@@ -49,7 +49,7 @@ class McpPermissionDefinitionTest extends TestCase
         foreach (['de', 'en'] as $language) {
             $Document = new DOMDocument();
             self::assertTrue($Document->load(
-                dirname(__DIR__, 4) . '/src/locale/' . $language . '.xml'
+                dirname(__DIR__, 4) . '/locale/' . $language . '.xml'
             ));
 
             $XPath = new DOMXPath($Document);
