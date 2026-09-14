@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/core" datatype="php">
 
@@ -283,3 +284,4 @@ También puedes omitir la comprobación de permisos de usuario de la consola con
         </locale>
     </groups>
 </locales>
+</quiqqer>

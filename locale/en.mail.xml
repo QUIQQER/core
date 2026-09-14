@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
         <locale name="text.mail.subject">
@@ -640,3 +641,4 @@ After logging in you will be prompted to set a new password.
         </locale>
     </groups>
 </locales>
+</quiqqer>

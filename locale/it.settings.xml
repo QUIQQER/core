@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
         <locale name="processLocks.title">
@@ -890,3 +891,4 @@ Nota: se QUIQQER è installato come repository GIT, il file delle somme MD5 non 
         </locale>
     </groups>
 </locales>
+</quiqqer>

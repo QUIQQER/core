@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  deprecated -->
+<quiqqer>
 <locales>
     <groups name="quiqqer/system" datatype="js,php">
         <locale name="yes">
@@ -3650,3 +3651,4 @@
         </locale>
     </groups>
 </locales>
+</quiqqer>

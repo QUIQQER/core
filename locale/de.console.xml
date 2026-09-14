@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/core" datatype="php">
 
@@ -314,3 +315,4 @@ Du kannst die Benutzerrechteprüfung der Konsole auch mit '--ignore-file-permiss
         </locale>
     </groups>
 </locales>
+</quiqqer>

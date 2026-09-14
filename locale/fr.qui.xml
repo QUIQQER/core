@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/qui" datatype="js">
         <locale name="handler.button.clear">
@@ -18,3 +19,4 @@
         </locale>
     </groups>
 </locales>
+</quiqqer>

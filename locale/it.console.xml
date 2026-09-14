@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/core" datatype="php">
 
@@ -284,3 +285,4 @@ Puoi anche ignorare il controllo dei permessi dell'utente con '--ignore-file-per
         </locale>
     </groups>
 </locales>
+</quiqqer>

@@ -8,6 +8,7 @@
 <!-- locale/permissions quiqqer.site.edit._title -->
 <!-- locale/permissions quiqqer.site.edit._descrition -->
 
+<quiqqer>
 <permissions>
 
     <!-- standard quiqqer permissions -->
@@ -308,3 +309,4 @@
     </permission>
 
 </permissions>
+</quiqqer>

@@ -1,3 +1,4 @@
+<quiqqer>
 <locales>
 
     <groups name="quiqqer/controls" datatype="js">
@@ -8,3 +9,4 @@
     </groups>
 
 </locales>
+</quiqqer>

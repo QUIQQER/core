@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <menu>
 
     <item parent="/" name="quiqqer">
@@ -165,3 +166,4 @@
     </item>
 
 </menu>
+</quiqqer>

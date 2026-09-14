@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <groups name="quiqqer/core" datatype="php">
 
@@ -284,3 +285,4 @@ Também pode ignorar a verificação de permissões do utilizador da consola com
         </locale>
     </groups>
 </locales>
+</quiqqer>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
 <locales>
     <!-- Deutsch -->
     <file file="/locale/de.xml"/>
@@ -109,3 +110,4 @@
     <file file="/locale/pt.console.xml"/>
     <file file="/locale/pt.qui.xml"/>
 </locales>
+</quiqqer>
