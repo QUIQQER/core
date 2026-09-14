@@ -304,10 +304,10 @@
                 <conf name="memcache_data">
                     <type><![CDATA[string]]></type>
                 </conf>
-                <locale name="regenerate">
+                <conf name="regenerate">
                     <type><![CDATA[integer]]></type>
                     <defaultvalue>0</defaultvalue>
-                </locale>
+                </conf>
             </section>
 
             <section name="session_redis">
