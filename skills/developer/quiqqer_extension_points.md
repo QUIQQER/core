@@ -156,6 +156,13 @@ Language files put `<groups name="vendor/package" datatype="php,js">` inside `qu
 attributes, translation text, CDATA, and meaningful whitespace. Partial snippets such as `<field>` or `<category>`
 remain fragments; place them inside the documented parent structure rather than wrapping each fragment separately.
 
+In UI `<settings>` groups, use `<title>` for the heading and `<description>` for explanatory content. Direct `<text>`
+children are deprecated and rejected by the XSDs, but remain readable for compatibility. When updating a legacy group,
+replace body text with `<description>` and a `<text>` used as the heading with `<title>`; the Settings reader retains its
+old first-text-as-title fallback. Descriptions support plain text, locale references, and CDATA, preserve their position
+among the controls, and never become the heading. `<text>` labels inside inputs, other controls, categories, and tabs
+remain supported. Apply this rule to settings groups in package/project settings, user, group, site, and panel XML.
+
 ### Compatibility And Scope
 
 - Core and Utils continue to read legacy roots such as `<events>`, `<user>`, and `<locales>` for backward compatibility.
