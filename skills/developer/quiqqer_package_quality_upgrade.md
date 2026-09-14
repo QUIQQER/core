@@ -311,6 +311,9 @@ Follow `https://quiqqer.com/docs/developer/package-development#composer-metadata
 
 ### `package.xml`, Locales, And Images
 
+- For XML structure, schema links, and validation, follow
+  [XML Structure And XSDs](./quiqqer_extension_points.md#xml-structure-and-xsds). New or structurally revised Core/Utils
+  XML documents use `<quiqqer>` with the matching XSD; existing legacy roots remain readable but fail schema validation.
 - Verify localized title and short description, package image reference, support information, copyright, license, and all
   referenced locale variables. Ensure English locale text exists.
 - Preserve suitable package descriptions, locale wording, support text, and other module-facing text. Edit only concrete
@@ -333,6 +336,8 @@ locales, apply this section without starting the unrelated toolchain, test-cover
 
 #### Flat Language Files
 
+- Use `quiqqer/locales` in the manifest and every language/topic file, linking `locale.xsd` on the outer `<quiqqer>`
+  element. Keep file references or translation groups inside `<locales>`; a split does not change their structure.
 - Store language XML files directly in the package-root `locale/` directory. Keep the root `locale.xml` as the manifest
   referencing them with paths such as `/locale/de.xml`.
 - When the source-language catalog contains more than 50 distinct `(group, variable)` pairs, split it into thematic
@@ -383,6 +388,8 @@ runtime memory reduction when the loader still loads the entire group.
 
 Parse the manifest and every referenced XML file. Check that referenced paths exist, intended language files are included
 exactly once, source keys have the required target translations, and no unresolved duplicate definitions were introduced.
+Validate the manifest and each changed language file separately against `locale.xsd` using the extension skill's XSD
+validation instructions. A valid manifest alone does not establish that its referenced catalogs are valid.
 Compare the catalog before and after a structural change, including metadata, translation text, and the effective values
 of duplicate keys. Account explicitly for intended translation additions or duplicate removals. Use QUIQQER's XML reader
 to check import interpretation when changing the file structure; do not publish translations or import into a live database

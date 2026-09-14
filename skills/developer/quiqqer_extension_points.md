@@ -58,7 +58,9 @@ Declare direct runtime dependencies in `require`. Use `suggest` for optional int
 Use `package.xml` for QUIQQER-facing metadata and providers:
 
 ```xml
-<quiqqer>
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/package.xsd">
     <package>
         <title>
             <locale group="vendor/package" var="package.title"/>
@@ -105,15 +107,98 @@ Use the smallest XML surface needed:
 
 Setup imports package XML files. Run `./console setup` after adding or changing XML metadata in a development installation.
 
+## XML Structure And XSDs
+
+Use `<quiqqer>` as the document root for new or structurally revised XML files read by Core and Utils. Keep the
+format-specific element inside it. Files that already have this root must not receive a second wrapper.
+
+Common structures and schema names:
+
+| XML file | Structure below the document root | XSD |
+| --- | --- | --- |
+| `package.xml` | `quiqqer/package` | `package.xsd` |
+| `console.xml`, `events.xml`, `database.xml` | `quiqqer/console`, `quiqqer/events`, `quiqqer/database` | Matching file stem + `.xsd` |
+| `user.xml`, `group.xml`, `site.xml` | `quiqqer/user`, `quiqqer/group`, `quiqqer/site` | Matching file stem + `.xsd` |
+| `locale.xml` and every language/topic XML | `quiqqer/locales` | `locale.xsd` |
+| Package `settings.xml` | `quiqqer/settings` | `settings.xsd` |
+| Project `settings.xml` | `quiqqer/project/settings` | `settings.xsd` |
+| `panel.xml` | `quiqqer/window` | `panel.xsd` |
+| `panels.xml` | `quiqqer/panels` | `panels.xsd` |
+| `engines.xml` | `quiqqer/template_engines` | `engines.xsd` |
+| `wysiwyg.xml` | `quiqqer/editors` | `wysiwyg.xsd` |
+| Legacy editor XML toolbar | `quiqqer/toolbar` | `toolbar.xsd` |
+
+The [schema guide](https://www.quiqqer.com/docs/developer/package-reference/xml-schemas) lists all available schemas,
+including `media.xsd`, `menu.xsd`, `permissions.xsd`, and `widgets.xsd`.
+
+Put `xmlns:xsi` and `xsi:noNamespaceSchemaLocation` on the outer `<quiqqer>` element in complete files and copyable
+examples. Use the matching public schema at `https://www.quiqqer.com/docs/schemas/2.x/<name>.xsd`. These are standalone
+XSD 1.0 schemas without a target namespace: do not use the schema URL as a default `xmlns`.
+
+A locale manifest uses the same schema as its referenced language files:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+    <locales>
+        <!-- German -->
+        <file file="/locale/de.xml"/>
+
+        <!-- English -->
+        <file file="/locale/en.xml"/>
+    </locales>
+</quiqqer>
+```
+
+Language files put `<groups name="vendor/package" datatype="php,js">` inside `quiqqer/locales`, with their existing
+`<locale>` entries and language elements inside each group. Wrapping a file must preserve variable names, groups,
+attributes, translation text, CDATA, and meaningful whitespace. Partial snippets such as `<field>` or `<category>`
+remain fragments; place them inside the documented parent structure rather than wrapping each fragment separately.
+
+### Compatibility And Scope
+
+- Core and Utils continue to read legacy roots such as `<events>`, `<user>`, and `<locales>` for backward compatibility.
+- XSD validation deliberately requires `<quiqqer>` and rejects legacy roots. Do not relax the schemas or remove schema
+  links to hide these errors. Reader compatibility and schema validity are separate requirements.
+- When changing a reader, test that legacy and wrapped documents produce the same declarations. Existing readers often
+  already support both through descendant queries; do not rewrite them merely to introduce the wrapper.
+- This standard covers formats read by Core and Utils. Module-owned parsers, for example for `cron.xml` or `demodata.xml`,
+  require separate verification and are not implicitly part of a Core XML migration. External formats such as PHPUnit,
+  PHPCS, PHIVE, and SVG keep their own roots. Do not bulk-convert unrelated modules or legacy test fixtures.
+
+### Schema Validation And Maintenance
+
+Validate edited complete documents against the matching XSD, for example:
+
+```shell
+curl -fsSLo /tmp/quiqqer-events.xsd https://www.quiqqer.com/docs/schemas/2.x/events.xsd
+xmllint --nonet --noout --schema /tmp/quiqqer-events.xsd events.xml
+```
+
+Validate locale manifests and each referenced catalog separately with `locale.xsd`; validating the manifest does not
+validate its referenced files. Schema checks do not verify PHP classes, paths, permissions, or translation keys, and a
+schema-location attribute does not enable automatic XSD validation during imports.
+
+Schemas and complete XML examples belong in the `quiqqer/ecosystem/documentation` repository, not Core's former `doc/`
+directory. Change `scripts/generate_xsd.py` when the supported structure changes, then run
+`python3 scripts/generate_xsd.py`, `python3 scripts/test_xsd.py`, and `python3 scripts/generate_xsd.py --check` from that
+repository. Update its XML examples and reference pages together. Keep both generated copies in `xml/` and
+`docs/public/schemas/2.x/` synchronized; the documentation build publishes the latter. Do not hand-edit generated XSDs
+or infer a schema from a single example.
+
 ## Events
 
 Register event listeners in `events.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<events>
-    <event on="onPackageSetup" fire="\Vendor\Package\EventHandler::onPackageSetup"/>
-</events>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/events.xsd">
+    <events>
+        <event on="onPackageSetup" fire="\Vendor\Package\EventHandler::onPackageSetup"/>
+    </events>
+</quiqqer>
 ```
 
 Listener rules:
@@ -138,9 +223,12 @@ Register runtime commands in `console.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<console>
-    <tool exec="\Vendor\Package\Console\RebuildIndex"/>
-</console>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/console.xsd">
+    <console>
+        <tool exec="\Vendor\Package\Console\RebuildIndex"/>
+    </console>
+</quiqqer>
 ```
 
 Implement tools by extending `QUI\System\Console\Tool`. Use explicit package-scoped command names such as `vendor-package:rebuild-index`. Use `addArgument()` for documented arguments and avoid reserved argument names: `help`, `tool`, `listtools`, `u`, `p`, `username`, `password`.
@@ -152,11 +240,15 @@ Use `composer.json` scripts for repository checks. Use `console.xml` only for co
 Declare package permissions in `permissions.xml` and check them where behavior is exposed to users, tools, Ajax endpoints, or MCP tools.
 
 ```xml
-<permissions>
-    <permission name="vendor.package.action" type="bool">
-        <defaultvalue>0</defaultvalue>
-    </permission>
-</permissions>
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/permissions.xsd">
+    <permissions>
+        <permission name="vendor.package.action" type="bool">
+            <defaultvalue>0</defaultvalue>
+        </permission>
+    </permissions>
+</quiqqer>
 ```
 
 Use dedicated permissions for sensitive write, delete, publish, update, cache, or automation actions.
@@ -181,7 +273,7 @@ Prefer established Core controls for common backend inputs:
 
 After changing extension declarations:
 
-- Validate edited XML syntax.
+- Validate edited XML syntax and complete documents against their matching XSD as described above.
 - Validate `composer.json`.
 - Run `./console setup` in a development installation when package metadata must be re-imported.
 - Run the package-local checks: `./tools/phpcs`, `./tools/phpstan`, and `./tools/phpunit`.
