@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="close">
+            <pl><![CDATA[Zamknij]]></pl>
+        </locale>
+    </groups>
+
     <groups name="quiqqer/system" datatype="js,php">
         <locale name="close">
             <pl><![CDATA[Zamknij]]></pl>

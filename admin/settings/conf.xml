@@ -459,10 +459,10 @@
                         </input>
                         <!--<input conf="globals.mailprotection" type="checkbox">
                             <text>
-                                <locale group="quiqqer/system" var="quiqqer.settings.general.globals.mailprotection"/>
+                                <locale group="quiqqer/core" var="quiqqer.settings.general.globals.mailprotection"/>
                             </text>
                             <description>
-                                <locale group="quiqqer/system"
+                                <locale group="quiqqer/core"
                                         var="quiqqer.settings.general.globals.mailprotection.description"/>
                             </description>
                         </input>-->
@@ -917,11 +917,11 @@
 
                         <!--<select conf="auth.type" type="text">-->
                         <!--<text>-->
-                        <!--<locale group="quiqqer/system" var="quiqqer.settings.auth.type"/>-->
+                        <!--<locale group="quiqqer/core" var="quiqqer.settings.auth.type"/>-->
                         <!--</text>-->
 
                         <!--<option value="standard">-->
-                        <!--<locale group="quiqqer/system" var="quiqqer.settings.auth.standard"/>-->
+                        <!--<locale group="quiqqer/core" var="quiqqer.settings.auth.standard"/>-->
                         <!--</option>-->
                         <!--</select>-->
                     </settings>
@@ -961,7 +961,7 @@
                                 <locale group="quiqqer/core" var="quiqqer.settings.auth.sessionType.redis"/>
                             </option>
                             <!--<option value="mongodb">
-                                <locale group="quiqqer/system" var="quiqqer.settings.auth.sessionType.mongodb" />
+                                <locale group="quiqqer/core" var="quiqqer.settings.auth.sessionType.mongodb" />
                             </option>-->
                         </select>
 

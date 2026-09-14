@@ -4,10 +4,10 @@
         <panel require="controls/projects/project/Panel">
             <image>icon-home</image>
             <title>
-                <locale group="quiqqer/system" var="panels.project.title"/>
+                <locale group="quiqqer/core" var="panels.project.title"/>
             </title>
             <text>
-                <locale group="quiqqer/system" var="panels.project.text"/>
+                <locale group="quiqqer/core" var="panels.project.description"/>
             </text>
         </panel>
     </panels>
