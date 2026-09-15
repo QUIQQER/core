@@ -77,14 +77,20 @@ class Hreflang
             return (string)$this->Site->getAttribute($languageLinkAttribute);
         }
 
-        if (!$this->Site->existLang($language)) {
-            return '';
-        }
-
         try {
             $Project = $this->Site->getProject();
+            $languageSiteId = $language === $Project->getLang()
+                ? $this->Site->getId()
+                : (int)($this->Site->getLangIds()[$language] ?? 0);
+
+            // getId($language) falls back to the current ID when a translation is missing.
+            // Hreflang must only reference explicitly linked translations.
+            if ($languageSiteId <= 0) {
+                return '';
+            }
+
             $LanguageProject = QUI::getProject($Project->getName(), $language);
-            $LanguageSite = $LanguageProject->get($this->Site->getId($language));
+            $LanguageSite = $LanguageProject->get($languageSiteId);
 
             return $LanguageSite->getUrlRewrittenWithHost();
         } catch (\Exception) {
