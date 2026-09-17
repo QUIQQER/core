@@ -20,16 +20,17 @@ final class ProjectSettingsCategoryEndpointSecurityTest extends ProjectIntegrati
 
         QUI::$Ajax = new Ajax();
         $coreDirectory = OPT_DIR . 'quiqqer/core';
+        $settingsFixture = $coreDirectory . '/tests/integration/QUI/Projects/Fixtures/project-settings.xml';
         $projectSettingsXml = USR_DIR . $Project->getName() . '/settings.xml';
         $projectData = json_encode($Project->toArray(), JSON_THROW_ON_ERROR);
 
-        self::assertTrue(copy($coreDirectory . '/doc/XML/settings.xml', $projectSettingsXml));
+        self::assertTrue(copy($settingsFixture, $projectSettingsXml));
         QUI\Cache\Manager::clear($Project->getCachePath() . '/relatedSettingsXml');
 
         require $coreDirectory . '/admin/ajax/project/panel/categories/category.php';
 
         $callable = Ajax::getRegisteredCallables()['ajax_project_panel_categories_category']['callable'];
-        $unrelatedXml = $coreDirectory . '/doc/XML/settings.xml';
+        $unrelatedXml = $settingsFixture;
 
         self::assertNotSame(
             '',

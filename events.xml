@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/events.xsd">
 <events>
     <event on="onAdminLoadFooter" fire="\QUI\EventHandler::onAdminLoadFooter"/>
     <event on="onUserChangePassword" fire="\QUI\EventHandler::onUserChangePassword"/>
@@ -13,3 +15,4 @@
 
     <event on="onSetupAllEnd" fire="\QUI\Users\Auth\Handler::onSetupAllEnd"/>
 </events>
+</quiqqer>

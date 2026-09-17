@@ -36,7 +36,7 @@ define('controls/groups/mail/SendGroupMail', [
                 autoclose    : false,
                 cancel_button: {
                     textimage: 'fa fa-close',
-                    text     : QUILocale.get('quiqqer/system', 'close')
+                    text     : QUILocale.get(lg, 'close')
                 },
                 ok_button    : {
                     textimage: 'fa fa-envelope',
@@ -264,7 +264,7 @@ define('controls/groups/mail/SendGroupMail', [
                     autoclose    : true,
                     cancel_button: {
                         textimage: 'fa fa-close',
-                        text     : QUILocale.get('quiqqer/system', 'close')
+                        text     : QUILocale.get(lg, 'close')
                     },
                     ok_button    : {
                         textimage: 'fa fa-envelope',

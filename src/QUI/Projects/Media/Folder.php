@@ -1818,6 +1818,8 @@ class Folder extends Item implements QUI\Interfaces\Projects\Media\File
                     ['id' => $id]
                 );
 
+                $this->Media->invalidateItemCache((int)$id);
+
                 QUI::getDataBaseConnection()->delete(
                     $this->Media->getTable('relations'),
                     ['child' => $id]
@@ -1832,6 +1834,8 @@ class Folder extends Item implements QUI\Interfaces\Projects\Media\File
             $this->Media->getTable(),
             ['id' => $this->getId()]
         );
+
+        $this->Media->invalidateItemCache($this->getId());
 
         QUI::getDataBaseConnection()->delete(
             $this->Media->getTable('relations'),

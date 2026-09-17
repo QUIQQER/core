@@ -1,6 +1,6 @@
 ---
 name: quiqqer_package_quality_upgrade
-description: Use when modernizing and completing a QUIQQER package in the mandatory sequence quality files, PHPUnit coverage, DBAL migration, and PHPStan 2 at level 8, with current PHIVE tools, portable database.xml schemas, CI stubs for optional dependencies, package metadata, licensing, README documentation, and required visual assets.
+description: Use when modernizing and completing a QUIQQER package in the mandatory sequence quality files, PHPUnit coverage, DBAL migration, and PHPStan 2 at level 8, with current PHIVE tools, portable database.xml schemas, CI stubs for optional dependencies, package metadata, locale organization and completeness, licensing, README documentation, and required visual assets.
 category: developer
 ---
 
@@ -33,6 +33,7 @@ Inspect at least:
 - `phpcs.xml.dist`
 - CI configuration
 - `database.xml`
+- `locale.xml`, referenced language files, locale groups, and translation coverage
 - active legacy database calls
 
 Use `rg` to find suppressed analysis, optional dependencies, PDO, MySQL-only SQL, and old database APIs. Include dead or
@@ -310,6 +311,9 @@ Follow `https://quiqqer.com/docs/developer/package-development#composer-metadata
 
 ### `package.xml`, Locales, And Images
 
+- For XML structure, schema links, and validation, follow
+  [XML Structure And XSDs](./quiqqer_extension_points.md#xml-structure-and-xsds). New or structurally revised Core/Utils
+  XML documents use `<quiqqer>` with the matching XSD; existing legacy roots remain readable but fail schema validation.
 - Verify localized title and short description, package image reference, support information, copyright, license, and all
   referenced locale variables. Ensure English locale text exists.
 - Preserve suitable package descriptions, locale wording, support text, and other module-facing text. Edit only concrete
@@ -324,6 +328,72 @@ Follow `https://quiqqer.com/docs/developer/package-development#composer-metadata
   established package image directory; otherwise place new assets under `bin/images/` and update repository references.
 - Codex cannot assume permission to change the external GitLab project avatar. Report the intended `Gitlab` image's exact
   repository path so the developer can upload it manually.
+
+### Locale Files And Translation Coverage
+
+For a full quality upgrade, inspect locale structure and completeness as part of package completion. For a task limited to
+locales, apply this section without starting the unrelated toolchain, test-coverage, or DBAL upgrade phases.
+
+#### Flat Language Files
+
+- Use `quiqqer/locales` in the manifest and every language/topic file, linking `locale.xsd` on the outer `<quiqqer>`
+  element. Keep file references or translation groups inside `<locales>`; a split does not change their structure.
+- Store language XML files directly in the package-root `locale/` directory. Keep the root `locale.xml` as the manifest
+  referencing them with paths such as `/locale/de.xml`.
+- When the source-language catalog contains more than 50 distinct `(group, variable)` pairs, split it into thematic
+  language files. Count source variables once, not once per translation. The threshold triggers logical organization;
+  it is not a hard limit of 50 entries per resulting file. Keep coherent topics together.
+- Keep common terms, buttons, and number formats in `<language>.xml`. Use `<language>.<topic>.xml` for other topics, for
+  example `de.users.xml`, `de.auth.xml`, or `de.mail.xml`. Use a flat directory, without language or topic subdirectories.
+- Choose topics that fit the package. Core's examples are `languages`, `users`, `auth`, `permissions`, `projects`, `media`,
+  `packages`, `settings`, `mail`, `backend`, and `console`; smaller packages need only their relevant topics.
+- Apply the same topic assignment by variable key to every target language. Preserve additional valid translations that
+  exist only in another language. Do not create empty topic files just to match a file count.
+- Group manifest references by language, with a blank line and a language-name XML comment between blocks. Reference each
+  file exactly once and update code or tests that read a moved language file directly.
+
+Splitting files does not introduce new locale groups. Preserve every variable name, group, group `datatype`, locale
+attribute such as `html` or `priority`, and translation content. Core entries stay in `quiqqer/core`; other packages keep
+their existing groups. File splitting can reduce the size of individual XML import operations, but does not establish a
+runtime memory reduction when the loader still loads the entire group.
+
+#### Source Language And Translation Integrity
+
+- Determine the most complete source language from actual key coverage; German is the usual starting point, not an
+  assumption that permits dropping keys found only elsewhere. Preserve valid existing translations and fill concrete gaps.
+- Use the package's existing or explicitly requested target languages. Core currently provides `de`, `en`, `es`, `fr`,
+  `it`, `pl`, and `pt`; do not impose that language set on unrelated packages without a translation requirement.
+- Preserve placeholders, HTML structure, URLs, command syntax, and locale attributes during translation. Keep intentional
+  empty values and meaningful whitespace, including spaces used as number-grouping separators. Number formats and language
+  names must follow the target language rather than being copied mechanically from the source.
+- Inspect separately named catalogs too. A suffix such as `.qui.xml` or `.system.xml` does not by itself mean that its
+  contents are untranslatable, unused, or deprecated.
+
+#### Duplicate Keys And Legacy Compatibility
+
+- Inspect duplicate keys within the same group and language across all manifest files. Compare text and all metadata,
+  including `datatype`; the same key in different groups or languages is not a duplicate.
+- Remove redundant occurrences only when their contents and metadata are identical. When they differ, report both
+  variants and the effective import order. Preserve that order during file moves and resolve conflicting entries only
+  according to the developer's chosen version; apply the choice consistently to the corresponding translations.
+- Preserve legacy groups needed for compatibility. In Core, the retained `de.system.xml` and `en.system.xml` contain
+  `quiqqer/system` translations. Place their manifest entries after the active files in each language block, immediately
+  below a `Deprecated` comment explaining compatibility. Keep active `.qui.xml` references before that comment.
+- A file reorganization does not authorize a group migration. When a migration from `quiqqer/quiqqer` or `quiqqer/system`
+  to `quiqqer/core` is requested, first verify the variable exists with the intended meaning in the Core locale XML files.
+  If absent, add its translations to the appropriate Core language files before changing references. Preserve legacy
+  definitions when compatibility is required.
+
+#### Locale Validation
+
+Parse the manifest and every referenced XML file. Check that referenced paths exist, intended language files are included
+exactly once, source keys have the required target translations, and no unresolved duplicate definitions were introduced.
+Validate the manifest and each changed language file separately against `locale.xsd` using the extension skill's XSD
+validation instructions. A valid manifest alone does not establish that its referenced catalogs are valid.
+Compare the catalog before and after a structural change, including metadata, translation text, and the effective values
+of duplicate keys. Account explicitly for intended translation additions or duplicate removals. Use QUIQQER's XML reader
+to check import interpretation when changing the file structure; do not publish translations or import into a live database
+merely to validate an XML reorganization. Run relevant existing tests when their locale paths or behavior are affected.
 
 Completion does not include screenshots, CI status review, milestone creation, version creation, tags, releases, or a list
 of manual release steps.

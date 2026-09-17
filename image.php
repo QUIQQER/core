@@ -7,8 +7,8 @@ if (!defined('QUIQQER_SYSTEM')) {
 require_once 'bootstrap.php';
 
 use QUI\Projects\Media;
+use QUI\System\BinaryFileResponse;
 use QUI\Utils\Security\SvgSanitizer;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 

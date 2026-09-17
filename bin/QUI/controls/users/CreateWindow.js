@@ -38,7 +38,7 @@ define('controls/users/CreateWindow', [
                     text: QUILocale.get(lg, 'users.panel.create.window.submit')
                 },
                 cancel_button: {
-                    text: QUILocale.get('quiqqer/system', 'cancel'),
+                    text: QUILocale.get(lg, 'cancel'),
                     textimage: false
                 }
             }, options));

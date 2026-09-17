@@ -53,6 +53,7 @@ use function usleep;
 use const CURLINFO_RESPONSE_CODE;
 use const CURLOPT_HEADERFUNCTION;
 use const CURLOPT_HTTPHEADER;
+use const CURLOPT_NOBODY;
 use const CURLOPT_RETURNTRANSFER;
 use const CURLOPT_TIMEOUT;
 
@@ -148,6 +149,76 @@ class ImageEndpointAccessTest extends ProjectIntegrationTestCase
         self::assertNotSame('', $Response['body']);
         self::assertStringStartsWith('image/png', $Response['headers']['content-type'] ?? '');
         self::assertStringContainsString('public', $Response['headers']['cache-control'] ?? '');
+    }
+
+    public function testClientSendfileHeadersDoNotChangeMediaDelivery(): void
+    {
+        $Response = self::requestImage(self::$mediaFileId, [], [
+            'X-Sendfile-Type: X-Sendfile',
+            'X-Accel-Mapping: /=/attacker/',
+            'QUIQQER-SENDFILE-TYPE: X-Sendfile',
+            'Range: bytes=2-5'
+        ]);
+
+        self::assertSame(206, $Response['status'], self::failureMessage($Response));
+        self::assertSame('2345', $Response['body']);
+        self::assertArrayNotHasKey('x-sendfile', $Response['headers']);
+        self::assertArrayNotHasKey('x-accel-redirect', $Response['headers']);
+    }
+
+    public function testConfiguredSendfilePreservesMediaAuthorization(): void
+    {
+        foreach (['X-Sendfile', 'X-Accel-Redirect'] as $type) {
+            $params = ['_sendfile' => $type, '_access' => 'protected'];
+            $denied = self::requestImage(self::$mediaFileId, $params);
+            self::assertUniformNotFound($denied);
+            self::assertArrayNotHasKey('x-sendfile', $denied['headers']);
+            self::assertArrayNotHasKey('x-accel-redirect', $denied['headers']);
+
+            // The PHP test server does not consume offload headers. HEAD inspects the handoff without a body.
+            $allowed = self::requestImage(
+                self::$mediaFileId,
+                $params + ['_user' => 'allowed'],
+                [],
+                true
+            );
+            self::assertSame(200, $allowed['status'], self::failureMessage($allowed));
+            self::assertArrayHasKey(strtolower($type), $allowed['headers']);
+            self::assertSame('10', $allowed['headers']['content-length'] ?? '');
+            self::assertStringContainsString('private', $allowed['headers']['cache-control'] ?? '');
+            self::assertSame('', $allowed['body']);
+        }
+    }
+
+    public function testConfiguredSendfileDoesNotExposeInactiveMedia(): void
+    {
+        $Response = self::requestImage(self::$inactiveImageId, ['_sendfile' => 'X-Sendfile']);
+        self::assertUniformNotFound($Response);
+        self::assertArrayNotHasKey('x-sendfile', $Response['headers']);
+    }
+
+    public function testRewriteMediaSupportsConfiguredOffload(): void
+    {
+        $Response = self::request(['_rewrite_media' => '1', '_sendfile' => 'X-Accel-Redirect'], [], true);
+
+        self::assertSame(200, $Response['status'], self::failureMessage($Response));
+        self::assertArrayHasKey('x-accel-redirect', $Response['headers']);
+        self::assertSame('10', $Response['headers']['content-length'] ?? '');
+        self::assertSame('', $Response['body']);
+    }
+
+    public function testConfiguredOffloadDoesNotBypassSvgSanitization(): void
+    {
+        foreach (['X-Sendfile', 'X-Accel-Redirect'] as $type) {
+            $media = self::requestImage(self::$storedMaliciousSvgId, ['_sendfile' => $type]);
+            $rewrite = self::request(['_rewrite_svg' => '1', '_sendfile' => $type]);
+
+            foreach ([$media, $rewrite] as $Response) {
+                self::assertSafeSvgResponse($Response);
+                self::assertArrayNotHasKey('x-sendfile', $Response['headers']);
+                self::assertArrayNotHasKey('x-accel-redirect', $Response['headers']);
+            }
+        }
     }
 
     public function testProtectedImageIsDeliveredToAuthorizedUserWithPrivateHeaders(): void
@@ -734,12 +805,12 @@ class ImageEndpointAccessTest extends ProjectIntegrationTestCase
      * @param list<string> $headers
      * @return array{status: int, headers: array<string, string>, body: string}
      */
-    private static function requestImage(int $id, array $params = [], array $headers = []): array
+    private static function requestImage(int $id, array $params = [], array $headers = [], bool $head = false): array
     {
         return self::request(array_merge([
             'project' => self::getTestProjectName(),
             'id' => (string)$id
-        ], $params), $headers);
+        ], $params), $headers, $head);
     }
 
     /**
@@ -747,7 +818,7 @@ class ImageEndpointAccessTest extends ProjectIntegrationTestCase
      * @param list<string> $headers
      * @return array{status: int, headers: array<string, string>, body: string}
      */
-    private static function request(array $params, array $headers = []): array
+    private static function request(array $params, array $headers = [], bool $head = false): array
     {
         $query = [];
 
@@ -776,6 +847,7 @@ class ImageEndpointAccessTest extends ProjectIntegrationTestCase
                 return strlen($line);
             },
             CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_NOBODY => $head,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 20
         ]);
@@ -1086,6 +1158,12 @@ if (getenv('GITLAB_CI') === 'true') {
 }
 
 require %BOOTSTRAP_FILE%;
+
+// Simulate trusted CGI parameters only inside this temporary test endpoint.
+if (isset($_GET['_sendfile'])) {
+    QUI::getRequest()->server->set('QUIQQER_SENDFILE_TYPE', $_GET['_sendfile']);
+    QUI::getRequest()->server->set('QUIQQER_ACCEL_MAPPING', '/=/__quiqqer_files/');
+}
 
 $svgSanitizerAutoload = getenv('QUIQQER_SVG_TEST_AUTOLOAD');
 

@@ -3,6 +3,8 @@
     <testsuites>
         <testsuite name="quiqqer/core Unit Test Suite">
             <directory>tests/unit</directory>
+            <!-- Started explicitly by IpThrottleConcurrencyTest without this configuration. -->
+            <exclude>tests/unit/QUI/Security/Fixtures/IpThrottleRaceWorkerTest.php</exclude>
         </testsuite>
         <testsuite name="quiqqer/core Integration Test Suite">
             <directory>tests/integration</directory>

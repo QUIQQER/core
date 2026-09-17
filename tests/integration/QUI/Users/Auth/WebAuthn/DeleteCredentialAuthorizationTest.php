@@ -176,7 +176,11 @@ final class DeleteCredentialAuthorizationTest extends TestCase
 
         $this->setActor($Owner, $this->fullyAuthenticatedSession($Owner));
         $lastResponse = $this->invokeDelete($secondId, $Owner->getUUID());
-        self::assertArrayNotHasKey('Exception', $lastResponse);
+        self::assertArrayNotHasKey(
+            'Exception',
+            $lastResponse,
+            json_encode($lastResponse['Exception'] ?? [], JSON_THROW_ON_ERROR)
+        );
         self::assertFalse($lastResponse['result']['hasCredentials']);
         self::assertNull((new CredentialRepository())->findById($secondId));
         self::assertFalse($this->isWebAuthnStored($Owner));
@@ -203,7 +207,11 @@ final class DeleteCredentialAuthorizationTest extends TestCase
 
         $this->setActor($UserEdit, $this->fullyAuthenticatedSession($UserEdit));
         $editResponse = $this->invokeDelete($credentialId, $Owner->getUUID());
-        self::assertArrayNotHasKey('Exception', $editResponse);
+        self::assertArrayNotHasKey(
+            'Exception',
+            $editResponse,
+            json_encode($editResponse['Exception'] ?? [], JSON_THROW_ON_ERROR)
+        );
         self::assertNull((new CredentialRepository())->findById($credentialId));
 
         $suCredentialId = $this->createCredential($Owner);
@@ -307,7 +315,11 @@ final class DeleteCredentialAuthorizationTest extends TestCase
 
         $authorizedResponse = $this->invokeCleanup($Owner->getUUID());
 
-        self::assertArrayNotHasKey('Exception', $authorizedResponse);
+        self::assertArrayNotHasKey(
+            'Exception',
+            $authorizedResponse,
+            json_encode($authorizedResponse['Exception'] ?? [], JSON_THROW_ON_ERROR)
+        );
         self::assertFalse($authorizedResponse['result']['hasCredentials']);
         self::assertFalse($this->isWebAuthnStored($Owner));
     }
@@ -347,7 +359,11 @@ final class DeleteCredentialAuthorizationTest extends TestCase
             QUI::getEvents()->removeEvent('onUserSaveEnd', $listener);
         }
 
-        self::assertArrayNotHasKey('Exception', $response);
+        self::assertArrayNotHasKey(
+            'Exception',
+            $response,
+            json_encode($response['Exception'] ?? [], JSON_THROW_ON_ERROR)
+        );
         self::assertTrue($response['result']['hasCredentials']);
         self::assertTrue($credentialCreated);
         self::assertIsInt($credentialId);

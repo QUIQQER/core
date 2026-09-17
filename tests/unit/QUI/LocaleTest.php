@@ -10,6 +10,29 @@ use PHPUnit\Framework\TestCase;
 #[RunTestsInSeparateProcesses]
 class LocaleTest extends TestCase
 {
+    private array $previousTranslations;
+    private ?string $translationDirectory = null;
+    private array $fixtureFiles = [];
+    private array $fixtureDirectories = [];
+
+    protected function setUp(): void
+    {
+        $this->previousTranslations = (new \ReflectionProperty(LocaleRuntimeCache::class, 'languages'))->getValue();
+    }
+
+    protected function tearDown(): void
+    {
+        (new \ReflectionProperty(LocaleRuntimeCache::class, 'languages'))->setValue(null, $this->previousTranslations);
+
+        foreach ($this->fixtureFiles as $file) {
+            unlink($file);
+        }
+
+        foreach (array_reverse($this->fixtureDirectories) as $directory) {
+            rmdir($directory);
+        }
+    }
+
     public function testSetCurrent(): void
     {
         $sut = new Locale();
@@ -170,43 +193,245 @@ class LocaleTest extends TestCase
         $this->assertEquals($expectedVariable, $sut[1]);
     }
 
-    public function testGet(): void
+    public function testGetUsesCurrentLanguageAndKeepsGroupsSeparate(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+        $this->writeTranslation('de', 'locale-test/other', 'greeting = "Andere Gruppe"');
+
+        self::assertSame('Hallo [name]', $Locale->get('locale-test/messages', 'greeting'));
+        self::assertSame('Andere Gruppe', $Locale->get('locale-test/other', 'greeting'));
+
+        $Locale->setCurrent('en');
+        self::assertSame('Hello [name]', $Locale->get('locale-test/messages', 'greeting'));
+        $Locale->setCurrent('de');
+        self::assertSame('Hallo [name]', $Locale->get('locale-test/messages', 'greeting'));
     }
 
-    public function testGetHelper(): void
+    public static function translationReaders(): array
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        return ['current language' => [false], 'explicit language' => [true]];
     }
 
-    public function testInitConfig(): void
+    #[DataProvider('translationReaders')]
+    public function testTranslationsReplaceScalarValuesAndLineBreaks(bool $explicitLanguage): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+        $replace = ['name' => 'Ada', 'count' => 0, 'array' => ['ignored'], 'object' => new \stdClass()];
+        $actual = $explicitLanguage
+            ? $Locale->getByLang('de', 'locale-test/messages', 'details', $replace)
+            : $Locale->get('locale-test/messages', 'details', $replace);
+
+        self::assertSame('Hallo Ada: 0' . PHP_EOL . '[array] [object] [unknown]', $actual);
     }
 
-    public function testGetTranslationsFile(): void
+    #[DataProvider('translationReaders')]
+    public function testTranslationsReturnWholeGroupsAndConvertLineBreaks(bool $explicitLanguage): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+        $actual = $explicitLanguage
+            ? $Locale->getByLang('de', 'locale-test/messages')
+            : $Locale->get('locale-test/messages');
+
+        self::assertSame([
+            'greeting' => 'Hallo [name]',
+            'details' => 'Hallo [name]: [count]' . PHP_EOL . '[array] [object] [unknown]',
+            'empty' => ''
+        ], $actual);
     }
 
-    public function testGetLocalesByLand(): void
+    public function testMissingTranslationsReturnTheirReference(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+
+        self::assertSame('[locale-test/messages] absent', $Locale->get('locale-test/messages', 'absent'));
+        self::assertSame('[locale-test/missing] greeting', $Locale->get('locale-test/missing', 'greeting'));
+        self::assertSame(
+            '[locale-test/messages] greeting',
+            $Locale->getByLang('fr', 'locale-test/messages', 'greeting')
+        );
+        self::assertSame('', $Locale->get('locale-test/messages', 'empty'));
     }
 
-    public function testGetByLang(): void
+    public function testDisabledTranslationReturnsReferencesEvenForCachedValues(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+        $Locale->initConfig('locale-test/messages');
+        $Locale->no_translation = true;
+
+        self::assertSame('[locale-test/messages] greeting', $Locale->get('locale-test/messages', 'greeting'));
+        self::assertSame(
+            '[locale-test/messages] greeting',
+            $Locale->getByLang('en', 'locale-test/messages', 'greeting')
+        );
     }
 
-    public function testParseLocaleString(): void
+    public function testInitConfigLoadsCurrentOrExplicitLanguage(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+        self::assertFalse(LocaleRuntimeCache::isCached('de', 'locale-test/messages'));
+        self::assertFalse(LocaleRuntimeCache::isCached('en', 'locale-test/messages'));
+
+        $Locale->initConfig('locale-test/messages');
+        self::assertSame('Hallo [name]', LocaleRuntimeCache::get('de', 'locale-test/messages', 'greeting'));
+        self::assertFalse(LocaleRuntimeCache::isCached('en', 'locale-test/messages'));
+
+        $Locale->initConfig('locale-test/messages', 'en');
+        self::assertSame('Hello [name]', LocaleRuntimeCache::get('en', 'locale-test/messages', 'greeting'));
+        self::assertSame('de', $Locale->getCurrent());
     }
 
-    public function testParseLocaleArray(): void
+    public function testInitConfigReusesCachedTranslationsUntilRefresh(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Locale = $this->createTranslationLocale();
+        $Locale->initConfig('locale-test/messages');
+        $this->writeTranslation('de', 'locale-test/messages', 'greeting = "Geändert"');
+        $Locale->initConfig('locale-test/messages');
+
+        self::assertSame('Hallo [name]', $Locale->get('locale-test/messages', 'greeting'));
+        $Locale->refresh();
+        self::assertSame('Geändert', $Locale->get('locale-test/messages', 'greeting'));
+    }
+
+    public function testInitConfigCanLoadAFileCreatedAfterAnEarlierMiss(): void
+    {
+        $Locale = $this->createTranslationLocale();
+        $Locale->initConfig('locale-test/later');
+        self::assertFalse(LocaleRuntimeCache::isCached('de', 'locale-test/later'));
+
+        $this->writeTranslation('de', 'locale-test/later', 'greeting = "Jetzt vorhanden"');
+        $Locale->initConfig('locale-test/later');
+        self::assertSame('Jetzt vorhanden', $Locale->get('locale-test/later', 'greeting'));
+    }
+
+    public static function translationPaths(): array
+    {
+        return [
+            'package name' => ['de', 'vendor/package', 'de/LC_MESSAGES/vendor_package.ini.php'],
+            'uppercase language' => ['EN', 'vendor/package', 'en/LC_MESSAGES/vendor_package.ini.php'],
+            'language normalization' => ['../D3E!', 'vendor/package', 'de/LC_MESSAGES/vendor_package.ini.php']
+        ];
+    }
+
+    #[DataProvider('translationPaths')]
+    public function testGetTranslationFileNormalizesLanguageAndGroup(string $lang, string $group, string $path): void
+    {
+        $Locale = new Locale();
+
+        self::assertSame($Locale->dir() . '/' . $path, $Locale->getTranslationFile($lang, $group));
+    }
+
+    public static function systemLocales(): array
+    {
+        return [
+            'German locales' => [true, 'de', ['de_DE.utf8', 'de_AT.utf8', 'de_CH.utf8']],
+            'British English first' => [true, 'en', ['en_GB.utf8', 'en_US.utf8']],
+            'no matching locale' => [true, 'fr', []],
+            'without shell' => [false, 'de', ['de_DE', 'de_DE.utf8', 'de_DE.UTF-8', 'de_DE@euro']]
+        ];
+    }
+
+    #[DataProvider('systemLocales')]
+    public function testGetLocalesByLangFiltersSortsAndCachesSystemLocales(bool $shell, string $lang, array $expected): void
+    {
+        $Process = proc_open([
+            PHP_BINARY, __DIR__ . '/Fixtures/locale-list.php', $shell ? '1' : '0', $lang
+        ], [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        self::assertIsResource($Process);
+        $output = stream_get_contents($pipes[1]);
+        $errors = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        self::assertSame(0, proc_close($Process), $errors . $output);
+        self::assertSame([$expected, $expected], json_decode($output, true, flags: JSON_THROW_ON_ERROR));
+    }
+
+    public function testGetByLangDoesNotChangeCurrentOrTemporaryLanguage(): void
+    {
+        $Locale = $this->createTranslationLocale();
+        $Locale->setTemporaryCurrent('fr');
+
+        self::assertSame('Hello Ada', $Locale->getByLang('en', 'locale-test/messages', 'greeting', ['name' => 'Ada']));
+        self::assertSame('fr', $Locale->getCurrent());
+        $Locale->resetCurrent();
+        self::assertSame('de', $Locale->getCurrent());
+    }
+
+    public static function localeStrings(): array
+    {
+        return [
+            'translation reference' => ['[locale-test/messages] greeting', 'Hallo [name]'],
+            'plain text' => ['Hallo Welt', 'Hallo Welt'],
+            'empty text' => ['', ''],
+            'incomplete reference' => ['[locale-test/messages]', '[locale-test/messages]'],
+            'embedded reference' => ['Text [locale-test/messages] greeting', 'Text [locale-test/messages] greeting'],
+            'missing translation' => ['[locale-test/messages] absent', '[locale-test/messages] absent'],
+            'array with replacements' => [['locale-test/messages', 'greeting', ['name' => 'Ada']], 'Hallo Ada']
+        ];
+    }
+
+    #[DataProvider('localeStrings')]
+    public function testParseLocaleStringTranslatesOnlyReferences(array|string $input, string $expected): void
+    {
+        self::assertSame($expected, $this->createTranslationLocale()->parseLocaleString($input));
+    }
+
+    public static function localeArrays(): array
+    {
+        return [
+            'translation' => [['locale-test/messages', 'greeting'], 'Hallo [name]'],
+            'replacements' => [['locale-test/messages', 'greeting', ['name' => 'Ada']], 'Hallo Ada'],
+            'empty array' => [[], ''],
+            'missing key' => [['locale-test/messages'], ''],
+            'missing group' => [[1 => 'greeting'], ''],
+            'null key' => [['locale-test/messages', null], ''],
+            'missing translation' => [['locale-test/messages', 'absent'], '[locale-test/messages] absent']
+        ];
+    }
+
+    #[DataProvider('localeArrays')]
+    public function testParseLocaleArrayHandlesTranslationsAndIncompleteReferences(array $input, string $expected): void
+    {
+        self::assertSame($expected, $this->createTranslationLocale()->parseLocaleArray($input));
+    }
+
+    private function createTranslationLocale(): Locale
+    {
+        $this->translationDirectory = sys_get_temp_dir() . '/quiqqer-locale-test-' . bin2hex(random_bytes(12));
+        mkdir($this->translationDirectory, 0700);
+        $this->fixtureDirectories[] = $this->translationDirectory;
+        $this->writeTranslation('de', 'locale-test/messages', <<<'INI'
+greeting = "Hallo [name]"
+details = "Hallo [name]: [count]{\n}[array] [object] [unknown]"
+empty = ""
+INI);
+        $this->writeTranslation('en', 'locale-test/messages', 'greeting = "Hello [name]"');
+
+        $Locale = $this->getMockBuilder(Locale::class)->onlyMethods(['dir'])->getMock();
+        $Locale->method('dir')->willReturn($this->translationDirectory);
+        $Locale->setCurrent('de');
+
+        return $Locale;
+    }
+
+    private function writeTranslation(string $language, string $group, string $content): void
+    {
+        $directory = $this->translationDirectory;
+
+        foreach ([$language, 'LC_MESSAGES'] as $part) {
+            $directory .= '/' . $part;
+
+            if (!is_dir($directory)) {
+                mkdir($directory, 0700);
+                $this->fixtureDirectories[] = $directory;
+            }
+        }
+
+        $file = $directory . '/' . str_replace('/', '_', $group) . '.ini.php';
+        if (!in_array($file, $this->fixtureFiles, true)) {
+            $this->fixtureFiles[] = $file;
+        }
+
+        file_put_contents($file, ";<?php exit; ?>\n" . $content . "\n");
     }
 }

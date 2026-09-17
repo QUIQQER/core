@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<console>
-    <tool exec="CLASS"/>
-    <tool exec="CLASS" file="USR_DIR/project/lib/console/myConsoleTool.php"/>
-</console>

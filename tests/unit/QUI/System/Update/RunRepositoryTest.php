@@ -153,6 +153,77 @@ class RunRepositoryTest extends TestCase
         ));
     }
 
+    public function testCleanupKeepsLiveRunEvenAfterMaximumAge(): void
+    {
+        $repository = new RunRepository($this->root);
+        $run = $repository->create(1000);
+        $state = $run->getState();
+        $state->markRunning(1001);
+        $state->setProcess(getmypid(), '', 1001);
+        $repository->save($state);
+
+        $result = $repository->cleanupAndFindActive(100000, 86400);
+
+        $this->assertSame([], $result['deleted']);
+        $this->assertCount(1, $result['active']);
+        $this->assertSame(RunState::STATUS_RUNNING, $repository->load($state->getId())->getStatus());
+    }
+
+    public function testCleanupKeepsRunningStateWithoutProcessInformation(): void
+    {
+        $repository = new RunRepository($this->root);
+        $run = $repository->create();
+        $state = $run->getState();
+        $state->markRunning(time());
+        $repository->save($state);
+
+        $result = $repository->cleanupAndFindActive(time(), 86400);
+
+        $this->assertCount(1, $result['active']);
+        $this->assertSame(RunState::STATUS_RUNNING, $repository->load($state->getId())->getStatus());
+    }
+
+    public function testCleanupPreservesPendingRestartWithoutLiveProcess(): void
+    {
+        $repository = new RunRepository($this->root);
+        $run = $repository->create();
+        $state = $run->getState();
+        $state->transitionTo(RunState::PHASE_PREPARED);
+        $state->transitionTo(RunState::PHASE_COMPOSER_UPDATE);
+        $state->markRestartRequired();
+        $state->setProcess(2147483647, '', time());
+        $repository->save($state);
+
+        $result = $repository->cleanupAndFindActive(time(), 86400);
+
+        $this->assertCount(1, $result['active']);
+        $this->assertSame(RunState::STATUS_RESTART_REQUIRED, $repository->load($state->getId())->getStatus());
+    }
+
+    public function testCleanupNeverDeletesOrRecoversLockedRun(): void
+    {
+        $repository = new RunRepository($this->root);
+        $run = $repository->create(1000);
+        $state = $run->getState();
+        $state->markRunning(1001);
+        $state->setProcess(2147483647, '', 1001);
+        $repository->save($state);
+        $lock = $repository->acquireLock($state->getId());
+
+        try {
+            $result = $repository->cleanupAndFindActive(100000, 86400);
+            $this->assertSame([], $result['deleted']);
+            $this->assertCount(1, $result['active']);
+            $this->assertSame(RunState::STATUS_RUNNING, $repository->load($state->getId())->getStatus());
+
+            $state->markCancelled('Signal received; child still holds the lock.', 1002);
+            $repository->save($state);
+            $this->assertCount(1, $repository->cleanupAndFindActive(100000, 86400)['active']);
+        } finally {
+            $repository->releaseLock($lock);
+        }
+    }
+
     public function testCancelMarksActiveRunAsCancelledAndKeepsProcessData(): void
     {
         $repository = new RunRepository($this->root, 600);

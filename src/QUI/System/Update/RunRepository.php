@@ -272,24 +272,60 @@ class RunRepository
             }
 
             if (
-                $state->getStatus() === RunState::STATUS_FAILED
-                || $state->getStatus() === RunState::STATUS_CANCELLED
+                ($state->getStatus() === RunState::STATUS_RUNNING && $this->isProcessRunning($state) !== false)
+                || (
+                    in_array($state->getStatus(), [RunState::STATUS_CREATED, RunState::STATUS_RESTART_REQUIRED], true)
+                    && $state->getCreatedAt() > $now - $maxAge
+                )
             ) {
-                continue;
-            }
-
-            if ($state->getCreatedAt() <= $now - $maxAge) {
-                $this->delete($id);
-                $deleted[] = $id;
-                continue;
-            }
-
-            if (
-                $state->getStatus() !== RunState::STATUS_FINISHED
-                && $state->getStatus() !== RunState::STATUS_FAILED
-                && $state->getStatus() !== RunState::STATUS_CANCELLED
-            ) {
+                // Do not contend with the runner's non-blocking lock between actions.
                 $active[] = $state;
+                continue;
+            }
+
+            try {
+                $lock = $this->acquireLock($id);
+            } catch (RuntimeException) {
+                // A runner (or an inherited child process) still owns the lock.
+                // Never remove its directory or allow another update to start.
+                $active[] = $state;
+                continue;
+            }
+
+            try {
+                // The action may have completed while we were acquiring the lock.
+                $state = $this->load($id);
+
+                if (
+                    $state->getStatus() === RunState::STATUS_FAILED
+                    || $state->getStatus() === RunState::STATUS_CANCELLED
+                ) {
+                    continue;
+                }
+
+                if ($state->getStatus() === RunState::STATUS_RUNNING) {
+                    if ($this->isProcessRunning($state) === false) {
+                        $state->markFailed('Update process ended before the run completed.', $now);
+                        $this->save($state);
+                    } else {
+                        // Unknown process status must not unlock a possibly active update.
+                        $active[] = $state;
+                    }
+
+                    continue;
+                }
+
+                if ($state->getCreatedAt() <= $now - $maxAge) {
+                    $this->delete($id);
+                    $deleted[] = $id;
+                    continue;
+                }
+
+                if ($state->getStatus() !== RunState::STATUS_FINISHED) {
+                    $active[] = $state;
+                }
+            } finally {
+                $this->releaseLock($lock);
             }
         }
 
@@ -304,6 +340,29 @@ class RunRepository
         RunState::assertValidIdentifier($id);
 
         return rtrim($this->root, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR;
+    }
+
+    private function isProcessRunning(RunState $state): ?bool
+    {
+        $pid = (int)($state->getProcess()['pid'] ?? 0);
+
+        if ($pid <= 0 || !function_exists('posix_kill') || !function_exists('posix_get_last_error')) {
+            return null;
+        }
+
+        if (!posix_kill($pid, 0)) {
+            // ESRCH means no such process; EPERM and other failures are inconclusive.
+            return posix_get_last_error() === 3 ? false : null;
+        }
+
+        // Container PID 1 may leave exited runners as zombies until they are reaped.
+        $stat = @file_get_contents('/proc/' . $pid . '/stat');
+
+        if (is_string($stat) && preg_match('/^\d+ \(.*\) [ZX] /s', $stat)) {
+            return false;
+        }
+
+        return true;
     }
 
     private function getStateFile(string $id): string

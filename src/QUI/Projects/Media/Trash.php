@@ -208,7 +208,8 @@ class Trash implements QUI\Interfaces\Projects\Trash
 
         $newFile = $this->getPath() . $data['name'] . $extension;
 
-        $Source = $this->Media->get($id);
+        // Load the deleted source explicitly; normal frontend lookups exclude trash records.
+        $Source = $this->Media->parseResultToItem($data);
         $Source->checkPermission('quiqqer.projects.media.view', $PermissionUser);
         $Folder->checkPermission('quiqqer.projects.media.upload', $PermissionUser);
 
@@ -235,6 +236,8 @@ class Trash implements QUI\Interfaces\Projects\Trash
             $this->Media->getTable(),
             ['id' => $id]
         );
+
+        $this->Media->invalidateItemCache($id);
 
         return $Item;
     }

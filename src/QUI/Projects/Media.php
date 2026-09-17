@@ -56,9 +56,26 @@ class Media extends QUI\QDOM
      */
     protected array $children = [];
 
+    /** @var \WeakMap<self, true>|null */
+    private static ?\WeakMap $instances = null;
+
     public function __construct(
         protected Project $Project
     ) {
+        self::$instances ??= new \WeakMap();
+        self::$instances[$this] = true;
+    }
+
+    /** Invalidate an item in every live media manager for this project, including other languages. */
+    public function invalidateItemCache(int $id): void
+    {
+        unset($this->children[$id]);
+
+        foreach (self::$instances ?? [] as $Media => $registered) {
+            if ($Media->getProject()->getName() === $this->Project->getName()) {
+                unset($Media->children[$id]);
+            }
+        }
     }
 
     /**

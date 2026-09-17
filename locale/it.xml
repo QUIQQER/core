@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="yes">
+            <it><![CDATA[Sì]]></it>
+        </locale>
+        <locale name="no">
+            <it><![CDATA[No]]></it>
+        </locale>
+        <locale name="id">
+            <it><![CDATA[ID]]></it>
+        </locale>
+        <locale name="name">
+            <it><![CDATA[Nome]]></it>
+        </locale>
+        <locale name="title">
+            <it><![CDATA[Titolo]]></it>
+        </locale>
+        <locale name="extension">
+            <it><![CDATA[Estensione]]></it>
+        </locale>
+        <locale name="workingtitle">
+            <it><![CDATA[Titolo di lavoro]]></it>
+        </locale>
+        <locale name="short">
+            <it><![CDATA[Descrizione breve]]></it>
+        </locale>
+        <locale name="content">
+            <it><![CDATA[Contenuto]]></it>
+        </locale>
+        <locale name="information">
+            <it><![CDATA[Informazioni]]></it>
+        </locale>
+        <locale name="settings">
+            <it><![CDATA[Impostazioni]]></it>
+        </locale>
+        <locale name="properties">
+            <it><![CDATA[Proprietà]]></it>
+        </locale>
+        <locale name="search">
+            <it><![CDATA[Cerca]]></it>
+        </locale>
+        <locale name="size">
+            <it><![CDATA[Dimensione]]></it>
+        </locale>
+        <locale name="description">
+            <it><![CDATA[Descrizione]]></it>
+        </locale>
+        <locale name="createdate">
+            <it><![CDATA[Data di creazione]]></it>
+        </locale>
+        <locale name="createuser">
+            <it><![CDATA[Autore]]></it>
+        </locale>
+        <locale name="editdate">
+            <it><![CDATA[Data dell'ultima modifica]]></it>
+        </locale>
+        <locale name="edituser">
+            <it><![CDATA[Modificato da]]></it>
+        </locale>
+        <locale name="date">
+            <it><![CDATA[Data]]></it>
+        </locale>
+        <locale name="from">
+            <it><![CDATA[da]]></it>
+        </locale>
+        <locale name="to">
+            <it><![CDATA[a]]></it>
+        </locale>
+        <locale name="up">
+            <it><![CDATA[Su]]></it>
+        </locale>
+        <locale name="down">
+            <it><![CDATA[Giù]]></it>
+        </locale>
+        <locale name="status">
+            <it><![CDATA[Stato]]></it>
+        </locale>
+        <locale name="image">
+            <it><![CDATA[Immagine]]></it>
+        </locale>
+        <locale name="email">
+            <it><![CDATA[E-mail]]></it>
+        </locale>
+        <locale name="firstname">
+            <it><![CDATA[Nome]]></it>
+        </locale>
+        <locale name="lastname">
+            <it><![CDATA[Cognome]]></it>
+        </locale>
+        <locale name="abbreviation">
+            <it><![CDATA[Abbreviazione]]></it>
+        </locale>
+        <locale name="addresses">
+            <it><![CDATA[Indirizzi]]></it>
+        </locale>
+        <locale name="package.title">
+            <it><![CDATA[QUIQQER - Core]]></it>
+        </locale>
+        <locale name="package.description">
+            <it><![CDATA[QUIQQER - Start your Business]]></it>
+        </locale>
+        <locale name="numberFormat.numbering_system">
+            <it><![CDATA[latn]]></it>
+        </locale>
+        <locale name="numberFormat.decimal_pattern">
+            <it><![CDATA[#,##0.###]]></it>
+        </locale>
+        <locale name="numberFormat.percent_pattern">
+            <it><![CDATA[#,##0 %]]></it>
+        </locale>
+        <locale name="numberFormat.currency_pattern">
+            <it><![CDATA[#,##0.00 ¤]]></it>
+        </locale>
+        <locale name="numberFormat.accounting_currency_pattern">
+            <it><![CDATA[#,##0.00 ¤]]></it>
+        </locale>
+        <locale name="numberFormat.decimal_separator">
+            <it><![CDATA[,]]></it>
+        </locale>
+        <locale name="numberFormat.grouping_separator">
+            <it><![CDATA[.]]></it>
+        </locale>
+        <locale name="text.unverified">
+            <it><![CDATA[Non verificato]]></it>
+        </locale>
+        <locale name="text.verified">
+            <it><![CDATA[Verificato]]></it>
+        </locale>
+
+        <locale name="activate">
+            <it><![CDATA[Attiva]]></it>
+        </locale>
+        <locale name="deactivate">
+            <it><![CDATA[Disattiva]]></it>
+        </locale>
+        <locale name="rename">
+            <it><![CDATA[Rinomina]]></it>
+        </locale>
+        <locale name="cancel">
+            <it><![CDATA[Annulla]]></it>
+        </locale>
+        <locale name="create">
+            <it><![CDATA[Crea]]></it>
+        </locale>
+        <locale name="isActivate">
+            <it><![CDATA[È attivato]]></it>
+        </locale>
+        <locale name="isDeactivate">
+            <it><![CDATA[È disattivato]]></it>
+        </locale>
+        <locale name="order_field_asc">
+            <it><![CDATA[Ordinamento manuale delle pagine decrescente]]></it>
+        </locale>
+        <locale name="order_field_desc">
+            <it><![CDATA[Ordinamento manuale delle pagine crescente]]></it>
+        </locale>
+        <locale name="add">
+            <it><![CDATA[Aggiungi]]></it>
+        </locale>
+        <locale name="remove">
+            <it><![CDATA[Rimuovi]]></it>
+        </locale>
+        <locale name="edit">
+            <it><![CDATA[Modifica]]></it>
+        </locale>
+        <locale name="save">
+            <it><![CDATA[Salva]]></it>
+        </locale>
+        <locale name="data">
+            <it><![CDATA[Dati]]></it>
+        </locale>
+        <locale name="recipient">
+            <it><![CDATA[Destinatario]]></it>
+        </locale>
+        <locale name="username">
+            <it><![CDATA[Nome utente]]></it>
+        </locale>
+        <locale name="password">
+            <it><![CDATA[Password]]></it>
+        </locale>
+        <!-- region Time Units -->
+        <locale name="second">
+            <it><![CDATA[secondo]]></it>
+        </locale>
+        <locale name="seconds">
+            <it><![CDATA[secondi]]></it>
+        </locale>
+        <locale name="seconds.dative">
+            <it><![CDATA[secondi]]></it>
+        </locale>
+
+        <locale name="minute">
+            <it><![CDATA[minuto]]></it>
+        </locale>
+        <locale name="minutes">
+            <it><![CDATA[minuti]]></it>
+        </locale>
+        <locale name="minutes.dative">
+            <it><![CDATA[minuti]]></it>
+        </locale>
+
+        <locale name="hour">
+            <it><![CDATA[ora]]></it>
+        </locale>
+        <locale name="hours">
+            <it><![CDATA[ore]]></it>
+        </locale>
+        <locale name="hours.dative">
+            <it><![CDATA[ore]]></it>
+        </locale>
+
+        <locale name="day">
+            <it><![CDATA[giorno]]></it>
+        </locale>
+        <locale name="days">
+            <it><![CDATA[giorni]]></it>
+        </locale>
+        <locale name="days.dative">
+            <it><![CDATA[giorni]]></it>
+        </locale>
+
+        <locale name="month">
+            <it><![CDATA[mese]]></it>
+        </locale>
+        <locale name="months">
+            <it><![CDATA[mesi]]></it>
+        </locale>
+        <locale name="months.dative">
+            <it><![CDATA[mesi]]></it>
+        </locale>
+
+        <locale name="year">
+            <it><![CDATA[anno]]></it>
+        </locale>
+        <locale name="years">
+            <it><![CDATA[anni]]></it>
+        </locale>
+        <locale name="years.dative">
+            <it><![CDATA[anni]]></it>
+        </locale>
+        <!-- endregion -->
+
+        <!-- region Months -->
+        <locale name="month.01">
+            <it><![CDATA[gennaio]]></it>
+        </locale>
+        <locale name="month.02">
+            <it><![CDATA[febbraio]]></it>
+        </locale>
+        <locale name="month.03">
+            <it><![CDATA[marzo]]></it>
+        </locale>
+        <locale name="month.04">
+            <it><![CDATA[aprile]]></it>
+        </locale>
+        <locale name="month.05">
+            <it><![CDATA[maggio]]></it>
+        </locale>
+        <locale name="month.06">
+            <it><![CDATA[giugno]]></it>
+        </locale>
+        <locale name="month.07">
+            <it><![CDATA[luglio]]></it>
+        </locale>
+        <locale name="month.08">
+            <it><![CDATA[agosto]]></it>
+        </locale>
+        <locale name="month.09">
+            <it><![CDATA[settembre]]></it>
+        </locale>
+        <locale name="month.10">
+            <it><![CDATA[ottobre]]></it>
+        </locale>
+        <locale name="month.11">
+            <it><![CDATA[novembre]]></it>
+        </locale>
+        <locale name="month.12">
+            <it><![CDATA[dicembre]]></it>
+        </locale>
+        <!-- endregion -->
+
+        <locale name="time.ago">
+            <it><![CDATA[[amount] [unit] fa]]></it>
+        </locale>
+
+        <locale name="exception.error">
+            <it><![CDATA[Si è verificato un errore. L'amministratore è stato informato.]]></it>
+        </locale>
+        <locale name="exception.unknown.error">
+            <it><![CDATA[Si è verificato un errore. Riprova più tardi.]]></it>
+        </locale>
+        <locale name="exception.network.error">
+            <it><![CDATA[Si è verificato un errore di connessione. Riprova più tardi.]]></it>
+        </locale>
+        <locale name="user_id">
+            <it><![CDATA[ID utente]]></it>
+        </locale>
+        <locale name="user_uuid">
+            <it><![CDATA[UUID utente]]></it>
+        </locale>
+        <locale name="user_ip_adress">
+            <it><![CDATA[Indirizzo IP dell'utente]]></it>
+        </locale>
+        <locale name="birthday">
+            <it><![CDATA[Data di nascita]]></it>
+        </locale>
+        <locale name="salutation">
+            <it><![CDATA[Titolo di cortesia]]></it>
+        </locale>
+        <locale name="address">
+            <it><![CDATA[Indirizzo]]></it>
+        </locale>
+        <locale name="company">
+            <it><![CDATA[Azienda]]></it>
+        </locale>
+        <locale name="street">
+            <it><![CDATA[Via]]></it>
+        </locale>
+        <locale name="street_no">
+            <it><![CDATA[Via e numero civico]]></it>
+        </locale>
+        <locale name="zip">
+            <it><![CDATA[CAP]]></it>
+        </locale>
+        <locale name="city">
+            <it><![CDATA[Città]]></it>
+        </locale>
+        <locale name="country">
+            <it><![CDATA[Paese]]></it>
+        </locale>
+        <locale name="file">
+            <it><![CDATA[File]]></it>
+        </locale>
+        <locale name="group">
+            <it><![CDATA[Gruppo]]></it>
+        </locale>
+        <locale name="groups">
+            <it><![CDATA[Gruppi]]></it>
+        </locale>
+        <locale name="groupname">
+            <it><![CDATA[Nome del gruppo]]></it>
+        </locale>
+        <locale name="parentGroup">
+            <it><![CDATA[Gruppo padre]]></it>
+        </locale>
+        <locale name="toolbar">
+            <it><![CDATA[Barra degli strumenti]]></it>
+        </locale>
+        <locale name="group_id">
+            <it><![CDATA[ID gruppo]]></it>
+        </locale>
+        <locale name="close">
+            <it><![CDATA[Chiudi]]></it>
+        </locale>
+        <locale name="ok">
+            <it><![CDATA[OK]]></it>
+        </locale>
+        <locale name="accept">
+            <it><![CDATA[Applica]]></it>
+        </locale>
+        <locale name="delete">
+            <it><![CDATA[Elimina]]></it>
+        </locale>
+        <locale name="project">
+            <it><![CDATA[Progetto]]></it>
+        </locale>
+        <locale name="projects">
+            <it><![CDATA[Progetti]]></it>
+        </locale>
+        <locale name="type">
+            <it><![CDATA[Tipo]]></it>
+        </locale>
+        <locale name="c_date">
+            <it><![CDATA[Data di creazione]]></it>
+        </locale>
+        <locale name="c_user">
+            <it><![CDATA[Autore]]></it>
+        </locale>
+        <locale name="e_date">
+            <it><![CDATA[Data di modifica]]></it>
+        </locale>
+        <locale name="e_user">
+            <it><![CDATA[Ultimo autore delle modifiche]]></it>
+        </locale>
+        <locale name="site_id">
+            <it><![CDATA[ID pagina]]></it>
+        </locale>
+        <locale name="manually">
+            <it><![CDATA[manuale]]></it>
+        </locale>
+        <locale name="id_asc">
+            <it><![CDATA[ID crescente]]></it>
+        </locale>
+        <locale name="id_desc">
+            <it><![CDATA[ID decrescente]]></it>
+        </locale>
+        <locale name="name_asc">
+            <it><![CDATA[Nome crescente]]></it>
+        </locale>
+        <locale name="name_desc">
+            <it><![CDATA[Nome decrescente]]></it>
+        </locale>
+        <locale name="title_asc">
+            <it><![CDATA[Titolo crescente]]></it>
+        </locale>
+        <locale name="title_desc">
+            <it><![CDATA[Titolo decrescente]]></it>
+        </locale>
+        <locale name="c_date_asc">
+            <it><![CDATA[Data di creazione crescente]]></it>
+        </locale>
+        <locale name="c_date_desc">
+            <it><![CDATA[Data di creazione decrescente]]></it>
+        </locale>
+        <locale name="e_date_asc">
+            <it><![CDATA[Data di modifica crescente]]></it>
+        </locale>
+        <locale name="e_date_desc">
+            <it><![CDATA[Data di modifica decrescente]]></it>
+        </locale>
+        <locale name="release_from_asc">
+            <it><![CDATA[Data di pubblicazione crescente]]></it>
+        </locale>
+        <locale name="release_from_desc">
+            <it><![CDATA[Data di pubblicazione decrescente]]></it>
+        </locale>
+        <locale name="priority_asc">
+            <it><![CDATA[Priorità crescente]]></it>
+        </locale>
+        <locale name="priority_desc">
+            <it><![CDATA[Priorità decrescente]]></it>
+        </locale>
+        <locale name="priority">
+            <it><![CDATA[Priorità]]></it>
+        </locale>
+        <locale name="pause">
+            <it><![CDATA[Pausa]]></it>
+        </locale>
+        <locale name="Resume">
+            <it><![CDATA[Riprendi]]></it>
+        </locale>
+        <locale name="language">
+            <it><![CDATA[Lingua]]></it>
+        </locale>
+        <locale name="languages">
+            <it><![CDATA[Lingue]]></it>
+        </locale>
+        <locale name="template">
+            <it><![CDATA[Template]]></it>
+        </locale>
+        <locale name="number">
+            <it><![CDATA[Numero]]></it>
+        </locale>
+        <locale name="tel">
+            <it><![CDATA[Telefono]]></it>
+        </locale>
+        <locale name="phone">
+            <it><![CDATA[Telefono]]></it>
+        </locale>
+        <locale name="fax">
+            <it><![CDATA[Fax]]></it>
+        </locale>
+        <locale name="mobile">
+            <it><![CDATA[Cellulare]]></it>
+        </locale>
+        <locale name="profile">
+            <it><![CDATA[Profilo]]></it>
+        </locale>
+        <locale name="path">
+            <it><![CDATA[Percorso]]></it>
+        </locale>
+        <locale name="no.results">
+            <it><![CDATA[Nessun risultato trovato]]></it>
+        </locale>
+        <locale name="copy">
+            <it><![CDATA[Copia]]></it>
+        </locale>
+        <locale name="cut">
+            <it><![CDATA[Taglia]]></it>
+        </locale>
+        <locale name="paste">
+            <it><![CDATA[Incolla]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.missing.missing.index.id">
+            <it><![CDATA[Indice non definito: id]]></it>
+        </locale>
+        <locale name="message.translation.file.not.found">
+            <it><![CDATA[File di traduzione per [file] non trovato.]]></it>
+        </locale>
+        <locale name="exception.timeout">
+            <it><![CDATA[Tempo di attesa della richiesta scaduto. Riprova ora o più tardi.]]></it>
+        </locale>
+        <locale name="exception.crud.child.not.found">
+            <it><![CDATA[Impossibile trovare la voce.]]></it>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

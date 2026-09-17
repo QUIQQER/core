@@ -97,11 +97,6 @@ class AjaxTest extends TestCase
         $this->assertEquals($testParameterValue, $result);
     }
 
-    public function testCall(): void
-    {
-        $this->markTestIncomplete('Figure out how to test this');
-    }
-
     public function testCallExecutesDuplicateRequestFunctionOnlyOnce(): void
     {
         $Ajax = new Ajax();
@@ -118,10 +113,5 @@ class AjaxTest extends TestCase
         $Ajax->call();
 
         self::assertSame(1, $callCount);
-    }
-
-    public function testPermissions(): void
-    {
-        $this->markTestIncomplete('Figure out how to test this');
     }
 }

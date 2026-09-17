@@ -7,7 +7,32 @@ include:
       php-84: true
       php-85: true
 
-trigger-build-of-testing-docker-image:
+# The package installer does not install a dependency's require-dev section.
+# Register REST test dependencies through QUIQQER's Composer wrapper, which
+# selects var/composer/composer.json, before the installer updates packages.
+.core-rest-test-dependencies:
+  before_script:
+    - cd /var/www/html
+    - >-
+      ./console composer require --dev --no-update --no-interaction
+      'quiqqer/rest:^3.3.1' 'quiqqer/oauth-server:^3.9.2'
+
+phpstan:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.2:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.3:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.4:
+  extends: .core-rest-test-dependencies
+
+phpunit-php8.5:
+  extends: .core-rest-test-dependencies
+
+trigger-build-of-docker-images:
   needs:
     - job: release
       artifacts: true
@@ -18,7 +43,21 @@ trigger-build-of-testing-docker-image:
     RELEASED_VERSION_ARTIFACT: .RELEASED_VERSION.txt
   script:
     - if [ ! -f $RELEASED_VERSION_ARTIFACT ]; then echo "No version released, exiting..."; exit; fi
-    - RELEASED_MAJOR_VERSION=$(cut -d. -f1 $RELEASED_VERSION_ARTIFACT)
-    - curl --fail-with-body --request POST --form "token=$CI_JOB_TOKEN" --form ref=main --form "variables[IMAGE_TYPE]=testing" --form "variables[QUIQQER_VERSION]=$RELEASED_MAJOR_VERSION" "$CI_API_V4_URL/projects/1061/trigger/pipeline"
+    - |
+      for image_type in production testing demo; do
+      # Testing also rebuilds ERP testing because build-dependents is enabled.
+      echo "Triggering (re-)build of QUIQQER docker image '$image_type'…"
+      curl \
+        --fail-with-body \
+        --silent \
+        --show-error \
+        --request POST \
+        --form "token=$CI_JOB_TOKEN" \
+        --form "ref=main" \
+        --form "inputs[image-type]=$image_type" \
+        --form "inputs[build-dependents]=true" \
+        "${CI_API_V4_URL}/projects/1061/trigger/pipeline" \
+        || exit 1
+      done
   rules:
     - !reference [release, rules]

@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.project.settings.panel.mediaSettings.imageLibrary">
+            <fr><![CDATA[Bibliothèque d’images utilisée]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageLibrary.auto">
+            <fr><![CDATA[QUIQQER détermine la bibliothèque à utiliser.]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.createCacheOnSave">
+            <fr><![CDATA[Créer le cache des images à la volée.]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadFileSize">
+            <fr><![CDATA[Taille maximale des fichiers]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadFileSize.description" html="true">
+            <fr><![CDATA[Les fichiers dépassant la valeur indiquée sont bloqués lors du téléversement.]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxImageCacheSize">
+            <fr><![CDATA[Dimensions maximales des images en cache]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxImageCacheSize.description">
+            <fr><![CDATA[Ce paramètre limite les dimensions maximales d’une image en cache afin de préserver l’espace disque du serveur. (Valeur par défaut : 4000px)]]></fr>
+        </locale>
+
+        <locale name="exception.media.upload.fileSize.is.to.big">
+            <fr><![CDATA[Le fichier [file] est trop volumineux. La taille maximale d’un fichier à téléverser est de [size]]]></fr>
+        </locale>
+        <locale name="exception.media.upload.fileType.not.allowed">
+            <fr><![CDATA[Le type du fichier [file] n’est pas autorisé. Veuillez utiliser uniquement les types de fichiers suivants : [filetypes]]]></fr>
+        </locale>
+        <locale name="exception.media.move.is.no.folder">
+            <fr><![CDATA[Veuillez sélectionner un dossier pour déplacer les fichiers.]]></fr>
+        </locale>
+        <locale name="exception.media.move">
+            <fr><![CDATA[Impossible de déplacer le fichier [file].]]></fr>
+        </locale>
+        <locale name="exception.media.copy.is.no.folder">
+            <fr><![CDATA[Veuillez sélectionner un dossier pour copier les fichiers.]]></fr>
+        </locale>
+        <locale name="exception.media.restore.is.no.folder">
+            <fr><![CDATA[Veuillez sélectionner un dossier pour restaurer un dossier.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.is.no.folder">
+            <fr><![CDATA[Veuillez sélectionner un dossier. Les fichiers ne peuvent être téléversés que dans un dossier.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.no.data">
+            <fr><![CDATA[Aucune donnée de fichier n’a été envoyée.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.max.filesize">
+            <fr><![CDATA[Le fichier téléversé dépasse la limite upload_max_filesize.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.max.form.filesize">
+            <fr><![CDATA[Le fichier téléversé dépasse la limite MAX_FILE_SIZE.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.partially.uploaded">
+            <fr><![CDATA[Le fichier n’a été que partiellement téléversé.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.missing.temp">
+            <fr><![CDATA[Un dossier temporaire est manquant.]]></fr>
+        </locale>
+        <locale name="exception.media.upload.unsupported.archive">
+            <fr><![CDATA[Une archive non prise en charge a été téléversée. Impossible d’extraire l’archive.]]></fr>
+        </locale>
+        <locale name="exception.media.file.not.found">
+            <fr><![CDATA[Fichier introuvable.]]></fr>
+        </locale>
+        <locale name="exception.media.file.not.found.NAME">
+            <fr><![CDATA[Le fichier [file] est introuvable.]]></fr>
+        </locale>
+        <locale name="exception.media.folder.name.invalid">
+            <fr><![CDATA[Ce nom de dossier n’est pas valide.]]></fr>
+        </locale>
+        <locale name="exception.media.root.folder.rename">
+            <fr><![CDATA[Le répertoire racine des médias d’un projet ne peut pas être renommé.]]></fr>
+        </locale>
+        <locale name="exception.media.folder.with.same.name.exists">
+            <fr><![CDATA[Un dossier portant le même nom existe déjà.]]></fr>
+        </locale>
+        <locale name="exception.media.folder.could.not.be.created">
+            <fr><![CDATA[Impossible de créer le dossier.]]></fr>
+        </locale>
+
+        <locale name="template.project.media.effect.header">
+            <fr><![CDATA[Effets d’image]]></fr>
+        </locale>
+        <locale name="template.project.media.effect.preview.header">
+            <fr><![CDATA[Aperçu de l’image]]></fr>
+        </locale>
+        <locale name="template.project.media.folder.order">
+            <fr><![CDATA[Tri]]></fr>
+        </locale>
+        <locale name="media.blur">
+            <fr><![CDATA[Flou]]></fr>
+        </locale>
+        <locale name="media.brightness">
+            <fr><![CDATA[Luminosité]]></fr>
+        </locale>
+        <locale name="media.contrast">
+            <fr><![CDATA[Contraste]]></fr>
+        </locale>
+        <locale name="media.greyscale">
+            <fr><![CDATA[Niveaux de gris]]></fr>
+        </locale>
+        <locale name="media.watermark">
+            <fr><![CDATA[Filigrane]]></fr>
+        </locale>
+        <locale name="media.watermark.position">
+            <fr><![CDATA[Position du filigrane]]></fr>
+        </locale>
+        <locale name="exception.media.check.name.dots">
+            <fr><![CDATA[<p>Des caractères non autorisés ont été trouvés dans le nom.<br />Les points ne sont pas autorisés.<br />&nbsp;</p>]]></fr>
+        </locale>
+        <locale name="exception.media.check.name.underline">
+            <fr><![CDATA[<p>Des caractères non autorisés ont été trouvés dans le nom.<br />Les doubles traits de soulignement ne sont pas autorisés.</p>]]></fr>
+        </locale>
+        <locale name="exception.media.check.name.allowed.signs">
+            <fr><![CDATA[<p>Des caractères non autorisés ont été trouvés dans le nom &quot;[filename]&quot;.<br />Les caractères suivants sont autorisés : 0-9 a-z A-Z _ -</p>]]></fr>
+        </locale>
+        <locale name="exception.media.check.foldername.allowed.signs">
+            <fr><![CDATA[<p>Des caractères non autorisés ont été trouvés dans le nom &quot;[foldername]&quot;.<br />Les caractères suivants sont autorisés : 0-9 a-z A-Z _ -</p>]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.message.save.success">
+            <fr><![CDATA[Le fichier a été enregistré avec succès]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.message.save.success">
+            <fr><![CDATA[Le dossier a été enregistré avec succès]]></fr>
+        </locale>
+        <locale name="upload.manager.title">
+            <fr><![CDATA[Téléversements]]></fr>
+        </locale>
+        <locale name="upload.manager.clear">
+            <fr><![CDATA[Vider les téléversements]]></fr>
+        </locale>
+        <locale name="projects.project.sitemap.media">
+            <fr><![CDATA[Médias]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.input.select.alt">
+            <fr><![CDATA[Sélectionner une image]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.input.select.title">
+            <fr><![CDATA[Sélectionner une image]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.input.clear.alt">
+            <fr><![CDATA[Effacer la saisie]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.input.clear.title">
+            <fr><![CDATA[Effacer la saisie]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.input.cssclass.alt">
+            <fr><![CDATA[Sélectionner une icône]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.input.cssclass.title">
+            <fr><![CDATA[Sélectionner une icône]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.save.text">
+            <fr><![CDATA[Enregistrer]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.delete.text">
+            <fr><![CDATA[Supprimer]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.replace.text">
+            <fr><![CDATA[Remplacer par ...]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.activate.text">
+            <fr><![CDATA[Activer]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.deactivate.text">
+            <fr><![CDATA[Désactiver]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.details.text">
+            <fr><![CDATA[Détails]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.preview.text">
+            <fr><![CDATA[Aperçu]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.openFile.title">
+            <fr><![CDATA[Ouvrir le fichier]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.openFile.alt">
+            <fr><![CDATA[Ouvrir le fichier]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.downloadFile.title">
+            <fr><![CDATA[Télécharger le fichier]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.downloadFile.alt">
+            <fr><![CDATA[Le fichier sera déplacé dans la corbeille et pourra être restauré]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.cache.clear">
+            <fr><![CDATA[Vider le cache des médias pour ce fichier.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.title">
+            <fr><![CDATA[Voulez-vous vraiment supprimer le fichier [file] ?]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.text">
+            <fr><![CDATA[Voulez-vous vraiment supprimer le fichier [file] ?]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.information">
+            <fr><![CDATA[Voulez-vous vraiment supprimer le fichier [file] ?]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.permissions">
+            <fr><![CDATA[Définir les droits d’accès aux médias]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.title">
+            <fr><![CDATA[Gestion des médias]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.text">
+            <fr><![CDATA[Général]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.title">
+            <fr><![CDATA[Général]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.select">
+            <fr><![CDATA[Sélectionner un projet pour le calcul MD5...]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.title">
+            <fr><![CDATA[Lancer le calcul]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.alt">
+            <fr><![CDATA[Lancer le calcul MD5]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.select">
+            <fr><![CDATA[Sélectionner un projet pour le calcul SHA1...]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.title">
+            <fr><![CDATA[Lancer le calcul]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.alt">
+            <fr><![CDATA[Lancer le calcul SHA1]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.sitemap.show">
+            <fr><![CDATA[Afficher le plan du site]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.title">
+            <fr><![CDATA[Affichage :]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.symbols">
+            <fr><![CDATA[Vue en icônes]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.details">
+            <fr><![CDATA[Liste détaillée]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.preview">
+            <fr><![CDATA[Aperçu]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.create">
+            <fr><![CDATA[Créer un nouveau dossier]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload">
+            <fr><![CDATA[Téléverser des fichiers]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload.files">
+            <fr><![CDATA[Téléverser des fichiers]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload.archive">
+            <fr><![CDATA[Téléverser et extraire une archive]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.filter.placeholder">
+            <fr><![CDATA[Filtrer...]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.title">
+            <fr><![CDATA[ Médias ([project])]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.hide">
+            <fr><![CDATA[Masquer les avertissements]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.hide.title">
+            <fr><![CDATA[Masquer les avertissements de titres et de textes alternatifs manquants]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.show">
+            <fr><![CDATA[Afficher les avertissements]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.missingMetaBadges.show.title">
+            <fr><![CDATA[Afficher les avertissements de titres et de textes alternatifs manquants]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.badge.title.missing">
+            <fr><![CDATA[Titre manquant]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.badge.alt.missing">
+            <fr><![CDATA[Texte alternatif manquant]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.file.broken">
+            <fr><![CDATA[Le fichier est endommagé #[id] [name]]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.grid.alt">
+            <fr><![CDATA[Attribut alt]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.upload.extract.text">
+            <fr><![CDATA[<h2><span class="fa fa-upload"></span>Téléversement d’archives</h2><p>Téléversez des fichiers d’archive dans le dossier des médias.</p><p>Ces archives seront extraites immédiatement.</p>]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.panel.upload.text">
+            <fr><![CDATA[<h2><span class="fa fa-upload"></span>Téléversement de fichiers</h2><p>Téléversez des fichiers dans le dossier des médias.</p>]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.priority.btn.save">
+            <fr><![CDATA[Enregistrer les priorités]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.priority.sheet.title">
+            <fr><![CDATA[Modifier les priorités]]></fr>
+        </locale>
+        <locale name="projects.project.site.folder.create.title">
+            <fr><![CDATA[Créer un nouveau dossier]]></fr>
+        </locale>
+        <locale name="projects.project.site.folder.create.information">
+            <fr><![CDATA[Veuillez saisir le nom du nouveau dossier]]></fr>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.title">
+            <fr><![CDATA[Des caractères non autorisés ont été trouvés]]></fr>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.text">
+            <fr><![CDATA[Des caractères non autorisés ont été trouvés]]></fr>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.information">
+            <fr><![CDATA[Voulez-vous remplacer ces caractères ?<br /><br />Le nom de dossier suivant sera utilisé :<br /><b>[newName]</b>]]></fr>
+        </locale>
+        <locale name="projects.project.site.panel.btn.media">
+            <fr><![CDATA[Médias]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media">
+            <fr><![CDATA[Médias]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.trash">
+            <fr><![CDATA[Déplacer dans la corbeille]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.allElements">
+            <fr><![CDATA[Tous les éléments sélectionnés]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.move">
+            <fr><![CDATA[Déplacer dans un autre dossier]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.replace">
+            <fr><![CDATA[Remplacer le fichier ...]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.download">
+            <fr><![CDATA[Télécharger le fichier]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.folder.download">
+            <fr><![CDATA[Télécharger le dossier]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.markAll">
+            <fr><![CDATA[Tout sélectionner]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.replaceFile">
+            <fr><![CDATA[Remplacer le fichier par [file]]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.copyLocation">
+            <fr><![CDATA[Copier à cet emplacement]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.moveLocation">
+            <fr><![CDATA[Déplacer à cet emplacement]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.uploadLocation">
+            <fr><![CDATA[Téléverser à cet emplacement]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.publish">
+            <fr><![CDATA[Publier]]></fr>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.unpublish">
+            <fr><![CDATA[Ne pas publier]]></fr>
+        </locale>
+        <locale name="file.message.corrupt.file">
+            <fr><![CDATA[Le fichier est défectueux et ne peut pas être téléversé.<br />Veuillez téléverser un autre fichier.]]></fr>
+        </locale>
+        <locale name="file.upload.cancel.title">
+            <fr><![CDATA[Annuler le téléversement]]></fr>
+        </locale>
+        <locale name="file.upload.cancel.text">
+            <fr><![CDATA[Voulez-vous vraiment annuler le téléversement ?]]></fr>
+        </locale>
+        <locale name="file.upload.cancel.information">
+            <fr><![CDATA[Voulez-vous vraiment annuler le téléversement du fichier <b>[file]</b> ?]]></fr>
+        </locale>
+        <locale name="file.upload.remove">
+            <fr><![CDATA[Retirer de la liste]]></fr>
+        </locale>
+        <locale name="file.upload.unknown.filetype">
+            <fr><![CDATA[Le type de fichier est inconnu.<br />Veuillez sélectionner uniquement des fichiers et des images pour le téléversement.<br />Les dossiers ne peuvent être téléversés que sous forme d’archives.]]></fr>
+        </locale>
+        <locale name="upload.manager.message.not.finish">
+            <fr><![CDATA[Des téléversements sont inachevés dans le gestionnaire de téléversements.<br />Veuillez les reprendre ou les annuler.]]></fr>
+        </locale>
+        <locale name="upload.manager.message.archivfile.title">
+            <fr><![CDATA[Fichiers d’archive trouvés]]></fr>
+        </locale>
+        <locale name="upload.manager.message.archivfile.text">
+            <fr><![CDATA[Vous souhaitez téléverser les archives suivantes.<br />Voulez-vous les extraire immédiatement ?]]></fr>
+        </locale>
+        <locale name="upload.manager.message.archivfile.btn.start">
+            <fr><![CDATA[Lancer le téléversement]]></fr>
+        </locale>
+        <locale name="upload.manager.message.archivfile.label">
+            <fr><![CDATA[Extraire [file]]]></fr>
+        </locale>
+        <locale name="upload.form.btn.add.text">
+            <fr><![CDATA[Sélectionner un fichier]]></fr>
+        </locale>
+        <locale name="upload.form.btn.send.text">
+            <fr><![CDATA[Lancer le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.btn.send.title">
+            <fr><![CDATA[Lancer le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.btn.send.alt">
+            <fr><![CDATA[Lancer le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.btn.change.alt">
+            <fr><![CDATA[Lancer le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.btn.change.title">
+            <fr><![CDATA[Cliquez pour sélectionner un autre fichier ...]]></fr>
+        </locale>
+        <locale name="upload.form.message.limit">
+            <fr><![CDATA[Vous pouvez téléverser au maximum [limit] fichiers simultanément.]]></fr>
+        </locale>
+        <locale name="upload.form.info.text">
+            <fr><![CDATA[Téléversement ...]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.title">
+            <fr><![CDATA[Insertion d’un fichier / dossier inactif]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.text">
+            <fr><![CDATA[Vous souhaitez insérer un fichier ou un dossier inactif.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.popup.noProject.text">
+            <fr><![CDATA[Aucun projet n’a été affecté.<br />Veuillez sélectionner le projet dans lequel choisir des fichiers.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.information">
+            <fr><![CDATA[Les fichiers inactifs ne peuvent pas être insérés. Voulez-vous donc activer ce fichier ?]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.btn.cancel">
+            <fr><![CDATA[Annuler]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.btn.start">
+            <fr><![CDATA[Continuer]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.message">
+            <fr><![CDATA[<p>Voulez-vous vraiment téléverser les fichiers ?</p>]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.text">
+            <fr><![CDATA[Lancer le calcul MD5]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.no.folder">
+            <fr><![CDATA[Aucun dossier n’a été sélectionné.]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.empty">
+            <fr><![CDATA[Ce dossier ne contient aucune image.]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.createNewFolderButton">
+            <fr><![CDATA[Créer un nouveau dossier de médias]]></fr>
+        </locale>
+        <locale name="projects.project.media.fileviewer.empty">
+            <fr><![CDATA[Ce dossier ne contient aucun fichier.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.btn.effectsRecursive">
+            <fr><![CDATA[Appliquer les effets de manière récursive]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.no.watermark">
+            <fr><![CDATA[Aucun filigrane]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.project.watermark">
+            <fr><![CDATA[Utiliser le filigrane du projet]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.own.watermark">
+            <fr><![CDATA[Utiliser un filigrane personnalisé]]></fr>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.title">
+            <fr><![CDATA[Appliquer les effets de manière récursive]]></fr>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.text">
+            <fr><![CDATA[Voulez-vous appliquer les effets du dossier de manière récursive ?]]></fr>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.information">
+            <fr><![CDATA[Toutes les modifications du dossier seront enregistrées. Les effets du dossier seront appliqués de manière récursive à toutes les <u>images</u> et à tous les <u>dossiers</u>.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.title">
+            <fr><![CDATA[Voulez-vous vraiment supprimer le dossier [folder] ?]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.text">
+            <fr><![CDATA[Voulez-vous vraiment supprimer le dossier [folder] ?]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.information">
+            <fr><![CDATA[Toutes les images et tous les sous-dossiers seront placés dans la corbeille.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.effects.text">
+            <fr><![CDATA[Effets d’image]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.external">
+            <fr><![CDATA[URL externe]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.external.description">
+            <fr><![CDATA[Indiquez ici l’URL d’une image externe. QUIQQER téléchargera régulièrement cette image externe pour mettre à jour cette image. Attention : si l’image externe devient inaccessible, cette image sera désactivée.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.external.button">
+            <fr><![CDATA[Actualiser l’image]]></fr>
+        </locale>
+        <locale name="projects.project.media.folderviewer.btn.diashow">
+            <fr><![CDATA[Lancer le diaporama]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.text">
+            <fr><![CDATA[Lancer le calcul SHA1]]></fr>
+        </locale>
+        <locale name="projects.project.site.folder.has.no.images">
+            <fr><![CDATA[Aucune image trouvée dans le dossier.]]></fr>
+        </locale>
+        <locale name="upload.form.btn.cancel.alt">
+            <fr><![CDATA[Annuler le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.btn.cancel.title">
+            <fr><![CDATA[Annuler le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.btn.cancel.text">
+            <fr><![CDATA[Annuler le téléversement]]></fr>
+        </locale>
+        <locale name="upload.form.info.max.text">
+            <fr><![CDATA[[count] téléversements utilisés sur [max].]]></fr>
+        </locale>
+        <locale name="upload.form.background.text">
+            <fr><![CDATA[<p>Pour ajouter un fichier, cliquez sur <u>Sélectionner un fichier</u> ou<br />faites glisser un fichier dans ce champ.</p>]]></fr>
+        </locale>
+        <locale name="exception.media.not.a.folder">
+            <fr><![CDATA[Ceci n’est pas un dossier.]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.tpl.title">
+            <fr><![CDATA[Recalculer les empreintes des fichiers]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.recalc.md5">
+            <fr><![CDATA[Recalculer les empreintes MD5 des fichiers :]]></fr>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.recalc.sha1">
+            <fr><![CDATA[Recalculer les empreintes SHA1 des fichiers :]]></fr>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media">
+            <fr><![CDATA[Paramètres des médias]]></fr>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.info">
+            <fr><![CDATA[Définissez les images associées à votre page.]]></fr>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.emotion_image">
+            <fr><![CDATA[Image d’ambiance]]></fr>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.site_image">
+            <fr><![CDATA[Image de la page]]></fr>
+        </locale>
+        <locale name="template.project.media.file.header">
+            <fr><![CDATA[Informations sur le fichier]]></fr>
+        </locale>
+        <locale name="template.project.media.file.alttext">
+            <fr><![CDATA[Texte alternatif]]></fr>
+        </locale>
+        <locale name="template.project.media.folder.path">
+            <fr><![CDATA[Chemin du dossier]]></fr>
+        </locale>
+        <locale name="template.project.media.folder.size">
+            <fr><![CDATA[Taille du dossier]]></fr>
+        </locale>
+        <locale name="template.project.media.file.path">
+            <fr><![CDATA[Chemin du fichier]]></fr>
+        </locale>
+        <locale name="template.project.media.file.lastedit">
+            <fr><![CDATA[Dernière modification le]]></fr>
+        </locale>
+        <locale name="template.project.media.file.dimension">
+            <fr><![CDATA[Dimensions]]></fr>
+        </locale>
+        <locale name="template.project.media.properties.header">
+            <fr><![CDATA[Propriétés du fichier]]></fr>
+        </locale>
+        <locale name="exception.file.not.found">
+            <fr><![CDATA[Le fichier [file] est introuvable.]]></fr>
+        </locale>
+        <locale name="template.project.media.watermark.header">
+            <fr><![CDATA[Paramètres du filigrane]]></fr>
+        </locale>
+        <locale name="exception.media.file.already.exists">
+            <fr><![CDATA[Un fichier nommé [filename] existe déjà.]]></fr>
+        </locale>
+        <locale name="exception.media.folder.already.exists">
+            <fr><![CDATA[Un dossier nommé [name] existe déjà.]]></fr>
+        </locale>
+        <locale name="watermark.position.top.right">
+            <fr><![CDATA[en haut à droite]]></fr>
+        </locale>
+        <locale name="watermark.position.top">
+            <fr><![CDATA[en haut au centre]]></fr>
+        </locale>
+        <locale name="watermark.position.top.left">
+            <fr><![CDATA[en haut à gauche]]></fr>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.media">
+            <fr><![CDATA[Paramètres des médias]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize">
+            <fr><![CDATA[Dimensions maximales d’une image]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize.description">
+            <fr><![CDATA[Les images dont la largeur ou la hauteur dépasse la valeur indiquée seront automatiquement réduites après le téléversement.]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.description">
+            <fr><![CDATA[Remarque : toute modification du filigrane vide entièrement le cache des médias.]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.title">
+            <fr><![CDATA[Paramètres des médias]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.upload.title">
+            <fr><![CDATA[Paramètres de téléversement des médias]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark">
+            <fr><![CDATA[Filigrane global]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.position">
+            <fr><![CDATA[Position du filigrane]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.ratio">
+            <fr><![CDATA[Taille du filigrane]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.media_useImageScale">
+            <fr><![CDATA[Images adaptatives (rapport d’échelle)]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.media_useImageScale.description">
+            <fr><![CDATA[Cette valeur détermine le DPR auquel l’image doit être chargée. 1x correspond à un écran normal à densité de pixels simple, 2x aux écrans haute résolution avec une densité de pixels de 2 (par exemple, l’écran Retina d’Apple), et 3x ou plus aux écrans de résolution encore supérieure. (Valeur par défaut : 2x)]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheSizeRounding">
+            <fr><![CDATA[Regrouper les dimensions des images en cache]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheSizeRounding.description">
+            <fr><![CDATA[Arrondit les grandes dimensions d’images en cache à des paliers fixes pour limiter le nombre de variantes générées. Si cette option est désactivée, toutes les dimensions demandées sont générées exactement.]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheExactSizeThreshold">
+            <fr><![CDATA[Dimensions exactes des images en cache jusqu’à]]></fr>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.imageCacheExactSizeThreshold.description">
+            <fr><![CDATA[Les images dont le côté cible le plus court ne dépasse pas cette valeur ne sont pas arrondies. Cela préserve notamment la netteté des petits logos et icônes. La valeur 0 désactive cette exception.]]></fr>
+        </locale>
+
+
+        <locale name="watermark.position.bottom.right">
+            <fr><![CDATA[en bas à droite]]></fr>
+        </locale>
+        <locale name="watermark.position.bottom">
+            <fr><![CDATA[en bas au centre]]></fr>
+        </locale>
+        <locale name="watermark.position.left">
+            <fr><![CDATA[à gauche au centre]]></fr>
+        </locale>
+        <locale name="watermark.position.center">
+            <fr><![CDATA[au centre]]></fr>
+        </locale>
+        <locale name="watermark.position.right">
+            <fr><![CDATA[à droite au centre]]></fr>
+        </locale>
+        <locale name="watermark.position.bottom.left">
+            <fr><![CDATA[en bas à gauche]]></fr>
+        </locale>
+        <locale name="media.item.hide">
+            <fr><![CDATA[Masquer]]></fr>
+        </locale>
+        <locale name="media.item.visible">
+            <fr><![CDATA[afficher]]></fr>
+        </locale>
+        <locale name="media.items.hide">
+            <fr><![CDATA[Tout masquer]]></fr>
+        </locale>
+        <locale name="media.items.visible">
+            <fr><![CDATA[Tout afficher]]></fr>
+        </locale>
+        <locale name="media.panel.view.hiddenItems.show">
+            <fr><![CDATA[Afficher les fichiers cachés]]></fr>
+        </locale>
+        <locale name="media.panel.view.hiddenItems.hide">
+            <fr><![CDATA[Masquer les fichiers cachés]]></fr>
+        </locale>
+
+        <locale name="exception.upload.error">
+            <fr><![CDATA[Une erreur s’est produite lors du téléversement du fichier. Veuillez vérifier votre connexion réseau.]]></fr>
+        </locale>
+        <locale name="upload.successful">
+            <fr><![CDATA[[file] a été téléversé avec succès]]></fr>
+        </locale>
+        <locale name="upload.bulk.successful">
+            <fr><![CDATA[[count] fichiers ont été téléversés avec succès dans [folder].]]></fr>
+        </locale>
+        <locale name="upload.bulk.message">
+            <fr><![CDATA[[done] fichiers téléversés sur [total]]]></fr>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.delete.originalfile.notfound">
+            <fr><![CDATA[Le fichier est introuvable dans le système de fichiers. Il sera donc entièrement supprimé.]]></fr>
+        </locale>
+        <locale name="exception.delete.root.file">
+            <fr><![CDATA[Vous ne pouvez pas supprimer le dossier principal.]]></fr>
+        </locale>
+        <locale name="exception.zip.extension.not.installed">
+            <fr><![CDATA[L’action ne peut pas être effectuée. L’extension ZIP de PHP n’est pas disponible sur le système.]]></fr>
+        </locale>
+        <locale name="exception.zip.folder.is.empty">
+            <fr><![CDATA[Impossible de créer un fichier ZIP, car le dossier est vide.]]></fr>
+        </locale>
+        <locale name="exception.image.upload.image.corrupted">
+            <fr><![CDATA[L’image contient des données erronées ou corrompues. Le téléversement n’a donc pas pu aboutir. Vous trouverez plus d’informations sur l’erreur dans error.log.]]></fr>
+        </locale>
+        <locale name="exception.media.already.deleted">
+            <fr><![CDATA[Le fichier est déjà supprimé.]]></fr>
+        </locale>
+        <locale name="exception.media.file.with.same.name.exists">
+            <fr><![CDATA[Un fichier nommé [name] existe déjà. Veuillez choisir un autre nom.]]></fr>
+        </locale>
+        <locale name="exception.media.create.folder.only.in.folder">
+            <fr><![CDATA[Vous ne pouvez créer un dossier qu’à l’intérieur d’un dossier.]]></fr>
+        </locale>
+
+        <locale name="exception.trash.file.not.found">
+            <fr><![CDATA[Aucune donnée trouvée pour le fichier. Le fichier ne peut pas être restauré.]]></fr>
+        </locale>
+        <locale name="exception.trash.file.id.not.found">
+            <fr><![CDATA[Le fichier portant l’ID #[id] est introuvable dans la corbeille.]]></fr>
+        </locale>
+        <locale name="exception.folder.has.no.images">
+            <fr><![CDATA[Le dossier ne contient aucune image.]]></fr>
+        </locale>
+        <locale name="exception.folder.has.no.files">
+            <fr><![CDATA[Le dossier ne contient aucun fichier.]]></fr>
+        </locale>
+        <locale name="exception.upload.count.limit">
+            <fr><![CDATA[Vous n’êtes plus autorisé à téléverser d’autres fichiers.]]></fr>
+        </locale>
+        <locale name="exception.upload.not.allowed.mimetype">
+            <fr><![CDATA[Vous n’êtes pas autorisé à téléverser ce fichier.]]></fr>
+        </locale>
+        <locale name="exception.upload.not.allowed.ending">
+            <fr><![CDATA[Vous n’êtes pas autorisé à téléverser ce fichier.]]></fr>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="folderviewer.create.folder" html="true">
+            <fr><![CDATA[<p>Aucun dossier n’a été affecté.</p><p>Voulez-vous créer un nouveau dossier ?</p><br />]]></fr>
+        </locale>
+        <locale name="control.media.select.search.field.placeholder">
+            <fr><![CDATA[Rechercher un fichier média ...]]></fr>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.title">
+            <fr><![CDATA[Le fichier existe déjà]]></fr>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.text">
+            <fr><![CDATA[Voulez-vous renommer le fichier nouvellement téléversé ?]]></fr>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.information" html="true">
+            <fr><![CDATA[Les noms suivants existent déjà. Des noms disponibles seront utilisés lors du renommage : [files]]]></fr>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.rename">
+            <fr><![CDATA[Renommer]]></fr>
+        </locale>
+        <locale name="projects.project.media.upload.conflict.overwrite">
+            <fr><![CDATA[Écraser]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.title">
+            <fr><![CDATA[Téléverser des fichiers]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.text">
+            <fr><![CDATA[Téléverser les fichiers maintenant ?]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.information" html="true">
+            <fr><![CDATA[Les fichiers du presse-papiers seront téléversés dans le dossier suivant : <b>[folder]</b>]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.submit">
+            <fr><![CDATA[Téléverser maintenant]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.title">
+            <fr><![CDATA[Remplacer l’image]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.text">
+            <fr><![CDATA[Remplacer l’image maintenant ?]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.information" html="true">
+            <fr><![CDATA[L’image du presse-papiers remplacera le fichier suivant : <b>[file]</b>]]></fr>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.submit">
+            <fr><![CDATA[Remplacer maintenant]]></fr>
+        </locale>
+        <locale name="projects.media.context.move.element.select.message">
+            <fr><![CDATA[Veuillez sélectionner un dossier]]></fr>
+        </locale>
+        <locale name="control.media.create.folder.window.title">
+            <fr><![CDATA[Créer un nouveau dossier de médias]]></fr>
+        </locale>
+        <locale name="control.media.create.folder.window.back.button.title">
+            <fr><![CDATA[Retour]]></fr>
+        </locale>
+        <locale name="control.media.create.folder.window.continue.button.title">
+            <fr><![CDATA[Suivant]]></fr>
+        </locale>
+
+        <locale name="control.upload.icon.submit">
+            <fr><![CDATA[Téléverser]]></fr>
+        </locale>
+        <locale name="control.upload.placeholder">
+            <fr><![CDATA[Veuillez sélectionner un fichier...]]></fr>
+        </locale>
+
+        <locale name="message.quiqqer.project.media.fileCacheClear.success">
+            <fr><![CDATA[Le cache des médias a été supprimé avec succès.]]></fr>
+        </locale>
+
+        <locale name="control.project.input.ratio.warning">
+            <fr><![CDATA[Les images peuvent devenir floues lors de leur réduction si leur largeur ou leur hauteur est impaire.]]></fr>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

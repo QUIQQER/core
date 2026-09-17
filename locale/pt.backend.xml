@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="menu.search.title">
+            <pt><![CDATA[Pesquisa]]></pt>
+        </locale>
+        <locale name="menu.search.sites.title">
+            <pt><![CDATA[Pesquisar página]]></pt>
+        </locale>
+        <locale name="menu.search.users.title">
+            <pt><![CDATA[Pesquisar utilizador]]></pt>
+        </locale>
+        <locale name="menu.search.groups.title">
+            <pt><![CDATA[Pesquisar grupo]]></pt>
+        </locale>
+        <locale name="menu.loged.in">
+            <pt><![CDATA[Sessão iniciada como: [username]]]></pt>
+        </locale>
+        <locale name="menu.log.out">
+            <pt><![CDATA[Terminar sessão]]></pt>
+        </locale>
+        <locale name="workspace.fixed">
+            <pt><![CDATA[A área de trabalho é fixa]]></pt>
+        </locale>
+        <locale name="workspace.flexible">
+            <pt><![CDATA[A área de trabalho é flexível]]></pt>
+        </locale>
+        <locale name="menu.settings.forwardings.text">
+            <pt><![CDATA[Redirecionamentos globais]]></pt>
+        </locale>
+        <locale name="control.editor.toolbar.select.search.field.placeholder">
+            <pt><![CDATA[Pesquisar barras de ferramentas ...]]></pt>
+        </locale>
+        <locale name="control.editor.button.switch.to.sourcecode">
+            <pt><![CDATA[Mudar para código-fonte]]></pt>
+        </locale>
+        <locale name="control.editor.button.switch.to.rich.text.editing">
+            <pt><![CDATA[Mudar para edição de texto formatado]]></pt>
+        </locale>
+        <locale name="panels.bookmarks.title">
+            <pt><![CDATA[Favoritos]]></pt>
+        </locale>
+        <locale name="panels.bookmarks.description">
+            <pt><![CDATA[Gira acessos rápidos a painéis. Crie favoritos para aceder rapidamente às funções que utiliza com frequência.]]></pt>
+        </locale>
+        <locale name="menu.profile.userPassword.text">
+            <pt><![CDATA[Alterar palavra-passe]]></pt>
+        </locale>
+        <locale name="welcome.message">
+            <pt><![CDATA[Bem-vindo, [username]]]></pt>
+        </locale>
+        <locale name="logs.panel.title">
+            <pt><![CDATA[Gestor de registos]]></pt>
+        </locale>
+        <locale name="logs.panel.log.file">
+            <pt><![CDATA[Ficheiro de registo]]></pt>
+        </locale>
+        <locale name="logs.panel.log.title">
+            <pt><![CDATA[Registos: [file]]]></pt>
+        </locale>
+        <locale name="logs.panel.btn.refresh">
+            <pt><![CDATA[Atualizar ficheiro de registo]]></pt>
+        </locale>
+        <locale name="logs.panel.btn.delete.marked">
+            <pt><![CDATA[Eliminar ficheiros de registo selecionados]]></pt>
+        </locale>
+        <locale name="logs.panel.btn.open.log">
+            <pt><![CDATA[Abrir registo de [date]]]></pt>
+        </locale>
+        <locale name="logs.panel.delete.window.title">
+            <pt><![CDATA[Eliminar registo: [file]]]></pt>
+        </locale>
+        <locale name="logs.panel.delete.window.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar o ficheiro de registo?]]></pt>
+        </locale>
+        <locale name="logs.panel.search.placeholder">
+            <pt><![CDATA[Pesquisar...]]></pt>
+        </locale>
+        <locale name="logs.panel.search.btn.start.alt">
+            <pt><![CDATA[Iniciar pesquisa]]></pt>
+        </locale>
+        <locale name="logs.panel.search.btn.start.title">
+            <pt><![CDATA[Iniciar pesquisa]]></pt>
+        </locale>
+        <locale name="editors.settings.title">
+            <pt><![CDATA[Gestão de barras de ferramentas do editor de conteúdo]]></pt>
+        </locale>
+        <locale name="editors.settings.btn.edit.toolbar">
+            <pt><![CDATA[Editar barra de ferramentas]]></pt>
+        </locale>
+        <locale name="editors.settings.btn.delete.toolbar">
+            <pt><![CDATA[Eliminar barra de ferramentas]]></pt>
+        </locale>
+        <locale name="editors.settings.btn.add.toolbar">
+            <pt><![CDATA[Adicionar barra de ferramentas]]></pt>
+        </locale>
+        <locale name="editors.settings.table.toolbar.name">
+            <pt><![CDATA[Nome da barra de ferramentas]]></pt>
+        </locale>
+        <locale name="editors.settings.editsheet.title">
+            <pt><![CDATA[Editar barra de ferramentas [toolbar]]]></pt>
+        </locale>
+        <locale name="editors.settings.editsheet.btn.save">
+            <pt><![CDATA[Guardar alterações]]></pt>
+        </locale>
+        <locale name="editors.settings.delete.window.title">
+            <pt><![CDATA[Eliminar a barra de ferramentas?]]></pt>
+        </locale>
+        <locale name="editors.settings.delete.window.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar a barra de ferramentas [toolbar]?]]></pt>
+        </locale>
+        <locale name="editors.settings.add.window.title">
+            <pt><![CDATA[Adicionar barra de ferramentas]]></pt>
+        </locale>
+        <locale name="editors.settings.add.window.text">
+            <pt><![CDATA[Introduza um novo nome para a barra de ferramentas:]]></pt>
+        </locale>
+        <locale name="lang.popup.title">
+            <pt><![CDATA[Idiomas disponíveis]]></pt>
+        </locale>
+        <locale name="desktop.panels.xml.btn.cancel">
+            <pt><![CDATA[Descartar alterações]]></pt>
+        </locale>
+        <locale name="desktop.panels.xml.btn.save">
+            <pt><![CDATA[Guardar alterações]]></pt>
+        </locale>
+        <locale name="workspace.toolarge.window.title">
+            <pt><![CDATA[A área de trabalho é demasiado grande]]></pt>
+        </locale>
+        <locale name="workspace.toolarge.window.text">
+            <pt><![CDATA[<h1>A área de trabalho é demasiado grande</h1><p>A área de trabalho é demasiado grande para a janela do seu navegador. Selecione uma área de trabalho adequada.</p><h2>Áreas de trabalho adequadas disponíveis:</h2>]]></pt>
+        </locale>
+        <locale name="workspace.toolarge.window.noWorkspaces.text">
+            <pt><![CDATA[<h1>A área de trabalho é demasiado grande</h1><p>A área de trabalho é demasiado grande e não existe nenhuma adequada.</p><p>Pretende criar uma nova área de trabalho?</p>]]></pt>
+        </locale>
+        <locale name="grid.is.empty">
+            <pt><![CDATA[A tabela não contém dados]]></pt>
+        </locale>
+        <locale name="grid.sizing.button.title">
+            <pt><![CDATA[Modo compacto - reduzir tabela]]></pt>
+        </locale>
+        <locale name="grid.sizing.button.title.small">
+            <pt><![CDATA[Modo normal - ampliar tabela]]></pt>
+        </locale>
+        <locale name="grid.export.button.title">
+            <pt><![CDATA[Exportar dados]]></pt>
+        </locale>
+        <locale name="grid.export.type.csv">
+            <pt><![CDATA[CSV]]></pt>
+        </locale>
+        <locale name="grid.export.type.xls">
+            <pt><![CDATA[Excel]]></pt>
+        </locale>
+        <locale name="grid.export.type.pdf">
+            <pt><![CDATA[PDF]]></pt>
+        </locale>
+        <locale name="grid.export.type.json">
+            <pt><![CDATA[JSON]]></pt>
+        </locale>
+        <locale name="grid.export.type.print">
+            <pt><![CDATA[Imprimir]]></pt>
+        </locale>
+        <locale name="grid.export.nav.fields">
+            <pt><![CDATA[Seleção de campos]]></pt>
+        </locale>
+        <locale name="grid.export.nav.export">
+            <pt><![CDATA[Formato de ficheiro]]></pt>
+        </locale>
+        <locale name="grid.export.message.title">
+            <pt><![CDATA[Selecionar campos]]></pt>
+        </locale>
+        <locale name="grid.export.message">
+            <pt><![CDATA[Selecione os campos que pretende exportar.]]></pt>
+        </locale>
+        <locale name="grid.export.item.noLabel">
+            <pt><![CDATA[Sem rótulo]]></pt>
+        </locale>
+        <locale name="grid.export.message.exportType.title">
+            <pt><![CDATA[Selecionar formato de ficheiro]]></pt>
+        </locale>
+        <locale name="grid.export.message.exportType">
+            <pt><![CDATA[Selecione o formato de ficheiro no qual pretende exportar os dados.]]></pt>
+        </locale>
+        <locale name="grid.export.button.next">
+            <pt><![CDATA[Seguinte]]></pt>
+        </locale>
+        <locale name="grid.export.button.download">
+            <pt><![CDATA[Transferir]]></pt>
+        </locale>
+        <locale name="grid.export.button.print">
+            <pt><![CDATA[Imprimir]]></pt>
+        </locale>
+        <locale name="window.grid.sorting.submit">
+            <pt><![CDATA[Personalizar]]></pt>
+        </locale>
+        <locale name="window.grid.sorting.title">
+            <pt><![CDATA[Personalize a tabela de acordo com as suas necessidades]]></pt>
+        </locale>
+        <locale name="window.grid.sorting.description" html="true">
+            <pt><![CDATA[<p>Pode alterar facilmente a ordem das colunas arrastando-as e largando-as, ou mostrar e ocultar as colunas que desejar. Assim, pode adaptar a tabela às suas preferências.</p>]]></pt>
+        </locale>
+        <locale name="window.grid.sorting.btn.text">
+            <pt><![CDATA[Repor vista]]></pt>
+        </locale>
+        <locale name="window.grid.sorting.errorMsg">
+            <pt><![CDATA[Ative primeiro a caixa de verificação e depois clique no botão.]]></pt>
+        </locale>
+        <locale name="window.grid.sorting.hint">
+            <pt><![CDATA[Ao clicar no botão, a tabela será reposta nas predefinições.]]></pt>
+        </locale>
+        <locale name="menu.quiqqer.text">
+            <pt><![CDATA[<img src="../bin/quiqqer_logo.svg" />]]></pt>
+        </locale>
+        <locale name="menu.profile.text">
+            <pt><![CDATA[Perfil]]></pt>
+        </locale>
+        <locale name="menu.profile.workspace.text">
+            <pt><![CDATA[Áreas de trabalho]]></pt>
+        </locale>
+        <locale name="menu.profile.userProfile.text">
+            <pt><![CDATA[Definições]]></pt>
+        </locale>
+        <locale name="menu.goto.text">
+            <pt><![CDATA[Administração]]></pt>
+        </locale>
+        <locale name="menu.settings.text">
+            <pt><![CDATA[Definições]]></pt>
+        </locale>
+        <locale name="menu.settings.quiqqer.text">
+            <pt><![CDATA[QUIQQER]]></pt>
+        </locale>
+        <locale name="menu.settings.media.text">
+            <pt><![CDATA[Definições multimédia]]></pt>
+        </locale>
+        <locale name="menu.settings.editor.text">
+            <pt><![CDATA[Gestão de barras de ferramentas do editor de conteúdo]]></pt>
+        </locale>
+        <locale name="menu.settings.vhosts.text">
+            <pt><![CDATA[Hosts virtuais]]></pt>
+        </locale>
+        <locale name="menu.settings.mailqueue.text">
+            <pt><![CDATA[Fila de e-mail]]></pt>
+        </locale>
+        <locale name="menu.extras.rights.text">
+            <pt><![CDATA[Gestão de utilizadores]]></pt>
+        </locale>
+        <locale name="menu.extras.permissions.text">
+            <pt><![CDATA[Permissões de acesso]]></pt>
+        </locale>
+        <locale name="menu.extras.groups.text">
+            <pt><![CDATA[Grupos]]></pt>
+        </locale>
+        <locale name="menu.extras.users.text">
+            <pt><![CDATA[Utilizadores]]></pt>
+        </locale>
+        <locale name="menu.extras.logs.text">
+            <pt><![CDATA[Registos]]></pt>
+        </locale>
+        <locale name="menu.extras.trash.text">
+            <pt><![CDATA[Reciclagem]]></pt>
+        </locale>
+        <locale name="menu.help.text">
+            <pt><![CDATA[QUIQQER]]></pt>
+        </locale>
+        <locale name="menu.help.dashboard.text">
+            <pt><![CDATA[Painel de controlo]]></pt>
+        </locale>
+        <locale name="quiqqer.settings.gui">
+            <pt><![CDATA[Interface (GUI)]]></pt>
+        </locale>
+        <locale name="quiqqer.settings.gui.title">
+            <pt><![CDATA[Definições da interface (GUI)]]></pt>
+        </locale>
+        <locale name="quiqqer.settings.gui.displayTimeMessages.text">
+            <pt><![CDATA[Duração da apresentação das mensagens]]></pt>
+        </locale>
+        <locale name="quiqqer.settings.gui.displayTimeMessages.description">
+            <pt><![CDATA[Determine durante quanto tempo as mensagens são apresentadas.<br /> As mensagens podem ser de sucesso, informação, aviso ou erro.<br /> Os valores são indicados em milissegundos.]]></pt>
+        </locale>
+        <locale name="quiqqer.settings.gui.panel.task.limit">
+            <pt><![CDATA[Número máximo de tarefas num painel de tarefas]]></pt>
+        </locale>
+        <locale name="quiqqer.settings.gui.panel.task.limit.description">
+            <pt><![CDATA[Determine o número máximo de tarefas que podem existir num painel de tarefas. Se forem abertas demasiadas tarefas num painel, o desempenho da área de trabalho será afetado.]]></pt>
+        </locale>
+        <locale name="panels.project.title">
+            <pt><![CDATA[Painel de websites]]></pt>
+        </locale>
+        <locale name="panels.project.description">
+            <pt><![CDATA[Mostra todos os websites e a árvore de páginas.]]></pt>
+        </locale>
+        <locale name="panels.help.title">
+            <pt><![CDATA[Ajuda do QUIQQER]]></pt>
+        </locale>
+        <locale name="panels.help.description">
+            <pt><![CDATA[Mostra a ajuda do QUIQQER.]]></pt>
+        </locale>
+        <locale name="panels.upload.title">
+            <pt><![CDATA[Carregamentos]]></pt>
+        </locale>
+        <locale name="panels.upload.description">
+            <pt><![CDATA[Apresentação dos ficheiros carregados.]]></pt>
+        </locale>
+        <locale name="panels.messages.description">
+            <pt><![CDATA[Mostra mensagens e notificações de estado.]]></pt>
+        </locale>
+        <locale name="panels.tasks.title">
+            <pt><![CDATA[Painel de tarefas]]></pt>
+        </locale>
+        <locale name="panels.tasks.description">
+            <pt><![CDATA[Painel que gere vários painéis.]]></pt>
+        </locale>
+        <locale name="exception.template.not.found">
+            <pt><![CDATA[O modelo não foi encontrado.]]></pt>
+        </locale>
+        <locale name="menu.file.search.text">
+            <pt><![CDATA[Pesquisar páginas...]]></pt>
+        </locale>
+        <locale name="exception.lib.qui.exceptions.handler.nocallback">
+            <pt><![CDATA[Não foi definida nenhuma função de callback [function]]]></pt>
+        </locale>
+        <locale name="exception.lib.qui.exceptions.handler.invalid">
+            <pt><![CDATA[Foi passada uma função inválida ao método [function].]]></pt>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.exist">
+            <pt><![CDATA[A barra de ferramentas já existe.]]></pt>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.empty">
+            <pt><![CDATA[A barra de ferramentas está vazia e, por isso, não foi possível guardá-la.]]></pt>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.xml.error">
+            <pt><![CDATA[Ocorreu um erro ao ler um ficheiro XML de barra de ferramentas. [error]]]></pt>
+        </locale>
+        <locale name="menu.extras.projects.text">
+            <pt><![CDATA[Gestão de projetos]]></pt>
+        </locale>
+        <locale name="menu.settings.projects.text">
+            <pt><![CDATA[Definições de projetos]]></pt>
+        </locale>
+        <locale name="control.breadcrumb.text">
+            <pt><![CDATA[Está aqui:]]></pt>
+        </locale>
+        <locale name="menu.apps.text">
+            <pt><![CDATA[Aplicações]]></pt>
+        </locale>
+        <locale name="message.editor.toolbar.save.success">
+            <pt><![CDATA[A barra de ferramentas foi guardada com sucesso.]]></pt>
+        </locale>
+        <locale name="menu.extras.packages.text">
+            <pt><![CDATA[Administração do sistema]]></pt>
+        </locale>
+        <locale name="menu.help.about.text">
+            <pt><![CDATA[Sobre o QUIQQER]]></pt>
+        </locale>
+        <locale name="quiqqer.setup.workspace.title">
+            <pt><![CDATA[Configurar ambiente de trabalho]]></pt>
+        </locale>
+        <locale name="quiqqer.setup.workspace.description">
+            <pt><![CDATA[Escolha o ambiente de trabalho que melhor se adapta a si e ao seu projeto.]]></pt>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.custom.css.is.not.writeable">
+            <pt><![CDATA[Não é possível escrever no ficheiro CSS personalizado [file]. Altere as permissões de escrita.]]></pt>
+        </locale>
+        <locale name="menu.settings.forwarding.text">
+            <pt><![CDATA[Redirecionamentos globais]]></pt>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="menu.workspaces.edit">
+            <pt><![CDATA[Definições]]></pt>
+        </locale>
+        <locale name="window.workspaces.title">
+            <pt><![CDATA[Áreas de trabalho]]></pt>
+        </locale>
+        <locale name="window.workspaces.message">
+            <pt><![CDATA[Edite as suas áreas de trabalho com um duplo clique]]></pt>
+        </locale>
+        <locale name="window.workspaces.width">
+            <pt><![CDATA[Largura da janela]]></pt>
+        </locale>
+        <locale name="window.workspaces.height">
+            <pt><![CDATA[Altura da janela]]></pt>
+        </locale>
+        <locale name="window.workspaces.add">
+            <pt><![CDATA[Criar uma nova área de trabalho]]></pt>
+        </locale>
+        <locale name="window.workspaces.delete">
+            <pt><![CDATA[Eliminar as áreas de trabalho selecionadas]]></pt>
+        </locale>
+        <locale name="window.workspaces.delete.title">
+            <pt><![CDATA[Eliminar áreas de trabalho?]]></pt>
+        </locale>
+        <locale name="window.workspaces.delete.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar as áreas de trabalho?]]></pt>
+        </locale>
+        <locale name="window.workspaces.delete.information" html="true">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar as seguintes áreas de trabalho?<br /><br />[ids]]]></pt>
+        </locale>
+        <locale name="workspaces.2.columns">
+            <pt><![CDATA[2 colunas]]></pt>
+        </locale>
+        <locale name="workspaces.3.columns">
+            <pt><![CDATA[3 colunas]]></pt>
+        </locale>
+        <locale name="message.error.in.workspace">
+            <pt><![CDATA[Os dados da sua área de trabalho estão incorretos.]]></pt>
+        </locale>
+        <locale name="message.workspace.not.found">
+            <pt><![CDATA[A área de trabalho não foi encontrada.]]></pt>
+        </locale>
+        <locale name="window.workspaces.create.header.title">
+            <pt><![CDATA[Definições da área de trabalho]]></pt>
+        </locale>
+        <locale name="window.workspaces.create.cols">
+            <pt><![CDATA[Colunas]]></pt>
+        </locale>
+        <locale name="window.workspaces.create.usage">
+            <pt><![CDATA[Utilização com]]></pt>
+        </locale>
+        <locale name="window.workspaces.create.usage.minWidth">
+            <pt><![CDATA[Largura mínima da janela]]></pt>
+        </locale>
+        <locale name="window.workspaces.create.usage.minHeight">
+            <pt><![CDATA[Altura mínima da janela]]></pt>
+        </locale>
+        <locale name="window.workspaces.select.title">
+            <pt><![CDATA[Selecionar a área de trabalho predefinida]]></pt>
+        </locale>
+        <locale name="window.workspaces.select.text">
+            <pt><![CDATA[<p>Selecione a área de trabalho que pretende utilizar</p>]]></pt>
+        </locale>
+        <locale name="window.workspaces.panel.list.title">
+            <pt><![CDATA[Lista de painéis]]></pt>
+        </locale>
+        <locale name="workspace.contextmenu.add.panel">
+            <pt><![CDATA[Adicionar painéis]]></pt>
+        </locale>
+        <locale name="workspace.contextmenu.remove.panel">
+            <pt><![CDATA[Eliminar painel]]></pt>
+        </locale>
+        <locale name="workspace.contextmenu.add.column">
+            <pt><![CDATA[Adicionar coluna]]></pt>
+        </locale>
+        <locale name="workspace.contextmenu.add.column.before">
+            <pt><![CDATA[Adicionar coluna antes]]></pt>
+        </locale>
+        <locale name="workspace.contextmenu.add.column.after">
+            <pt><![CDATA[Adicionar coluna depois]]></pt>
+        </locale>
+        <locale name="workspace.contextmenu.delete.column">
+            <pt><![CDATA[Eliminar coluna]]></pt>
+        </locale>
+        <locale name="window.workspace.corrupt.title">
+            <pt><![CDATA[A área de trabalho está danificada]]></pt>
+        </locale>
+        <locale name="window.workspace.corrupt.text">
+            <pt><![CDATA[A área de trabalho está danificada e não foi possível carregá-la.]]></pt>
+        </locale>
+        <locale name="window.workspace.corrupt.information">
+            <pt><![CDATA[Lamentamos, mas a área de trabalho está danificada e não foi possível restaurá-la.<br />Recomendamos que carregue uma das áreas de trabalho predefinidas do QUIQQER.]]></pt>
+        </locale>
+        <locale name="controls.workspace.search.btn.text">
+            <pt><![CDATA[Início]]></pt>
+        </locale>
+        <locale name="controls.workspace.search.filter.placeholder">
+            <pt><![CDATA[Áreas pesquisadas]]></pt>
+        </locale>
+        <locale name="dialog.projects.media.folder.delete.title">
+            <pt><![CDATA[Eliminar pastas / ficheiros]]></pt>
+        </locale>
+        <locale name="dialog.projects.media.folder.delete.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar as seguintes pastas ou ficheiros?]]></pt>
+        </locale>
+        <locale name="dialog.projects.media.rename.title">
+            <pt><![CDATA[Mudar o nome]]></pt>
+        </locale>
+        <locale name="dialog.projects.media.rename.information">
+            <pt><![CDATA[Introduza um novo nome para a pasta ou ficheiro.]]></pt>
+        </locale>
+        <locale name="dialog.projects.media.file.replace.title">
+            <pt><![CDATA[Substituir ficheiro]]></pt>
+        </locale>
+        <locale name="dialog.projects.media.file.replace.information" html="true">
+            <pt><![CDATA[Selecione um ficheiro ou arraste para esta janela o ficheiro com o qual pretende substituir <b>[file]</b>]]></pt>
+        </locale>
+        <locale name="message.to.much.tasks">
+            <pt><![CDATA[Estão abertas demasiadas tarefas. Algumas tarefas foram fechadas.]]></pt>
+        </locale>
+        <locale name="control.date.button.alt">
+            <pt><![CDATA[Limpar data]]></pt>
+        </locale>
+        <locale name="control.date.button.title">
+            <pt><![CDATA[Limpar data]]></pt>
+        </locale>
+        <locale name="control.date.missing.package">
+            <pt><![CDATA[O pacote de calendário não foi encontrado. Instale quiqqer/calendar]]></pt>
+        </locale>
+        <locale name="help.panel.title">
+            <pt><![CDATA[Ajuda do QUIQQER]]></pt>
+        </locale>
+        <locale name="help.panel.button.open.text">
+            <pt><![CDATA[Abrir ajuda]]></pt>
+        </locale>
+
+        <locale name="control.bookmarks.panel.button.add.title">
+            <pt><![CDATA[Adicionar marcador]]></pt>
+        </locale>
+        <locale name="control.bookmarks.panel.button.edit.title">
+            <pt><![CDATA[Editar marcadores]]></pt>
+        </locale>
+        <locale name="control.bookmarks.panel.button.sort.title">
+            <pt><![CDATA[Ordenação]]></pt>
+        </locale>
+
+        <locale name="dashboard.messages.empty">
+            <pt><![CDATA[Não existem mensagens.]]></pt>
+        </locale>
+
+        <locale name="control.server.button.add.text">
+            <pt><![CDATA[Adicionar novo servidor]]></pt>
+        </locale>
+        <locale name="control.server.filter.placeholder">
+            <pt><![CDATA[Filtrar...]]></pt>
+        </locale>
+        <locale name="control.server.filter.submit">
+            <pt><![CDATA[Iniciar pesquisa]]></pt>
+        </locale>
+
+        <locale name="control.icons.confirm.title">
+            <pt><![CDATA[Seleção de ícones]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.filterIcons">
+            <pt><![CDATA[Pesquisar ícones]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.noResultsInfo">
+            <pt><![CDATA[Não existem ícones que correspondam à pesquisa]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.category.all">
+            <pt><![CDATA[Todos]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.preview.placeholder">
+            <pt><![CDATA[Selecione um ícone]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.preview.cssClass">
+            <pt><![CDATA[Classe CSS]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.preview.copyHtml">
+            <pt><![CDATA[Copiar código]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.preview.copied">
+            <pt><![CDATA[Copiado]]></pt>
+        </locale>
+        <locale name="control.icons.confirm.cssClassHint">
+            <pt><![CDATA[Copie a classe para utilizar o ícone no seu projeto.]]></pt>
+        </locale>
+        <locale name="control.grid.menu.button">
+            <pt><![CDATA[Menu]]></pt>
+        </locale>
+        <locale name="panels.messages.title">
+            <pt><![CDATA[Mensagens]]></pt>
+        </locale>
+
+        <locale name="message.handler.title">
+            <pt><![CDATA[Notificações]]></pt>
+        </locale>
+        <locale name="message.handler.clear">
+            <pt><![CDATA[limpar]]></pt>
+        </locale>
+        <locale name="message.handler.no.messages">
+            <pt><![CDATA[Não existem mensagens]]></pt>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

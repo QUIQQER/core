@@ -37,7 +37,7 @@ define('controls/users/InviteWindow', [
                 },
                 cancel_button: {
                     textimage: 'fa fa-close',
-                    text: QUILocale.get('quiqqer/system', 'cancel')
+                    text: QUILocale.get(lg, 'cancel')
                 }
             }, options));
 

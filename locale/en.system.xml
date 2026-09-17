@@ -1,0 +1,3494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  deprecated -->
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/system" datatype="js,php">
+        <locale name="yes">
+            <en><![CDATA[Yes]]></en>
+        </locale>
+        <locale name="no">
+            <en><![CDATA[No]]></en>
+        </locale>
+        <locale name="id">
+            <en><![CDATA[ID]]></en>
+        </locale>
+        <locale name="name">
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="title">
+            <en><![CDATA[Title]]></en>
+        </locale>
+        <locale name="workingtitle">
+            <en><![CDATA[Working title]]></en>
+        </locale>
+        <locale name="short">
+            <en><![CDATA[Short description]]></en>
+        </locale>
+        <locale name="content">
+            <en><![CDATA[Content]]></en>
+        </locale>
+        <locale name="information">
+            <en><![CDATA[Information]]></en>
+        </locale>
+        <locale name="settings">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="properties">
+            <en><![CDATA[Properties]]></en>
+        </locale>
+        <locale name="search">
+            <en><![CDATA[Search]]></en>
+        </locale>
+        <locale name="size">
+            <en><![CDATA[Size]]></en>
+        </locale>
+        <locale name="description">
+            <en><![CDATA[Description]]></en>
+        </locale>
+        <locale name="createdate">
+            <en><![CDATA[Creation date]]></en>
+        </locale>
+        <locale name="createuser">
+            <en><![CDATA[Creater]]></en>
+        </locale>
+        <locale name="editdate">
+            <en><![CDATA[Last edit date]]></en>
+        </locale>
+        <locale name="edituser">
+            <en><![CDATA[Editor]]></en>
+        </locale>
+        <locale name="date">
+            <en><![CDATA[Date]]></en>
+        </locale>
+        <locale name="from">
+            <en><![CDATA[from]]></en>
+        </locale>
+        <locale name="to">
+            <en><![CDATA[to]]></en>
+        </locale>
+        <locale name="up">
+            <en><![CDATA[Up]]></en>
+        </locale>
+        <locale name="down">
+            <en><![CDATA[Down]]></en>
+        </locale>
+        <locale name="status">
+            <en><![CDATA[Status]]></en>
+        </locale>
+        <locale name="data">
+            <en><![CDATA[Data]]></en>
+        </locale>
+        <locale name="image">
+            <en><![CDATA[Image]]></en>
+        </locale>
+        <locale name="email">
+            <en><![CDATA[E-mail]]></en>
+        </locale>
+        <locale name="firstname">
+            <en><![CDATA[Firstname]]></en>
+        </locale>
+        <locale name="lastname">
+            <en><![CDATA[Lastname]]></en>
+        </locale>
+        <locale name="username">
+            <en><![CDATA[Username]]></en>
+        </locale>
+        <locale name="user_id">
+            <en><![CDATA[User ID]]></en>
+        </locale>
+        <locale name="user_uuid">
+            <en><![CDATA[User UUID]]></en>
+        </locale>
+        <locale name="user_ip_adress">
+            <en><![CDATA[The user's IP address]]></en>
+        </locale>
+        <locale name="birthday">
+            <en><![CDATA[Birthday]]></en>
+        </locale>
+        <locale name="password">
+            <en><![CDATA[Password]]></en>
+        </locale>
+        <locale name="salutation">
+            <en><![CDATA[Salutation]]></en>
+        </locale>
+        <locale name="address">
+            <en><![CDATA[Address]]></en>
+        </locale>
+        <locale name="company">
+            <en><![CDATA[Company]]></en>
+        </locale>
+        <locale name="street">
+            <en><![CDATA[Street]]></en>
+        </locale>
+        <locale name="street_no">
+            <en><![CDATA[Street and no.]]></en>
+        </locale>
+        <locale name="zip">
+            <en><![CDATA[Zip]]></en>
+        </locale>
+        <locale name="city">
+            <en><![CDATA[City]]></en>
+        </locale>
+        <locale name="country">
+            <en><![CDATA[Country]]></en>
+        </locale>
+        <locale name="file">
+            <en><![CDATA[File]]></en>
+        </locale>
+        <locale name="group">
+            <en><![CDATA[Group]]></en>
+        </locale>
+        <locale name="groups">
+            <en><![CDATA[Groups]]></en>
+        </locale>
+        <locale name="groupname">
+            <en><![CDATA[Group name]]></en>
+        </locale>
+        <locale name="parentGroup">
+            <en><![CDATA[Parent group]]></en>
+        </locale>
+        <locale name="toolbar">
+            <en><![CDATA[Toolbar]]></en>
+        </locale>
+        <locale name="group_id">
+            <en><![CDATA[Group ID]]></en>
+        </locale>
+        <locale name="cancel">
+            <en><![CDATA[Cancel]]></en>
+        </locale>
+        <locale name="close">
+            <en><![CDATA[Close]]></en>
+        </locale>
+        <locale name="ok">
+            <en><![CDATA[Ok]]></en>
+        </locale>
+        <locale name="accept">
+            <en><![CDATA[Accept]]></en>
+        </locale>
+        <locale name="delete">
+            <en><![CDATA[Delete]]></en>
+        </locale>
+        <locale name="remove">
+            <en><![CDATA[Remove]]></en>
+        </locale>
+        <locale name="edit">
+            <en><![CDATA[Edit]]></en>
+        </locale>
+        <locale name="save">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="project">
+            <en><![CDATA[Project]]></en>
+        </locale>
+        <locale name="projects">
+            <en><![CDATA[Projects]]></en>
+        </locale>
+        <locale name="type">
+            <en><![CDATA[Type]]></en>
+        </locale>
+        <locale name="open.site">
+            <en><![CDATA[Open page]]></en>
+        </locale>
+        <locale name="c_date">
+            <en><![CDATA[Creation date]]></en>
+        </locale>
+        <locale name="c_user">
+            <en><![CDATA[Creator]]></en>
+        </locale>
+        <locale name="e_date">
+            <en><![CDATA[Edit date]]></en>
+        </locale>
+        <locale name="e_user">
+            <en><![CDATA[Last editor]]></en>
+        </locale>
+        <locale name="site_id">
+            <en><![CDATA[Site ID]]></en>
+        </locale>
+        <locale name="manually">
+            <en><![CDATA[manually]]></en>
+        </locale>
+        <locale name="id_asc">
+            <en><![CDATA[ID ascending]]></en>
+        </locale>
+        <locale name="id_desc">
+            <en><![CDATA[ID descending]]></en>
+        </locale>
+        <locale name="name_asc">
+            <en><![CDATA[Name ascending]]></en>
+        </locale>
+        <locale name="name_desc">
+            <en><![CDATA[Name descending]]></en>
+        </locale>
+        <locale name="title_asc">
+            <en><![CDATA[Title ascending]]></en>
+        </locale>
+        <locale name="title_desc">
+            <en><![CDATA[Title descending]]></en>
+        </locale>
+        <locale name="c_date_asc">
+            <en><![CDATA[Creation date ascending]]></en>
+        </locale>
+        <locale name="c_date_desc">
+            <en><![CDATA[Creation date descending]]></en>
+        </locale>
+        <locale name="e_date_asc">
+            <en><![CDATA[Edit date ascending]]></en>
+        </locale>
+        <locale name="e_date_desc">
+            <en><![CDATA[Edit date descending]]></en>
+        </locale>
+        <locale name="release_from_asc">
+            <en><![CDATA[Release date ascending]]></en>
+        </locale>
+        <locale name="release_from_desc">
+            <en><![CDATA[Release date descending]]></en>
+        </locale>
+        <locale name="priority_asc">
+            <en><![CDATA[Priority ascending]]></en>
+        </locale>
+        <locale name="priority_desc">
+            <en><![CDATA[Priority descending]]></en>
+        </locale>
+        <locale name="priority">
+            <en><![CDATA[Priority]]></en>
+        </locale>
+        <locale name="pause">
+            <en><![CDATA[Pause]]></en>
+        </locale>
+        <locale name="Resume">
+            <en><![CDATA[Resume]]></en>
+        </locale>
+        <locale name="language">
+            <en><![CDATA[Language]]></en>
+        </locale>
+        <locale name="language.code">
+            <en><![CDATA[Language Code]]></en>
+        </locale>
+        <locale name="languages">
+            <en><![CDATA[Languages]]></en>
+        </locale>
+        <locale name="template">
+            <en><![CDATA[Template]]></en>
+        </locale>
+        <locale name="number">
+            <en><![CDATA[Number]]></en>
+        </locale>
+        <locale name="tel">
+            <en><![CDATA[Telephone]]></en>
+        </locale>
+        <locale name="phone">
+            <en><![CDATA[Telephone]]></en>
+        </locale>
+        <locale name="fax">
+            <en><![CDATA[Fax]]></en>
+        </locale>
+        <locale name="mobile">
+            <en><![CDATA[Mobile]]></en>
+        </locale>
+        <locale name="profile">
+            <en><![CDATA[Profile]]></en>
+        </locale>
+        <locale name="add">
+            <en><![CDATA[Add]]></en>
+        </locale>
+        <locale name="address.salutation.male">
+            <en><![CDATA[Mr]]></en>
+        </locale>
+        <locale name="address.salutation.female">
+            <en><![CDATA[Mrs.]]></en>
+        </locale>
+        <locale name="address.salutation.company">
+            <en><![CDATA[Company]]></en>
+        </locale>
+        <locale name="message.clear.cache.successful">
+            <en><![CDATA[Cache successful cleared.]]></en>
+        </locale>
+        <locale name="message.clear.cache.purged">
+            <en><![CDATA[Cache successful purged.]]></en>
+        </locale>
+        <locale name="message.unknown.root.group">
+            <en><![CDATA[Unknown ROOT group. Please contact an administrator.]]></en>
+        </locale>
+        <locale name="logout">
+            <en><![CDATA[Logout]]></en>
+        </locale>
+        <locale name="message.contact.successful" html="true">
+            <en><![CDATA[Thank you for your email. We will contact you as soon as possible.]]></en>
+        </locale>
+        <locale name="control.contact.send.button">
+            <en><![CDATA[Send]]></en>
+        </locale>
+        <locale name="message.session.auth.memcached.notinstalled">
+            <en><![CDATA[The Memcached extension does not exist on this server.]]></en>
+        </locale>
+        <locale name="message.session.auth.memcached.missing.servers">
+            <en><![CDATA[There were no memcached server specified. The test could not be performed.]]></en>
+        </locale>
+        <locale name="message.session.auth.memcached.empty.server">
+            <en><![CDATA[A server address is empty or not specified.]]></en>
+        </locale>
+        <locale name="message.session.auth.memcached.empty.port">
+            <en><![CDATA[A server port specification is indicated empty or not.]]></en>
+        </locale>
+        <locale name="message.session.auth.memcached.error" html="true">
+            <en><![CDATA[To the server [server]:[port] could not be connected]]></en>
+        </locale>
+        <locale name="message.session.auth.memcached.success" html="true">
+            <en>
+                <![CDATA[No Memcached errors found.<br />                With all the memcached servers could be successfully connected.            ]]></en>
+        </locale>
+        <locale name="login">
+            <en><![CDATA[Login]]></en>
+        </locale>
+        <locale name="template.project.media.effect.header">
+            <en><![CDATA[Image effects]]></en>
+        </locale>
+        <locale name="template.project.media.effect.preview.header">
+            <en><![CDATA[Image preview]]></en>
+        </locale>
+        <locale name="template.project.media.folder.order">
+            <en><![CDATA[Sorting]]></en>
+        </locale>
+        <locale name="media.blur">
+            <en><![CDATA[Blur]]></en>
+        </locale>
+        <locale name="media.brightness">
+            <en><![CDATA[Brightness]]></en>
+        </locale>
+        <locale name="media.contrast">
+            <en><![CDATA[Contrast]]></en>
+        </locale>
+        <locale name="media.greyscale">
+            <en><![CDATA[Greyscale]]></en>
+        </locale>
+        <locale name="media.watermark">
+            <en><![CDATA[Watermark]]></en>
+        </locale>
+        <locale name="media.watermark.position">
+            <en><![CDATA[Positionof the watermark]]></en>
+        </locale>
+        <locale name="exception.media.check.name.dots" html="true">
+            <en>
+                <![CDATA[<p>Invalid characters were found in the name.<br />            Points may not be used.<br />            &nbsp;</p>            ]]></en>
+        </locale>
+        <locale name="exception.media.check.name.underline" html="true">
+            <en>
+                <![CDATA[<p>Invalid characters were found in the name.<br />                Double underscores may not be used.</p>            ]]></en>
+        </locale>
+        <locale name="exception.media.check.name.allowed.signs" html="true">
+            <en>
+                <![CDATA[            <p>Invalid characters were found in the name &quot;[filename]&quot;.<br />            The following characters are allowed: 0-9 a-z A-Z _ -</p>            ]]></en>
+        </locale>
+        <locale name="exception.media.check.foldername.allowed.signs" html="true">
+            <en>
+                <![CDATA[            <p>Invalid characters were found in the name &quot;[filename]&quot;.<br />            The following characters are allowed: 0-9 a-z A-Z _ -</p>            ]]></en>
+        </locale>
+        <locale name="no.results">
+            <en><![CDATA[No results found]]></en>
+        </locale>
+        <locale name="menu.profile.userPassword.text">
+            <en><![CDATA[Change password]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.message.save.success">
+            <en><![CDATA[The File has been saved successfully]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.message.save.success">
+            <en><![CDATA[The Folder has been saved successfully]]></en>
+        </locale>
+        <locale name="exception.permission.session.expired">
+            <en><![CDATA[Your session has expired, please login.]]></en>
+        </locale>
+        <locale name="exception.permission.no.admin">
+            <en><![CDATA[You do not have the necessary permissions to log on to the administration.]]></en>
+        </locale>
+        <locale name="exception.permissions.are.empty">
+            <en><![CDATA[Permissions are empty.]]></en>
+        </locale>
+        <locale name="exception.guest.group.cannot.be.deleted">
+            <en><![CDATA[The Guest group cannot be deleted.]]></en>
+        </locale>
+        <locale name="exception.everyone.group.cannot.be.deleted">
+            <en><![CDATA[The Everyone group cannot be deleted.]]></en>
+        </locale>
+    </groups>
+    <groups name="quiqqer/system" datatype="js">
+        <locale name="controls.users.auth.quiqqerlogin.send_mail_success">
+            <en>
+                <![CDATA[If there is a user account under the e-mail address you provided, you will receive an e-mail with a confirmation link to confirm the process. If no e-mail is received within the next 10 minutes, please repeat the process.]]></en>
+        </locale>
+        <locale name="controls.users.auth.quiqqerlogin.send_mail_error">
+            <en><![CDATA[The process could not be performed unfortunately:<br><br>[error]]]></en>
+        </locale>
+        <locale name="controls.licensekeypanel.title">
+            <en><![CDATA[QUIQQER License Key]]></en>
+        </locale>
+        <locale name="controls.licensekey.delete.popup.title">
+            <en><![CDATA[Delete QUIQQER License Key]]></en>
+        </locale>
+        <locale name="controls.licensekey.delete.popup.info">
+            <en>
+                <![CDATA[Are you sure you want to delete your current QUIQQER license key? You may no longer have access to packages that were part of your license key.]]></en>
+        </locale>
+        <locale name="controls.licensekey.delete.btn">
+            <en><![CDATA[Delete License Key]]></en>
+        </locale>
+        <locale name="welcome.message">
+            <en><![CDATA[Welcome [username]]]></en>
+        </locale>
+        <locale name="development.info">
+            <en><![CDATA[System is in development mode]]></en>
+        </locale>
+        <locale name="copy">
+            <en><![CDATA[Copy]]></en>
+        </locale>
+        <locale name="cut">
+            <en><![CDATA[Cut]]></en>
+        </locale>
+        <locale name="paste">
+            <en><![CDATA[Paste]]></en>
+        </locale>
+        <locale name="linked.paste">
+            <en><![CDATA[Paste site linking]]></en>
+        </locale>
+        <locale name="upload.manager.title">
+            <en><![CDATA[Upload]]></en>
+        </locale>
+        <locale name="upload.manager.clear">
+            <en><![CDATA[Clear Uploads]]></en>
+        </locale>
+        <locale name="projects.project.sitemap.media">
+            <en><![CDATA[Media]]></en>
+        </locale>
+        <locale name="projects.project.panel.btn.addlanguage">
+            <en><![CDATA[Add a language]]></en>
+        </locale>
+        <locale name="projects.project.project.delete.window.title">
+            <en><![CDATA[Delete project]]></en>
+        </locale>
+        <locale name="projects.project.project.delete.window.text">
+            <en><![CDATA[Really want to delete the project?]]></en>
+        </locale>
+        <locale name="projects.project.project.delete.window.information">
+            <en><![CDATA[The project can not be restored and the deletion is irrevocable.]]></en>
+        </locale>
+        <locale name="projects.project.project.delete.window.text.2">
+            <en><![CDATA[Are you sure you want to delete this project?]]></en>
+        </locale>
+        <locale name="projects.project.windowselect.text">
+            <en><![CDATA[Please select a project.]]></en>
+        </locale>
+        <locale name="projects.project.windowselect.title">
+            <en><![CDATA[Select a project]]></en>
+        </locale>
+        <locale name="exception.user.wrong.passwords">
+            <en><![CDATA[The passwords do not match. Please enter correct passwords.]]></en>
+        </locale>
+        <locale name="trash.panel.title">
+            <en><![CDATA[Trash]]></en>
+        </locale>
+        <locale name="trash.panel.btn.delete">
+            <en><![CDATA[Delete entries]]></en>
+        </locale>
+        <locale name="trash.panel.btn.delete.title">
+            <en><![CDATA[Delete marked entries]]></en>
+        </locale>
+        <locale name="trash.panel.btn.restore">
+            <en><![CDATA[Restore]]></en>
+        </locale>
+        <locale name="trash.panel.btn.restore.title">
+            <en><![CDATA[Restore marked entries]]></en>
+        </locale>
+        <locale name="trash.panel.window.delete.title">
+            <en><![CDATA[Delete marked entries?]]></en>
+        </locale>
+        <locale name="trash.panel.window.delete.text">
+            <en><![CDATA[Do you want to delete the following entries permanently?]]></en>
+        </locale>
+        <locale name="trash.panel.btn.delete.all">
+            <en><![CDATA[Clear]]></en>
+        </locale>
+        <locale name="trash.panel.btn.delete.all.title">
+            <en><![CDATA[Delete all entries]]></en>
+        </locale>
+        <locale name="trash.panel.window.delete.all.title">
+            <en><![CDATA[Delete all entries?]]></en>
+        </locale>
+        <locale name="trash.panel.window.delete.all.text">
+            <en><![CDATA[Do you want to delete all entries permanently?]]></en>
+        </locale>
+        <locale name="trash.panel.window.delete.all.information">
+            <en><![CDATA[These entries can not be restored]]></en>
+        </locale>
+        <locale name="trash.panel.window.restore.site.question">
+            <en><![CDATA[Please select the parent page under which the page(s) should be insert.]]></en>
+        </locale>
+        <locale name="system.vhost.table.hostdata">
+            <en><![CDATA[Host data]]></en>
+        </locale>
+        <locale name="system.vhost.table.languages">
+            <en><![CDATA[Language assignments]]></en>
+        </locale>
+        <locale name="system.vhost.table.language.noproject.info">
+            <en><![CDATA[You must select a project so that you can make language assignments.]]></en>
+        </locale>
+        <locale name="system.vhost.table.language.description">
+            <en>
+                <![CDATA[If you have multiple languages in the project, you can determine the hosts of another language here.]]></en>
+        </locale>
+        <locale name="system.vhost.label.rootLanguage">
+            <en><![CDATA[Root language]]></en>
+        </locale>
+        <locale name="system.vhost.table.pathLanguages">
+            <en><![CDATA[Path languages]]></en>
+        </locale>
+        <locale name="system.vhost.table.pathLanguages.description">
+            <en><![CDATA[
+                Additional languages are automatically served on this host below /LANGUAGE/.
+            ]]></en>
+        </locale>
+        <locale name="system.vhost.language.assigned">
+            <en><![CDATA[Already assigned to [host][path]]]></en>
+        </locale>
+        <locale name="system.vhost.language.assigned.option">
+            <en><![CDATA[[language] – already assigned to [host]]]></en>
+        </locale>
+        <locale name="system.vhost.label.domain">
+            <en><![CDATA[Domain]]></en>
+        </locale>
+        <locale name="system.vhost.label.errorsite">
+            <en><![CDATA[Error site]]></en>
+        </locale>
+        <locale name="system.vhost.label.httpshost">
+            <en><![CDATA[HTTPS-Host]]></en>
+        </locale>
+        <locale name="login.title">
+            <en><![CDATA[Login]]></en>
+        </locale>        <!-- logout window -->
+        <locale name="window.logout.title">
+            <en><![CDATA[Logout]]></en>
+        </locale>
+        <locale name="window.logout.text">
+            <en><![CDATA[Logout]]></en>
+        </locale>
+        <locale name="window.logout.information">
+            <en><![CDATA[Do you really want to log out?]]></en>
+        </locale>
+        <locale name="window.logout.button.ok">
+            <en><![CDATA[Logout]]></en>
+        </locale>
+        <locale name="window.logout.button.cancel">
+            <en><![CDATA[Cancel]]></en>
+        </locale>
+        <locale name="system.vhosts.title">
+            <en><![CDATA[Virtual hosts settings]]></en>
+        </locale>
+        <locale name="system.vhosts.btn.add">
+            <en><![CDATA[Add virtual host]]></en>
+        </locale>
+        <locale name="system.vhosts.btn.edit.marked">
+            <en><![CDATA[Edit marked host]]></en>
+        </locale>
+        <locale name="system.vhosts.btn.del.marked">
+            <en><![CDATA[Delete marked host]]></en>
+        </locale>
+        <locale name="system.vhosts.table.domain">
+            <en><![CDATA[Domain]]></en>
+        </locale>
+        <locale name="system.vhosts.add.window.title">
+            <en><![CDATA[Add new virtual host]]></en>
+        </locale>
+        <locale name="system.vhosts.add.window.information">
+
+            <en><![CDATA[Please enter the new host. <br />                For example: www.meine-domain.de]]></en>
+        </locale>
+        <locale name="system.vhosts.del.window.title">
+            <en><![CDATA[Delete virtual host]]></en>
+        </locale>
+        <locale name="system.vhosts.del.window.text">
+            <en><![CDATA[Are you sure you really want to delete the host [vhost]?]]></en>
+        </locale>
+        <locale name="system.vhosts.del.window.information">
+            <en><![CDATA[Note the host entry is not recoverable and is deleted irrevocably]]></en>
+        </locale>
+        <locale name="system.vhosts.edit.sheet.title">
+            <en><![CDATA[Edit [vhost]]]></en>
+        </locale>
+        <locale name="system.vhosts.edit.sheet.btn.save">
+            <en><![CDATA[Save changes]]></en>
+        </locale>
+        <locale name="system.vhosts.edit.window.title">
+            <en><![CDATA[Edit [vhost]]]></en>
+        </locale>
+        <locale name="system.vhosts.edit.window.btn.save">
+            <en><![CDATA[Save VHost]]></en>
+        </locale>
+        <locale name="system.vhosts.edit.window.btn.cancel">
+            <en><![CDATA[Cancel]]></en>
+        </locale>
+        <locale name="permissions.panel.title">
+            <en><![CDATA[Permissions-Manager]]></en>
+        </locale>
+        <locale name="permission.control.edit.title">
+            <en><![CDATA[Edit permissions of: [name]]]></en>
+        </locale>
+        <locale name="permission.control.editcreate.title">
+            <en><![CDATA[Edit permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.add.permission">
+            <en><![CDATA[Add permission]]></en>
+        </locale>
+        <locale name="permission.control.btn.group.save">
+            <en><![CDATA[Save group permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.user.save">
+            <en><![CDATA[Save user permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.project.save">
+            <en><![CDATA[Save project permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.site.save">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="permission.control.btn.site.save.title">
+            <en><![CDATA[Save page permissions]]></en>
+        </locale>
+        <locale name="permission.control.btn.site.save.recursive">
+            <en><![CDATA[Apply page permissions recursively]]></en>
+        </locale>
+        <locale name="permission.control.site.recursive.win.title">
+            <en><![CDATA[Apply permissions recursively]]></en>
+        </locale>
+        <locale name="permission.control.site.recursive.win.text">
+            <en><![CDATA[Apply permissions recursively]]></en>
+        </locale>
+        <locale name="permission.control.site.recursive.win.information" html="true">
+            <en><![CDATA[The current permissions are applied to all pages and on the selected page.]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.sitemap.alt">
+            <en><![CDATA[Show permissions]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.sitemap.title">
+            <en><![CDATA[Show permissions]]></en>
+        </locale>
+        <locale name="permissions.panel.message.no.rights">
+            <en><![CDATA[No rights exist]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.add.alt">
+            <en><![CDATA[Add a permission]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.add.title">
+            <en><![CDATA[Add a permission]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.add.text">
+            <en><![CDATA[Add a permission]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.save.alt">
+            <en><![CDATA[Save all changes]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.save.title">
+            <en><![CDATA[Save all changes]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.save.text">
+            <en><![CDATA[save]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.delete.right.alt">
+            <en><![CDATA[Delete permission [right]]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.delete.right.title">
+            <en><![CDATA[Delete permission [right]]]></en>
+        </locale>
+        <locale name="permissions.panel.window.delete.title">
+            <en><![CDATA[You realy want to delete the permission?]]></en>
+        </locale>
+        <locale name="permissions.panel.window.delete.text">
+            <en><![CDATA[You realy want to delete the permission [right]?]]></en>
+        </locale>
+        <locale name="permissions.panel.window.delete.information">
+            <en><![CDATA[The permission will be permanently deleted.]]></en>
+        </locale>
+        <locale name="permissions.panel.welcome.message" html="true">
+            <en><![CDATA[
+            <h1>Manage access privileges</h1>
+            Use the sidebar list to allow or deny users and groups access to specific pages, projects, or features.
+            ]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.title">
+            <en><![CDATA[Add permission]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.text">
+            <en><![CDATA[Add a permission. For example: my.custom.right]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.information">
+            <en><![CDATA[Add a permission for groups, users, projects, media-files or sites]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.user">
+            <en><![CDATA[Permission for an user and group]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.site">
+            <en><![CDATA[Permission for a page]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.media">
+            <en><![CDATA[Permission for the media]]></en>
+        </locale>
+        <locale name="permissions.panel.window.add.select.project">
+            <en><![CDATA[Permission for a project]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.user">
+            <en><![CDATA[For an user]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.group">
+            <en><![CDATA[For a group]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.site">
+            <en><![CDATA[For a single project page]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.project">
+            <en><![CDATA[For a project]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.manage">
+            <en><![CDATA[Permission management only]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.open.alt">
+            <en><![CDATA[Set permission for an specific group / user]]></en>
+        </locale>
+        <locale name="permissions.panel.btn.select.open.title">
+            <en><![CDATA[Set permission for an specific group / user]]></en>
+        </locale>
+        <locale name="permissions.panel.select.title">
+            <en><![CDATA[For which group want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.group.title">
+            <en><![CDATA[For which group want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.user.title">
+            <en><![CDATA[For which user want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.project.title">
+            <en><![CDATA[For which project want you to set the permissions?]]></en>
+        </locale>
+        <locale name="permissions.panel.select.site.title">
+            <en><![CDATA[For which page want you to set the permissions?]]></en>
+        </locale>
+        <locale name="logs.panel.title">
+            <en><![CDATA[Log manager]]></en>
+        </locale>
+        <locale name="logs.panel.log.file">
+            <en><![CDATA[Log file]]></en>
+        </locale>
+        <locale name="logs.panel.log.title">
+            <en><![CDATA[Logs: [file]]]></en>
+        </locale>
+        <locale name="logs.panel.btn.refresh">
+            <en><![CDATA[Update log file]]></en>
+        </locale>
+        <locale name="logs.panel.btn.delete.marked">
+            <en><![CDATA[Delete selected log files]]></en>
+        </locale>
+        <locale name="logs.panel.btn.open.log">
+            <en><![CDATA[Delete selected log files]]></en>
+        </locale>
+        <locale name="logs.panel.delete.window.title">
+            <en><![CDATA[Delete log [file]]]></en>
+        </locale>
+        <locale name="logs.panel.delete.window.text">
+            <en><![CDATA[Do you really want to delete the log file?]]></en>
+        </locale>
+        <locale name="logs.panel.search.placeholder">
+            <en><![CDATA[Search for...]]></en>
+        </locale>
+        <locale name="logs.panel.search.btn.start.alt">
+            <en><![CDATA[Start search]]></en>
+        </locale>
+        <locale name="logs.panel.search.btn.start.title">
+            <en><![CDATA[Start search]]></en>
+        </locale>
+        <locale name="editors.settings.title">
+            <en><![CDATA[Toolbar management for the content editor]]></en>
+        </locale>
+        <locale name="editors.settings.btn.edit.toolbar">
+            <en><![CDATA[Edit the toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.btn.delete.toolbar">
+            <en><![CDATA[Delete the toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.btn.add.toolbar">
+            <en><![CDATA[Add a toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.table.toolbar.name">
+            <en><![CDATA[Name of the toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.editsheet.title">
+            <en><![CDATA[Edit [toolbar] toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.editsheet.btn.save">
+            <en><![CDATA[Save changes]]></en>
+        </locale>
+        <locale name="editors.settings.delete.window.title">
+            <en><![CDATA[Save changes]]></en>
+        </locale>
+        <locale name="editors.settings.delete.window.text">
+            <en><![CDATA[Are you sure you want to delete the toolbar [toolbar]?]]></en>
+        </locale>
+        <locale name="editors.settings.add.window.title">
+            <en><![CDATA[Add a toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.add.window.text">
+            <en><![CDATA[Please enter a new toolbar name:]]></en>
+        </locale>
+        <locale name="projects.typebutton.title">
+            <en><![CDATA[Change site type]]></en>
+        </locale>
+        <locale name="projects.typesitemap.firstChild">
+            <en><![CDATA[Site types]]></en>
+        </locale>
+        <locale name="projects.typesitemap.message.no.types">
+            <en><![CDATA[There are no site types available]]></en>
+        </locale>
+        <locale name="projects.project.input.no.results">
+            <en><![CDATA[No results found]]></en>
+        </locale>
+        <locale name="projects.project.manager.title">
+            <en><![CDATA[Project manager]]></en>
+        </locale>
+        <locale name="projects.project.manager.projects.edit">
+            <en><![CDATA[Edit projects]]></en>
+        </locale>
+        <locale name="projects.project.manager.project.create">
+            <en><![CDATA[Create new project]]></en>
+        </locale>
+        <locale name="projects.project.manager.open.settings">
+            <en><![CDATA[Open project settings]]></en>
+        </locale>
+        <locale name="projects.project.manager.btn.create.project">
+            <en><![CDATA[Create project]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.save">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.remove">
+            <en><![CDATA[Delete]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.meta">
+            <en><![CDATA[Meta data]]></en>
+        </locale>
+        <locale name="projects.project.site.media.input.select.alt">
+            <en><![CDATA[Select image]]></en>
+        </locale>
+        <locale name="projects.project.site.media.input.select.title">
+            <en><![CDATA[Select image]]></en>
+        </locale>
+        <locale name="projects.project.site.media.input.clear.alt">
+            <en><![CDATA[Clear]]></en>
+        </locale>
+        <locale name="projects.project.site.media.input.clear.title">
+            <en><![CDATA[Clear]]></en>
+        </locale>
+        <locale name="projects.project.site.media.input.cssclass.alt">
+            <en><![CDATA[Select an icon]]></en>
+        </locale>
+        <locale name="projects.project.site.media.input.cssclass.title">
+            <en><![CDATA[Select an icon]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.save.text">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.delete.text">
+            <en><![CDATA[Delete]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.replace.text">
+            <en><![CDATA[Replace with ...]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.title">
+            <en><![CDATA[Upload files]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.text">
+            <en><![CDATA[Upload files now?]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.information" html="true">
+            <en><![CDATA[The files from the clipboard will be uploaded to: <b>[folder]</b>]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.upload.submit">
+            <en><![CDATA[Upload now]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.title">
+            <en><![CDATA[Replace image]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.text">
+            <en><![CDATA[Replace image now?]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.information" html="true">
+            <en><![CDATA[The clipboard image will replace: <b>[file]</b>]]></en>
+        </locale>
+        <locale name="projects.project.media.clipboard.replace.submit">
+            <en><![CDATA[Replace now]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.activate.text">
+            <en><![CDATA[Activate]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.deactivate.text">
+            <en><![CDATA[Deactivate]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.details.text">
+            <en><![CDATA[Details]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.preview.text">
+            <en><![CDATA[Preview]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.openFile.title">
+            <en><![CDATA[Open file]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.openFile.alt">
+            <en><![CDATA[Open file]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.downloadFile.title">
+            <en><![CDATA[Download file]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.btn.downloadFile.alt">
+            <en><![CDATA[The file is moved to the trash and can be restored.]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.title">
+            <en><![CDATA[Are you sure you want to delete the file [file]?]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.text">
+            <en><![CDATA[Are you sure you want to delete the file [file]?]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.window.delete.information">
+            <en><![CDATA[Are you sure you want to delete the file [file]?]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.title">
+            <en><![CDATA[Media Manager]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.text">
+            <en><![CDATA[Generally]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.title">
+            <en><![CDATA[Generally]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.select">
+            <en><![CDATA[Choose project for MD5 calculation ...]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.title">
+            <en><![CDATA[Start calculation]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.alt">
+            <en><![CDATA[Start MD5 calculation]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.select">
+            <en><![CDATA[Choose project for SHA1 calculation ...]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.title">
+            <en><![CDATA[Start calculation]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.alt">
+            <en><![CDATA[Start SHA1 calculation]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.sitemap.show">
+            <en><![CDATA[Show Sitemap]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.title">
+            <en><![CDATA[View:]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.symbols">
+            <en><![CDATA[Icon view]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.details">
+            <en><![CDATA[Detail view]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.view.preview">
+            <en><![CDATA[Preview]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.create">
+            <en><![CDATA[Create new folder]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload">
+            <en><![CDATA[Upload files]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload.files">
+            <en><![CDATA[Upload files]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.btn.upload.archive">
+            <en><![CDATA[Upload an archiv and extract it]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.upload.extract.text">
+            <en>
+                <![CDATA[<h2><span class="fa fa-upload"></span>Upload archivefile</h2>                <p>Upload archive files to the media folder.</p>                <p>These archive files are unpacked directly.</p>]]></en>
+        </locale>
+        <locale name="projects.project.site.media.panel.upload.text">
+            <en>
+                <![CDATA[<h2><span class="fa fa-upload"></span>Upload file</h2>                <p>Upload files to the media folder.</p>]]></en>
+        </locale>
+        <locale name="projects.project.site.media.priority.btn.save">
+            <en><![CDATA[Save priorities]]></en>
+        </locale>
+        <locale name="projects.project.site.media.priority.sheet.title">
+            <en><![CDATA[Edit priorities]]></en>
+        </locale>
+        <locale name="projects.project.site.folder.create.title">
+            <en><![CDATA[Creating a new folder]]></en>
+        </locale>
+        <locale name="projects.project.site.folder.create.information">
+            <en><![CDATA[Please enter the new folder name.]]></en>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.title">
+            <en><![CDATA[Illegal characters were found]]></en>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.text">
+            <en><![CDATA[Illegal characters were found]]></en>
+        </locale>
+        <locale name="projects.project.site.folder.createNewName.information" html="true">
+            <en><![CDATA[Illegal characters were found]]></en>
+        </locale>
+        <locale name="projects.project.site.childrensort.order_field">
+            <en><![CDATA[Sort field]]></en>
+        </locale>
+        <locale name="projects.project.site.childrensort.order_type">
+            <en><![CDATA[Sort type]]></en>
+        </locale>
+        <locale name="projects.project.site.childrensort.save">
+            <en><![CDATA[Save sorting]]></en>
+        </locale>
+        <locale name="projects.project.site.input.clear">
+            <en><![CDATA[Empty input]]></en>
+        </locale>
+        <locale name="projects.project.site.search.title">
+            <en><![CDATA[Site search]]></en>
+        </locale>
+        <locale name="projects.project.site.search.label">
+            <en><![CDATA[Search:]]></en>
+        </locale>
+        <locale name="projects.project.site.search.placeholder">
+            <en><![CDATA[Search site...]]></en>
+        </locale>
+        <locale name="projects.project.site.results.label">
+            <en><![CDATA[Results:]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.start">
+            <en><![CDATA[Search]]></en>
+        </locale>
+        <locale name="projects.project.site.search.all_attributes">
+            <en><![CDATA[All attributes]]></en>
+        </locale>
+        <locale name="projects.project.site.search.all_projects">
+            <en><![CDATA[All projects]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.btn.permissions">
+            <en><![CDATA[Set site permissions]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.btn.media">
+            <en><![CDATA[Media]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.btn.sort">
+            <en><![CDATA[Sort]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.title">
+            <en><![CDATA[Delete site #[id]]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.text">
+            <en><![CDATA[Are you sure you want to delete the page #[id] "[title]"?]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.information">
+            <en>
+                <![CDATA[The page is placed in the trash and can be restored.<br />                Also all pages and links will be placed in the trash.]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.button">
+            <en><![CDATA[Delete page]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.title">
+            <en><![CDATA[Delete site shortcut #[id]]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.text">
+            <en><![CDATA[Are you sure you want to delete the site shortcut [path]?]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.information" html="1">
+            <en><![CDATA[The site shortcut <b>[path]</b> is irrevocably deleted and can not be restored]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.button">
+            <en><![CDATA[Delete site shortcut]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.title">
+            <en><![CDATA[Create new Site]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.unlock">
+            <en><![CDATA[Unlock anyway]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.button.submit">
+            <en><![CDATA[Create]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.text">
+            <en><![CDATA[Please enter a name for the new page]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.information">
+            <en><![CDATA[You create a new page under [name].]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.clear.title">
+            <en><![CDATA[Unauthorized characters in names]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.clear.text">
+            <en><![CDATA[Unauthorized characters in names]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.clear.information">
+            <en><![CDATA[
+            The name of the page contains characters that are not allowed.<br />
+            Should the special characters are filtered out and the original name are used as the title?
+            <br /><br />
+            <p>New name of the page: <b>[newName]</b></p>
+            <p>New Title of page: <b>[value]</b></p>
+            ]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.sort.title">
+            <en><![CDATA[Sorting of the pages below #[id] [title]]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.linked.btn.add">
+            <en><![CDATA[Add language linking]]></en>
+        </locale>
+        <locale name="copy.site.in.lang">
+            <en><![CDATA[Copy and linking site content]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.linked.btn.delete">
+            <en><![CDATA[Delete language linking]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.linked.window.delete.title">
+            <en><![CDATA[Really delete the language linking?]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.linked.window.delete.text">
+            <en><![CDATA[Do you really want delete the language linking?]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.title">
+            <en><![CDATA[Copy site content to another language]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.text">
+            <en><![CDATA[Copy site content to another language and create a language link.]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.information" html="true">
+            <en><![CDATA[
+                A new page would be created in the language [lang].
+                The language link to this page will be set automatically.
+            ]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.submit">
+            <en><![CDATA[Select parent page]]></en>
+        </locale>
+        <locale name="projects.project.panel.entry.delete.project">
+            <en><![CDATA[Remove project]]></en>
+        </locale>
+        <locale name="projects.project.panel.title">
+            <en><![CDATA[Websites]]></en>
+        </locale>
+        <locale name="projects.project.panel.open.search">
+            <en><![CDATA[Open the site search]]></en>
+        </locale>
+        <locale name="projects.project.panel.tash">
+            <en><![CDATA[Trash]]></en>
+        </locale>
+        <locale name="projects.project.panel.media">
+            <en><![CDATA[Media]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.trash">
+            <en><![CDATA[Move to the Trash]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.allElements">
+            <en><![CDATA[All marked elements]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.move">
+            <en><![CDATA[Move to another folder]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.replace">
+            <en><![CDATA[Replace file ...]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.download">
+            <en><![CDATA[Download file]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.folder.download">
+            <en><![CDATA[Download folder]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.markAll">
+            <en><![CDATA[Mark all]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.replaceFile">
+            <en><![CDATA[Replace with [file]]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.copyLocation">
+            <en><![CDATA[Copy to this location]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.moveLocation">
+            <en><![CDATA[Move to this location]]></en>
+        </locale>
+        <locale name="projects.project.panel.media.contextMenu.uploadLocation">
+            <en><![CDATA[Upload to this location]]></en>
+        </locale>
+        <locale name="projects.project.panel.languageSwitch">
+            <en><![CDATA[Language selection]]></en>
+        </locale>
+        <locale name="projects.project.panel.projectSelect">
+            <en><![CDATA[Project selection]]></en>
+        </locale>
+        <locale name="projects.project.panel.message.no.project" html="true">
+            <en><![CDATA[Sorry, there are no projects yet.]]></en>
+        </locale>
+        <locale name="projects.project.panel.create">
+            <en><![CDATA[Create project]]></en>
+        </locale>
+        <locale name="usersAndGroups.input.search.placeholder">
+            <en><![CDATA[Search for a group or user ...]]></en>
+        </locale>
+        <locale name="usersAndGroups.no.results">
+            <en><![CDATA[No results found]]></en>
+        </locale>
+        <locale name="lang.popup.title">
+            <en><![CDATA[Available languages]]></en>
+        </locale>
+        <locale name="groups.group.title">
+            <en><![CDATA[Group: [group]]]></en>
+        </locale>
+        <locale name="groups.group.delete.title">
+            <en><![CDATA[Are you sure you want to delete the group?]]></en>
+        </locale>
+        <locale name="groups.group.delete.text">
+            <en><![CDATA[Do you really want to delete the group [group]?]]></en>
+        </locale>
+        <locale name="groups.group.delete.information">
+            <en><![CDATA[The group will be completely removed from the system and can not be restored]]></en>
+        </locale>
+        <locale name="groups.group.btn.save">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="groups.group.btn.delete">
+            <en><![CDATA[Delete group]]></en>
+        </locale>
+        <locale name="groups.group.btn.permissions.alt">
+            <en><![CDATA[Set group permissions]]></en>
+        </locale>
+        <locale name="groups.group.btn.permissions.title">
+            <en><![CDATA[Set group permissions]]></en>
+        </locale>
+        <locale name="groups.input.no.results">
+            <en><![CDATA[No results found]]></en>
+        </locale>
+        <locale name="groups.panel.title">
+            <en><![CDATA[Group manager]]></en>
+        </locale>
+        <locale name="groups.panel.btn.search">
+            <en><![CDATA[Search group]]></en>
+        </locale>
+        <locale name="groups.panel.btn.create">
+            <en><![CDATA[Create new group]]></en>
+        </locale>
+        <locale name="groups.panel.btn.edit">
+            <en><![CDATA[Edit group]]></en>
+        </locale>
+        <locale name="groups.panel.btn.delete">
+            <en><![CDATA[Delete group]]></en>
+        </locale>
+        <locale name="groups.panel.grid.admin">
+            <en><![CDATA[Allowed to enter the administration]]></en>
+        </locale>
+        <locale name="groups.panel.grid.users">
+            <en><![CDATA[Users]]></en>
+        </locale>
+        <locale name="groups.panel.search.title">
+            <en><![CDATA[Group search]]></en>
+        </locale>
+        <locale name="groups.panel.search.btn.search">
+            <en><![CDATA[Start search ...]]></en>
+        </locale>
+        <locale name="groups.panel.search.active.message">
+            <en>
+                <![CDATA[Search parameters are enabled. <br />                Click here to stop the searc and view all the groups again.]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.title">
+            <en><![CDATA[Create group]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.text">
+            <en><![CDATA[Create new group]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.sitemap.text">
+            <en><![CDATA[New group]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.sitemap.information">
+            <en><![CDATA[Under which group should the new group to be created?]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.new.group.title">
+            <en><![CDATA[New group name]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.new.group.text">
+            <en><![CDATA[New group name]]></en>
+        </locale>
+        <locale name="groups.panel.create.window.new.group.information">
+            <en><![CDATA[Please enter the new group name in]]></en>
+        </locale>
+        <locale name="groups.panel.delete.window.title">
+            <en><![CDATA[Delete groups]]></en>
+        </locale>
+        <locale name="groups.panel.delete.window.text">
+            <en><![CDATA[You want to delete the following groups:]]></en>
+        </locale>
+        <locale name="groups.panel.delete.window.information">
+            <en><![CDATA[The groups are completely removed from the system and can not be restored]]></en>
+        </locale>
+        <locale name="groups.entry.btn.remove">
+            <en><![CDATA[Remove group]]></en>
+        </locale>
+        <locale name="groups.sitemap.window.title">
+            <en><![CDATA[Group selection]]></en>
+        </locale>
+        <locale name="groups.sitemap.window.title">
+            <en><![CDATA[Group selection]]></en>
+        </locale>
+        <locale name="groups.sitemap.window.information">
+            <en><![CDATA[Please choose a group.]]></en>
+        </locale>
+        <locale name="packages.btn.add.server">
+            <en><![CDATA[Add server]]></en>
+        </locale>
+        <locale name="packages.btn.del.server">
+            <en><![CDATA[Delete marked servers]]></en>
+        </locale>
+        <locale name="packages.category.updates">
+            <en><![CDATA[Update]]></en>
+        </locale>
+        <locale name="packages.category.plugins">
+            <en><![CDATA[Plugins]]></en>
+        </locale>
+        <locale name="packages.category.packages">
+            <en><![CDATA[Packages]]></en>
+        </locale>
+        <locale name="packages.category.system.health">
+            <en><![CDATA[Systemhealth]]></en>
+        </locale>
+        <locale name="packages.category.system.phpInfo">
+            <en><![CDATA[PHP-Info]]></en>
+        </locale>
+        <locale name="packages.grid.update.title">
+            <en><![CDATA[Check for new QUIQQER updates]]></en>
+        </locale>
+        <locale name="packages.grid.update.information">
+            <en>
+                <![CDATA[<p>All plugins, packages and also QUIQQER itself would be checked for newer versions.</p>                <p>Click "Check for updates" to start the check.</p>]]></en>
+        </locale>
+        <locale name="packages.grid.update.btn.execute">
+            <en><![CDATA[Exceute a complete update.]]></en>
+        </locale>
+        <locale name="packages.grid.update.btn.upload">
+            <en><![CDATA[Upload an update]]></en>
+        </locale>
+        <locale name="packages.grid.update.title.updatebtn">
+            <en><![CDATA[&nbsp;]]></en>
+        </locale>
+        <locale name="packages.grid.update.title.package">
+            <en><![CDATA[Package]]></en>
+        </locale>
+        <locale name="packages.grid.update.title.version.from">
+            <en><![CDATA[Current version]]></en>
+        </locale>
+        <locale name="packages.grid.update.title.version.to">
+            <en><![CDATA[Update version]]></en>
+        </locale>
+        <locale name="packages.grid.title.name">
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="packages.grid.title.version">
+            <en><![CDATA[Version]]></en>
+        </locale>
+        <locale name="packages.grid.title.desc">
+            <en><![CDATA[Description]]></en>
+        </locale>
+        <locale name="packages.grid.title.homepage">
+            <en><![CDATA[Homepage]]></en>
+        </locale>
+        <locale name="packages.grid.title.type">
+            <en><![CDATA[Type]]></en>
+        </locale>
+        <locale name="packages.grid.title.lastupdate">
+            <en><![CDATA[Latest available updates]]></en>
+        </locale>
+        <locale name="packages.grid.dependencies">
+            <en><![CDATA[Dependencies]]></en>
+        </locale>
+        <locale name="packages.grid.other.package.dependencies">
+            <en><![CDATA[Packages that are dependent of [pkg]]]></en>
+        </locale>
+        <locale name="packages.search.grid.title.btn">
+            <en><![CDATA[&nbsp;]]></en>
+        </locale>
+        <locale name="packages.server.grid.title.status">
+            <en><![CDATA[Status]]></en>
+        </locale>
+        <locale name="packages.server.grid.title.server">
+            <en><![CDATA[Server]]></en>
+        </locale>
+        <locale name="packages.server.grid.title.type">
+            <en><![CDATA[Type]]></en>
+        </locale>
+        <locale name="packages.search.title">
+            <en><![CDATA[Packages / Plugin search and installation]]></en>
+        </locale>
+        <locale name="packages.search.description">
+            <en><![CDATA[Search and install new packages and plugins.]]></en>
+        </locale>
+        <locale name="packages.search.grid.setup.btn.alt">
+            <en><![CDATA[Get more information about [package] and start the installation.]]></en>
+        </locale>
+        <locale name="packages.search.grid.setup.btn.title">
+            <en><![CDATA[Install [package]]]></en>
+        </locale>
+        <locale name="packages.search.grid.title.package">
+            <en><![CDATA[Package]]></en>
+        </locale>
+        <locale name="packages.search.grid.title.description">
+            <en><![CDATA[Description]]></en>
+        </locale>
+        <locale name="packages.server.win.install.package.title">
+            <en><![CDATA[Package installation]]></en>
+        </locale>
+        <locale name="packages.server.win.install.package.text">
+            <en><![CDATA[Do you realy want to install [package] ?]]></en>
+        </locale>
+        <locale name="packages.server.win.install.submit.btn">
+            <en><![CDATA[install]]></en>
+        </locale>
+        <locale name="packages.server.grid.btn.activate.alt">
+            <en><![CDATA[Server is activated. Click to disable the server.]]></en>
+        </locale>
+        <locale name="packages.server.grid.btn.activate.title">
+            <en><![CDATA[Server is activated. Click to disable the server.]]></en>
+        </locale>
+        <locale name="packages.server.grid.btn.deactivate.alt">
+            <en><![CDATA[Server is deactivated. Click to enable the server.]]></en>
+        </locale>
+        <locale name="packages.server.grid.btn.deactivate.title">
+            <en><![CDATA[Server is deactivated. Click to enable the server.]]></en>
+        </locale>
+        <locale name="packages.server.win.remove.title">
+            <en><![CDATA[Delete Update-Server]]></en>
+        </locale>
+        <locale name="packages.server.win.remove.text">
+            <en><![CDATA[Do you want to delete the following server?]]></en>
+        </locale>
+        <locale name="packages.server.win.remove.information">
+            <en><![CDATA[The servers will be permanently removed from the update server list.]]></en>
+        </locale>
+        <locale name="packages.systemhealth.text">
+            <en>
+                <![CDATA[<h1>Have changed files?</h1>                <p>Start a system self-check or check your system with our online servers.</p>]]></en>
+        </locale>
+        <locale name="packages.grid.healthcheck.systemcheck">
+            <en><![CDATA[Start a system check]]></en>
+        </locale>
+        <locale name="packages.btn.execute.health.alt">
+            <en><![CDATA[Start a local system check for [pkg]]]></en>
+        </locale>
+        <locale name="packages.btn.execute.onlinehealth">
+            <en><![CDATA[Start a online system check for [pkg]]]></en>
+        </locale>
+        <locale name="packages.update.window.title">
+            <en><![CDATA[Start the update?]]></en>
+        </locale>
+        <locale name="packages.update.window.text">
+            <en><![CDATA[Really starting the system update?]]></en>
+        </locale>
+        <locale name="desktop.panels.xml.btn.cancel">
+            <en><![CDATA[Cancel changes]]></en>
+        </locale>
+        <locale name="desktop.panels.xml.btn.save">
+            <en><![CDATA[Save changes]]></en>
+        </locale>
+        <locale name="file.message.corrupt.file">
+            <en>
+                <![CDATA[The file is corrupt and can not be uploaded. <br />                 Please upload a different file.]]></en>
+        </locale>
+        <locale name="file.upload.cancel.title">
+            <en><![CDATA[Cancel upload]]></en>
+        </locale>
+        <locale name="file.upload.cancel.text">
+            <en><![CDATA[Are you sure you want to cancel the upload?]]></en>
+        </locale>
+        <locale name="file.upload.cancel.information">
+            <en><![CDATA[Would you like to cancel the upload of the file <b>[file]</b>?]]></en>
+        </locale>
+        <locale name="file.upload.remove">
+            <en><![CDATA[Remove from list]]></en>
+        </locale>
+        <locale name="file.upload.unknown.filetype">
+            <en><![CDATA[
+            The file type is unknown. <br />
+            Please choose to upload only files and pictures.<br />
+            Folders can only be uploaded packed.
+            ]]></en>
+        </locale>
+        <locale name="upload.manager.message.not.finish">
+            <en><![CDATA[
+            You have unfinished uploads in the Upload Manager.<br />
+            Please resume or cancel the uploads.
+            ]]></en>
+        </locale>
+        <locale name="upload.manager.message.archivfile.title">
+            <en><![CDATA[Found archive files]]></en>
+        </locale>
+        <locale name="upload.manager.message.archivfile.text">
+            <en><![CDATA[
+            You want to upload the following archive files.<br />
+            Do you want to extract it directly?
+            ]]></en>
+        </locale>
+        <locale name="upload.manager.message.archivfile.btn.start">
+            <en><![CDATA[Start Upload]]></en>
+        </locale>
+        <locale name="upload.manager.message.archivfile.label">
+            <en><![CDATA[[file] extracing]]></en>
+        </locale>
+        <locale name="upload.form.btn.add.text">
+            <en><![CDATA[Select a file]]></en>
+        </locale>
+        <locale name="upload.form.btn.send.text">
+            <en><![CDATA[Start upload]]></en>
+        </locale>
+        <locale name="upload.form.btn.send.title">
+            <en><![CDATA[Start upload]]></en>
+        </locale>
+        <locale name="upload.form.btn.send.alt">
+            <en><![CDATA[Start upload]]></en>
+        </locale>
+        <locale name="upload.form.btn.change.alt">
+            <en><![CDATA[Start upload]]></en>
+        </locale>
+        <locale name="upload.form.btn.change.title">
+            <en><![CDATA[By clicking, you can select another file ...]]></en>
+        </locale>
+        <locale name="upload.form.message.limit">
+            <en><![CDATA[You are only allowed [limit] files to upload at the same time.]]></en>
+        </locale>
+        <locale name="upload.form.info.text">
+            <en><![CDATA[Uploading ...]]></en>
+        </locale>
+        <locale name="users.user.title">
+            <en><![CDATA[User: [username]]]></en>
+        </locale>
+        <locale name="users.user.btn.save">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="users.user.btn.delete">
+            <en><![CDATA[Delete]]></en>
+        </locale>
+        <locale name="users.user.btn.permissions.title">
+            <en><![CDATA[Set user permissions]]></en>
+        </locale>
+        <locale name="users.user.btn.permissions.alt">
+            <en><![CDATA[Set user permissions]]></en>
+        </locale>
+        <locale name="users.user.btn.password.save">
+            <en><![CDATA[Save password]]></en>
+        </locale>
+        <locale name="users.user.window.delete.title">
+            <en><![CDATA[Delete user]]></en>
+        </locale>
+        <locale name="users.user.window.delete.information">
+            <en><![CDATA[The user is completely removed from the system and can not be restored]]></en>
+        </locale>
+        <locale name="users.user.window.delete.text">
+            <en><![CDATA[You want to delete the following user:<br /><br />[userid]]]></en>
+        </locale>
+        <locale name="users.user.address.table.phone">
+            <en><![CDATA[Tel / Fax / Mobil]]></en>
+        </locale>
+        <locale name="users.user.address.table.btn.add">
+            <en><![CDATA[Add address]]></en>
+        </locale>
+        <locale name="users.user.address.table.btn.delete">
+            <en><![CDATA[Delete address]]></en>
+        </locale>
+        <locale name="users.user.address.table.btn.edit">
+            <en><![CDATA[Edit address]]></en>
+        </locale>
+        <locale name="users.user.table.phone">
+            <en><![CDATA[Tel / Fax / Mobil]]></en>
+        </locale>
+        <locale name="users.user.address.edit">
+            <en><![CDATA[Edit address]]></en>
+        </locale>
+        <locale name="users.user.address.window.delete.title">
+            <en><![CDATA[Delete address]]></en>
+        </locale>
+        <locale name="users.user.address.window.delete.text">
+            <en><![CDATA[Would you really want to delete the address?]]></en>
+        </locale>
+        <locale name="users.user.address.window.delete.information">
+            <en><![CDATA[The address can not be restored]]></en>
+        </locale>
+        <locale name="exception.users.address.delete.default">
+            <en><![CDATA[The default address cannot be deleted. Set another address as the default first.]]></en>
+        </locale>
+        <locale name="users.input.no.results">
+            <en><![CDATA[No results found]]></en>
+        </locale>
+        <locale name="users.address.btn.add">
+            <en><![CDATA[Add tel, fax, mobile]]></en>
+        </locale>
+        <locale name="users.address.btn.edit">
+            <en><![CDATA[Edit marked number]]></en>
+        </locale>
+        <locale name="users.address.btn.delete">
+            <en><![CDATA[Delete marked number]]></en>
+        </locale>
+        <locale name="users.address.mail.btn.add">
+            <en><![CDATA[Add email address]]></en>
+        </locale>
+        <locale name="users.address.mail.btn.edit">
+            <en><![CDATA[Edit marked email]]></en>
+        </locale>
+        <locale name="users.address.mail.btn.delete">
+            <en><![CDATA[Delete marked email]]></en>
+        </locale>
+        <locale name="users.address.phone.window.title">
+            <en><![CDATA[Telephone / Fax / Mobile]]></en>
+        </locale>
+        <locale name="users.address.phone.window.text">
+            <en><![CDATA[Please enter a phone, fax, or mobile number.]]></en>
+        </locale>
+        <locale name="users.address.phone.window.information">
+            <en><![CDATA[Telephone / Fax / Mobile]]></en>
+        </locale>
+        <locale name="users.address.phone.window.input.placeholder">
+            <en><![CDATA[Telephone, fax or mobile number ...]]></en>
+        </locale>
+        <locale name="users.address.phone.delete.window.title">
+            <en><![CDATA[Telephone / Fax / Mobile]]></en>
+        </locale>
+        <locale name="users.address.phone.delete.window.text">
+            <en><![CDATA[Do you want to delete the telephone entry?]]></en>
+        </locale>
+        <locale name="users.address.phone.delete.window.information">
+            <en><![CDATA[The entry can not be restored.]]></en>
+        </locale>
+        <locale name="users.address.email.window.title">
+            <en><![CDATA[Email address]]></en>
+        </locale>
+        <locale name="users.address.email.window.text">
+            <en><![CDATA[Please enter an email address.]]></en>
+        </locale>
+        <locale name="users.address.email.window.input.placeholder">
+            <en><![CDATA[Insert an email address]]></en>
+        </locale>
+        <locale name="users.address.email.delete.window.title">
+            <en><![CDATA[Delete email address]]></en>
+        </locale>
+        <locale name="users.address.email.delete.window.text">
+            <en><![CDATA[Would you really want to delete the email address?]]></en>
+        </locale>
+        <locale name="users.address.email.delete.window.information">
+            <en><![CDATA[The entry can not be restored.]]></en>
+        </locale>
+        <locale name="users.panel.title">
+            <en><![CDATA[User manager]]></en>
+        </locale>
+        <locale name="users.panel.search.info">
+            <en>
+                <![CDATA[Search parameters are activated. <br />                Click here to end the search and to display all users again.]]></en>
+        </locale>
+        <locale name="users.panel.user.is.active">
+            <en><![CDATA[User is active. Click on the button to disable the user.]]></en>
+        </locale>
+        <locale name="users.panel.user.is.deactive">
+            <en><![CDATA[User is inactive. Click on the button to activate the user.]]></en>
+        </locale>
+        <locale name="users.panel.search.title">
+            <en><![CDATA[User search]]></en>
+        </locale>
+        <locale name="users.panel.btn.search.alt">
+            <en><![CDATA[Search user]]></en>
+        </locale>
+        <locale name="users.panel.btn.search.title">
+            <en><![CDATA[Search user]]></en>
+        </locale>
+        <locale name="users.panel.btn.create">
+            <en><![CDATA[Create new user]]></en>
+        </locale>
+        <locale name="users.panel.btn.delete">
+            <en><![CDATA[Delete user]]></en>
+        </locale>
+        <locale name="users.panel.btn.remove">
+            <en><![CDATA[Delete user]]></en>
+        </locale>
+        <locale name="users.panel.search.btn.start">
+            <en><![CDATA[Search]]></en>
+        </locale>
+        <locale name="users.panel.create.window.title">
+            <en><![CDATA[Create new user]]></en>
+        </locale>
+        <locale name="users.panel.create.window.text">
+            <en><![CDATA[New username:]]></en>
+        </locale>
+        <locale name="users.panel.create.window.submit">
+            <en><![CDATA[Create]]></en>
+        </locale>
+        <locale name="users.panel.create.window.information">
+            <en><![CDATA[Create one user with a username or e-mail address. To send login details by e-mail, use Invite user.]]></en>
+        </locale>
+        <locale name="users.panel.create.window.placeholder">
+            <en><![CDATA[Username or e-mail address]]></en>
+        </locale>
+        <locale name="users.panel.create.window.invite.button">
+            <en><![CDATA[Invite user]]></en>
+        </locale>
+        <locale name="users.panel.create.window.value.required">
+            <en><![CDATA[Please enter a username or e-mail address.]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.title">
+            <en><![CDATA[Invite user]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.headline">
+            <en><![CDATA[Invite user by e-mail]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.information">
+            <en><![CDATA[Enter the e-mail address and select the groups. The user receives a password by e-mail and must change it on first login.]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.email.title">
+            <en><![CDATA[Enter e-mail address]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.email.description">
+            <en><![CDATA[The login details are sent to this address. The address is also stored as username and e-mail address.]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.groups.title">
+            <en><![CDATA[Select groups]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.groups.description">
+            <en><![CDATA[Choose the groups the new user should be assigned to immediately after creation.]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.submit">
+            <en><![CDATA[Invite]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.email.required">
+            <en><![CDATA[Please enter an e-mail address.]]></en>
+        </locale>
+        <locale name="users.panel.invite.window.groups.required">
+            <en><![CDATA[Please select at least one group.]]></en>
+        </locale>
+        <locale name="users.invite.mail.subject">
+            <en><![CDATA[Invitation to register a user for [domain]]]></en>
+        </locale>
+        <locale name="users.invite.mail.body">
+            <en><![CDATA[Hello [email],<br><br>[username] has invited you to create a user in the system [domain].<br>You can log in at <a href="[backendUrl]">[backendUrl]</a> with the username <b>[email]</b> and password <b>[password]</b> to activate your account.<br><br>After your first login you will be asked to change your password. Please choose a secure password.<br><br>Further information and instructions are available here: <a href="https://www.quiqqer.de/FAQ/onboarding">www.quiqqer.de/FAQ/onboarding</a>.]]></en>
+        </locale>
+        <locale name="exception.create.user.exists">
+            <en><![CDATA[The username already exists. <br />                 Please enter a different username.]]></en>
+        </locale>
+        <locale name="users.panel.delete.window.title">
+            <en><![CDATA[Delete users]]></en>
+        </locale>
+        <locale name="users.panel.delete.window.text">
+            <en><![CDATA[You want to delete the following users:]]></en>
+        </locale>
+        <locale name="users.panel.delete.window.submit.user">
+            <en><![CDATA[Delete user]]></en>
+        </locale>
+        <locale name="users.panel.delete.window.submit.users">
+            <en><![CDATA[Delete users]]></en>
+        </locale>
+        <locale name="users.panel.delete.window.information">
+            <en><![CDATA[Users are completely removed from the system and can not be restored.]]></en>
+        </locale>
+        <locale name="users.entry.user.remove">
+            <en><![CDATA[Remove user]]></en>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.title">
+            <en><![CDATA[Insert an inactive file / folder]]></en>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.text">
+            <en><![CDATA[you want insert a inactive file or folder.]]></en>
+        </locale>
+        <locale name="projects.project.site.media.popup.noProject.text" html="true">
+            <en>
+                <![CDATA[Unfortunately, there was no project to selected and harvested.<br />                Please select a project from which you want to select files.            ]]></en>
+        </locale>
+        <locale name="projects.project.site.media.popup.window.activate.information" html="true">
+            <en><![CDATA[Inactive files can not be inserted. Would you activate this file?]]></en>
+        </locale>
+        <locale name="users.user.btn.password.generate">
+            <en><![CDATA[generate password]]></en>
+        </locale>
+        <locale name="users.panel.btn.edit">
+            <en><![CDATA[Edit user]]></en>
+        </locale>
+        <locale name="users.panel.deactivate.window.title">
+            <en><![CDATA[Delete deaktivieren]]></en>
+        </locale>
+        <locale name="users.panel.deactivate.window.information" html="true">
+            <en>
+                <![CDATA[<p>Do you realy want to deactivate the user?</p>                <p>The User is not be able to log in to the system.</p>]]></en>
+        </locale>
+        <locale name="users.panel.deactivate.window.text" html="true">
+            <en>
+                <![CDATA[You want to deactivate the following user:                <br /><br />                [userid] - [username]]]></en>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.btn.cancel">
+            <en><![CDATA[Cancel]]></en>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.btn.start">
+            <en><![CDATA[Continue]]></en>
+        </locale>
+        <locale name="projects.project.media.folderviewer.upload.message" html="true">
+            <en><![CDATA[<p>Do you really want to upload the files?</p>]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcmd5.start.text">
+            <en><![CDATA[Start MD5 calculation]]></en>
+        </locale>
+        <locale name="projects.project.media.folderviewer.no.folder">
+            <en><![CDATA[Unfortunately, no folder was selected.]]></en>
+        </locale>
+        <locale name="projects.project.media.folderviewer.empty">
+            <en><![CDATA[There are no images in this folder.]]></en>
+        </locale>
+        <locale name="projects.project.media.fileviewer.empty">
+            <en><![CDATA[There are no files in this folder.]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.btn.effectsRecursive">
+            <en><![CDATA[Apply effects recursively]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.no.watermark">
+            <en><![CDATA[No Watermark]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.project.watermark">
+            <en><![CDATA[Apply Project-Watermark]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.own.watermark">
+            <en><![CDATA[Apply own watermark]]></en>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.title">
+            <en><![CDATA[Apply effects recursively]]></en>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.text">
+            <en><![CDATA[Do you want to apply the folders effects recursively?]]></en>
+        </locale>
+        <locale name="media.folderPanel.window.effect.recursive.information" html="true">
+            <en>
+                <![CDATA[All changes of the folder will be stored.                The folder effects are applied rekusriv on all <u>images</u> and <u>folders</u>.            ]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.title">
+            <en><![CDATA[Are you sure you want to delete the folder [folder]?]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.text">
+            <en><![CDATA[Are you sure you want to delete the folder [folder]?]]></en>
+        </locale>
+        <locale name="projects.project.site.media.folderPanel.window.delete.information">
+            <en><![CDATA[All images and subfolders are put in the trash.]]></en>
+        </locale>
+        <locale name="projects.project.site.media.filePanel.image.effects.text">
+            <en><![CDATA[Picture effects]]></en>
+        </locale>
+        <locale name="projects.project.media.folderviewer.btn.diashow">
+            <en><![CDATA[Start diashow]]></en>
+        </locale>
+        <locale name="message.packages.update.system.uptodate" html="true">
+            <en><![CDATA[No updates were found. <br />                The system is up to date.]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.customCSS">
+            <en><![CDATA[Custom-CSS]]></en>
+        </locale>
+        <locale name="groups.panel.group.is.deactive">
+            <en><![CDATA[Group is inactive. Click on the button to activate the group.]]></en>
+        </locale>
+        <locale name="groups.panel.group.is.active">
+            <en><![CDATA[Group is active. Click on the button to disable the group.]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.calcsha1.start.text">
+            <en><![CDATA[Start SHA1 calculation]]></en>
+        </locale>
+        <locale name="projects.project.site.folder.has.no.images">
+            <en><![CDATA[No images could be found in the folder.]]></en>
+        </locale>
+        <locale name="upload.form.btn.cancel.alt">
+            <en><![CDATA[Cancel upload]]></en>
+        </locale>
+        <locale name="upload.form.btn.cancel.title">
+            <en><![CDATA[Cancel upload]]></en>
+        </locale>
+        <locale name="upload.form.btn.cancel.text">
+            <en><![CDATA[Cancel upload]]></en>
+        </locale>
+        <locale name="upload.form.info.max.text">
+            <en><![CDATA[[count] off [max] uploads used.]]></en>
+        </locale>
+        <locale name="upload.form.background.text">
+            <en><![CDATA[
+                <p>To add a file, please click on <u>Select a file</u> or
+                <br />
+                drag a file onto this field.
+                </p>
+            ]]></en>
+        </locale>
+        <locale name="packages.category.modules">
+            <en><![CDATA[Modules]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.addServer">
+            <en><![CDATA[Add Server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.testServer">
+            <en><![CDATA[Test Server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.complete">
+            <en><![CDATA[Clear complete cache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.compile">
+            <en><![CDATA[Clear system-cache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.plugins">
+            <en><![CDATA[Clear plugin-cache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.templates">
+            <en><![CDATA[Clear template-cache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.purge.button">
+            <en><![CDATA[Purge cache]]></en>
+        </locale>
+        <locale name="workspace.toolarge.window.title">
+            <en><![CDATA[The workspace is too large]]></en>
+        </locale>
+        <locale name="workspace.toolarge.window.text" html="true">
+            <en>
+                <![CDATA[            <h1>The workspace is too large</h1>            <p>The workspace is unfortunately too big for your browser window. Please choose an appropriate workspace.</p>            <h2>Available matching workspaces:</h2>            ]]></en>
+        </locale>
+        <locale name="workspace.toolarge.window.noWorkspaces.text" html="true">
+            <en><![CDATA[
+                <h1>The workspace is too large</h1>
+                <p>The workspace is unfortunately too big and no suitable workspace exists.</p>
+                <p>Would you like to create a new workspace?</p>
+            ]]></en>
+        </locale>
+        <locale name="grid.is.empty">
+            <en><![CDATA[The table contains no data]]></en>
+        </locale>
+        <locale name="controls.group.table.btns.adduser">
+            <en><![CDATA[Add user(s)]]></en>
+        </locale>
+        <locale name="controls.group.table.btns.removeuser">
+            <en><![CDATA[Remove user(s)]]></en>
+        </locale>
+        <locale name="controls.group.deleteusers.confirm.info" html="true">
+            <en>
+                <![CDATA[Are you sure you want to remove the following users from the group <b>[groupName]</b> (#[groupId])?<br/><br/>[users]]]></en>
+        </locale>
+        <locale name="controls.group.deleteusers.confirm.title">
+            <en><![CDATA[Remove user(s)]]></en>
+        </locale>        <!-- LicenseKey -->
+        <locale name="controls.licensekey.template.header">
+            <en><![CDATA[QUIQQER license key information]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.labelId">
+            <en><![CDATA[License key ID]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.labelCreated">
+            <en><![CDATA[Created at]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.labelValidUntil">
+            <en><![CDATA[Valid until]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.labelName">
+            <en><![CDATA[Issued for]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.labelUpload">
+            <en><![CDATA[Upload license key file]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.info" html="1">
+            <en><![CDATA[You can expand the functionality of QUIQQER with premium packages. To install premium packages you need a valid license key. You will receive your license key when you purchase a premium package in the <a href="https://store.quiqqer.com/" target="_blank">QUIQQER Store</a>.]]></en>
+        </locale>
+        <locale name="controls.licensekey.template.labelDelete">
+            <en><![CDATA[Delete license key]]></en>
+        </locale>
+    </groups>
+    <groups name="quiqqer/system" datatype="php">        <!-- QUIQQERLogin -->
+        <locale name="quiqqer.auth.login.password_reset">
+            <en><![CDATA[Forgot password]]></en>
+        </locale>
+        <locale name="quiqqer.auth.login.btn_text">
+            <en><![CDATA[Login]]></en>
+        </locale>
+        <locale name="quiqqer.auth.login.password.message">
+            <en><![CDATA[
+            If you have forgotten your password, please enter your email address here and click on' Reset password'.
+            You will receive an e-mail with further instructions.
+        ]]></en>
+        </locale>
+        <locale name="mail.auth.password_reset_confirm.subject">
+            <en><![CDATA[Reset password]]></en>
+        </locale>
+        <locale name="mail.auth.password_reset_confirm.body">
+            <en><![CDATA[
+            <h1>Hello [username],</h1><p>You requested a reset of your login password on [date].
+            In order to be able to set a new password, a login password will be sent to you with which you can log in.
+            Please confirm this process by calling the following link:<br><br><a href="[confirmLink]">[confirmLink]</a></p><p><b>Hint:</b> If you did not request a reset of your login password, you can simply ignore this email.</p>
+            ]]></en>
+        </locale>
+        <locale name="exception.user.auth.handler.verification_package_not_installed">
+            <en>
+                <![CDATA[Confirmation mail for "Password reset" cannot be sent because the package "quiqqer/verification" is not installed or not installed in the required version (^3).]]></en>
+        </locale>
+        <locale name="exception.user.auth.handler.missing_user_email">
+            <en>
+                <![CDATA[Confirmation mail for "Password reset" cannot be sent because the user has no e-mail address.]]></en>
+        </locale>
+        <locale name="mail.auth.password_reset_newpassword.subject">
+            <en><![CDATA[New login password]]></en>
+        </locale>
+        <locale name="mail.auth.password_reset_newpassword.body">
+            <en>
+                <![CDATA[<h1>Hello [username],</h1><p>You have requested the reset of your password. You can log in with the following password.<br><br><b>Login password:</b> [newPassword]</p>]]></en>
+        </locale>
+        <locale name="exception.user.auth.send_password_reset_mail_error">
+            <en><![CDATA[The process "Reset Password" encountered an unexpected error. Please try again later.]]></en>
+        </locale>
+        <locale name="quiqqer.auth.login.label.email">
+            <en><![CDATA[Email address]]></en>
+        </locale>
+        <locale name="users.auth.passwordresetverification.success">
+            <en>
+                <![CDATA[Resetting your password has been successfully verified. You will receive an e-mail with a new login password.]]></en>
+        </locale>
+        <locale name="users.auth.passwordresetverification.error">
+            <en>
+                <![CDATA[Unfortunately, resetting your password did not work. Please try again or try again later.]]></en>
+        </locale>        <!-- Class: QUI\Watch -->
+        <locale name="watch.unknown_user">
+            <en><![CDATA[Unknown user]]></en>
+        </locale>
+        <locale name="watch.authenticatorLoginError">
+            <en>
+                <![CDATA[Failed login attempt: "[username]" (#[userId]) | Authenticator: "[authenticator]" | IP address: [ipAddress] | User Agent: "[userAgent]"]]></en>
+        </locale>
+        <locale name="menu.quiqqer.text" html="true">
+            <en><![CDATA[<img src="../bin/quiqqer_logo.svg" />]]></en>
+        </locale>
+        <locale name="menu.profile.text">
+            <en><![CDATA[Profile]]></en>
+        </locale>
+        <locale name="menu.profile.workspace.text">
+            <en><![CDATA[Workspaces]]></en>
+        </locale>
+        <locale name="menu.profile.userProfile.text">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="menu.goto.text">
+            <en><![CDATA[Administration]]></en>
+        </locale>
+        <locale name="menu.settings.text">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="menu.settings.quiqqer.text">
+            <en><![CDATA[QUIQQER]]></en>
+        </locale>
+        <locale name="menu.settings.media.text">
+            <en><![CDATA[Media settings]]></en>
+        </locale>
+        <locale name="menu.settings.editor.text">
+            <en><![CDATA[Toolbar management for the content editor]]></en>
+        </locale>
+        <locale name="menu.settings.vhosts.text">
+            <en><![CDATA[Virtual hosts]]></en>
+        </locale>
+        <locale name="menu.settings.mailqueue.text">
+            <en><![CDATA[Mail queue]]></en>
+        </locale>
+        <locale name="menu.extras.rights.text">
+            <en><![CDATA[User management]]></en>
+        </locale>
+        <locale name="menu.extras.permissions.text">
+            <en><![CDATA[Permissions]]></en>
+        </locale>
+        <locale name="menu.extras.groups.text">
+            <en><![CDATA[Groups]]></en>
+        </locale>
+        <locale name="menu.extras.users.text">
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="menu.extras.logs.text">
+            <en><![CDATA[Logs]]></en>
+        </locale>
+        <locale name="menu.extras.trash.text">
+            <en><![CDATA[Trash]]></en>
+        </locale>
+        <locale name="menu.help.text">
+            <en><![CDATA[QUIQQER]]></en>
+        </locale>
+        <locale name="menu.help.dashboard.text">
+            <en><![CDATA[Dashboard]]></en>
+        </locale>
+        <locale name="quiqqer.settings.title">
+            <en><![CDATA[System]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.title">
+            <en><![CDATA[General]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.title">
+            <en><![CDATA[General settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.mailprotection">
+            <en><![CDATA[Email protection]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.mailprotection.description">
+            <en><![CDATA[All email addresses are defaced for spybots]]></en>
+        </locale>
+        <locale name="quiqqer.settings.globals.sitePermissionDeniedErrorCode.title">
+            <en><![CDATA[HTTP status code on missing site permission]]></en>
+        </locale>
+        <locale name="quiqqer.settings.globals.sitePermissionDeniedErrorCode.desc">
+            <en><![CDATA[
+            Determines which HTTP status code is sent when a user visits a page for which he does not have the permission to view.
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.htmlSuffix">
+            <en><![CDATA[HTML ending at page addresses]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.htmlSuffix.description">
+            <en><![CDATA[The .html extension is appended to page addresses. Your projects have .html pages]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.management.title">
+            <en><![CDATA[Cache Management]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.management.text">
+            <en><![CDATA[Cache Management]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.clear.title">
+            <en><![CDATA[Clean caches...]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.purge.title">
+            <en><![CDATA[Purge cache...]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.template.title">
+            <en><![CDATA[Template engine settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.template.use">
+            <en><![CDATA[Used template engine]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.template.compilecheck">
+            <en><![CDATA[Smarty compile check]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.title">
+            <en><![CDATA[Developer settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.maintenance">
+            <en><![CDATA[Activate Maintenance]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.debug">
+            <en><![CDATA[Debug mode (for developers)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.development">
+            <en><![CDATA[Development mode (for developers)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.no_ajax_bundler">
+            <en><![CDATA[Do not use Ajax bundlers]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.dev.no_ajax_bundler.decription">
+            <en><![CDATA[By bundling the Ajax requests, less Ajax requests are sent to the server.]]></en>
+        </locale>
+
+        <locale name="quiqqer.settings.general.updates.title">
+            <en><![CDATA[Updates]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.updates.stability">
+            <en><![CDATA[Maximum stability of the packets and the system]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.version.title">
+            <en><![CDATA[Version of the QUIQQER system]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database">
+            <en><![CDATA[Database]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database.title">
+            <en><![CDATA[Database settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database.type">
+            <en><![CDATA[Database type]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database.host">
+            <en><![CDATA[Database host]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database.name">
+            <en><![CDATA[Database name]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database.user">
+            <en><![CDATA[Database user]]></en>
+        </locale>
+        <locale name="quiqqer.settings.database.password">
+            <en><![CDATA[Database password]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.title">
+            <en><![CDATA[Email settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.admin">
+            <en><![CDATA[Administration email]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.admin.desc">
+            <en><![CDATA[Error messages / information will be sent to this e-mail]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.title">
+            <en><![CDATA[SMTP settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.activasion">
+            <en><![CDATA[Activate SMTP e-mail delivery]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.server">
+            <en><![CDATA[SMTP Server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.port">
+            <en><![CDATA[SMTP Port]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.secure">
+            <en><![CDATA[Connection security]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.title">
+            <en><![CDATA[SMTP authentication]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.activasion">
+            <en><![CDATA[Activate SMTP authentication?]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.user">
+            <en><![CDATA[SMTP user]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.password">
+            <en><![CDATA[SMTP password]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFrom">
+            <en><![CDATA[Sender e-mail address]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFrom.description">
+            <en><![CDATA[Sender's e-mail address displayed by the recipient]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILReplyTo">
+            <en><![CDATA[Reply to email address]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILReplyTo.description">
+            <en><![CDATA[Mail address to which the reply should be sent.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth">
+            <en><![CDATA[Authentication]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.emaillogin">
+            <en><![CDATA[Allow login via the email address]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.type">
+            <en><![CDATA[Authentication type]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.type.standard">
+            <en><![CDATA[standard]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.session">
+            <en><![CDATA[Session]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.session.maxlife">
+            <en><![CDATA[Maximum user idle time (max session lifetime)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.session.multible">
+            <en><![CDATA[Allow multiple login with the same user]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached">
+            <en><![CDATA[Memcached server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.text">
+            <en>
+                <![CDATA[Enter a memcached server to ensure that the session data is managed via a memcached server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.host">
+            <en><![CDATA[Host]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.port">
+            <en><![CDATA[Port]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache">
+            <en><![CDATA[Memcache server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache.text">
+            <en>
+                <![CDATA[Enter a memcache server to ensure that the session data is managed via a memcache server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache.host">
+            <en><![CDATA[Host]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcache.port">
+            <en><![CDATA[Port]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache">
+            <en><![CDATA[Cache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.title">
+            <en><![CDATA[Which cache types should be used?]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.text">
+            <en><![CDATA[Cache types]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.general.nocache">
+            <en><![CDATA[Set the complete entire cache off]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.general.nocache.description">
+            <en><![CDATA[Switches off the complete cache. Recommended only in development mode.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.title">
+            <en><![CDATA[Cache type]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.filesystem">
+            <en><![CDATA[Filesystem]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.apc">
+            <en><![CDATA[APC]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.memcache">
+            <en><![CDATA[MemCache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.sqlite">
+            <en><![CDATA[SQLite]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.handler.redis">
+            <en><![CDATA[Redis]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.title">
+            <en><![CDATA[APC settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.text">
+            <en><![CDATA[APC]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.namespace">
+            <en><![CDATA[Namespace]]></en>
+        </locale>
+        <locale name="quiqqer.settings.cache.apc.ttl">
+            <en><![CDATA[Expiration time (ttl)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.title">
+            <en><![CDATA[MemCache settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.text">
+            <en><![CDATA[MemCache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.servers">
+            <en><![CDATA[Number of servers]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.prefix_key">
+            <en><![CDATA[Cache prefix]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.serializer">
+            <en><![CDATA[Serializer (json, php, igbinary)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.libketama_compatible">
+            <en><![CDATA[libketama compatible?]]></en>
+        </locale>
+        <locale name="quiqqer.settings.memcache.cache_lookups">
+            <en><![CDATA[DNS cache lookup]]></en>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.title">
+            <en><![CDATA[Filesystem settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.text">
+            <en><![CDATA[Filesystem]]></en>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.path">
+            <en><![CDATA[Path to the cache]]></en>
+        </locale>
+        <locale name="quiqqer.settings.filesystem.path.description">
+            <en>
+                <![CDATA[If no path is specified, a cache/stack/ directory will be created in the standard VAR folder]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui">
+            <en><![CDATA[Interface (GUI)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.title">
+            <en><![CDATA[Interface Settings (GUI)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.displayTimeMessages.text">
+            <en><![CDATA[Displaytime of the Messages]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.displayTimeMessages.description" html="true">
+            <en>
+                <![CDATA[Determine how long is the display time of the message.<br />                Messages are success, information, warnings or error messages.<br >                The value are specified in milliseconds.            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.panel.task.limit">
+            <en><![CDATA[Maximum tasks in a task panel]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.panel.task.limit.description">
+            <en>
+                <![CDATA[Determine the maximum number of tasks in a task panel.                If too many tasks are opened in a panel, this affects the performance of the workspace.            ]]></en>
+        </locale>
+        <locale name="panels.project.title">
+            <en><![CDATA[Website Panel]]></en>
+        </locale>
+        <locale name="panels.project.description">
+            <en><![CDATA[Displays all web pages and the web page tree.]]></en>
+        </locale>
+        <locale name="panels.help.title">
+            <en><![CDATA[QUIQQER Help]]></en>
+        </locale>
+        <locale name="panels.help.description">
+            <en><![CDATA[Displays the QUIQQER Help.]]></en>
+        </locale>
+        <locale name="panels.upload.title">
+            <en><![CDATA[Uploads]]></en>
+        </locale>
+        <locale name="panels.upload.description">
+            <en><![CDATA[Display of the uploaded Files.]]></en>
+        </locale>
+        <locale name="panels.messages.title">
+            <en><![CDATA[Messages]]></en>
+        </locale>
+        <locale name="panels.messages.description">
+            <en><![CDATA[Displays messages and status messages.]]></en>
+        </locale>
+        <locale name="panels.tasks.title">
+            <en><![CDATA[Task panel]]></en>
+        </locale>
+        <locale name="panels.tasks.description">
+            <en><![CDATA[Panel that manages multiple panels.]]></en>
+        </locale>
+        <locale name="control.contact.name">
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="control.contact.name.placeholder">
+            <en><![CDATA[Please enter Your First and Last Name here]]></en>
+        </locale>
+        <locale name="control.contact.email">
+            <en><![CDATA[Email]]></en>
+        </locale>
+        <locale name="control.contact.email.placeholder">
+            <en><![CDATA[Please enter your email address here]]></en>
+        </locale>
+        <locale name="control.contact.message">
+            <en><![CDATA[Message]]></en>
+        </locale>
+        <locale name="control.contact.message.placeholder">
+            <en><![CDATA[Your message to us]]></en>
+        </locale>
+        <locale name="exception.media.not.a.folder">
+            <en><![CDATA[This is not a folder.]]></en>
+        </locale>
+        <locale name="exception.template.not.found">
+            <en><![CDATA[Template not found.]]></en>
+        </locale>
+        <locale name="exception.system.health.not.writable">
+            <en><![CDATA[Please check your file permissions. Some Folders or Files are not writable.]]></en>
+        </locale>
+        <locale name="exception.contact.params.empty">
+            <en><![CDATA[Contact E-mail could not be sent. Please complete all required fields.]]></en>
+        </locale>
+        <locale name="exception.contact.wrong.email">
+            <en><![CDATA[Contact E-mail could not be sent. Please enter a valid email.]]></en>
+        </locale>
+        <locale name="exception.not.correct.email">
+            <en><![CDATA[Please enter a valid email address.]]></en>
+        </locale>
+        <locale name="exception.contact.send.mail" html="true">
+            <en>
+                <![CDATA[<p>Sorry, cour contact E-mail could not be sent.</p>                <p>Please try again at a later.</p>]]></en>
+        </locale>
+        <locale name="message.password.save.success">
+            <en><![CDATA[The password has been successfully saved.]]></en>
+        </locale>
+        <locale name="exception.lib.user.exist">
+            <en><![CDATA[This username already exists]]></en>
+        </locale>
+        <locale name="exception.lib.user.specify.username">
+            <en><![CDATA[Please enter a username]]></en>
+        </locale>
+        <locale name="exception.lib.user.register.specify.password">
+            <en><![CDATA[This username already exists, please use a different username]]></en>
+        </locale>
+        <locale name="exception.user.register.email.exists">
+            <en><![CDATA[This e-mail address already exists, please use a different email address.]]></en>
+        </locale>
+        <locale name="exception.lib.user.not.found">
+            <en><![CDATA[The requested user was not found in the system]]></en>
+        </locale>
+        <locale name="exception.user.inactive">
+            <en><![CDATA[Your Account is inactive.]]></en>
+        </locale>
+        <locale name="exception.lib.user.illegal.signs">
+            <en>
+                <![CDATA[The user name contains invalid characters.                Please use only letters, numbers and special characters _ ä ö ü ß            ]]></en>
+        </locale>
+        <locale name="exception.lib.user.nobody.add.address">
+            <en>
+                <![CDATA[This user does not exist, therefore no address can be deposited.                Please create a user.            ]]></en>
+        </locale>
+        <locale name="exception.lib.user.nobody.get.address">
+            <en><![CDATA[This user has not any address]]></en>
+        </locale>
+        <locale name="exception.lib.user.wrong.uid">
+            <en><![CDATA[It was passed no or an incorrect user ID]]></en>
+        </locale>
+        <locale name="exception.lib.user.empty.password">
+            <en><![CDATA[The password can not be empty. Please enter a correct password]]></en>
+        </locale>
+        <locale name="exception.lib.user.wrong.passwords">
+            <en><![CDATA[The passwords do not match. Please enter correct passwords.]]></en>
+        </locale>
+        <locale name="exception.lib.user.activation.wrong.code">
+            <en><![CDATA[The code for the activation is not correct.]]></en>
+        </locale>
+        <locale name="exception.lib.user.activation.no.groups">
+            <en>
+                <![CDATA[The is no group assigned to the user. A user must have at least one group assigned to him.]]></en>
+        </locale>
+        <locale name="exception.lib.user.activation.no.password">
+            <en>
+                <![CDATA[There has no password been set for this user. Only with a password a user can be activated.]]></en>
+        </locale>
+        <locale name="exception.lib.user.no.edit.rights">
+            <en><![CDATA[You have no permission to edit this user]]></en>
+        </locale>
+        <locale name="exception.lib.user.address.not.found">
+            <en><![CDATA[Address not found]]></en>
+        </locale>
+        <locale name="exception.lib.user.address.mail.wrong.syntax">
+            <en><![CDATA[EMail syntax is incorrect]]></en>
+        </locale>
+        <locale name="exception.lib.user.address.no.country">
+            <en><![CDATA[The address wasn't assigned a country]]></en>
+        </locale>
+        <locale name="exception.login.expire">
+            <en><![CDATA[Login failed. Your user account is expired. [expire]]]></en>
+        </locale>
+        <locale name="exception.login.fail">
+            <en><![CDATA[Login failed. Please check the username and password.]]></en>
+        </locale>
+        <locale name="exception.login.fail.no.password">
+            <en><![CDATA[Login failed. Please check the password.]]></en>
+        </locale>
+        <locale name="exception.login.fail.wrong.password.input">
+            <en><![CDATA[Login failed. Please insert a correct password.]]></en>
+        </locale>
+        <locale name="exception.login.fail.wrong.username.input">
+            <en><![CDATA[Login failed. Please insert a correct username.]]></en>
+        </locale>
+        <locale name="exception.login.fail.user.not.found">
+            <en><![CDATA[Login failed. User not found.]]></en>
+        </locale>
+        <locale name="exception.login.fail.user_not_active">
+            <en><![CDATA[Login failed. User is not active.]]></en>
+        </locale>
+        <locale name="exception.login.fail.login_locked">
+            <en><![CDATA[Login failed. Login for this user is currently locked. Please try again later.]]></en>
+        </locale>
+        <locale name="message.site.save.success">
+            <en><![CDATA[The page [id] [title] are successfuly saved.]]]></en>
+        </locale>
+        <locale name="exception.site.not.found">
+            <en><![CDATA[This Site could not be found.]]></en>
+        </locale>
+        <locale name="exception.permissions.edit">
+            <en><![CDATA[You have no rights to edit this page.]]></en>
+        </locale>
+        <locale name="exception.site.is.being.edited.user">
+            <en><![CDATA[The page is currently being edited by [username]!]]></en>
+        </locale>
+        <locale name="exception.site.is.being.edited">
+            <en><![CDATA[The page is currently being edited by a other user]]></en>
+        </locale>
+        <locale name="exception.site.same.name">
+            <en><![CDATA[A page with the name "[name]" already exists on the same level.]]></en>
+        </locale>
+        <locale name="exception.site.save.error">
+            <en><![CDATA[Errors occurred while saving the page.]]></en>
+        </locale>
+        <locale name="permissions.message.save.success">
+            <en><![CDATA[Permissions successfuly saved.]]></en>
+        </locale>
+        <locale name="permissions.message.delete.success">
+            <en><![CDATA[Permission successfuly deleted.]]></en>
+        </locale>
+        <locale name="exception.session.expired.from.other">
+            <en>
+                <![CDATA[            Someone is logged in from another PC with your username.            For that reason, your session has ended. Please log in again.            ]]></en>
+        </locale>
+        <locale name="exception.permissions.exists">
+            <en><![CDATA[The Permission still exists.]]></en>
+        </locale>
+        <locale name="exception.permissions.permission.not.found">
+            <en><![CDATA[The Permission could not be found.]]></en>
+        </locale>
+        <locale name="exception.permissions.delete.only.user.permissions">
+            <en><![CDATA[This permission can not be deleted. You can only delete user created permissions.]]></en>
+        </locale>
+        <locale name="template.project.create.header">
+            <en><![CDATA[Create project]]></en>
+        </locale>
+        <locale name="template.project.create.description">
+            <en>
+                <![CDATA[Create a new project.<br />                This project can be a website, corporate website, shop or even a blog.]]></en>
+        </locale>
+        <locale name="template.project.label.name">
+            <en><![CDATA[Project name]]></en>
+        </locale>
+        <locale name="template.project.label.language">
+            <en><![CDATA[Project language]]></en>
+        </locale>
+        <locale name="template.project.label.template">
+            <en><![CDATA[Project template]]></en>
+        </locale>
+        <locale name="template.project.no.template">
+            <en><![CDATA[Do not use a template]]></en>
+        </locale>
+        <locale name="demodata.project.label.template">
+            <en><![CDATA[Install demodata]]></en>
+        </locale>
+        <locale name="demodata.project.no.demodata">
+            <en><![CDATA[Do not install demodata]]></en>
+        </locale>
+        <locale name="projects.project.site.no.permissions">
+            <en><![CDATA[You do not have permission to access this page.]]></en>
+        </locale>
+        <locale name="projects.project.site.no.edit.permissions">
+            <en><![CDATA[You do not have permission to edit this page.]]></en>
+        </locale>
+        <locale name="projects.project.site.messages.marcate">
+            <en><![CDATA[This page is edited by: [username]]]></en>
+        </locale>
+        <locale name="projects.project.site.information">
+            <en><![CDATA[Information]]></en>
+        </locale>
+        <locale name="projects.project.site.content">
+            <en><![CDATA[Content]]></en>
+        </locale>
+        <locale name="projects.project.site.settings">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.new.help">
+            <en><![CDATA[Create a new page under the current page]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.new.alt">
+            <en><![CDATA[Create a new page under the current page]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.new.new">
+            <en><![CDATA[Create a new page under the current page]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.save.text">
+            <en><![CDATA[Save]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.save.help">
+            <en><![CDATA[Save your changes.]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.save.alt">
+            <en><![CDATA[Save your changes.]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.save.new">
+            <en><![CDATA[Save your changes.]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.delete.text">
+            <en><![CDATA[Delete]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.delete.help">
+            <en><![CDATA[Delete the page, the page is placed in the trash and can be restored]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.delete.alt">
+            <en><![CDATA[Delete the page, the page is placed in the trash and can be restored]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.delete.new">
+            <en><![CDATA[Delete the page, the page is placed in the trash and can be restored]]></en>
+        </locale>
+        <locale name="menu.file.search.text">
+            <en><![CDATA[Search sites...]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.tpl.title">
+            <en><![CDATA[Calculate file hashes new]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.recalc.md5">
+            <en><![CDATA[Recalculate MD5 hashes of files:]]></en>
+        </locale>
+        <locale name="projects.project.site.media.manager.general.recalc.sha1">
+            <en><![CDATA[Recalculate SHA1 hashes of files:]]></en>
+        </locale>
+        <locale name="projects.project.site.copy.text.count">
+            <en><![CDATA[[name] (Copy [count])]]></en>
+        </locale>
+        <locale name="projects.project.site.copy.text">
+            <en><![CDATA[[name] (Copy)]]></en>
+        </locale>
+        <locale name="exception.lib.qui.exceptions.handler.nocallback">
+            <en><![CDATA[No callback passed to [function] method]]></en>
+        </locale>
+        <locale name="exception.lib.qui.exceptions.handler.invalid">
+            <en><![CDATA[Invalid callback passed to the [function] method]]></en>
+        </locale>
+        <locale name="lib.qui.exceptions.handler.mail.subject">
+            <en><![CDATA[Error on [host] at [url]]]></en>
+        </locale>
+        <locale name="exception.lib.cache.manager.not.exist">
+            <en><![CDATA[Cache doesn't exist]]></en>
+        </locale>
+        <locale name="exception.packages.update.check">
+            <en><![CDATA[Could not check for updates.]]></en>
+        </locale>
+        <locale name="exception.no.quiqqer.update.archive">
+            <en><![CDATA[The update is not possible. The archive is not a QUIQQER archive.]]></en>
+        </locale>
+        <locale name="exception.packages.update.archive.not.found">
+            <en><![CDATA[The update archiv could not be found.]]></en>
+        </locale>
+        <locale name="exception.packages.exec.not.found.composer">
+            <en><![CDATA[Could not found composer.]]></en>
+        </locale>
+        <locale name="exception.packages.update.version.not.found">
+            <en><![CDATA[The Update could not be executed. A newer Version could not be found.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.exist">
+            <en><![CDATA[The toolbar already exists.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.empty">
+            <en><![CDATA[The toolbar is empty and could not be saved.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.xml.error">
+            <en><![CDATA[During the parsing of a toolbar XML file, an error occurred [error]]]></en>
+        </locale>
+        <locale name="exception.lib.qui.group.doesnt.exist">
+            <en><![CDATA[The group doesnt exist.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.group.root.delete">
+            <en><![CDATA[The root group can not be deleted]]></en>
+        </locale>
+        <locale name="exception.lib.qui.group.no.edit.permissions">
+            <en><![CDATA[You have no rights to edit groups.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.group.user.not.found">
+            <en><![CDATA[User not found.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.manager.no.groupid">
+            <en><![CDATA[No group ID is passed.]]></en>
+        </locale>
+        <locale name="exception.cannot.create.children">
+            <en><![CDATA[
+                The group could not be created.
+                Creation beneath this parent-group is impossible.
+            ]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.header">
+            <en><![CDATA[Data from site: #[id]]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.nameUrl">
+            <en><![CDATA[URL]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.openInSiteStructure">
+            <en><![CDATA[Open in page structure]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.title">
+            <en><![CDATA[Title]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.short">
+            <en><![CDATA[Short]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.type">
+            <en><![CDATA[Sitetype]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.date">
+            <en><![CDATA[Date]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.created">
+            <en><![CDATA[created on]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.edited">
+            <en><![CDATA[edited on]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.extras.title">
+            <en><![CDATA[Extras]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.extras.nav_hide">
+            <en><![CDATA[Do not show in navigation]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.extras.nav_hide.description">
+            <en><![CDATA[The page is not displayed in navigations and menus.]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.langlinking">
+            <en><![CDATA[Language linking]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.langlinking.notexist">
+            <en><![CDATA[No language linking for [lang]]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.linking">
+            <en><![CDATA[Linkings]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.linking.notexist">
+            <en><![CDATA[There are no links to this page]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication">
+            <en><![CDATA[Publication]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication.from">
+            <en><![CDATA[Publishing from]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication.to">
+            <en><![CDATA[Publishing to]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication.info">
+            <en>
+                <![CDATA[Note: <br />                To publish the page automatically, Publication Cron must be set in the cron manager.]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media">
+            <en><![CDATA[Media settings]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.info">
+            <en><![CDATA[Specify which images are associated with your site.]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.emotion_image">
+            <en><![CDATA[Emotion image]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.settings.media.site_image">
+            <en><![CDATA[Site image]]></en>
+        </locale>
+        <locale name="menu.extras.projects.text">
+            <en><![CDATA[Projects manager]]></en>
+        </locale>
+        <locale name="menu.settings.projects.text">
+            <en><![CDATA[Projects settings]]></en>
+        </locale>
+        <locale name="exception.project.not.found">
+            <en><![CDATA[Project [name] could not found.]]]></en>
+        </locale>
+        <locale name="exception.project.lang.not.found">
+            <en><![CDATA[Project lang [lang] could not found.]]]></en>
+        </locale>
+        <locale name="exception.project.longer.two.signs">
+            <en><![CDATA[The project name must be longer than 2 characters.]]></en>
+        </locale>
+        <locale name="exception.project.not.allowed.signs">
+            <en><![CDATA[The project name contains illegal characters. Illegal characters are: [signs]]]></en>
+        </locale>
+        <locale name="exception.project.lang.not.two.signs">
+            <en><![CDATA[The project language is invalid.]]></en>
+        </locale>
+        <locale name="exception.project.has.no.langs">
+            <en><![CDATA[The project hast no valid languages.]]></en>
+        </locale>
+        <locale name="exception.project.lang.no.default">
+            <en><![CDATA[The project hast no default languages.]]></en>
+        </locale>
+        <locale name="exception.project.exist">
+            <en><![CDATA[The project already exist.]]></en>
+        </locale>
+        <locale name="exception.project.delete.last">
+            <en><![CDATA[The project can not be deleted, since it is the last one existing.]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.settings.title">
+            <en><![CDATA[Meta data]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.author">
+            <en><![CDATA[Author]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.publisher">
+            <en><![CDATA[Publisher]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.copyright">
+            <en><![CDATA[Copyright]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing">
+            <en><![CDATA[Search engine indexing]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.index">
+            <en><![CDATA[Allow indexing of the site]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.noindex">
+            <en><![CDATA[Not allow indexing of the site]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.nofollow">
+            <en><![CDATA[Not visit subsidiary pages / files]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.noindex_nofollow">
+            <en><![CDATA[Indexing of the site is not allowed and does not visit the child pages / files]]></en>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.all">
+            <en><![CDATA[Visit the contents page and from child pages and index]]></en>
+        </locale>
+        <locale name="template.project.media.file.header">
+            <en><![CDATA[File information]]></en>
+        </locale>
+        <locale name="template.project.media.file.alttext">
+            <en><![CDATA[Alternative text]]></en>
+        </locale>
+        <locale name="template.project.media.folder.path">
+            <en><![CDATA[Folder path]]></en>
+        </locale>
+        <locale name="template.project.media.folder.size">
+            <en><![CDATA[Folder size]]></en>
+        </locale>
+        <locale name="template.project.media.file.path">
+            <en><![CDATA[File path]]></en>
+        </locale>
+        <locale name="template.project.media.file.lastedit">
+            <en><![CDATA[Last modified on]]></en>
+        </locale>
+        <locale name="template.project.media.file.dimension">
+            <en><![CDATA[Dimension]]></en>
+        </locale>
+        <locale name="template.project.site.search.title">
+            <en><![CDATA[Search]]></en>
+        </locale>
+        <locale name="template.project.site.search.legend">
+            <en><![CDATA[Fields that will be searched]]></en>
+        </locale>
+        <locale name="template.project.media.properties.header">
+            <en><![CDATA[File properties]]></en>
+        </locale>
+        <locale name="exception.site.release.from.inFuture">
+            <en><![CDATA[The page can not be activated because the date "release from" is in the future.]]></en>
+        </locale>
+        <locale name="exception.release.to.inPast">
+            <en><![CDATA[The page can not be activated because the date "release until" is in the past.]]></en>
+        </locale>
+        <locale name="templates.mail.header.title">
+            <en><![CDATA[]]></en>
+        </locale>
+        <locale name="templates.mail.footer.links" html="true">
+            <en><![CDATA[&nbsp;]]></en>
+        </locale>
+        <locale name="templates.mail.footer.text" html="true">
+            <en><![CDATA[&nbsp;]]></en>
+        </locale>
+
+        <locale name="templates.mail.body.header.social" html="true">
+            <en><![CDATA[
+                 <a href="https://www.facebook.com/Quiqqer" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                    <img alt="QUIQQER on Facebook" src="https://www.quiqqer.com/media/cache/quiqqer/email/facebook.png" />
+                 </a>
+
+                 <a href="https://twitter.com/PCSG_DEV" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/twitter.png"
+                          alt="QUIQQER on Twitter">
+                 </a>
+
+                 <a href="https://dev.quiqqer.com/" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/gitlab.png"
+                          alt="QUIQQER on Gitlab">
+                 </a>
+
+                 <a href="https://discord.gg/tjaMEgv" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/discord.png"
+                          alt="QUIQQER on Discord">
+                 </a>
+             ]]></en>
+        </locale>
+        <locale name="templates.mail.body.footer.text" html="true">
+            <en>
+                <![CDATA[<p style="padding: 0; margin: 0;">&copy; [year]<br/>Visit <a href="https://www.quiqqer.com">QUIQQER</a> website</p>]]></en>
+        </locale>
+        <locale name="templates.mail.body.footer.social" html="true">
+            <en><![CDATA[
+                 <a href="https://www.facebook.com/Quiqqer" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                    <img alt="QUIQQER on Facebook" src="https://www.quiqqer.com/media/cache/quiqqer/email/facebook.png" />
+                 </a>
+
+                 <a href="https://twitter.com/PCSG_DEV" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/twitter.png"
+                          alt="QUIQQER on Twitter">
+                 </a>
+
+                 <a href="https://dev.quiqqer.com/" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/gitlab.png"
+                          alt="QUIQQER on Gitlab">
+                 </a>
+
+                 <a href="https://discord.gg/tjaMEgv" target="_blank" rel="noreferrer" style="color: #666666; text-decoration: none; padding: 0 10px;">
+                     <img width="15" height="15" src="https://www.quiqqer.com/media/cache/quiqqer/email/discord.png"
+                          alt="QUIQQER on Discord">
+                 </a>
+             ]]></en>
+        </locale>
+
+        <locale name="projects.project.site.messages.lock">
+            <en>
+                <![CDATA[This page is currently being edited by: [username]. Tha last login from [username] was at [lastlogin]]]></en>
+        </locale>
+        <locale name="control.breadcrumb.text">
+            <en><![CDATA[You are here:]]></en>
+        </locale>
+        <locale name="message.site.save.sort.success">
+            <en><![CDATA[The sort of the pages [ids] are successfuly saved.]]]></en>
+        </locale>
+        <locale name="quiqqer.settings.timezone.title">
+            <en><![CDATA[Timezone settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers">
+            <en><![CDATA[Content Security Policy ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.title">
+            <en><![CDATA[HTTP Strict Transport Security]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.description">
+            <en><![CDATA[
+            HTTP Strict Transport Security (HSTS) is a security mechanism for HTTPS connections designed to protect against both downgrade attack and session hijacking.
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.max_age">
+            <en><![CDATA[Max-age]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.max_age.description" html="true">
+            <en><![CDATA[
+                <b>max-age</b> is the amount of time in seconds that a browser should cache the HSTS rule.
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.subdomains">
+            <en><![CDATA[Subdomains]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.subdomains.description">
+            <en><![CDATA[Optionally, the HSTS parameters can be extended to all subdomains.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.preload">
+            <en><![CDATA[Preload]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.hsts.preload.description">
+            <en><![CDATA[
+                This list is distributed with the browser so that it uses HTTPS for the initial request to the listed sites as well.
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.security_headers.csp.title">
+            <en><![CDATA[Content Security Policy (CSP)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.timezone">
+            <en><![CDATA[Timezone]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.timezone.description" html="true">
+            <en><![CDATA[
+            <p>This setting affects all time and dates</p>
+            <p>You can find a complete list of all timezones at:
+            <a href="http://php.net/manual/en/timezones.php" target="_blank">http://php.net/manual/en/timezones.php</a>
+            </p>]]></en>
+        </locale>
+        <locale name="quiqqer.settings.date_formats">
+            <en><![CDATA[Date format]]></en>
+        </locale>
+        <locale name="quiqqer.settings.languages.title">
+            <en><![CDATA[General language settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.language_settings">
+            <en><![CDATA[Language settings]]></en>
+        </locale>
+        <locale name="quiqqer.settings.date_formats.title">
+            <en><![CDATA[Global date format]]></en>
+        </locale>
+        <locale name="quiqqer.settings.date_formats.description" html="true">
+            <en><![CDATA[
+                <p>Einstellungen und oder mögliche Datumsformate finden Sie unter:</p>
+                <p><a href="http://php.net/manual/en/function.strftime.php#refsect1-function.strftime-parameters" target="_blank">
+                    http://php.net/manual/en/function.strftime.php#refsect1-function.strftime-parameters
+                    </a>
+                </p>
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.delimiter_formats.title">
+            <en><![CDATA[Delimiter]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.globals.standardLanguage">
+            <en><![CDATA[Standard language]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.save.title">
+            <en><![CDATA[Save the current page]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.delete.title">
+            <en><![CDATA[
+                Delete the page, the page is placed in the trash and can be restored
+            ]]></en>
+        </locale>
+        <locale name="menu.apps.text">
+            <en><![CDATA[Apps]]></en>
+        </locale>
+        <locale name="exception.file.not.found">
+            <en><![CDATA[File [file] not found.]]></en>
+        </locale>
+        <locale name="template.project.media.watermark.header">
+            <en><![CDATA[Watermark settings]]></en>
+        </locale>
+        <locale name="projects.project.site.panel.information.layout">
+            <en><![CDATA[Layout]]></en>
+        </locale>
+        <locale name="exception.media.file.already.exists">
+            <en><![CDATA[A file with the name [filename] already exist.]]></en>
+        </locale>
+        <locale name="exception.media.folder.already.exists">
+            <en><![CDATA[A folder with the name [name] already exist.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.session.type">
+            <en><![CDATA[Session data storage]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.filesystem">
+            <en><![CDATA[At the filesystem]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.database">
+            <en><![CDATA[Via QUIQQER Datenbank]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.memcached">
+            <en><![CDATA[Via Memcached Server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.redis">
+            <en><![CDATA[Via Redis Server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.sessionType.mongodb">
+            <en><![CDATA[Via MongoDB]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.standard">
+            <en><![CDATA[Authentifizierung over QUIQQER (standard)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.header">
+            <en><![CDATA[Memcached Server]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.memcached.header.port">
+            <en><![CDATA[Port]]></en>
+        </locale>
+        <locale name="quiqqer.settings.auth.redis.header">
+            <en><![CDATA[Redis]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFromText.description">
+            <en><![CDATA[Name of the sender displayed to the recipient.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.smtp.auth.MAILFromText">
+            <en><![CDATA[Displayed sender name]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.queue.desc">
+            <en><![CDATA[E-mails are saved in a queue until it is certain that they were sent.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.queueLimitPerHour">
+            <en><![CDATA[Max number of mails per hour]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.queueLimitPerHour.desc" html="true">
+            <en>
+                <![CDATA[Specifies the maximum number of e-mails that can be sent within one hour. <b>0 = no limit</b>.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.queueMaxRetries">
+            <en><![CDATA[Max retries per queued mail]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.queueMaxRetries.desc" html="true">
+            <en><![CDATA[Defines how often a queued e-mail is retried after errors before it is canceled. <b>0 = no limit</b>.]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.queue">
+            <en><![CDATA[Enable Mail Queue]]></en>
+        </locale>
+        <locale name="mailqueue.panel.title">
+            <en><![CDATA[Mail queue]]></en>
+        </locale>
+        <locale name="mailqueue.filter.search.placeholder">
+            <en><![CDATA[Search queued e-mails (subject, sender, recipient, content ...)]]></en>
+        </locale>
+        <locale name="mailqueue.grid.header.lastsend">
+            <en><![CDATA[Last send]]></en>
+        </locale>
+        <locale name="mailqueue.grid.header.status">
+            <en><![CDATA[Status]]></en>
+        </locale>
+        <locale name="mailqueue.grid.header.retry">
+            <en><![CDATA[Retries]]></en>
+        </locale>
+        <locale name="mailqueue.grid.header.subject">
+            <en><![CDATA[Subject]]></en>
+        </locale>
+        <locale name="mailqueue.grid.header.to">
+            <en><![CDATA[To]]></en>
+        </locale>
+        <locale name="mailqueue.delete.button">
+            <en><![CDATA[Delete]]></en>
+        </locale>
+        <locale name="mailqueue.delete.dialog.title">
+            <en><![CDATA[Delete queued e-mails]]></en>
+        </locale>
+        <locale name="mailqueue.delete.dialog.text">
+            <en><![CDATA[Do you really want to delete the selected queued e-mails?]]></en>
+        </locale>
+        <locale name="mailqueue.status.added">
+            <en><![CDATA[Added]]></en>
+        </locale>
+        <locale name="mailqueue.status.sent">
+            <en><![CDATA[Sent]]></en>
+        </locale>
+        <locale name="mailqueue.status.sending">
+            <en><![CDATA[Sending]]></en>
+        </locale>
+        <locale name="mailqueue.status.error">
+            <en><![CDATA[Error]]></en>
+        </locale>
+        <locale name="mailqueue.status.canceled">
+            <en><![CDATA[Canceled]]></en>
+        </locale>
+        <locale name="mailqueue.mail.panel.title">
+            <en><![CDATA[Queued e-mail]]></en>
+        </locale>
+        <locale name="mailqueue.mail.panel.error.no_mail_id">
+            <en><![CDATA[No mail id provided.]]></en>
+        </locale>
+        <locale name="mailqueue.mail.panel.error.not_found">
+            <en><![CDATA[Mail not found.]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.status">
+            <en><![CDATA[Status]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.lastsend">
+            <en><![CDATA[Last send]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.retry">
+            <en><![CDATA[Retries]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.from">
+            <en><![CDATA[From]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.to">
+            <en><![CDATA[To]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.reply_to">
+            <en><![CDATA[Reply-To]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.cc">
+            <en><![CDATA[CC]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.bcc">
+            <en><![CDATA[BCC]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.errors">
+            <en><![CDATA[Errors]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.body_html">
+            <en><![CDATA[Body (HTML)]]></en>
+        </locale>
+        <locale name="mailqueue.mail.field.body_text">
+            <en><![CDATA[Body (Text)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.maxAttachmentSize">
+            <en><![CDATA[Max attachment size (Byte)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.email.maxAttachmentSize.desc" html="true">
+            <en><![CDATA[Defines the maximum size of a single mail attachment in bytes. Default: <b>52428800</b> (50 MB).]]></en>
+        </locale>
+        <!-- License key -->
+        <locale name="message.ajax.licenseKey.upload.error">
+            <en><![CDATA[
+            An error ocurred while reading the license key file. The license key file may be invalid. Please contact an administrator or the issuer of the license key.
+            ]]></en>
+        </locale>
+        <locale name="message.ajax.licenseKey.upload.success">
+            <en><![CDATA[
+            The license key file has been imported succesfully.
+            This QUIQQER system now has access to all packages this license key contains.
+            ]]></en>
+        </locale>
+        <locale name="message.editor.toolbar.save.success">
+            <en><![CDATA[The toolbar has been successfully saved.]]></en>
+        </locale>
+        <locale name="message.ajax.licenseKey.delete.error">
+            <en><![CDATA[The license key was not deleted because no license key was active in your QUIQQER system.]]></en>
+        </locale>
+        <locale name="message.ajax.licenseKey.delete.success">
+            <en><![CDATA[The license key was deleted successfully and is now inactive.]]></en>
+        </locale>
+        <locale name="exception.lib.user.activasion.user.is.activated">
+            <en><![CDATA[The user could not be activated because he is already activated.]]></en>
+        </locale>
+    </groups>
+    <groups name="quiqqer/system" datatype="php,js">
+        <locale name="controls.users.auth.login.or">
+            <en><![CDATA[or]]></en>
+        </locale>
+        <locale name="controls.users.auth.login.password_reset">
+            <en><![CDATA[or]]></en>
+        </locale>
+        <locale name="quiqqer.licenseKey.unlimited">
+            <en><![CDATA[unlimited]]></en>
+        </locale>
+        <locale name="menu.extras.packages.text">
+            <en><![CDATA[System administration]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.new.text">
+            <en><![CDATA[New childsite]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.new.title">
+            <en><![CDATA[Create a new childsite]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.preview.text">
+            <en><![CDATA[Preview]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.open_in_media.text">
+            <en><![CDATA[Open in media]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.activate.text">
+            <en><![CDATA[Activate]]></en>
+        </locale>
+        <locale name="projects.project.site.btn.deactivate.text">
+            <en><![CDATA[Deactivate]]></en>
+        </locale>
+        <locale name="packages.panel.title">
+            <en><![CDATA[System administration]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.adminSettings">
+            <en><![CDATA[Backend settings]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.settings">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.adminSettings.title">
+            <en><![CDATA[Project settings for the backend]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.adminSitemapMax">
+            <en><![CDATA[Maximum number of page in the project Sitemap]]></en>
+        </locale>
+        <locale name="watermark.position.top.right">
+            <en><![CDATA[top right]]></en>
+        </locale>
+        <locale name="watermark.position.top">
+            <en><![CDATA[centered above]]></en>
+        </locale>
+        <locale name="watermark.position.top.left">
+            <en><![CDATA[top left]]></en>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.media">
+            <en><![CDATA[Media settings]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize">
+            <en><![CDATA[Maximum size of an image]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize.description" html="true">
+            <en><![CDATA[Images that are larger than the specified value are automatically adjusted.]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.description">
+            <en><![CDATA[Note: Changes to the watermark delete the entire media cache.]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.title">
+            <en><![CDATA[Media settings]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark">
+            <en><![CDATA[Global watermark]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.position">
+            <en><![CDATA[Watermark position]]></en>
+        </locale>
+        <locale name="projects.project.settings.panel.mediaSettings.watermark.ratio">
+            <en><![CDATA[Watermark size]]></en>
+        </locale>
+        <locale name="watermark.position.bottom.right">
+            <en><![CDATA[bottom right]]></en>
+        </locale>
+        <locale name="watermark.position.bottom">
+            <en><![CDATA[centered bottom]]></en>
+        </locale>
+        <locale name="watermark.position.left">
+            <en><![CDATA[centered left]]></en>
+        </locale>
+        <locale name="watermark.position.center">
+            <en><![CDATA[centered]]></en>
+        </locale>
+        <locale name="watermark.position.right">
+            <en><![CDATA[centered right]]></en>
+        </locale>
+        <locale name="watermark.position.bottom.left">
+            <en><![CDATA[bottom left]]></en>
+        </locale>
+        <locale name="projects.project.site.select.btn.addSite">
+            <en><![CDATA[Add a site]]></en>
+        </locale>
+        <locale name="projects.project.site.select.btn.addParent">
+            <en><![CDATA[Add children sites]]></en>
+        </locale>
+        <locale name="projects.project.site.select.description" html="true">
+            <en><![CDATA[
+                <p>
+                <em>Add sitetype</em> adds all pages of the selected sitetypes.<br />
+                <em>Add site</em> adds a single site.<br />
+                <em>Add children sites</em> adds all children sites of the selected site.
+                Unles it is a sitetype set. The the sitetype is used as a filter, it will only see all children sites of the selected sitetype.
+                </p>
+            ]]></en>
+        </locale>
+        <locale name="exception.usergroups.search.cannot.search.users.without.parameters">
+            <en><![CDATA[The user search cannot be executed without search parameters.]]></en>
+        </locale>
+        <locale name="message.project.config.save.success">
+            <en><![CDATA[The project settings successfully saved]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.permissions.package">
+            <en><![CDATA[Use package permissions]]></en>
+        </locale>
+        <locale name="quiqqer.settings.general.permissions.description" html="true">
+            <en><![CDATA[
+            Use package rights if you want to provide multiple users with different rights. <br />
+            If no package rights are used, some functions in the system are more powerful.
+            ]]></en>
+        </locale>
+        <locale name="exception.no.permission">
+            <en><![CDATA[You have not the necessary rights to perform this action.]]></en>
+        </locale>
+        <locale name="projects.project.site.select.btn.addTypes">
+            <en><![CDATA[Add a site type]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.site">
+            <en><![CDATA[Site]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.type">
+            <en><![CDATA[Site type]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.children">
+            <en><![CDATA[Source site]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.typeWildcard">
+            <en><![CDATA[Site types]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.children.title">
+            <en><![CDATA[All subpages of [title]]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.typeWildcard.title">
+            <en><![CDATA[All site types from [title]]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.children.badge">
+            <en><![CDATA[All subpages]]></en>
+        </locale>
+        <locale name="projects.project.site.select.entry.typeWildcard.badge">
+            <en><![CDATA[All site types]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.execbutton">
+            <en><![CDATA[Run system check]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.confirm.info">
+            <en>
+                <![CDATA[Running the system check can take up to 30 seconds. Should the system check really be executed?]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.confirm.button.ok.text">
+            <en><![CDATA[Run]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.textinfo">
+            <en>
+                <![CDATA[The displayed information are up to one day old. By running the system check (via the button above), the information is updated.]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.loader">
+            <en><![CDATA[The system check is running, this can take up to 30 seconds.]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck">
+            <en><![CDATA[PHP Info]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.title">
+            <en><![CDATA[QUIQQER System check]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.phpinfo">
+            <en><![CDATA[PHP Info]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.phpinfo.error">
+            <en><![CDATA[System check could not run.]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum">
+            <en><![CDATA[Package integrity check sum]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.popupText">
+            <en><![CDATA[
+            <p>Here you will find a list of all the files that this package contains.
+            If files have been changed and these changes do not come from you,
+            you should check the package. The checksum test is based on the local file system.</p>
+            <p>Legend:</p>
+            <ul>
+                <li>OK - The checksums match.</li>
+                <li>Unknown - No checksum file.</li>
+                <li>Modified - Local or online version of the file is not the same as the one on the local file system.</li>
+                <li>Missing - The file is not within the original package and it was created on your filesystem.</li>
+                <li>Additional - The original package contains this file, but it was not found on your local filesystem.</li>
+            </ul>
+            ]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.error">
+            <en><![CDATA[Package integrity check sum could not run.]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.fileNotFound">
+            <en><![CDATA[Cache file with check sum result not exist.]]></en>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.cacheForThisPackageNotFound">
+            <en><![CDATA[Cache for <strong>[cacheForThisPackage]</strong> could not found.]]></en>
+        </locale>
+        <locale name="menu.help.about.text">
+            <en><![CDATA[About QUIQQER]]></en>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

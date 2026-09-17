@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="address.suffix">
+            <it><![CDATA[Informazioni aggiuntive sull'indirizzo]]></it>
+        </locale>
+        <locale name="nobody.name">
+            <it><![CDATA[Nessuno]]></it>
+        </locale>
+        <locale name="nobody.username">
+            <it><![CDATA[nobody]]></it>
+        </locale>
+        <locale name="user.panel.2fa">
+            <it><![CDATA[Autenticazione 2FA]]></it>
+        </locale>
+        <locale name="user.panel.details">
+            <it><![CDATA[Dettagli]]></it>
+        </locale>
+        <locale name="user.panel.personalData">
+            <it><![CDATA[Dati personali / Indirizzi]]></it>
+        </locale>
+        <locale name="user.panel.personal">
+            <it><![CDATA[Dati personali]]></it>
+        </locale>
+        <locale name="user.panel.avatar">
+            <it><![CDATA[Immagine dell'utente]]></it>
+        </locale>
+        <locale name="user.panel.editorToolbar">
+            <it><![CDATA[Barra degli strumenti dell'editor]]></it>
+        </locale>
+        <locale name="user.panel.userlanguage">
+            <it><![CDATA[Lingua dell'utente]]></it>
+        </locale>
+        <locale name="user.panel.created">
+            <it><![CDATA[Creato il]]></it>
+        </locale>
+        <locale name="user.panel.lastChanged">
+            <it><![CDATA[Ultima modifica il]]></it>
+        </locale>
+        <locale name="user.panel.lastLogin">
+            <it><![CDATA[Ultimo accesso]]></it>
+        </locale>
+        <locale name="user.panel.browser">
+            <it><![CDATA[User-Agent del browser]]></it>
+        </locale>
+        <locale name="user.panel.search.title">
+            <it><![CDATA[Cerca:]]></it>
+        </locale>
+        <locale name="user.panel.search.in.title">
+            <it><![CDATA[Cerca in:]]></it>
+        </locale>
+        <locale name="user.panel.search.filter.title">
+            <it><![CDATA[Filtro:]]></it>
+        </locale>
+        <locale name="user.panel.search.filter.regdate.first">
+            <it><![CDATA[Creato dal]]></it>
+        </locale>
+        <locale name="user.panel.search.filter.regdate.last">
+            <it><![CDATA[Creato fino al]]></it>
+        </locale>
+        <locale name="user.panel.search.placeholder">
+            <it><![CDATA[Inserisci un termine di ricerca.]]></it>
+        </locale>
+        <locale name="user.toolbar.title">
+            <it><![CDATA[Barra degli strumenti]]></it>
+        </locale>
+        <locale name="user.panel.assignedToolbars">
+            <it><![CDATA[Barre degli strumenti assegnate specificamente]]></it>
+        </locale>
+        <locale name="message.user.saved" html="true">
+            <it><![CDATA[L'utente <b>[username] #[id]</b> è stato salvato correttamente.]]></it>
+        </locale>
+        <locale name="message.group.saved" html="true">
+            <it><![CDATA[Il gruppo <b>[groupname] #[id]</b> è stato salvato correttamente.]]></it>
+        </locale>
+        <locale name="message.group.deleted" html="true">
+            <it><![CDATA[Il gruppo <b>[groupname] #[id]</b> è stato eliminato correttamente.]]></it>
+        </locale>
+        <locale name="message.groups.deleted" html="true">
+            <it><![CDATA[I gruppi <b>[groups]</b> sono stati salvati correttamente.]]></it>
+        </locale>
+        <locale name="exception.user.no.address.exists">
+            <it><![CDATA[L'utente non ha un indirizzo.]]></it>
+        </locale>
+        <locale name="exception.user.name.already.exists">
+            <it><![CDATA[Questo nome utente esiste già.]]></it>
+        </locale>
+        <locale name="user.settings.expire">
+            <it><![CDATA[Valido fino al]]></it>
+        </locale>
+        <locale name="user.settings.expire.always">
+            <it><![CDATA[Sempre]]></it>
+        </locale>
+        <locale name="user.settings.expire.date">
+            <it><![CDATA[Data / Ora]]></it>
+        </locale>
+        <locale name="user.settings.authenticators">
+            <it><![CDATA[Autenticazione a due fattori]]></it>
+        </locale>
+        <locale name="user.settings.authenticators.additionalSettings">
+            <it><![CDATA[Altre impostazioni di autenticazione]]></it>
+        </locale>
+        <locale name="user.settings.authenticators.2faList">
+            <it><![CDATA[Metodi di autenticazione a due fattori disponibili per questo utente]]></it>
+        </locale>
+        <locale name="user.settings.authenticators.2faList.empty">
+            <it><![CDATA[Nessun metodo di autenticazione a due fattori disponibile]]></it>
+        </locale>
+        <locale name="user.settings.hasSeen2faInfo">
+            <it><![CDATA[Ha visualizzato l'avviso sull'autenticazione a due fattori]]></it>
+        </locale>
+        <locale name="user.settings.hasSeen2faInfo.description" html="true">
+            <it><![CDATA[Questa impostazione indica se l'utente ha già visualizzato l'avviso sull'autenticazione a due fattori.<br />Se l'opzione non è attivata, l'avviso viene mostrato nuovamente al prossimo accesso.<br />L'impostazione ha effetto solo se nelle impostazioni globali degli "autenticatori secondari" è previsto che gli utenti ricevano un avviso e possano configurare un secondo metodo di autenticazione.]]></it>
+        </locale>
+        <locale name="default.address">
+            <it><![CDATA[Indirizzo predefinito]]></it>
+        </locale>
+        <locale name="address.salutation.male">
+            <it><![CDATA[Signor]]></it>
+        </locale>
+        <locale name="address.salutation.female">
+            <it><![CDATA[Signora]]></it>
+        </locale>
+        <locale name="address.salutation.company">
+            <it><![CDATA[Azienda]]></it>
+        </locale>
+        <locale name="message.unknown.root.group">
+            <it><![CDATA[Gruppo ROOT sconosciuto. Contatta un amministratore.]]></it>
+        </locale>
+        <locale name="exception.guest.group.cannot.be.deleted">
+            <it><![CDATA[Il gruppo degli ospiti non può essere eliminato.]]></it>
+        </locale>
+        <locale name="exception.everyone.group.cannot.be.deleted">
+            <it><![CDATA[Il gruppo Tutti non può essere eliminato.]]></it>
+        </locale>
+        <locale name="usersAndGroups.input.search.placeholder">
+            <it><![CDATA[Cerca un gruppo o un utente...]]></it>
+        </locale>
+        <locale name="usersAndGroups.no.results">
+            <it><![CDATA[Nessun risultato trovato]]></it>
+        </locale>
+        <locale name="groups.group.title">
+            <it><![CDATA[Gruppo: [group]]]></it>
+        </locale>
+        <locale name="groups.group.delete.title">
+            <it><![CDATA[Vuoi davvero eliminare il gruppo?]]></it>
+        </locale>
+        <locale name="groups.group.delete.text">
+            <it><![CDATA[Vuoi davvero eliminare il gruppo [group]?]]></it>
+        </locale>
+        <locale name="groups.group.delete.information">
+            <it><![CDATA[Il gruppo verrà rimosso completamente dal sistema e non potrà essere ripristinato]]></it>
+        </locale>
+        <locale name="groups.group.btn.save">
+            <it><![CDATA[Salva]]></it>
+        </locale>
+        <locale name="groups.group.btn.sendMail">
+            <it><![CDATA[Invia e-mail]]></it>
+        </locale>
+        <locale name="groups.group.btn.sendMail.no_permission">
+            <it><![CDATA[Non disponi dell'autorizzazione necessaria per inviare e-mail agli utenti di questo gruppo]]></it>
+        </locale>
+        <locale name="groups.group.btn.delete">
+            <it><![CDATA[Elimina gruppo]]></it>
+        </locale>
+        <locale name="groups.group.btn.permissions.alt">
+            <it><![CDATA[Imposta i diritti di accesso del gruppo]]></it>
+        </locale>
+        <locale name="groups.group.btn.permissions.title">
+            <it><![CDATA[Imposta i diritti di accesso del gruppo]]></it>
+        </locale>
+        <locale name="groups.input.no.results">
+            <it><![CDATA[Nessun risultato trovato]]></it>
+        </locale>
+        <locale name="groups.panel.title">
+            <it><![CDATA[Gestione dei gruppi]]></it>
+        </locale>
+        <locale name="groups.panel.btn.search">
+            <it><![CDATA[Cerca gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.btn.create">
+            <it><![CDATA[Crea nuovo gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.btn.edit">
+            <it><![CDATA[Modifica gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.btn.delete">
+            <it><![CDATA[Elimina gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.grid.admin">
+            <it><![CDATA[Può accedere all'amministrazione]]></it>
+        </locale>
+        <locale name="groups.panel.grid.users">
+            <it><![CDATA[Utenti]]></it>
+        </locale>
+        <locale name="groups.panel.search.title">
+            <it><![CDATA[Ricerca gruppi]]></it>
+        </locale>
+        <locale name="groups.panel.search.btn.search">
+            <it><![CDATA[Avvia ricerca ...]]></it>
+        </locale>
+        <locale name="groups.panel.search.active.message">
+            <it><![CDATA[I parametri di ricerca sono attivi.<br />Fai clic qui per terminare la ricerca e visualizzare nuovamente tutti i gruppi]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.title">
+            <it><![CDATA[Crea gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.text">
+            <it><![CDATA[Crea un nuovo gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.sitemap.text">
+            <it><![CDATA[Nuovo gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.sitemap.information">
+            <it><![CDATA[Sotto quale gruppo deve essere creato il nuovo gruppo?]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.new.group.title">
+            <it><![CDATA[Nuovo nome del gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.new.group.text">
+            <it><![CDATA[Nuovo nome del gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.create.window.new.group.information">
+            <it><![CDATA[Inserisci il nome del nuovo gruppo]]></it>
+        </locale>
+        <locale name="groups.panel.delete.window.title">
+            <it><![CDATA[Elimina gruppi]]></it>
+        </locale>
+        <locale name="groups.panel.delete.window.text">
+            <it><![CDATA[Stai per eliminare i seguenti gruppi:]]></it>
+        </locale>
+        <locale name="groups.panel.delete.window.information">
+            <it><![CDATA[I gruppi verranno rimossi completamente dal sistema e non potranno essere ripristinati]]></it>
+        </locale>
+        <locale name="groups.entry.btn.remove">
+            <it><![CDATA[Rimuovi gruppo]]></it>
+        </locale>
+        <locale name="groups.sitemap.window.title">
+            <it><![CDATA[Selezione del gruppo]]></it>
+        </locale>
+        <locale name="groups.sitemap.window.information">
+            <it><![CDATA[Seleziona un gruppo]]></it>
+        </locale>
+        <locale name="users.user.title">
+            <it><![CDATA[Utente: [username]]]></it>
+        </locale>
+        <locale name="users.user.btn.save">
+            <it><![CDATA[Salva]]></it>
+        </locale>
+        <locale name="users.user.btn.delete">
+            <it><![CDATA[Elimina]]></it>
+        </locale>
+        <locale name="users.user.btn.permissions.title">
+            <it><![CDATA[Imposta i diritti di accesso dell'utente]]></it>
+        </locale>
+        <locale name="users.user.btn.permissions.alt">
+            <it><![CDATA[Imposta i diritti di accesso dell'utente]]></it>
+        </locale>
+        <locale name="users.user.btn.sendMail">
+            <it><![CDATA[Invia e-mail]]></it>
+        </locale>
+        <locale name="users.user.btn.sendMail.no_permission">
+            <it><![CDATA[Non disponi dell'autorizzazione necessaria per inviare e-mail agli utenti]]></it>
+        </locale>
+        <locale name="users.user.window.delete.title">
+            <it><![CDATA[Elimina utente]]></it>
+        </locale>
+        <locale name="users.user.window.delete.information">
+            <it><![CDATA[L'utente verrà rimosso definitivamente dal sistema e non potrà essere ripristinato.]]></it>
+        </locale>
+        <locale name="users.user.window.delete.text">
+            <it><![CDATA[Stai per eliminare il seguente utente:<br /><br />[userid]]]></it>
+        </locale>
+        <locale name="users.user.address.table.phone">
+            <it><![CDATA[Telefono / Fax / Cellulare]]></it>
+        </locale>
+        <locale name="users.user.address.table.btn.add">
+            <it><![CDATA[Aggiungi indirizzo]]></it>
+        </locale>
+        <locale name="users.user.address.table.btn.delete">
+            <it><![CDATA[Elimina indirizzo]]></it>
+        </locale>
+        <locale name="users.user.address.table.btn.edit">
+            <it><![CDATA[Modifica indirizzo]]></it>
+        </locale>
+        <locale name="users.user.table.phone">
+            <it><![CDATA[Telefono / Fax / Cellulare]]></it>
+        </locale>
+        <locale name="users.user.address.edit">
+            <it><![CDATA[Modifica indirizzo]]></it>
+        </locale>
+        <locale name="users.user.address.window.delete.title">
+            <it><![CDATA[Elimina indirizzo]]></it>
+        </locale>
+        <locale name="users.user.address.window.delete.text">
+            <it><![CDATA[Vuoi davvero eliminare l'indirizzo?]]></it>
+        </locale>
+        <locale name="users.user.address.window.delete.information">
+            <it><![CDATA[L'indirizzo non potrà essere ripristinato]]></it>
+        </locale>
+        <locale name="exception.users.address.delete.default">
+            <it><![CDATA[L'indirizzo predefinito non può essere eliminato. Imposta prima un altro indirizzo come predefinito.]]></it>
+        </locale>
+        <locale name="users.input.no.results">
+            <it><![CDATA[Nessun risultato trovato]]></it>
+        </locale>
+        <locale name="users.address.btn.add">
+            <it><![CDATA[Aggiungi telefono, fax o cellulare]]></it>
+        </locale>
+        <locale name="users.address.btn.edit">
+            <it><![CDATA[Modifica il numero selezionato]]></it>
+        </locale>
+        <locale name="users.address.btn.delete">
+            <it><![CDATA[Elimina il numero selezionato]]></it>
+        </locale>
+        <locale name="users.address.mail.btn.add">
+            <it><![CDATA[Aggiungi indirizzo e-mail]]></it>
+        </locale>
+        <locale name="users.address.mail.btn.edit">
+            <it><![CDATA[Modifica l'e-mail selezionata]]></it>
+        </locale>
+        <locale name="users.address.mail.btn.delete">
+            <it><![CDATA[Elimina l'e-mail selezionata]]></it>
+        </locale>
+        <locale name="users.address.phone.window.title">
+            <it><![CDATA[Telefono / Fax / Cellulare]]></it>
+        </locale>
+        <locale name="users.address.phone.title">
+            <it><![CDATA[Telefono / Fax / Cellulare]]></it>
+        </locale>
+        <locale name="users.address.phone.window.text">
+            <it><![CDATA[Inserisci un numero di telefono, fax o cellulare.]]></it>
+        </locale>
+        <locale name="users.address.phone.window.information">
+            <it><![CDATA[Telefono / Fax / Cellulare]]></it>
+        </locale>
+        <locale name="users.address.phone.window.input.placeholder">
+            <it><![CDATA[Numero di telefono, fax o cellulare ...]]></it>
+        </locale>
+        <locale name="users.address.phone.delete.window.title">
+            <it><![CDATA[Telefono / Fax / Cellulare]]></it>
+        </locale>
+        <locale name="users.address.phone.delete.window.text">
+            <it><![CDATA[Vuoi davvero eliminare la voce telefonica?]]></it>
+        </locale>
+        <locale name="users.address.phone.delete.window.information">
+            <it><![CDATA[La voce non potrà essere ripristinata.]]></it>
+        </locale>
+        <locale name="users.address.email.window.title">
+            <it><![CDATA[Indirizzo e-mail]]></it>
+        </locale>
+        <locale name="users.address.email.window.text">
+            <it><![CDATA[Inserisci un indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="users.address.email.window.input.placeholder">
+            <it><![CDATA[Inserisci un indirizzo e-mail ...]]></it>
+        </locale>
+        <locale name="users.address.email.delete.window.title">
+            <it><![CDATA[Elimina indirizzo e-mail]]></it>
+        </locale>
+        <locale name="users.address.email.delete.window.text">
+            <it><![CDATA[Vuoi davvero eliminare l'indirizzo e-mail?]]></it>
+        </locale>
+        <locale name="users.address.email.delete.window.information">
+            <it><![CDATA[La voce non potrà essere ripristinata.]]></it>
+        </locale>
+        <locale name="users.panel.title">
+            <it><![CDATA[Gestione degli utenti]]></it>
+        </locale>
+        <locale name="users.panel.search.info">
+            <it><![CDATA[I parametri di ricerca sono attivi. Fai clic qui per terminare la ricerca e visualizzare nuovamente tutti gli utenti.]]></it>
+        </locale>
+        <locale name="users.panel.user.is.active">
+            <it><![CDATA[L'utente è attivato. Fai clic sul pulsante per disattivarlo.]]></it>
+        </locale>
+        <locale name="users.panel.user.is.deactive">
+            <it><![CDATA[L'utente è disattivato. Fai clic sul pulsante per attivarlo.]]></it>
+        </locale>
+        <locale name="users.panel.search.title">
+            <it><![CDATA[Ricerca utenti]]></it>
+        </locale>
+        <locale name="users.panel.btn.search.alt">
+            <it><![CDATA[Cerca utenti]]></it>
+        </locale>
+        <locale name="users.panel.btn.search.title">
+            <it><![CDATA[Cerca utenti]]></it>
+        </locale>
+        <locale name="users.panel.btn.create">
+            <it><![CDATA[Crea nuovo utente]]></it>
+        </locale>
+        <locale name="users.panel.btn.delete">
+            <it><![CDATA[Elimina utente]]></it>
+        </locale>
+        <locale name="users.panel.btn.remove">
+            <it><![CDATA[Elimina utente]]></it>
+        </locale>
+        <locale name="users.panel.search.btn.start">
+            <it><![CDATA[Cerca]]></it>
+        </locale>
+        <locale name="users.panel.create.window.title">
+            <it><![CDATA[Crea nuovo utente]]></it>
+        </locale>
+        <locale name="users.panel.create.window.text">
+            <it><![CDATA[Nuovo nome utente:]]></it>
+        </locale>
+        <locale name="users.panel.create.window.submit">
+            <it><![CDATA[Crea]]></it>
+        </locale>
+        <locale name="users.panel.create.window.information">
+            <it><![CDATA[Crea un singolo utente con nome utente o indirizzo e-mail. Per inviare le credenziali via e-mail, usa Invita utente.]]></it>
+        </locale>
+        <locale name="users.panel.create.window.placeholder">
+            <it><![CDATA[Nome utente o indirizzo e-mail]]></it>
+        </locale>
+        <locale name="users.panel.create.window.invite.button">
+            <it><![CDATA[Invita utente]]></it>
+        </locale>
+        <locale name="users.panel.create.window.value.required">
+            <it><![CDATA[Inserisci un nome utente o un indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.title">
+            <it><![CDATA[Invita utente]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.headline">
+            <it><![CDATA[Invita utente via e-mail]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.information">
+            <it><![CDATA[Inserisci l'indirizzo e-mail e seleziona i gruppi. L'utente riceverà una password via e-mail e dovrà cambiarla al primo accesso.]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.email.title">
+            <it><![CDATA[Specifica l'indirizzo e-mail]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.email.description">
+            <it><![CDATA[Le credenziali verranno inviate a questo indirizzo, che verrà salvato sia come nome utente sia come indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.groups.title">
+            <it><![CDATA[Seleziona gruppi]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.groups.description">
+            <it><![CDATA[Seleziona i gruppi a cui il nuovo utente deve essere assegnato subito dopo la creazione.]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.submit">
+            <it><![CDATA[Invita]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.email.required">
+            <it><![CDATA[Specifica un indirizzo e-mail.]]></it>
+        </locale>
+        <locale name="users.panel.invite.window.groups.required">
+            <it><![CDATA[Seleziona almeno un gruppo.]]></it>
+        </locale>
+        <locale name="exception.create.user.exists">
+            <it><![CDATA[Il nome utente esiste già.<br />Inserisci un altro nome utente.]]></it>
+        </locale>
+        <locale name="users.panel.delete.window.title">
+            <it><![CDATA[Elimina utente]]></it>
+        </locale>
+        <locale name="users.panel.delete.window.text">
+            <it><![CDATA[Stai per eliminare i seguenti utenti:]]></it>
+        </locale>
+        <locale name="users.panel.delete.window.submit.user">
+            <it><![CDATA[Elimina utente]]></it>
+        </locale>
+        <locale name="users.panel.delete.window.submit.users">
+            <it><![CDATA[Elimina utente]]></it>
+        </locale>
+        <locale name="users.panel.delete.window.information">
+            <it><![CDATA[Gli utenti verranno rimossi completamente dal sistema e non potranno essere ripristinati.]]></it>
+        </locale>
+        <locale name="users.entry.user.remove">
+            <it><![CDATA[Rimuovi utente]]></it>
+        </locale>
+        <locale name="users.panel.btn.edit">
+            <it><![CDATA[Modifica utente]]></it>
+        </locale>
+        <locale name="users.panel.deactivate.window.title">
+            <it><![CDATA[Disattiva utente]]></it>
+        </locale>
+        <locale name="users.panel.deactivate.window.information">
+            <it><![CDATA[<p>Vuoi davvero disattivare l'utente?</p><p>L'utente non potrà più accedere al sistema.</p>]]></it>
+        </locale>
+        <locale name="users.panel.deactivate.window.text">
+            <it><![CDATA[Stai per disattivare il seguente utente:<br /><br />[userid] - [username]]]></it>
+        </locale>
+        <locale name="groups.panel.group.is.deactive">
+            <it><![CDATA[Il gruppo è disattivato. Fai clic sul pulsante per attivarlo.]]></it>
+        </locale>
+        <locale name="groups.panel.group.is.active">
+            <it><![CDATA[Il gruppo è attivato. Fai clic sul pulsante per disattivarlo.]]></it>
+        </locale>
+        <locale name="controls.group.table.btns.adduser">
+            <it><![CDATA[Aggiungi utente]]></it>
+        </locale>
+        <locale name="controls.group.table.btns.removeuser">
+            <it><![CDATA[Rimuovi utente]]></it>
+        </locale>
+        <locale name="controls.group.deleteusers.confirm.info">
+            <it><![CDATA[Vuoi davvero rimuovere i seguenti utenti dal gruppo <b>[groupName]</b> (#[groupId])?<br/><br/>[users]]]></it>
+        </locale>
+        <locale name="controls.group.deleteusers.confirm.title">
+            <it><![CDATA[Rimuovi utente]]></it>
+        </locale>
+        <locale name="exception.lib.user.exist">
+            <it><![CDATA[Questo nome utente esiste già]]></it>
+        </locale>
+        <locale name="exception.lib.user.specify.username">
+            <it><![CDATA[Specifica un nome utente]]></it>
+        </locale>
+        <locale name="exception.user.register.email.exists">
+            <it><![CDATA[Questo indirizzo e-mail esiste già. Usa un altro indirizzo e-mail]]></it>
+        </locale>
+        <locale name="exception.lib.user.not.found">
+            <it><![CDATA[L'utente richiesto non è stato trovato nel sistema]]></it>
+        </locale>
+        <locale name="exception.user.inactive">
+            <it><![CDATA[Il tuo utente è inattivo.]]></it>
+        </locale>
+        <locale name="exception.lib.user.illegal.signs">
+            <it><![CDATA[Il nome utente contiene caratteri non consentiti. Usa solo lettere, numeri e i seguenti caratteri: _ ä ö ü ß]]></it>
+        </locale>
+        <locale name="exception.lib.user.nobody.add.address">
+            <it><![CDATA[Questo utente non esiste, quindi non è possibile memorizzare un indirizzo. Crea prima un utente.]]></it>
+        </locale>
+        <locale name="exception.lib.user.wrong.uid">
+            <it><![CDATA[Non è stato fornito un ID utente oppure l'ID non è valido]]></it>
+        </locale>
+        <locale name="exception.lib.user.no.edit.rights">
+            <it><![CDATA[Non sei autorizzato a modificare questo utente.]]></it>
+        </locale>
+        <locale name="exception.lib.user.no.delete.permission">
+            <it><![CDATA[Non sei autorizzato a eliminare questo utente.]]></it>
+        </locale>
+        <locale name="exception.lib.user.address.mail.wrong.syntax">
+            <it><![CDATA[La sintassi dell'indirizzo e-mail non è corretta]]></it>
+        </locale>
+        <locale name="exception.lib.user.address.no.country">
+            <it><![CDATA[Non è stato assegnato un paese all'indirizzo]]></it>
+        </locale>
+        <locale name="exception.lib.qui.group.doesnt.exist">
+            <it><![CDATA[Il gruppo non esiste.]]></it>
+        </locale>
+        <locale name="exception.lib.qui.group.root.delete">
+            <it><![CDATA[Il gruppo Root non può essere eliminato.]]></it>
+        </locale>
+        <locale name="exception.lib.qui.group.no.edit.permissions">
+            <it><![CDATA[Non disponi dei diritti per modificare i gruppi.]]></it>
+        </locale>
+        <locale name="exception.lib.qui.group.user.not.found">
+            <it><![CDATA[Utente non trovato.]]></it>
+        </locale>
+        <locale name="exception.lib.qui.manager.no.groupid">
+            <it><![CDATA[Non è stato fornito un ID gruppo.]]></it>
+        </locale>
+        <locale name="exception.usergroups.search.cannot.search.users.without.parameters">
+            <it><![CDATA[Impossibile eseguire la ricerca degli utenti senza i parametri di ricerca necessari.]]></it>
+        </locale>
+        <locale name="quiqqer.setup.groups.title">
+            <it><![CDATA[Impostazione dei gruppi]]></it>
+        </locale>
+        <locale name="quiqqer.setup.groups.description">
+            <it><![CDATA[<p>Vuoi utilizzare QUIQQER con un team o altre persone?</p><p>Ora creeremo gruppi di utenti e autorizzazioni in QUIQQER. A seconda di come vuoi usare QUIQQER, possiamo creare diversi gruppi di utenti con autorizzazioni differenti. Seleziona la configurazione più adatta al tuo progetto.</p><p></p>]]></it>
+        </locale>
+        <locale name="quiqqer.setup.groups.text">
+            <it><![CDATA[Uso QUIQQER in team con altre persone e voglio distinguere tra amministratore di sistema, amministratore e redazione.]]></it>
+        </locale>
+        <locale name="quiqqer.setup.groups.alone.text">
+            <it><![CDATA[Uso QUIQQER da solo o con pochi altri utenti che dispongono tutti delle stesse autorizzazioni di amministrazione.]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.lib.user.nobody.get.address">
+            <it><![CDATA[L'utente Nobody non può avere un indirizzo.]]></it>
+        </locale>
+        <locale name="exception.lib.user.address.not.found">
+            <it><![CDATA[Impossibile trovare l'indirizzo [addressId] dell'utente [userId].]]></it>
+        </locale>
+        <locale name="user.create.new.username">
+            <it><![CDATA[Nuovo utente]]></it>
+        </locale>
+        <locale name="message.users.activated">
+            <it><![CDATA[Gli utenti [users] sono stati attivati correttamente.]]></it>
+        </locale>
+        <locale name="message.users.deactivated">
+            <it><![CDATA[Gli utenti [users] sono stati disattivati correttamente.]]></it>
+        </locale>
+
+        <locale name="exception.user.one.superuser.must.exists">
+            <it><![CDATA[L'utente non può essere eliminato o disattivato. Nel sistema deve essere presente almeno un superutente.]]></it>
+        </locale>
+        <locale name="exception.user.save.one.superuser.must.exists">
+            <it><![CDATA[L'utente non può essere salvato. Nel sistema deve essere presente almeno un superutente.]]></it>
+        </locale>
+        <locale name="exception.user_cannot_delete_himself">
+            <it><![CDATA[Non puoi eliminare autonomamente il tuo account utente.]]></it>
+        </locale>
+        <locale name="exception.superuser_cannot_delete_himself">
+            <it><![CDATA[Come superutente, non puoi eliminare autonomamente il tuo account utente.]]></it>
+        </locale>
+        <locale name="exception.user.one.active.user.must.exists">
+            <it><![CDATA[L'utente non può essere distrutto o disattivato. Nel sistema deve essere presente almeno un utente attivo.]]></it>
+        </locale>
+
+        <locale name="message.user.deleted.successful">
+            <it><![CDATA[Gli utenti [ids] sono stati eliminati correttamente.]]></it>
+        </locale>
+        <locale name="exception.group.create.id.creation.error">
+            <it><![CDATA[Impossibile creare il gruppo. Si è verificato un errore durante la creazione dell'ID.]]></it>
+        </locale>
+        <locale name="exception.too.many.addresses">
+            <it><![CDATA[Non puoi creare altri indirizzi.]]></it>
+        </locale>
+        <locale name="user.settings.showNamesInSitemap">
+            <it><![CDATA[Mostra i nomi delle pagine nella mappa del sito]]></it>
+        </locale>
+        <locale name="user.settings.showNamesInSitemap.description">
+            <it><![CDATA[Per impostazione predefinita, nella mappa del sito del progetto viene mostrato il titolo di ogni pagina. Se preferisci visualizzarne il nome, puoi modificare questa opzione qui.]]></it>
+        </locale>
+
+        <locale name="exception.user.save.mail.exists">
+            <it><![CDATA[Impossibile salvare l'utente. L'indirizzo e-mail è già utilizzato da un altro utente. Poiché l'accesso tramite e-mail è attivo, due utenti non possono avere lo stesso indirizzo e-mail.]]></it>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="control.groups.select.search.field.placeholder">
+            <it><![CDATA[Cerca un gruppo ...]]></it>
+        </locale>
+        <locale name="control.users.select.search.field.placeholder">
+            <it><![CDATA[Cerca un utente ...]]></it>
+        </locale>
+        <locale name="control.usersgroups.select.search.field.placeholder">
+            <it><![CDATA[Cerca un gruppo o un utente...]]></it>
+        </locale>
+        <locale name="control.usersgroups.window.search.title">
+            <it><![CDATA[Ricerca di utenti e gruppi]]></it>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

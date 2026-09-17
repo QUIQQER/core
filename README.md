@@ -123,6 +123,8 @@ Expand your access to the QUIQQER community and find additional resources to get
 
 - [Main Website](https://www.quiqqer.com/): Visit the official website for comprehensive resources, documentation, and
   updates.
+- [Documentation](https://www.quiqqer.com/docs/): Read the guides and XML configuration reference. XML examples and schemas
+  are available in the [documentation repository](https://dev.quiqqer.com/quiqqer/ecosystem/documentation/-/tree/next-2.x/xml).
 - [Twitter: Main Developer Account](https://twitter.com/de_henne)
 - [Gitlab](https://dev.quiqqer.com/quiqqer/core): Access QUIQQER's GitLab page for discussions, issue reporting, and
   contributions.

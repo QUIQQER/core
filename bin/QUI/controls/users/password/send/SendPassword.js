@@ -49,7 +49,7 @@ define('controls/users/password/send/SendPassword', [
                 autoclose: false,
                 cancel_button: {
                     textimage: 'fa fa-close',
-                    text: QUILocale.get('quiqqer/system', 'close')
+                    text: QUILocale.get(lg, 'close')
                 },
                 ok_button: {
                     textimage: 'fa fa-envelope',
