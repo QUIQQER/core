@@ -20,13 +20,21 @@ class RunExecutor
         $now ??= time();
         $lock = $this->repository->acquireLock($id);
         $isAuthorized = false;
+        $signals = new RunSignalHandler($this->repository, $id);
 
         try {
             $state = $this->repository->load($id);
             $state->assertAuthorized($token, $now);
             $isAuthorized = true;
             $state->markRunning($now);
+            $pid = getmypid();
+
+            if ($pid !== false) {
+                $state->setProcess($pid, '', $now, 'runner');
+            }
+
             $this->repository->save($state);
+            $signals->install();
 
             $action = $this->actions[$state->getPhase()] ?? null;
 
@@ -59,6 +67,7 @@ class RunExecutor
 
             throw $Exception;
         } finally {
+            $signals->restore();
             $this->repository->releaseLock($lock);
         }
     }

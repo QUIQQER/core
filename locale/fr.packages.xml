@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="message.packages.server.add.successfully">
+            <fr><![CDATA[Le serveur [server] a été ajouté avec succès.]]></fr>
+        </locale>
+        <locale name="message.packages.server.remove.successfully">
+            <fr><![CDATA[Les serveurs ont été supprimés avec succès.]]></fr>
+        </locale>
+        <locale name="message.packages.no.updates.available">
+            <fr><![CDATA[Aucune mise à jour trouvée. Votre système est à jour.]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.packagestore.title">
+            <fr><![CDATA[Boutique de paquets]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.packagestore.url.title">
+            <fr><![CDATA[URL du site de la boutique de paquets]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.packagestore.url.description">
+            <fr><![CDATA[Cette page s’affiche dans une iFrame lorsque l’utilisateur clique sur « Installer des extensions » dans l’administration du système.]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.license.title">
+            <fr><![CDATA[Licence QUIQQER]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.license.url.title">
+            <fr><![CDATA[URL du serveur de licences]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.license.url.description">
+            <fr><![CDATA[Serveur de licences Composer pour tous les paquets payants]]></fr>
+        </locale>
+        <locale name="controls.licensekeypanel.title">
+            <fr><![CDATA[Clé de licence QUIQQER]]></fr>
+        </locale>
+        <locale name="controls.licensekey.delete.popup.title">
+            <fr><![CDATA[Supprimer la clé de licence QUIQQER]]></fr>
+        </locale>
+        <locale name="controls.licensekey.delete.popup.info">
+            <fr><![CDATA[Voulez-vous vraiment supprimer votre clé de licence QUIQQER actuelle ? Vous risquez de perdre l’accès aux paquets inclus dans cette clé.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.delete.btn">
+            <fr><![CDATA[Supprimer la clé de licence]]></fr>
+        </locale>
+        <locale name="packages.btn.add.server">
+            <fr><![CDATA[Ajouter un serveur]]></fr>
+        </locale>
+        <locale name="packages.btn.del.server">
+            <fr><![CDATA[Supprimer les serveurs sélectionnés]]></fr>
+        </locale>
+        <locale name="packages.category.updates">
+            <fr><![CDATA[Mises à jour]]></fr>
+        </locale>
+        <locale name="packages.category.plugins">
+            <fr><![CDATA[Plugins]]></fr>
+        </locale>
+        <locale name="packages.category.packages">
+            <fr><![CDATA[Paquets]]></fr>
+        </locale>
+        <locale name="packages.category.system.health">
+            <fr><![CDATA[État du système]]></fr>
+        </locale>
+        <locale name="packages.category.system.phpInfo">
+            <fr><![CDATA[Informations PHP]]></fr>
+        </locale>
+        <locale name="packages.grid.update.title">
+            <fr><![CDATA[Rechercher de nouvelles mises à jour de QUIQQER]]></fr>
+        </locale>
+        <locale name="packages.grid.update.information">
+            <fr><![CDATA[<p>La disponibilité de nouvelles versions sera vérifiée pour tous les plugins, les paquets et QUIQQER lui-même.</p><p>Cliquez sur « Rechercher des mises à jour » pour lancer la vérification.</p>]]></fr>
+        </locale>
+        <locale name="packages.grid.update.btn.execute">
+            <fr><![CDATA[Effectuer une mise à jour complète.]]></fr>
+        </locale>
+        <locale name="packages.grid.update.btn.upload">
+            <fr><![CDATA[Téléverser une mise à jour]]></fr>
+        </locale>
+        <locale name="packages.grid.update.title.updatebtn">
+            <fr><![CDATA[&nbsp;]]></fr>
+        </locale>
+        <locale name="packages.grid.update.title.package">
+            <fr><![CDATA[Paquet]]></fr>
+        </locale>
+        <locale name="packages.grid.update.title.version.from">
+            <fr><![CDATA[Version actuelle]]></fr>
+        </locale>
+        <locale name="packages.grid.update.title.version.to">
+            <fr><![CDATA[Version de la mise à jour]]></fr>
+        </locale>
+        <locale name="packages.grid.title.name">
+            <fr><![CDATA[Nom]]></fr>
+        </locale>
+        <locale name="packages.grid.title.version">
+            <fr><![CDATA[Version]]></fr>
+        </locale>
+        <locale name="packages.grid.title.desc">
+            <fr><![CDATA[Description]]></fr>
+        </locale>
+        <locale name="packages.grid.title.homepage">
+            <fr><![CDATA[Site web]]></fr>
+        </locale>
+        <locale name="packages.grid.title.type">
+            <fr><![CDATA[Type]]></fr>
+        </locale>
+        <locale name="packages.grid.title.lastupdate">
+            <fr><![CDATA[Dernière mise à jour disponible]]></fr>
+        </locale>
+        <locale name="packages.grid.dependencies">
+            <fr><![CDATA[Dépendances]]></fr>
+        </locale>
+        <locale name="packages.grid.other.package.dependencies">
+            <fr><![CDATA[Paquets dépendant de [pkg]]]></fr>
+        </locale>
+        <locale name="packages.search.grid.title.btn">
+            <fr><![CDATA[&nbsp;]]></fr>
+        </locale>
+        <locale name="packages.server.grid.title.status">
+            <fr><![CDATA[État]]></fr>
+        </locale>
+        <locale name="packages.server.grid.title.server">
+            <fr><![CDATA[Serveur]]></fr>
+        </locale>
+        <locale name="packages.server.grid.title.type">
+            <fr><![CDATA[Type]]></fr>
+        </locale>
+        <locale name="packages.search.title">
+            <fr><![CDATA[Rechercher et installer des paquets / plugins]]></fr>
+        </locale>
+        <locale name="packages.search.description">
+            <fr><![CDATA[Recherchez et installez de nouveaux paquets et plugins.]]></fr>
+        </locale>
+        <locale name="packages.search.grid.setup.btn.alt">
+            <fr><![CDATA[Plus d’informations sur [package] / Lancer l’installation.]]></fr>
+        </locale>
+        <locale name="packages.search.grid.setup.btn.title">
+            <fr><![CDATA[Installer [package]]]></fr>
+        </locale>
+        <locale name="packages.search.grid.title.package">
+            <fr><![CDATA[Paquet]]></fr>
+        </locale>
+        <locale name="packages.search.grid.title.description">
+            <fr><![CDATA[Description]]></fr>
+        </locale>
+        <locale name="packages.server.win.install.package.title">
+            <fr><![CDATA[Installation de paquet]]></fr>
+        </locale>
+        <locale name="packages.server.win.install.package.text">
+            <fr><![CDATA[Voulez-vous vraiment installer [package] ?]]></fr>
+        </locale>
+        <locale name="packages.server.win.install.submit.btn">
+            <fr><![CDATA[installer]]></fr>
+        </locale>
+        <locale name="packages.server.grid.btn.activate.alt">
+            <fr><![CDATA[Le serveur est activé. Cliquez pour le désactiver.]]></fr>
+        </locale>
+        <locale name="packages.server.grid.btn.activate.title">
+            <fr><![CDATA[Le serveur est activé. Cliquez pour le désactiver.]]></fr>
+        </locale>
+        <locale name="packages.server.grid.btn.deactivate.alt">
+            <fr><![CDATA[Le serveur est désactivé. Cliquez pour l’activer.]]></fr>
+        </locale>
+        <locale name="packages.server.grid.btn.deactivate.title">
+            <fr><![CDATA[Le serveur est désactivé. Cliquez pour l’activer.]]></fr>
+        </locale>
+        <locale name="packages.server.win.remove.title">
+            <fr><![CDATA[Supprimer le serveur de mises à jour]]></fr>
+        </locale>
+        <locale name="packages.server.win.remove.text">
+            <fr><![CDATA[Voulez-vous vraiment supprimer les serveurs suivants ?]]></fr>
+        </locale>
+        <locale name="packages.server.win.remove.information">
+            <fr><![CDATA[Les serveurs seront définitivement retirés de la liste des serveurs de mises à jour.]]></fr>
+        </locale>
+        <locale name="packages.systemhealth.text">
+            <fr><![CDATA[<h1>Des fichiers ont-ils été modifiés ?</h1><p>Effectuez une vérification locale ou vérifiez votre système avec nos serveurs en ligne.</p>]]></fr>
+        </locale>
+        <locale name="packages.grid.healthcheck.systemcheck">
+            <fr><![CDATA[Effectuer une vérification du système]]></fr>
+        </locale>
+        <locale name="packages.btn.execute.health.alt">
+            <fr><![CDATA[Effectuer une vérification locale du système pour [pkg]]]></fr>
+        </locale>
+        <locale name="packages.btn.execute.onlinehealth">
+            <fr><![CDATA[Effectuer une vérification du système en ligne pour [pkg]]]></fr>
+        </locale>
+        <locale name="packages.update.window.title">
+            <fr><![CDATA[Effectuer la mise à jour ?]]></fr>
+        </locale>
+        <locale name="packages.update.window.text">
+            <fr><![CDATA[Voulez-vous vraiment effectuer la mise à jour du système ?]]></fr>
+        </locale>
+        <locale name="message.packages.update.system.uptodate">
+            <fr><![CDATA[Aucune mise à jour trouvée.<br />Le système est à jour.]]></fr>
+        </locale>
+        <locale name="packages.category.modules">
+            <fr><![CDATA[Modules]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.header">
+            <fr><![CDATA[Informations sur la clé de licence QUIQQER]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelId">
+            <fr><![CDATA[ID de la clé de licence]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.activation.error">
+            <fr><![CDATA[La clé de licence n’a pas pu être activée sur le serveur de licences. Veuillez réessayer ou adresser une demande d’assistance à support@pcsg.de.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelCreated">
+            <fr><![CDATA[Créé le]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelValidUntil">
+            <fr><![CDATA[Valable jusqu’au]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelName">
+            <fr><![CDATA[Délivrée à]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelUpload">
+            <fr><![CDATA[Téléverser un fichier de clé de licence]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.info" html="1">
+            <fr><![CDATA[Vous pouvez étendre les fonctions de QUIQQER grâce aux paquets Premium. Pour les installer, vous avez besoin d’une clé de licence valide. Vous recevez cette clé lors de l’achat d’un paquet Premium dans la <a href="https://store.quiqqer.de/" target="_blank">boutique QUIQQER</a>.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelDelete">
+            <fr><![CDATA[Supprimer la clé de licence]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelStatus">
+            <fr><![CDATA[État de l’activation]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelSystemId">
+            <fr><![CDATA[ID du système]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.labelSystemDataHash">
+            <fr><![CDATA[Empreinte de la configuration système]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.descSystemId">
+            <fr><![CDATA[Identifiant généré une seule fois pour votre système QUIQQER et enregistré sur le serveur de licences dès l’activation d’une clé de licence. Il permet de distinguer plusieurs systèmes QUIQQER associés à une même clé de licence.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.template.descSystemDataHash">
+            <fr><![CDATA[Empreinte unique de la configuration de votre système QUIQQER. Elle change lorsque des éléments essentiels de la configuration sont modifiés. L’activation d’une clé de licence ou d’un ID système est toujours liée à une empreinte de configuration système. Dès que cette valeur change, la clé de licence doit être réactivée.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.loading">
+            <fr><![CDATA[Vérification de l’état...]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.error.general" html="true">
+            <fr><![CDATA[Impossible de vérifier l’état de la clé de licence. Veuillez réessayer ou adresser une demande d’assistance à <a href="mailto:support@pcsg.de">support@pcsg.de</a>.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.error.request_error" html="true">
+            <fr><![CDATA[Impossible de vérifier l’état de la clé de licence. Veuillez réessayer ou adresser une demande d’assistance à <a href="mailto:support@pcsg.de">support@pcsg.de</a>.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.error.system_not_registered" html="true">
+            <fr><![CDATA[Impossible de vérifier l’état de la clé de licence. Veuillez réessayer ou adresser une demande d’assistance à <a href="mailto:support@pcsg.de">support@pcsg.de</a>.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.active">
+            <fr><![CDATA[actif]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.inactive">
+            <fr><![CDATA[inactif]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.unknown">
+            <fr><![CDATA[inconnu]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.reasonCode.system_not_registered">
+            <fr><![CDATA[Ce système QUIQQER n’est pas encore enregistré sur le serveur de licences.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.reasonCode.system_inactive">
+            <fr><![CDATA[Ce système QUIQQER n’est actuellement pas activé pour cette clé de licence. Pour utiliser la clé, veuillez activer votre système.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.reasonCode.system_changed">
+            <fr><![CDATA[Des éléments essentiels de ce système QUIQQER ont changé depuis sa dernière activation. Il doit donc être réactivé.]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.reasonCode.wrong_license">
+            <fr><![CDATA[Cette clé de licence QUIQQER n’a pas pu être validée sur le serveur de licences. Assurez-vous d’utiliser un fichier de clé de licence QUIQQER officiel et valide !]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.activation.btn.ok">
+            <fr><![CDATA[Compris]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.activation.text">
+            <fr><![CDATA[Activation de la clé de licence]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.remaining_activations">
+            <fr><![CDATA[(activations restantes : [count])]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.btn.activate">
+            <fr><![CDATA[Activer le système]]></fr>
+        </locale>
+        <locale name="controls.licensekey.status.btn.deactivate">
+            <fr><![CDATA[Désactiver le système]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.general.updates.title">
+            <fr><![CDATA[Mise à jour]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.general.updates.stability">
+            <fr><![CDATA[Stabilité maximale des paquets et du système]]></fr>
+        </locale>
+        <locale name="quiqqer.settings.general.version.title">
+            <fr><![CDATA[Version du système QUIQQER]]></fr>
+        </locale>
+        <locale name="exception.packages.update.check">
+            <fr><![CDATA[Impossible de rechercher des mises à jour.]]></fr>
+        </locale>
+        <locale name="exception.no.quiqqer.update.archive">
+            <fr><![CDATA[Impossible d’effectuer la mise à jour. L’archive n’est pas une archive QUIQQER.]]></fr>
+        </locale>
+        <locale name="exception.packages.update.archive.not.found">
+            <fr><![CDATA[L’archive de mise à jour est introuvable.]]></fr>
+        </locale>
+        <locale name="exception.packages.exec.not.found.composer">
+            <fr><![CDATA[Composer est introuvable.]]></fr>
+        </locale>
+        <locale name="exception.packages.update.version.not.found">
+            <fr><![CDATA[Impossible d’effectuer la mise à jour. Aucune version plus récente n’a été trouvée.]]></fr>
+        </locale>
+        <locale name="message.ajax.licenseKey.upload.error">
+            <fr><![CDATA[Une erreur s’est produite lors de la lecture du fichier de clé de licence. Le fichier est peut-être non valide. Veuillez contacter un administrateur ou l’organisme ayant délivré la clé de licence.]]></fr>
+        </locale>
+        <locale name="message.ajax.licenseKey.upload.success">
+            <fr><![CDATA[Le fichier de clé de licence a été lu avec succès. Cette installation QUIQQER a désormais accès à tous les paquets inclus dans cette clé.]]></fr>
+        </locale>
+        <locale name="message.ajax.licenseKey.delete.error">
+            <fr><![CDATA[La clé de licence n’a pas été supprimée, car aucune clé n’était activée dans votre système QUIQQER.]]></fr>
+        </locale>
+        <locale name="message.ajax.licenseKey.delete.success">
+            <fr><![CDATA[La clé de licence a été supprimée avec succès et n’est plus active.]]></fr>
+        </locale>
+        <locale name="quiqqer.licenseKey.unlimited">
+            <fr><![CDATA[illimité]]></fr>
+        </locale>
+        <locale name="packages.panel.title">
+            <fr><![CDATA[Administration du système]]></fr>
+        </locale>
+        <locale name="packages.panel.category.system">
+            <fr><![CDATA[Vérification du système]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.execbutton">
+            <fr><![CDATA[Exécuter la vérification du système]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.confirm.info">
+            <fr><![CDATA[La vérification du système peut prendre jusqu’à 30 secondes. Voulez-vous vraiment l’exécuter ?]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.confirm.button.ok.text">
+            <fr><![CDATA[Exécuter]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.textinfo">
+            <fr><![CDATA[Les informations affichées peuvent dater d’un jour. Exécutez la vérification du système (avec le bouton ci-dessus) pour les actualiser.]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.loader">
+            <fr><![CDATA[La vérification du système est en cours et peut prendre jusqu’à 30 secondes.]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck">
+            <fr><![CDATA[Informations PHP]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.title">
+            <fr><![CDATA[Vérification du système QUIQQER]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.phpinfo">
+            <fr><![CDATA[Informations PHP]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.phpinfo.error">
+            <fr><![CDATA[Impossible d’exécuter la vérification du système.]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum">
+            <fr><![CDATA[Intégrité du paquet]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.popupText">
+            <fr><![CDATA[<p>Vous trouverez ici la liste de tous les fichiers du paquet. Si des fichiers ont été modifiés sans votre intervention, vous devriez vérifier le paquet. Le point de référence est le système de fichiers local.</p><p>Légende :</p><ul><li>OK - Les sommes de contrôle correspondent.</li><li>Inconnu - Aucun fichier de sommes de contrôle.</li><li>Modifié - La version locale ou en ligne du fichier diffère de celle du système de fichiers local.</li><li>Manquant - Le fichier ne figure pas dans la liste du fichier local de sommes de contrôle (checklist.md5) ou dans la version en ligne sur le serveur de mises à jour.</li><li>Supplémentaire - Le fichier est présent dans le paquet d’origine, mais pas dans le système de fichiers local.</li></ul>]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.error">
+            <fr><![CDATA[Impossible de vérifier l’intégrité du paquet.]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.fileNotFound">
+            <fr><![CDATA[Le fichier de cache de vérification de l’intégrité du paquet est introuvable.]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemcheck.checksum.cacheForThisPackageNotFound">
+            <fr><![CDATA[Le cache de <strong>[cacheForThisPackage]</strong> est introuvable.]]></fr>
+        </locale>
+        <locale name="packages.panel.header.quiqqer">
+            <fr><![CDATA[QUIQQER]]></fr>
+        </locale>
+        <locale name="packages.panel.header.php">
+            <fr><![CDATA[PHP]]></fr>
+        </locale>
+        <locale name="packages.panel.header.database">
+            <fr><![CDATA[Base de données]]></fr>
+        </locale>
+        <locale name="packages.panel.header.reference">
+            <fr><![CDATA[Référence]]></fr>
+        </locale>
+        <locale name="packages.panel.header.lastUpdateCheck">
+            <fr><![CDATA[Dernière recherche de mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.header.lastUpdate">
+            <fr><![CDATA[Dernière mise à jour]]></fr>
+        </locale>
+
+        <locale name="quiqqer.setup.licence.title">
+            <fr><![CDATA[Conditions générales de licence]]></fr>
+        </locale>
+        <locale name="quiqqer.setup.licence.description">
+            <fr><![CDATA[Vous trouverez ci-dessous les conditions de licence d’ecoyn. Veuillez les lire attentivement. Si vous les acceptez, cliquez sur « Suivant ».]]></fr>
+        </locale>
+        <locale name="quiqqer.setup.licence.checkbox">
+            <fr><![CDATA[J’accepte les conditions de licence.]]></fr>
+        </locale>
+        <locale name="quiqqer.setup.licence.chargable">
+            <fr><![CDATA[<p>Vous souhaitez personnaliser davantage ecoyn ? Le système propose de nombreux modules : gérez des abonnements ou des factures, envoyez des rappels de paiement, préparez votre comptabilité et bien plus encore. Tous les paquets sont gratuits jusqu’à un chiffre d’affaires annuel de 100 000 euros. Au-delà, vous devez acheter une clé de licence pour les modules non libres.</p><p>Voulez-vous installer ecoyn avec les modules non libres ?</p>]]></fr>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="PackageNotLicensedException.message" html="true">
+            <fr><![CDATA[Cette fonction nécessite une clé de licence pour le paquet <b>[package]</b>. Vous pouvez acheter une clé adaptée dans la <a href="https://store.quiqqer.de" target="_blank">boutique de paquets QUIQQER</a>.]]></fr>
+        </locale>
+        <locale name="exception.License.connection_error">
+            <fr><![CDATA[Impossible de se connecter au serveur de licences pour le moment. Veuillez réessayer ou adresser une demande d’assistance à support@pcsg.de.]]></fr>
+        </locale>
+
+        <locale name="message.online.update.RAM.not.enough" html="1">
+            <fr><![CDATA[La mémoire disponible est insuffisante pour la mise à jour en ligne. Veuillez effectuer la mise à jour dans la CLI / Bash avec la commande suivante :<br /><code>[command]</code>]]></fr>
+        </locale>
+        <locale name="message.online.update.RAM.insufficient">
+            <fr><![CDATA[Composer ne dispose pas de suffisamment de mémoire pour cette action. Augmentez la limite de mémoire ou exécutez Composer dans la console.]]></fr>
+        </locale>
+        <locale name="message.online.update.RAM.insufficient.vcs">
+            <fr><![CDATA[PHP ne dispose pas de suffisamment de mémoire pour mettre à jour ou installer des paquets lorsque le serveur de mises à jour VCS est activé.]]></fr>
+        </locale>
+        <locale name="update.log.message.execute.console">
+            <fr><![CDATA[La mise à jour est exécutée via la console.]]></fr>
+        </locale>
+        <locale name="update.log.message.update.via.console">
+            <fr><![CDATA[Recherche de mises à jour...]]></fr>
+        </locale>
+        <locale name="update.log.message.licenseActivation">
+            <fr><![CDATA[Votre clé de licence n’est actuellement pas activée. Avant de lancer une mise à jour, vous devez l’activer ou la supprimer.]]></fr>
+        </locale>
+        <locale name="security.update">
+            <fr><![CDATA[Mises à jour de sécurité]]></fr>
+        </locale>
+        <locale name="security.update.start">
+            <fr><![CDATA[> Recherche de mises à jour de sécurité]]></fr>
+        </locale>
+        <locale name="security.update.no.updates.found">
+            <fr><![CDATA[Aucune mise à jour de sécurité trouvée.]]></fr>
+        </locale>
+        <locale name="security.update.updates.found">
+            <fr><![CDATA[> Mises à jour de sécurité trouvées ! Installation en cours.]]></fr>
+        </locale>
+        <locale name="update.message.start">
+            <fr><![CDATA[- Démarrage de la mise à jour :]]></fr>
+        </locale>
+        <locale name="update.message.execute">
+            <fr><![CDATA[- La mise à jour a été effectuée]]></fr>
+        </locale>
+        <locale name="update.message.webserver">
+            <fr><![CDATA[- Génération des fichiers serveur .htaccess et NGINX]]></fr>
+        </locale>
+        <locale name="update.message.no.updates.available">
+            <fr><![CDATA[Votre système est à jour. Aucune mise à jour trouvée.]]></fr>
+        </locale>
+        <locale name="update.message.error">
+            <fr><![CDATA[Si la configuration n’a pas fonctionné correctement, utilisez la commande suivante pour la mise à jour :]]></fr>
+        </locale>
+        <locale name="update.message.error.1">
+            <fr><![CDATA[Un problème est survenu]]></fr>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="controls.packages.search.template.togglePackageStore">
+            <fr><![CDATA[Boutique QUIQQER]]></fr>
+        </locale>
+        <locale name="controls.packages.search.template.upload">
+            <fr><![CDATA[Téléversement]]></fr>
+        </locale>
+        <locale name="controls.packages.search.template.toggleOtherSources">
+            <fr><![CDATA[Autres serveurs de paquets]]></fr>
+        </locale>
+        <locale name="controls.packages.search.othersources.template.labelSearch">
+            <fr><![CDATA[Rechercher sur d’autres serveurs de paquets]]></fr>
+        </locale>
+        <locale name="controls.packages.search.othersources.template.placeholderSearch">
+            <fr><![CDATA[Recherche...]]></fr>
+        </locale>
+        <locale name="packages.panel.server.win.add.title">
+            <fr><![CDATA[Ajouter un nouveau serveur de mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.server.win.delete.title">
+            <fr><![CDATA[Retirer le serveur de mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.server.win.edit.title">
+            <fr><![CDATA[Modifier le serveur de mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.server.win.add.text" html="true">
+            <fr><![CDATA[Ajoutez un nouveau serveur de mises à jour. Saisissez son nom d’hôte, son adresse IP ou son adresse de serveur.]]></fr>
+        </locale>
+        <locale name="message.packages.panel.server.emptyserver">
+            <fr><![CDATA[Veuillez indiquer un serveur.]]></fr>
+        </locale>
+        <locale name="packages.panel.server.win.remove.text" html="true">
+            <fr><![CDATA[Voulez-vous vraiment retirer le serveur de mises à jour suivant ?]]></fr>
+        </locale>
+        <locale name="packages.panel.menu">
+            <fr><![CDATA[Menu / Navigation]]></fr>
+        </locale>
+        <locale name="packages.panel.category.installed">
+            <fr><![CDATA[Extensions installées]]></fr>
+        </locale>
+        <locale name="packages.panel.category.search">
+            <fr><![CDATA[Installer des extensions]]></fr>
+        </locale>
+        <locale name="packages.panel.category.server">
+            <fr><![CDATA[Serveur de mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.category.update">
+            <fr><![CDATA[Mise à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.category.systemCheck.cat.title">
+            <fr><![CDATA[Vérification du système]]></fr>
+        </locale>
+        <locale name="packages.panel.category.settings">
+            <fr><![CDATA[Paramètres]]></fr>
+        </locale>
+        <locale name="packages.panel.category.license">
+            <fr><![CDATA[Clé de licence]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.support">
+            <fr><![CDATA[Assistance]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.preview">
+            <fr><![CDATA[Aperçu]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.preview.none">
+            <fr><![CDATA[Aucune image disponible]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.more">
+            <fr><![CDATA[Plus d’informations]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.name">
+            <fr><![CDATA[Nom du paquet]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.license">
+            <fr><![CDATA[Licence]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.version">
+            <fr><![CDATA[Version]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.type">
+            <fr><![CDATA[Type]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.hash">
+            <fr><![CDATA[Empreinte de la version]]></fr>
+        </locale>
+        <locale name="packages.dialog.info.dependencies">
+            <fr><![CDATA[Dépendances]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.setup">
+            <fr><![CDATA[Exécuter la configuration du système]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.startUpdate">
+            <fr><![CDATA[Rechercher des mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.executeUpdate">
+            <fr><![CDATA[Exécuter la mise à jour du système]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.prepareUpdate">
+            <fr><![CDATA[Lancer la mise à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.openUpdate">
+            <fr><![CDATA[Ouvrir la mise à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.cancelUpdate">
+            <fr><![CDATA[Annuler la mise à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.btn.showUpdates">
+            <fr><![CDATA[Afficher les mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.update.available.title">
+            <fr><![CDATA[Mises à jour disponibles]]></fr>
+        </locale>
+        <locale name="packages.panel.update.available.description">
+            <fr><![CDATA[Utilise la dernière vérification planifiée jusqu’au lancement d’une vérification manuelle.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.check.notLoaded">
+            <fr><![CDATA[Aucune vérification de mises à jour chargée.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.check.running">
+            <fr><![CDATA[Vérification des serveurs de mises à jour ...]]></fr>
+        </locale>
+        <locale name="packages.panel.update.check.none">
+            <fr><![CDATA[Aucune mise à jour disponible.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.check.noCachedResult">
+            <fr><![CDATA[Aucun résultat de vérification enregistré disponible.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.system.title">
+            <fr><![CDATA[Mise à jour du système]]></fr>
+        </locale>
+        <locale name="packages.panel.update.system.description">
+            <fr><![CDATA[La mise à jour sera préparée, puis exécutée dans un onglet distinct du navigateur.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.summary.updates">
+            <fr><![CDATA[Mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.update.summary.majorChanges">
+            <fr><![CDATA[Changements de version majeure]]></fr>
+        </locale>
+        <locale name="packages.panel.update.summary.devTargets">
+            <fr><![CDATA[Versions de développement cibles]]></fr>
+        </locale>
+        <locale name="packages.panel.update.table.package">
+            <fr><![CDATA[Paquet]]></fr>
+        </locale>
+        <locale name="packages.panel.update.table.installed">
+            <fr><![CDATA[Installé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.table.available">
+            <fr><![CDATA[Disponible]]></fr>
+        </locale>
+        <locale name="packages.panel.update.table.showAll">
+            <fr><![CDATA[Afficher les [count] mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.empty">
+            <fr><![CDATA[Aucune mise à jour préparée.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.active">
+            <fr><![CDATA[Une mise à jour est déjà en cours.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.prepared">
+            <fr><![CDATA[Mise à jour préparée. Ouvrez-la dans un nouvel onglet pour continuer.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.cancelled">
+            <fr><![CDATA[Mise à jour annulée.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.id">
+            <fr><![CDATA[ID d’exécution]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status">
+            <fr><![CDATA[État]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase">
+            <fr><![CDATA[Phase]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.created">
+            <fr><![CDATA[Créé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.prepared">
+            <fr><![CDATA[Préparé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.created">
+            <fr><![CDATA[Créé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.running">
+            <fr><![CDATA[En cours]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.restart_required">
+            <fr><![CDATA[Redémarrage nécessaire]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.finished">
+            <fr><![CDATA[Terminé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.failed">
+            <fr><![CDATA[Échec]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.status.cancelled">
+            <fr><![CDATA[Abandonné]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.created">
+            <fr><![CDATA[Créé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.prepared">
+            <fr><![CDATA[Préparé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.composer_update">
+            <fr><![CDATA[Mise à jour Composer]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.restart_required">
+            <fr><![CDATA[Redémarrage nécessaire]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.system_update">
+            <fr><![CDATA[Mise à jour du système]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.cleanup">
+            <fr><![CDATA[Nettoyage]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.finished">
+            <fr><![CDATA[Terminé]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.failed">
+            <fr><![CDATA[Échec]]></fr>
+        </locale>
+        <locale name="packages.panel.update.run.phase.cancelled">
+            <fr><![CDATA[Abandonné]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.title">
+            <fr><![CDATA[Historique des mises à jour]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.description">
+            <fr><![CDATA[Affiche les dernières mises à jour préparées et exécutées.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.empty">
+            <fr><![CDATA[Aucune exécution de mise à jour pour le moment.]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.date">
+            <fr><![CDATA[Date et heure]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.type">
+            <fr><![CDATA[Type]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.status">
+            <fr><![CDATA[État]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.phase">
+            <fr><![CDATA[Phase]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.id">
+            <fr><![CDATA[ID d’exécution]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.type.web">
+            <fr><![CDATA[Web]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.type.cli">
+            <fr><![CDATA[CLI]]></fr>
+        </locale>
+        <locale name="packages.panel.update.history.type.runner">
+            <fr><![CDATA[Exécuteur]]></fr>
+        </locale>
+        <locale name="packages.panel.system.packageUpdate.title">
+            <fr><![CDATA[Mettre à jour le paquet [package] vers la version [version]]]></fr>
+        </locale>
+        <locale name="packages.panel.system.packageInstall.title">
+            <fr><![CDATA[Télécharger et installer le paquet]]></fr>
+        </locale>
+        <locale name="packages.setup">
+            <fr><![CDATA[Exécuter la configuration du paquet '[pkgTitle]']]></fr>
+        </locale>
+        <locale name="message.update.success.title">
+            <fr><![CDATA[Mise à jour réussie]]></fr>
+        </locale>
+        <locale name="message.update.success.message">
+            <fr><![CDATA[La mise à jour a été effectuée avec succès. Votre système est maintenant à jour.]]></fr>
+        </locale>
+        <locale name="message.update.error.title">
+            <fr><![CDATA[Erreur lors de la recherche de mises à jour]]></fr>
+        </locale>
+        <locale name="message.update.not.available.title">
+            <fr><![CDATA[Aucune mise à jour disponible]]></fr>
+        </locale>
+        <locale name="message.update.not.available.description">
+            <fr><![CDATA[Aucune mise à jour n’est disponible]]></fr>
+        </locale>
+        <locale name="message.update.available.title">
+            <fr><![CDATA[Mises à jour disponibles]]></fr>
+        </locale>
+        <locale name="message.update.available.description">
+            <fr><![CDATA[Des mises à jour sont disponibles]]></fr>
+        </locale>
+        <locale name="controls.packages.search.termsofuse.header">
+            <fr><![CDATA[Conditions d’utilisation du Q-Store]]></fr>
+        </locale>
+        <locale name="controls.packages.search.termsofuse.acceptBtnText">
+            <fr><![CDATA[J’accepte les conditions d’utilisation]]></fr>
+        </locale>
+        <locale name="dialog.packages.install.upload.title">
+            <fr><![CDATA[Installation de paquets par téléversement de fichiers]]></fr>
+        </locale>
+        <locale name="dialog.packages.install.upload.description">
+            <fr><![CDATA[Téléversez les archives ZIP d’un ou plusieurs paquets QUIQQER pour les installer.]]></fr>
+        </locale>
+        <locale name="dialog.packages.install.upload.listBtn.title">
+            <fr><![CDATA[Afficher les paquets téléversés]]></fr>
+        </locale>
+        <locale name="dialog.packages.install.upload.notInstalled.text">
+            <fr><![CDATA[De nouveaux paquets non installés ont été trouvés. Veuillez sélectionner ceux que vous souhaitez installer.]]></fr>
+        </locale>
+        <locale name="dialog.packages.install.upload.notInstalled.installBtn">
+            <fr><![CDATA[Installer les paquets]]></fr>
+        </locale>
+        <locale name="confirm.window.system.update.title">
+            <fr><![CDATA[Effectuer une mise à jour du système]]></fr>
+        </locale>
+        <locale name="confirm.window.system.update.text">
+            <fr><![CDATA[Effectuer une mise à jour du système]]></fr>
+        </locale>
+        <locale name="confirm.window.system.update.button.exec">
+            <fr><![CDATA[Effectuer une mise à jour du système]]></fr>
+        </locale>
+        <locale name="confirm.window.system.update.information">
+            <fr><![CDATA[Vous souhaitez effectuer une mise à jour de votre système QUIQQER. Ne l’effectuez que si vous êtes sûr de cette décision. Attention : une erreur peut rendre le site inaccessible.]]></fr>
+        </locale>
+
+        <locale name="update.refresh.title">
+            <fr><![CDATA[Veuillez recharger l’interface : les versions du backend et du frontend sont différentes]]></fr>
+        </locale>
+        <locale name="update.refresh.text">
+            <fr><![CDATA[Les versions du backend et du frontend sont différentes]]></fr>
+        </locale>
+        <locale name="update.refresh.information">
+            <fr><![CDATA[Le backend et le frontend semblent utiliser des versions différentes. Pour assurer le bon fonctionnement du système, nous vous recommandons de recharger l’interface. Si vous ne souhaitez pas la recharger maintenant, vous pourrez le faire plus tard afin d’utiliser la version la plus récente.]]></fr>
+        </locale>
+        <locale name="update.refresh.submit">
+            <fr><![CDATA[Recharger maintenant]]></fr>
+        </locale>
+        <locale name="quiqqer.config.current.version">
+            <fr><![CDATA[Version de QUIQQER actuellement installée : [version]]]></fr>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

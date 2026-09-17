@@ -77,6 +77,11 @@ final class LocalTestRuntime
 
         ini_set('error_log', VAR_DIR . 'php-errors.log');
         require_once dirname(__DIR__, 2) . '/src/autoload.php';
+        // Direct Watcher calls also bypass the event isolation; its tables are not part of the Core fixtures.
+        if (class_exists(\QUI\Watcher::class)) {
+            \QUI\Watcher::$globalWatcherDisable = true;
+        }
+
         if (self::$owner !== null) {
             $Config = new QUI\Config(ETC_DIR . 'conf.ini.php');
             foreach (

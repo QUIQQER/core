@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.console.execute.only.in.cli">
+            <it><![CDATA[Gli strumenti di sistema possono essere eseguiti solo dalla CLI.]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-all">
+            <it><![CDATA[Svuota tutti i dati variabili (Cache, Temp, Sessions, Lock)]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-all-quiqqer-cache">
+            <it><![CDATA[Svuota TUTTA la cache.]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-cache">
+            <it><![CDATA[Svuota la cache di QUIQQER]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-tmp">
+            <it><![CDATA[Svuota la directory Temp]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-sessions">
+            <it><![CDATA[Elimina tutte le sessioni]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-lock">
+            <it><![CDATA[Elimina tutti i file di blocco]]></it>
+        </locale>
+        <locale name="console.systemtool.cron">
+            <it><![CDATA[Esegue l'elaborazione Cron]]></it>
+        </locale>
+        <locale name="console.systemtool.update">
+            <it><![CDATA[Esegue un aggiornamento del sistema]]></it>
+        </locale>
+        <locale name="console.systemtool.setup">
+            <it><![CDATA[Esegue la configurazione del sistema]]></it>
+        </locale>
+        <locale name="console.systemtool.password-reset">
+            <it><![CDATA[Avvia la reimpostazione della password per un nome utente o un UUID.
+Utilizzo: ./console password-reset [Benutzername-oder-UUID] [--no-interaction] [--password-stdin]
+Se viene specificato il nome utente o l'UUID, non viene richiesto l'identificatore. Le conferme di sicurezza rimangono necessarie, a meno che non venga utilizzato --no-interaction.
+--no-interaction salta entrambe le conferme di sicurezza e richiede un nome utente o un UUID come argomento.
+--password-stdin legge la nuova password da una riga su STDIN invece di generarne una e non mostra la password fornita.
+Codici di uscita: 0 = password modificata; 1 = errore imprevisto di esecuzione; 2 = identificatore non valido o utente non trovato; 3 = operazione annullata o input richiesto mancante.]]></it>
+        </locale>
+        <locale name="console.systemtool.clear-cache-path">
+            <it><![CDATA[Elimina un percorso specifico della cache.]]></it>
+        </locale>
+        <locale name="console.systemtool.composer">
+            <it><![CDATA[Esegue direttamente comandi Composer senza eseguire QUIQQER. Usa questo comando solo se sai esattamente cosa stai facendo!]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.description">
+            <it><![CDATA[Rinomina un progetto esistente. (--path="")]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.description">
+            <it><![CDATA[Rimuove un progetto.]]></it>
+        </locale>
+        <locale name="console.permissions.user">
+            <it><![CDATA[Diritti per l'utente: [username] - [user]]]></it>
+        </locale>
+        <locale name="console.permissions.group">
+            <it><![CDATA[Diritti per il gruppo: [group]]]></it>
+        </locale>
+        <locale name="console.tool.permissions.help.description">
+            <it><![CDATA[Mostra questo testo della guida.]]></it>
+        </locale>
+        <locale name="console.tool.permissions.list.description">
+            <it><![CDATA[Mostra l'elenco completo di tutti i diritti.]]></it>
+        </locale>
+        <locale name="console.tool.permissions.user.description">
+            <it><![CDATA[Mostra tutti i diritti o un diritto specifico di un utente. Con --permission=[recht] è possibile visualizzare solo un diritto specifico.]]></it>
+        </locale>
+        <locale name="console.tool.permissions.group.description">
+            <it><![CDATA[Mostra tutti i diritti o un diritto specifico di un gruppo. Con --permission=[recht] è possibile visualizzare solo un diritto specifico.]]></it>
+        </locale>
+
+
+        <locale name="console.tool.passwordreset.header">
+            <it><![CDATA[Reimposta password]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.warning">
+            <it><![CDATA[ATTENZIONE! Questa operazione reimposta irreversibilmente la password di un utente!]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.prompt.identifier">
+            <it><![CDATA[Nome utente o UUID:]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.prompt.confirm">
+            <it><![CDATA[Vuoi davvero reimpostare la password dell'utente '[username]' (UUID: [uuid])? (y/N)]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.prompt.confirm2">
+            <it><![CDATA[Sei davvero sicuro? Questa operazione non può essere annullata! (y/N)]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.user.not.found">
+            <it><![CDATA[L'utente specificato non è stato trovato]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.identifier.required">
+            <it><![CDATA[Quando si utilizza --no-interaction, è necessario specificare un nome utente o un UUID]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.password.stdin.required">
+            <it><![CDATA[--password-stdin richiede una password non vuota su STDIN]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.cancelled">
+            <it><![CDATA[La reimpostazione della password è stata annullata]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.error">
+            <it><![CDATA[La reimpostazione della password è fallita in modo imprevisto]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.success">
+            <it><![CDATA[La password è stata modificata correttamente! La nuova password è:]]></it>
+        </locale>
+        <locale name="console.tool.passwordreset.success.custom">
+            <it><![CDATA[La password è stata modificata correttamente!]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.project.not.found">
+            <it><![CDATA[Il progetto selezionato non è stato trovato.]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.prompt.new.name">
+            <it><![CDATA[Inserisci il nuovo nome del progetto:]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.validation.invalid.signs">
+            <it><![CDATA[Il nuovo nome contiene caratteri non consentiti.]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.validation.clear.name">
+            <it><![CDATA[Il nome è stato ripulito automaticamente:]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.prompt.continue.new.name">
+            <it><![CDATA[Vuoi continuare con il nome ripulito? (y/n)]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.finished.success">
+            <it><![CDATA[Il progetto è stato rinominato correttamente]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.prompt.projectname">
+            <it><![CDATA[Nome del progetto:]]></it>
+        </locale>
+        <locale name="console.tool.project.rename.prompt.projectname.info">
+            <it><![CDATA[Quale progetto vuoi rinominare:]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.warning.header">
+            <it><![CDATA[Attenzione!]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.warning">
+            <it><![CDATA[L'eliminazione di un progetto non può essere annullata!]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.prompt.projectname.info">
+            <it><![CDATA[Quale progetto deve essere eliminato?]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.prompt.projectname">
+            <it><![CDATA[Nome del progetto:]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.project.not.found">
+            <it><![CDATA[Il progetto selezionato non è stato trovato.]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.project.delete.last.project">
+            <it><![CDATA[Errore: stai tentando di eliminare l'ultimo progetto. Deve sempre esistere almeno un progetto.]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.prompt.warning.confirm">
+            <it><![CDATA[Vuoi davvero eliminare il progetto? Conferma inserendo nuovamente il nome del progetto]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.prompt.projectname.confirm">
+            <it><![CDATA[Nome del progetto:]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.error.confirm.mismatch">
+            <it><![CDATA[Il testo di conferma non corrisponde. Operazione annullata!]]></it>
+        </locale>
+        <locale name="console.tool.project.delete.success.finished">
+            <it><![CDATA[Il progetto è stato eliminato correttamente.]]></it>
+        </locale>
+        <locale name="console.tool.setup.start.message">
+            <it><![CDATA[Avvio della configurazione QUIQQER ...]]></it>
+        </locale>
+        <locale name="console.tool.setup.start.package_setup">
+            <it><![CDATA[Avvio della configurazione del pacchetto "[package]"]]></it>
+        </locale>
+        <locale name="console.tool.setup.start.data" html="1">
+            <it><![CDATA[Sistema attuale<br />Versione: [version]<br />Del: [versionDate]<br />Riferimento: [ref]<br />Ultima verifica degli aggiornamenti: [date]]]></it>
+        </locale>
+        <locale name="console.tool.setup.message.success">
+            <it><![CDATA[La configurazione è stata eseguita correttamente.]]></it>
+        </locale>
+        <locale name="console.systemtool.package">
+            <it><![CDATA[Gestione dei pacchetti]]></it>
+        </locale>
+        <locale name="console.tool.package.help.description">
+            <it><![CDATA[Mostra il testo della guida.]]></it>
+        </locale>
+        <locale name="console.tool.package.installed.description">
+            <it><![CDATA[Elenca tutti i pacchetti installati.]]></it>
+        </locale>
+        <locale name="console.tool.package.setup.description">
+            <it><![CDATA[Esegue la configurazione di un pacchetto.]]></it>
+        </locale>
+        <locale name="console.tool.package.install.description">
+            <it><![CDATA[Installa un nuovo pacchetto.]]></it>
+        </locale>
+        <locale name="console.tool.package.show.description">
+            <it><![CDATA[Mostra informazioni su un pacchetto installato.]]></it>
+        </locale>
+        <locale name="console.tool.package.search.description">
+            <it><![CDATA[Cerca pacchetti disponibili.]]></it>
+        </locale>
+        <locale name="console.tool.package.search.resultMessage">
+            <it><![CDATA[[count] pacchetti trovati:]]></it>
+        </locale>
+        <locale name="console.tool.package.message.setup.execute">
+            <it><![CDATA[Esegue la configurazione del seguente pacchetto:]]></it>
+        </locale>
+        <locale name="console.tool.package.message.install.execute">
+            <it><![CDATA[Ricerca e installazione del pacchetto [package]]]></it>
+        </locale>
+        <locale name="console.tool.package.message.install.noPackage">
+            <it><![CDATA[Specifica un pacchetto da installare. (--install=package)]]></it>
+        </locale>
+        <locale name="console.tool.package.cannot.be.removed">
+            <it><![CDATA[Il pacchetto [package] non può essere rimosso.]]></it>
+        </locale>
+        <locale name="console.tool.package.can.removed">
+            <it><![CDATA[È possibile rimuovere i seguenti pacchetti:]]></it>
+        </locale>
+        <locale name="console.tool.package.removing.update">
+            <it><![CDATA[Il pacchetto [package] è stato rimosso correttamente dal file composer.json. Vuoi eseguire un aggiornamento come prossimo passo? [N,y] :]]></it>
+        </locale>
+        <!-- region Update-Server Console Tool -->
+        <locale name="console.tool.updateserver.help">
+            <it><![CDATA[Nessun argomento fornito: esecuzione terminata. Gli argomenti validi sono 'add' e 'remove'.]]></it>
+        </locale>
+
+        <locale name="console.tool.updateserver.add.description">
+            <it><![CDATA[Aggiunge il server specificato all'elenco dei server di aggiornamento.]]></it>
+        </locale>
+        <locale name="console.tool.updateserver.add.server.missing">
+            <it><![CDATA[Nessun server da aggiungere specificato. Indica un server usando un segno di uguale dopo il parametro 'add'.]]></it>
+        </locale>
+        <locale name="console.tool.updateserver.add.type.missing">
+            <it><![CDATA[Nessun tipo di server specificato: viene utilizzato 'vcs'. Puoi specificare un tipo con il parametro 'type'.]]></it>
+        </locale>
+        <locale name="console.tool.updateserver.add.success">
+            <it><![CDATA[Il server di aggiornamento è stato aggiunto correttamente.]]></it>
+        </locale>
+
+        <locale name="console.tool.updateserver.remove.description">
+            <it><![CDATA[Rimuove il server specificato dall'elenco dei server di aggiornamento.]]></it>
+        </locale>
+        <locale name="console.tool.updateserver.remove.server.missing">
+            <it><![CDATA[Nessun server da rimuovere specificato. Indica un server usando un segno di uguale dopo il parametro 'remove'.]]></it>
+        </locale>
+        <locale name="console.tool.updateserver.remove.success">
+            <it><![CDATA[Il server di aggiornamento è stato rimosso correttamente.]]></it>
+        </locale>
+        <locale name="console.update.clearCache">
+            <it><![CDATA[Svuota l'intera cache degli aggiornamenti prima di eseguire l'aggiornamento.]]></it>
+        </locale>
+        <locale name="console.update.setDevelopment">
+            <it><![CDATA[Imposta QUIQQQER sulla versione di sviluppo.]]></it>
+        </locale>
+        <locale name="console.update.check">
+            <it><![CDATA[Verifica la disponibilità di nuovi aggiornamenti.]]></it>
+        </locale>
+        <locale name="console.update.set-date">
+            <it><![CDATA[Aggiorna solo la data di aggiornamento di quiqqer.]]></it>
+        </locale>
+        <locale name="console.update.package.update.check">
+            <it><![CDATA[Aggiorna un singolo pacchetto.]]></it>
+        </locale>
+
+        <locale name="exception.console.execute.user">
+            <it><![CDATA[La console QUIQQER viene eseguita con l'utente [user], che non è il proprietario del sistema QUIQQER.
+Continuare a eseguire la console con questo utente può causare gravi problemi di permessi nel file system di QUIQQER.
+
+Con 'yes' confermi di voler continuare l'esecuzione della console QUIQQER; qualsiasi altro input annulla l'operazione.
+Puoi anche ignorare il controllo dei permessi dell'utente con '--ignore-file-permissions'.]]></it>
+        </locale>
+        <locale name="console.execute-user.question">
+            <it><![CDATA[Continuare comunque? [yes / BELIEBIGE EINGABE] :]]></it>
+        </locale>
+
+        <locale name="console.systemtool.permissions">
+            <it><![CDATA[Strumento delle autorizzazioni per la console - Permission Explorer]]></it>
+        </locale>
+        <locale name="console.systemtool.htaccess">
+            <it><![CDATA[Generazione del file HTACCESS]]></it>
+        </locale>
+        <locale name="console.systemtool.nginx">
+            <it><![CDATA[Generazione della configurazione NGINX]]></it>
+        </locale>
+        <locale name="console.systemtool.licence">
+            <it><![CDATA[Mostra la licenza QUIQQER]]></it>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

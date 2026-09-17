@@ -137,10 +137,11 @@ class VhostLanguageFallbackTest extends TestCase
     {
         $Site = $this->getMockBuilder(Site::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['getProject', 'getId', 'getUrlRewritten', 'existsAttribute', 'existLang'])
+            ->onlyMethods(['getProject', 'getId', 'getLangIds', 'getUrlRewritten', 'existsAttribute', 'existLang'])
             ->getMock();
         $Site->method('getProject')->willReturn($Project);
         $Site->method('getId')->willReturn(5);
+        $Site->method('getLangIds')->willReturn(['de' => 5, 'en' => 5]);
         $Site->method('existsAttribute')->willReturn(false);
         $Site->method('existLang')->willReturn(true);
         $Output = new Output();

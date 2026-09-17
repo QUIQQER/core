@@ -1,14 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
-    <file file="/src/locale/de.xml"/>
-    <file file="/src/locale/de.system.xml"/>
-    <file file="/src/locale/de.languages.xml"/>
-    <file file="/src/locale/de.qui.xml"/>
+    <!-- Deutsch -->
+    <file file="/locale/de.xml"/>
+    <file file="/locale/de.languages.xml"/>
+    <file file="/locale/de.users.xml"/>
+    <file file="/locale/de.auth.xml"/>
+    <file file="/locale/de.permissions.xml"/>
+    <file file="/locale/de.projects.xml"/>
+    <file file="/locale/de.media.xml"/>
+    <file file="/locale/de.packages.xml"/>
+    <file file="/locale/de.settings.xml"/>
+    <file file="/locale/de.mail.xml"/>
+    <file file="/locale/de.backend.xml"/>
+    <file file="/locale/de.console.xml"/>
+    <file file="/locale/de.qui.xml"/>
+    <!-- Deprecated: legacy quiqqer/system translations retained for backward compatibility. -->
+    <file file="/locale/de.system.xml"/>
 
-    <file file="/src/locale/en.xml"/>
-    <file file="/src/locale/en.system.xml"/>
-    <file file="/src/locale/en.languages.xml"/>
-    <file file="/src/locale/en.qui.xml"/>
+    <!-- English -->
+    <file file="/locale/en.xml"/>
+    <file file="/locale/en.languages.xml"/>
+    <file file="/locale/en.users.xml"/>
+    <file file="/locale/en.auth.xml"/>
+    <file file="/locale/en.permissions.xml"/>
+    <file file="/locale/en.projects.xml"/>
+    <file file="/locale/en.media.xml"/>
+    <file file="/locale/en.packages.xml"/>
+    <file file="/locale/en.settings.xml"/>
+    <file file="/locale/en.mail.xml"/>
+    <file file="/locale/en.backend.xml"/>
+    <file file="/locale/en.console.xml"/>
+    <file file="/locale/en.qui.xml"/>
+    <!-- Deprecated: legacy quiqqer/system translations retained for backward compatibility. -->
+    <file file="/locale/en.system.xml"/>
 
-    <file file="/src/locale/pl.xml"/>
+    <!-- Español -->
+    <file file="/locale/es.xml"/>
+    <file file="/locale/es.languages.xml"/>
+    <file file="/locale/es.users.xml"/>
+    <file file="/locale/es.auth.xml"/>
+    <file file="/locale/es.permissions.xml"/>
+    <file file="/locale/es.projects.xml"/>
+    <file file="/locale/es.media.xml"/>
+    <file file="/locale/es.packages.xml"/>
+    <file file="/locale/es.settings.xml"/>
+    <file file="/locale/es.mail.xml"/>
+    <file file="/locale/es.backend.xml"/>
+    <file file="/locale/es.console.xml"/>
+    <file file="/locale/es.qui.xml"/>
+
+    <!-- Français -->
+    <file file="/locale/fr.xml"/>
+    <file file="/locale/fr.languages.xml"/>
+    <file file="/locale/fr.users.xml"/>
+    <file file="/locale/fr.auth.xml"/>
+    <file file="/locale/fr.permissions.xml"/>
+    <file file="/locale/fr.projects.xml"/>
+    <file file="/locale/fr.media.xml"/>
+    <file file="/locale/fr.packages.xml"/>
+    <file file="/locale/fr.settings.xml"/>
+    <file file="/locale/fr.mail.xml"/>
+    <file file="/locale/fr.backend.xml"/>
+    <file file="/locale/fr.console.xml"/>
+    <file file="/locale/fr.qui.xml"/>
+
+    <!-- Italiano -->
+    <file file="/locale/it.xml"/>
+    <file file="/locale/it.languages.xml"/>
+    <file file="/locale/it.users.xml"/>
+    <file file="/locale/it.auth.xml"/>
+    <file file="/locale/it.permissions.xml"/>
+    <file file="/locale/it.projects.xml"/>
+    <file file="/locale/it.media.xml"/>
+    <file file="/locale/it.packages.xml"/>
+    <file file="/locale/it.settings.xml"/>
+    <file file="/locale/it.mail.xml"/>
+    <file file="/locale/it.backend.xml"/>
+    <file file="/locale/it.console.xml"/>
+    <file file="/locale/it.qui.xml"/>
+
+    <!-- Polski -->
+    <file file="/locale/pl.xml"/>
+    <file file="/locale/pl.languages.xml"/>
+    <file file="/locale/pl.users.xml"/>
+    <file file="/locale/pl.auth.xml"/>
+    <file file="/locale/pl.permissions.xml"/>
+    <file file="/locale/pl.projects.xml"/>
+    <file file="/locale/pl.media.xml"/>
+    <file file="/locale/pl.packages.xml"/>
+    <file file="/locale/pl.settings.xml"/>
+    <file file="/locale/pl.mail.xml"/>
+    <file file="/locale/pl.backend.xml"/>
+    <file file="/locale/pl.console.xml"/>
+    <file file="/locale/pl.qui.xml"/>
+
+    <!-- Português -->
+    <file file="/locale/pt.xml"/>
+    <file file="/locale/pt.languages.xml"/>
+    <file file="/locale/pt.users.xml"/>
+    <file file="/locale/pt.auth.xml"/>
+    <file file="/locale/pt.permissions.xml"/>
+    <file file="/locale/pt.projects.xml"/>
+    <file file="/locale/pt.media.xml"/>
+    <file file="/locale/pt.packages.xml"/>
+    <file file="/locale/pt.settings.xml"/>
+    <file file="/locale/pt.mail.xml"/>
+    <file file="/locale/pt.backend.xml"/>
+    <file file="/locale/pt.console.xml"/>
+    <file file="/locale/pt.qui.xml"/>
 </locales>
+</quiqqer>

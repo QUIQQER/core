@@ -2,8 +2,12 @@
 
 namespace QUI;
 
+use Doctrine\DBAL\DriverManager;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
+use QUI;
 use QUI\Users\Auth\VerifiedMail2FA;
 use ReflectionClass;
 use ReflectionProperty;
@@ -11,6 +15,61 @@ use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
 
 class SessionTest extends TestCase
 {
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function testSqliteDatabaseSessionsPersistInFilesWithoutBlockingDatabaseTransactions(): void
+    {
+        $ConnectionProperty = new ReflectionProperty(QUI::class, 'QueryBuilder');
+        $previousConnection = $ConnectionProperty->getValue();
+        $previousConfig = QUI::$Conf;
+        $Connection = DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true]);
+        $ConnectionProperty->setValue(null, $Connection);
+        $Config = clone $previousConfig;
+        $Config->setValue('session', 'type', 'database');
+        $Config->setValue('session', 'name', 'QUIQQERSQLITETEST');
+        QUI::$Conf = $Config;
+        $file = null;
+
+        try {
+            Session::setup();
+            $Session = new Session();
+            $file = VAR_DIR . 'sessions/sess_' . $Session->getId();
+            $Session->set('sqlite-session-test', 'persisted value');
+
+            // The application must still be able to use DBAL transactions while the session is open.
+            $Connection->transactional(static function () use ($Connection): void {
+                $Connection->insert(QUI::getDBTableName('sessions'), [
+                    'session_id' => 'database-write-test',
+                    'session_value' => 'application data',
+                    'session_time' => time(),
+                    'session_lifetime' => 300
+                ]);
+            });
+            self::assertSame('application data', $Connection->createQueryBuilder()
+                ->select('session_value')
+                ->from(QUI::getDBTableName('sessions'))
+                ->where('session_id = :id')
+                ->setParameter('id', 'database-write-test')
+                ->executeQuery()->fetchOne());
+            $SymfonySession = $Session->getSymfonySession();
+            self::assertInstanceOf(SymfonySession::class, $SymfonySession);
+            $SymfonySession->save();
+
+            self::assertFileExists($file);
+            self::assertStringContainsString('persisted value', file_get_contents($file));
+        } finally {
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                session_write_close();
+            }
+            if ($file !== null && is_file($file)) {
+                unlink($file);
+            }
+            QUI::$Conf = $previousConfig;
+            $ConnectionProperty->setValue(null, $previousConnection);
+            $Connection->close();
+        }
+    }
+
     public function testRegenerateInvalidatesPreviousSession(): void
     {
         $SymfonySession = $this->createMock(SymfonySession::class);

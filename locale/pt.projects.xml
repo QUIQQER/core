@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.popup.search">
+            <pt><![CDATA[Pesquisar páginas: título, nome ou ID]]></pt>
+        </locale>
+        <locale name="projects.popup.search.loading">
+            <pt><![CDATA[A pesquisar páginas …]]></pt>
+        </locale>
+        <locale name="projects.popup.search.count">
+            <pt><![CDATA[[count] páginas encontradas.]]></pt>
+        </locale>
+        <locale name="projects.popup.search.limited">
+            <pt><![CDATA[[count] páginas apresentadas. Restrinja mais a pesquisa.]]></pt>
+        </locale>
+        <locale name="projects.popup.search.error">
+            <pt><![CDATA[Não foi possível carregar a pesquisa. Tente novamente.]]></pt>
+        </locale>
+        <locale name="projects.popup.selection.remove">
+            <pt><![CDATA[Remover [title] da seleção]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.lockLost">
+            <pt><![CDATA[O bloqueio de edição não está disponível ou foi perdido. Não é possível guardar. Faça uma cópia das suas alterações e volte a abrir a página.]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.placeholder">
+            <pt><![CDATA[Imagem de substituição]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.logo">
+            <pt><![CDATA[Logótipo do projeto]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.mail.logo">
+            <pt><![CDATA[Logótipo de e-mail]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.favicon">
+            <pt><![CDATA[Favicon]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.favicon.description" html="true">
+            <pt><![CDATA[Um favicon, também conhecido como ícone de favorito, é uma imagem associada ao seu website. Identifica visualmente a página nos separadores do navegador, nas listas de favoritos e noutras áreas. O favicon deve ter uma proporção de 1:1, ou seja, deve ser quadrado.]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.defaultSitestructure">
+            <pt><![CDATA[Estrutura de páginas]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.convertRomanLetters">
+            <pt><![CDATA[Converter caracteres romanizados]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.convertRomanLetters.description">
+            <pt><![CDATA[Converter caracteres romanizados nos seus equivalentes latinos. Ao guardar uma página, os caracteres como ä, ö e ü são convertidos em ae, oe ou ue no URL.]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.defaultSitestructure.button">
+            <pt><![CDATA[Criar estrutura de páginas predefinida]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.defaultSitestructure.win.title">
+            <pt><![CDATA[Criar estrutura de páginas predefinida]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.defaultSitestructure.win.text" html="true">
+            <pt><![CDATA[Pretende criar uma estrutura de páginas predefinida para o projeto?]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.defaultSitestructure.win.information" html="true">
+            <pt><![CDATA[Serão criadas as páginas habituais do projeto, como informações legais, pesquisa, termos e condições e privacidade. Isto facilita o arranque do seu novo website ou projeto.]]></pt>
+        </locale>
+        <locale name="site.type.standard">
+            <pt><![CDATA[Conteúdo simples]]></pt>
+        </locale>
+
+        <locale name="open.site">
+            <pt><![CDATA[Abrir página]]></pt>
+        </locale>
+        <locale name="linked.paste">
+            <pt><![CDATA[Colar ligação]]></pt>
+        </locale>
+        <locale name="projects.project.panel.btn.addlanguage">
+            <pt><![CDATA[Adicionar idioma]]></pt>
+        </locale>
+        <locale name="projects.project.project.delete.window.title">
+            <pt><![CDATA[Eliminar projeto]]></pt>
+        </locale>
+        <locale name="projects.project.project.delete.window.text">
+            <pt><![CDATA[Eliminar o projeto?]]></pt>
+        </locale>
+        <locale name="projects.project.project.delete.window.information">
+            <pt><![CDATA[O projeto será eliminado permanentemente. Não será possível recuperá-lo.]]></pt>
+        </locale>
+        <locale name="projects.project.project.delete.window.text.2">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar o projeto? Não será possível recuperá-lo.]]></pt>
+        </locale>
+        <locale name="projects.project.windowselect.text">
+            <pt><![CDATA[Selecione um projeto.]]></pt>
+        </locale>
+        <locale name="projects.project.windowselect.title">
+            <pt><![CDATA[Seleção de projeto]]></pt>
+        </locale>
+        <locale name="trash.panel.title">
+            <pt><![CDATA[Reciclagem]]></pt>
+        </locale>
+        <locale name="trash.panel.deleted_at">
+            <pt><![CDATA[Data de eliminação]]></pt>
+        </locale>
+        <locale name="trash.panel.btn.delete">
+            <pt><![CDATA[Eliminar entradas]]></pt>
+        </locale>
+        <locale name="trash.panel.btn.delete.title">
+            <pt><![CDATA[Eliminar entradas selecionadas]]></pt>
+        </locale>
+        <locale name="trash.panel.btn.restore">
+            <pt><![CDATA[Restaurar]]></pt>
+        </locale>
+        <locale name="trash.panel.btn.restore.title">
+            <pt><![CDATA[Restaurar entradas selecionadas]]></pt>
+        </locale>
+        <locale name="trash.panel.window.delete.title">
+            <pt><![CDATA[Eliminar as entradas selecionadas?]]></pt>
+        </locale>
+        <locale name="trash.panel.window.delete.text">
+            <pt><![CDATA[Pretende eliminar permanentemente as seguintes entradas?]]></pt>
+        </locale>
+        <locale name="trash.panel.btn.delete.all">
+            <pt><![CDATA[Esvaziar]]></pt>
+        </locale>
+        <locale name="trash.panel.btn.delete.all.title">
+            <pt><![CDATA[Eliminar todas as entradas]]></pt>
+        </locale>
+        <locale name="trash.panel.window.delete.all.title">
+            <pt><![CDATA[Eliminar todas as entradas?]]></pt>
+        </locale>
+        <locale name="trash.panel.window.delete.all.text">
+            <pt><![CDATA[Pretende eliminar permanentemente todas as entradas?]]></pt>
+        </locale>
+        <locale name="trash.panel.window.delete.all.information">
+            <pt><![CDATA[Estas entradas não podem ser recuperadas]]></pt>
+        </locale>
+        <locale name="trash.panel.window.restore.site.question">
+            <pt><![CDATA[Selecione a página superior sob a qual as páginas devem ser inseridas]]></pt>
+        </locale>
+        <locale name="projects.typebutton.title">
+            <pt><![CDATA[Alterar tipos de página]]></pt>
+        </locale>
+        <locale name="projects.typesitemap.firstChild">
+            <pt><![CDATA[Tipos de página]]></pt>
+        </locale>
+        <locale name="projects.typesitemap.message.no.types">
+            <pt><![CDATA[Não existem tipos de página disponíveis]]></pt>
+        </locale>
+        <locale name="projects.project.input.no.results">
+            <pt><![CDATA[Não foram encontrados resultados]]></pt>
+        </locale>
+        <locale name="projects.project.manager.title">
+            <pt><![CDATA[Gestor de projetos]]></pt>
+        </locale>
+        <locale name="projects.project.manager.projects.edit">
+            <pt><![CDATA[Gerir projetos]]></pt>
+        </locale>
+        <locale name="projects.project.manager.project.create">
+            <pt><![CDATA[Criar novo projeto]]></pt>
+        </locale>
+        <locale name="projects.project.manager.open.settings">
+            <pt><![CDATA[Abrir definições do projeto]]></pt>
+        </locale>
+        <locale name="projects.project.manager.btn.create.project">
+            <pt><![CDATA[Criar projeto]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.save">
+            <pt><![CDATA[Guardar]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.remove">
+            <pt><![CDATA[Eliminar]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.meta">
+            <pt><![CDATA[Metadados]]></pt>
+        </locale>
+        <locale name="projects.project.site.childrensort.order_field">
+            <pt><![CDATA[Campo de ordenação]]></pt>
+        </locale>
+        <locale name="projects.project.site.childrensort.order_type">
+            <pt><![CDATA[Tipo de ordenação]]></pt>
+        </locale>
+        <locale name="projects.project.site.childrensort.save">
+            <pt><![CDATA[Guardar ordenação]]></pt>
+        </locale>
+        <locale name="projects.project.site.input.clear">
+            <pt><![CDATA[Limpar campo]]></pt>
+        </locale>
+        <locale name="projects.project.site.search.title">
+            <pt><![CDATA[Pesquisa de páginas]]></pt>
+        </locale>
+        <locale name="projects.project.site.search.label">
+            <pt><![CDATA[Pesquisa:]]></pt>
+        </locale>
+        <locale name="projects.project.site.search.placeholder">
+            <pt><![CDATA[Pesquisar página...]]></pt>
+        </locale>
+        <locale name="projects.project.site.results.label">
+            <pt><![CDATA[Resultados:]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.start">
+            <pt><![CDATA[Iniciar pesquisa]]></pt>
+        </locale>
+        <locale name="projects.project.site.search.all_attributes">
+            <pt><![CDATA[Todos os atributos]]></pt>
+        </locale>
+        <locale name="projects.project.site.search.all_projects">
+            <pt><![CDATA[Todos os projetos]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.btn.permissions">
+            <pt><![CDATA[Configurar permissões de acesso à página]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.btn.sort">
+            <pt><![CDATA[Ordenação]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.title">
+            <pt><![CDATA[Eliminar página #[id]]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar a página #[id] "[title]"?]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.information">
+            <pt><![CDATA[A página será movida para a reciclagem e pode ser recuperada.<br /> Todas as subpáginas e ligações também serão movidas para a reciclagem.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.delete.button">
+            <pt><![CDATA[Eliminar página]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.title">
+            <pt><![CDATA[Eliminar ligação #[id]]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar a ligação?]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.information">
+            <pt><![CDATA[A ligação <b>[path]</b> será eliminada permanentemente e não pode ser recuperada.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.deleteLinked.button">
+            <pt><![CDATA[Eliminar ligação]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.title">
+            <pt><![CDATA[Criar nova página]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.unlock">
+            <pt><![CDATA[Desbloquear na mesma]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.button.submit">
+            <pt><![CDATA[Criar]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.text">
+            <pt><![CDATA[Introduza um nome para a nova página]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.information">
+            <pt><![CDATA[Está a criar uma nova página sob [name]]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.clear.title">
+            <pt><![CDATA[Caracteres não permitidos no nome]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.clear.text">
+            <pt><![CDATA[Caracteres não permitidos no nome]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.window.create.clear.information">
+            <pt><![CDATA[O nome da página contém caracteres não permitidos.<br /> Pretende remover os caracteres especiais do nome e utilizar o nome original como título?<br /><br /><p>Novo nome da página: <b>[newName]</b></p><p>Novo título da página: <b>[value]</b></p>]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.sort.title">
+            <pt><![CDATA[Ordenação das páginas sob #[id] [title]]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.linked.btn.add">
+            <pt><![CDATA[Adicionar ligação de idioma]]></pt>
+        </locale>
+        <locale name="copy.site.in.lang">
+            <pt><![CDATA[Copiar e ligar conteúdo]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.linked.btn.delete">
+            <pt><![CDATA[Eliminar ligação de idioma]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.linked.window.delete.title">
+            <pt><![CDATA[Eliminar a ligação de idioma?]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.linked.window.delete.text">
+            <pt><![CDATA[Tem a certeza de que pretende eliminar a ligação de idioma?]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.title">
+            <pt><![CDATA[Copiar o conteúdo da página para outro idioma?]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.text">
+            <pt><![CDATA[Copiar o conteúdo da página para outro idioma e criar uma ligação.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.information">
+            <pt><![CDATA[Será criada uma nova página no idioma <b>[lang]</b> com todo o conteúdo desta página.<br /> A ligação de idioma para esta página será definida automaticamente.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.copySiteToLink.window.submit">
+            <pt><![CDATA[Selecionar página superior]]></pt>
+        </locale>
+        <locale name="projects.project.panel.entry.delete.project">
+            <pt><![CDATA[Remover projeto]]></pt>
+        </locale>
+        <locale name="projects.project.panel.title">
+            <pt><![CDATA[Websites]]></pt>
+        </locale>
+        <locale name="projects.project.panel.open.search">
+            <pt><![CDATA[Abrir pesquisa de páginas]]></pt>
+        </locale>
+        <locale name="projects.project.panel.tash">
+            <pt><![CDATA[Reciclagem]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings">
+            <pt><![CDATA[Definições]]></pt>
+        </locale>
+        <locale name="projects.project.panel.languageSwitch">
+            <pt><![CDATA[Seleção de idioma]]></pt>
+        </locale>
+        <locale name="projects.project.panel.projectSelect">
+            <pt><![CDATA[Seleção de projeto]]></pt>
+        </locale>
+        <locale name="projects.project.panel.message.no.project">
+            <pt><![CDATA[<p>Ainda não existem projetos</p>]]></pt>
+        </locale>
+        <locale name="projects.project.panel.create">
+            <pt><![CDATA[Criar projeto]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.customCSS">
+            <pt><![CDATA[CSS personalizado]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.customJS">
+            <pt><![CDATA[JavaScript personalizado]]></pt>
+        </locale>
+        <locale name="message.site.save.success">
+            <pt><![CDATA[A página [id] [title] foi guardada com sucesso.]]></pt>
+        </locale>
+        <locale name="exception.site.not.found">
+            <pt><![CDATA[Não foi possível encontrar esta página.]]></pt>
+        </locale>
+        <locale name="exception.site.deleted.cannot.edit">
+            <pt><![CDATA[Esta página foi eliminada e já não pode ser editada.]]></pt>
+        </locale>
+        <locale name="exception.site.is.being.edited.user">
+            <pt><![CDATA[A página está a ser editada por [username]!]]></pt>
+        </locale>
+        <locale name="exception.site.is.being.edited">
+            <pt><![CDATA[A página está a ser editada por outro utilizador!]]></pt>
+        </locale>
+        <locale name="exception.site.same.name">
+            <pt><![CDATA[Já existe uma página com o nome "[name]" no mesmo nível.]]></pt>
+        </locale>
+        <locale name="exception.site.save.error">
+            <pt><![CDATA[Ocorreram erros ao guardar a página.]]></pt>
+        </locale>
+        <locale name="exception.site.content.unsupported.characters">
+            <pt><![CDATA[O conteúdo inclui caracteres não suportados pela base de dados. Remova caracteres especiais, como emojis, e guarde a página novamente.]]></pt>
+        </locale>
+        <locale name="template.project.create.header">
+            <pt><![CDATA[Criar projeto]]></pt>
+        </locale>
+        <locale name="template.project.create.description">
+            <pt><![CDATA[Crie um novo projeto no sistema.<br /> Este projeto pode ser um website, uma página de empresa, uma loja ou um blogue]]></pt>
+        </locale>
+        <locale name="template.project.label.name">
+            <pt><![CDATA[Nome do projeto]]></pt>
+        </locale>
+        <locale name="template.project.label.language">
+            <pt><![CDATA[Idioma do projeto]]></pt>
+        </locale>
+        <locale name="template.project.label.template">
+            <pt><![CDATA[Modelo do projeto]]></pt>
+        </locale>
+        <locale name="template.project.no.template">
+            <pt><![CDATA[Não utilizar modelo]]></pt>
+        </locale>
+        <locale name="demodata.project.label.template">
+            <pt><![CDATA[Instalar dados de demonstração]]></pt>
+        </locale>
+        <locale name="demodata.project.no.demodata">
+            <pt><![CDATA[Não instalar dados de demonstração]]></pt>
+        </locale>
+        <locale name="projects.project.site.no.permissions">
+            <pt><![CDATA[Não tem permissões para ver esta página]]></pt>
+        </locale>
+        <locale name="projects.project.site.no.edit.permissions">
+            <pt><![CDATA[Não tem permissões para editar esta página]]></pt>
+        </locale>
+        <locale name="projects.project.site.messages.marcate">
+            <pt><![CDATA[Esta página está a ser editada por: [username]]]></pt>
+        </locale>
+        <locale name="projects.project.site.information">
+            <pt><![CDATA[Informação]]></pt>
+        </locale>
+        <locale name="projects.project.site.content">
+            <pt><![CDATA[Conteúdo]]></pt>
+        </locale>
+        <locale name="projects.project.site.settings">
+            <pt><![CDATA[Definições]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.new.help">
+            <pt><![CDATA[Criar uma nova subpágina]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.new.alt">
+            <pt><![CDATA[Criar uma nova subpágina]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.new.new">
+            <pt><![CDATA[Criar uma nova subpágina]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.save.text">
+            <pt><![CDATA[Guardar]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.save.help">
+            <pt><![CDATA[Guardar as suas alterações]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.save.alt">
+            <pt><![CDATA[Guardar as suas alterações]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.save.new">
+            <pt><![CDATA[Guardar as suas alterações]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.delete.text">
+            <pt><![CDATA[Eliminar]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.delete.help">
+            <pt><![CDATA[Elimine a página. A página será movida para a reciclagem e pode ser recuperada]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.delete.alt">
+            <pt><![CDATA[Elimine a página. A página será movida para a reciclagem e pode ser recuperada]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.delete.new">
+            <pt><![CDATA[Elimine a página. A página será movida para a reciclagem e pode ser recuperada]]></pt>
+        </locale>
+        <locale name="projects.project.site.copy.text.count">
+            <pt><![CDATA[[name] (cópia [count])]]></pt>
+        </locale>
+        <locale name="projects.project.site.copy.text">
+            <pt><![CDATA[[name] (cópia)]]></pt>
+        </locale>
+        <locale name="exception.cannot.create.children">
+            <pt><![CDATA[Não foi possível criar o grupo. Não é possível criá-lo sob este grupo superior.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.header">
+            <pt><![CDATA[Dados da página: #[id]]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.deleted.title">
+            <pt><![CDATA[Esta página foi eliminada]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.deleted.message">
+            <pt><![CDATA[A página está na reciclagem e já não pode ser editada. Restaure-a a partir da reciclagem para a editar.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.nameUrl">
+            <pt><![CDATA[URL]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.title">
+            <pt><![CDATA[Título]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.short">
+            <pt><![CDATA[Descrição breve]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.type">
+            <pt><![CDATA[Tipo de página]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.date">
+            <pt><![CDATA[Data]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.created">
+            <pt><![CDATA[criado em]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.edited">
+            <pt><![CDATA[alterado em]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.template">
+            <pt><![CDATA[Modelo]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.extras.title">
+            <pt><![CDATA[Extras]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.extras.nav_hide">
+            <pt><![CDATA[Não mostrar na navegação]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.extras.nav_hide.description">
+            <pt><![CDATA[A página não será apresentada nas navegações nem nos menus.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.langlinking">
+            <pt><![CDATA[Ligações de idioma]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.langlinking.notexist">
+            <pt><![CDATA[Não existe ligação de idioma para [lang]]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.linking">
+            <pt><![CDATA[Ligações]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.linking.notexist">
+            <pt><![CDATA[Não existem ligações para esta página]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication">
+            <pt><![CDATA[Publicação]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication.from">
+            <pt><![CDATA[Publicar desde]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication.to">
+            <pt><![CDATA[Publicar até]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.settings.publication.info">
+            <pt><![CDATA[Tenha em atenção:<br /> Para que a página seja publicada automaticamente, é necessário configurar a tarefa de publicação na gestão de «Tarefas agendadas».]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.settings.layout">
+            <pt><![CDATA[Definições de apresentação]]></pt>
+        </locale>
+        <locale name="exception.project.not.found">
+            <pt><![CDATA[Não foi possível encontrar o projeto [name].]]></pt>
+        </locale>
+        <locale name="exception.project.lang.not.found">
+            <pt><![CDATA[Não foi possível encontrar o idioma de projeto [lang].]]></pt>
+        </locale>
+        <locale name="exception.project.longer.two.signs">
+            <pt><![CDATA[O nome do projeto tem de ter mais de 2 caracteres.]]></pt>
+        </locale>
+        <locale name="exception.project.not.allowed.signs">
+            <pt><![CDATA[O nome do projeto contém caracteres não permitidos. Os caracteres não permitidos são: [signs]]]></pt>
+        </locale>
+        <locale name="exception.project.lang.not.two.signs">
+            <pt><![CDATA[O idioma do projeto é inválido.]]></pt>
+        </locale>
+        <locale name="exception.project.lang.not.available">
+            <pt><![CDATA[O idioma [lang] não está instalado neste sistema QUIQQER.]]></pt>
+        </locale>
+        <locale name="exception.project.has.no.langs">
+            <pt><![CDATA[O projeto não tem idiomas válidos.]]></pt>
+        </locale>
+        <locale name="exception.project.lang.no.default">
+            <pt><![CDATA[O projeto não tem um idioma predefinido.]]></pt>
+        </locale>
+        <locale name="exception.project.exist">
+            <pt><![CDATA[O projeto já existe.]]></pt>
+        </locale>
+        <locale name="exception.project.delete.last">
+            <pt><![CDATA[Não é possível eliminar o projeto por ser o último projeto existente.]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.settings.title">
+            <pt><![CDATA[Metadados]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.author">
+            <pt><![CDATA[Autor]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.publisher">
+            <pt><![CDATA[Editor]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.copyright">
+            <pt><![CDATA[Direitos de autor]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing">
+            <pt><![CDATA[Indexação por motores de pesquisa]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.index">
+            <pt><![CDATA[Permitir a indexação da página]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.noindex">
+            <pt><![CDATA[Não permitir a indexação da página]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.nofollow">
+            <pt><![CDATA[Não visitar páginas / ficheiros subordinados]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.noindex_nofollow">
+            <pt><![CDATA[Não permitir a indexação da página nem visitar páginas / ficheiros subordinados]]></pt>
+        </locale>
+        <locale name="projects.project.settings.meta.indexing.all">
+            <pt><![CDATA[Visitar e indexar o conteúdo da página e das páginas subordinadas]]></pt>
+        </locale>
+        <locale name="template.project.site.search.title">
+            <pt><![CDATA[Pesquisa]]></pt>
+        </locale>
+        <locale name="template.project.site.search.legend">
+            <pt><![CDATA[Campos a pesquisar]]></pt>
+        </locale>
+        <locale name="exception.site.release.from.inFuture">
+            <pt><![CDATA[Não é possível ativar a página porque a data «Publicar desde» está no futuro.]]></pt>
+        </locale>
+        <locale name="exception.release.to.inPast">
+            <pt><![CDATA[Não é possível ativar a página porque a data «Publicar até» está no passado.]]></pt>
+        </locale>
+        <locale name="projects.project.site.messages.lock">
+            <pt><![CDATA[Esta página está a ser editada por: [username]. O último início de sessão de [username] foi em [lastlogin]]]></pt>
+        </locale>
+        <locale name="message.site.save.sort.success">
+            <pt><![CDATA[A ordenação das páginas [ids] foi guardada com sucesso.]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.save.title">
+            <pt><![CDATA[Guardar página atual]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.delete.title">
+            <pt><![CDATA[Elimine a página. A página será movida para a reciclagem e pode ser recuperada]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.layout">
+            <pt><![CDATA[Apresentação]]></pt>
+        </locale>
+        <locale name="projects.project.site.childLayout.default">
+            <pt><![CDATA[Apresentação predefinida]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.new.text">
+            <pt><![CDATA[Nova subpágina]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.new.title">
+            <pt><![CDATA[Criar nova subpágina]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.preview.text">
+            <pt><![CDATA[Pré-visualização]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.open_in_media.text">
+            <pt><![CDATA[Abrir na área multimédia]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.activate.text">
+            <pt><![CDATA[Ativar]]></pt>
+        </locale>
+        <locale name="projects.project.site.btn.deactivate.text">
+            <pt><![CDATA[Desativar]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.adminSettings">
+            <pt><![CDATA[Definições do backend]]></pt>
+        </locale>
+        <locale name="projects.project.panel.settings.btn.settings">
+            <pt><![CDATA[Definições]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.adminSettings.title">
+            <pt><![CDATA[Definições do projeto para o backend]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.adminSitemapMax">
+            <pt><![CDATA[Número máximo de páginas no mapa do site do projeto]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.btn.addSite">
+            <pt><![CDATA[Adicionar uma página]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.btn.addParent">
+            <pt><![CDATA[Adicionar subpáginas]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.description.site_types">
+            <pt><![CDATA[<em>Adicionar tipo de página</em> adiciona todas as páginas do tipo selecionado.<br/>]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.description.sites">
+            <pt><![CDATA[<em>Adicionar página</em> adiciona uma página individual.<br/>]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.description.site_children">
+            <pt><![CDATA[<em>Adicionar subpáginas</em> adiciona todas as subpáginas da página selecionada, a menos que esteja definido um tipo de página. Nesse caso, o tipo de página funciona como filtro e só são apresentadas as subpáginas do tipo selecionado.]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.description">
+            <pt><![CDATA[<p>[site_types][sites][site_children]</p>]]></pt>
+        </locale>
+        <locale name="message.project.config.save.success">
+            <pt><![CDATA[As definições do projeto foram guardadas com sucesso.]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.btn.addTypes">
+            <pt><![CDATA[Adicionar tipo de página]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.site">
+            <pt><![CDATA[Página]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.type">
+            <pt><![CDATA[Tipo de página]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.children">
+            <pt><![CDATA[Página de origem]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.typeWildcard">
+            <pt><![CDATA[Tipos de página]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.children.title">
+            <pt><![CDATA[Todas as subpáginas de [title]]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.typeWildcard.title">
+            <pt><![CDATA[Todos os tipos de página de [title]]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.children.badge">
+            <pt><![CDATA[Todas as subpáginas]]></pt>
+        </locale>
+        <locale name="projects.project.site.select.entry.typeWildcard.badge">
+            <pt><![CDATA[Todos os tipos de página]]></pt>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="RestProvider.Projects.title">
+            <pt><![CDATA[QUQIQER Core REST API]]></pt>
+        </locale>
+
+        <locale name="projects.project.settings.panel.settings.title">
+            <pt><![CDATA[Definições gerais do projeto]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.language.default">
+            <pt><![CDATA[Idioma predefinido]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.language.available">
+            <pt><![CDATA[Idiomas disponíveis]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.admin.email">
+            <pt><![CDATA[E-mail de administração]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.projectTitle">
+            <pt><![CDATA[Nome do site / projeto]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.projectTitle.description">
+            <pt><![CDATA[Nome de apresentação do projeto específico de cada idioma. É utilizado, entre outros locais, como nome do site nos dados estruturados. Se não for indicado, será utilizado o nome interno do projeto.]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.set.standard">
+            <pt><![CDATA[Definir como projeto predefinido]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.settings.template.title">
+            <pt><![CDATA[Definições do modelo]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.templates.default">
+            <pt><![CDATA[Modelo predefinido]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.templates.no.template">
+            <pt><![CDATA[Não utilizar modelo]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.templates.available">
+            <pt><![CDATA[Modelos disponíveis para este projeto]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.layout">
+            <pt><![CDATA[Esquema predefinido]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.settings.suffixprefix.title">
+            <pt><![CDATA[Título da página]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.prefix">
+            <pt><![CDATA[Prefixo]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.suffix">
+            <pt><![CDATA[Sufixo]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.header">
+            <pt><![CDATA[Definições do editor]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher">
+            <pt><![CDATA[Editor]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.description">
+            <pt><![CDATA[Definição predefinida da propriedade do editor. O editor é necessário para alguns textos editoriais, como artigos de blogue ou notícias.]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.type">
+            <pt><![CDATA[Tipo de editor]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.image">
+            <pt><![CDATA[Logótipo / imagem]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.url">
+            <pt><![CDATA[URL do site]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.company">
+            <pt><![CDATA[Empresa]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.organization">
+            <pt><![CDATA[Organização]]></pt>
+        </locale>
+        <locale name="projects.project.settings.panel.publisher.person">
+            <pt><![CDATA[Pessoa]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.search.title">
+            <pt><![CDATA[Pesquisa]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.search.name">
+            <pt><![CDATA[Pesquisa]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.legalnotes.name">
+            <pt><![CDATA[Aviso legal]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.legalnotes.title">
+            <pt><![CDATA[Aviso legal]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.privacypolicy.name">
+            <pt><![CDATA[Privacidade]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.privacypolicy.title">
+            <pt><![CDATA[Privacidade]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.generalTermsAndConditions.name">
+            <pt><![CDATA[Termos e condições]]></pt>
+        </locale>
+        <locale name="projects.defaultstructure.generalTermsAndConditions.title">
+            <pt><![CDATA[Termos e condições]]></pt>
+        </locale>
+        <!-- endregion -->
+
+        <locale name="exception.site.url.missing.title">
+            <pt><![CDATA[Introduza um título.]]></pt>
+        </locale>
+        <locale name="exception.site.url.2.signs">
+            <pt><![CDATA[O URL tem de ter mais de 2 caracteres.]]></pt>
+        </locale>
+        <locale name="exception.site.url.200.signs">
+            <pt><![CDATA[O URL não pode ter mais de 200 caracteres.]]></pt>
+        </locale>
+        <locale name="exception.site.url.wrong.signs">
+            <pt><![CDATA[Não são permitidos os seguintes caracteres no URL «[name]»: [signs]]]></pt>
+        </locale>
+
+        <locale name="exception.site.linked.already.exists">
+            <pt><![CDATA[Não é possível criar um atalho neste nível porque já existe aqui um atalho ou a página original.]]></pt>
+        </locale>
+        <locale name="exception.site.linked.in.itself">
+            <pt><![CDATA[Não é possível criar um atalho abaixo deste nível porque isso criaria um ciclo infinito.]]></pt>
+        </locale>
+
+        <locale name="exception.site.no.next.sibling">
+            <pt><![CDATA[A página não tem uma página seguinte.]]></pt>
+        </locale>
+        <locale name="exception.site.no.previous.sibling">
+            <pt><![CDATA[A página não tem uma página anterior.]]></pt>
+        </locale>
+        <locale name="exception.site.child.not.found">
+            <pt><![CDATA[A subpágina não foi encontrada.]]></pt>
+        </locale>
+        <locale name="exception.site.child.by.name.not.found">
+            <pt><![CDATA[Não existe uma subpágina com esse nome.]]></pt>
+        </locale>
+        <locale name="site.permission.denied.for.logged.in.users.message">
+            <pt><![CDATA[Não tem as permissões necessárias para ver esta página.]]></pt>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">
+        <locale name="site.window.siteChangesExists.title">
+            <pt><![CDATA[A página tem alterações]]></pt>
+        </locale>
+        <locale name="site.window.siteChangesExists.text">
+            <pt><![CDATA[A página tem alterações]]></pt>
+        </locale>
+        <locale name="site.window.siteChangesExists.information" html="true">
+            <pt><![CDATA[Pretende guardar também estas alterações?<br />A página será ativada e as alterações serão aplicadas ao mesmo tempo.]]></pt>
+        </locale>
+        <locale name="site.window.siteChangesExists.button.ok">
+            <pt><![CDATA[Guardar também as alterações]]></pt>
+        </locale>
+        <locale name="site.window.siteChangesExists.button.cancel">
+            <pt><![CDATA[Alterar apenas o estado]]></pt>
+        </locale>
+        <locale name="exception.site.panel.error">
+            <pt><![CDATA[Não foi possível carregar o painel da página com o ID #[id]. O painel foi fechado]]></pt>
+        </locale>
+        <locale name="panel.site.restore.title">
+            <pt><![CDATA[Restauro da página #[id]]]></pt>
+        </locale>
+        <locale name="panel.site.restore.message.local.newer" html="true">
+            <pt><![CDATA[<h1>Restauro da página<br />#[id] - [title]</h1><p>Foram encontradas no seu computador alterações que ainda não foram guardadas online.</p><p>As alterações locais são de <strong>[localeDate]</strong>.</p><br /><p>A página online foi <strong>guardada pela última vez em [editDate] por [editUser] ([editUsername])</strong>.</p>]]></pt>
+        </locale>
+        <locale name="panel.site.restore.message.online.newer" html="true">
+            <pt><![CDATA[<h1>Restauro da página<br />#[id] - [title]</h1><p>Foram encontradas no seu computador alterações que ainda não foram guardadas online.</p><p>As alterações locais são de <strong>[localeDate]</strong>,</p><br /><p>A página online foi <strong>guardada pela última vez em [editDate] por [editUser] ([editUsername])</strong>.</p><br /><strong>Atenção:</strong><p>A versão online da página é mais recente do que a versão local, ainda não guardada. Se aplicar os dados locais, a versão online mais recente será substituída ao guardar a página.</p><p>Se tiver dúvidas, descarte as alterações locais.</p>]]></pt>
+        </locale>
+        <locale name="panel.site.restore.button.cancel">
+            <pt><![CDATA[Descartar dados locais]]></pt>
+        </locale>
+        <locale name="panel.site.restore.button.restore">
+            <pt><![CDATA[Carregar dados locais]]></pt>
+        </locale>
+        <locale name="control.project.sitemap.next">
+            <pt><![CDATA[Avançar (clique com o botão direito para mais opções)]]></pt>
+        </locale>
+        <locale name="control.project.sitemap.prev">
+            <pt><![CDATA[Recuar (clique com o botão direito para mais opções)]]></pt>
+        </locale>
+        <locale name="control.project.sitemap.sheetWindow.title">
+            <pt><![CDATA[Paginação]]></pt>
+        </locale>
+        <locale name="control.project.sitemap.sheetWindow.content" html="true">
+            <pt><![CDATA[<p>Que entradas da página pretende apresentar?</p>]]></pt>
+        </locale>
+        <locale name="project.sitemap.open.in.window">
+            <pt><![CDATA[Abrir no site]]></pt>
+        </locale>
+
+        <locale name="window.title.url.customization">
+            <pt><![CDATA[O título e o URL são diferentes]]></pt>
+        </locale>
+        <locale name="window.title.url.customization.text">
+            <pt><![CDATA[Alterou o título da página. Pretende ajustar o URL?]]></pt>
+        </locale>
+        <locale name="window.title.url.customization.information">
+            <pt><![CDATA[Alterou o título da página, pelo que o URL agora difere do título. Pretende ajustar o URL ao título?]]></pt>
+        </locale>
+        <locale name="window.title.url.customization.button.ok">
+            <pt><![CDATA[Ajustar URL]]></pt>
+        </locale>
+        <locale name="window.title.url.customization.button.cancel">
+            <pt><![CDATA[Manter URL]]></pt>
+        </locale>
+
+        <locale name="projects.typewindow.title">
+            <pt><![CDATA[Selecione um tipo de página]]></pt>
+        </locale>
+        <locale name="projects.typewindow.btn.sitemapView">
+            <pt><![CDATA[Vista do mapa do site]]></pt>
+        </locale>
+        <locale name="projects.typewindow.btn.detailView">
+            <pt><![CDATA[Vista detalhada]]></pt>
+        </locale>
+        <locale name="projects.typewindow.info">
+            <pt><![CDATA[A alteração do tipo de página implica guardar a página.]]></pt>
+        </locale>
+        <locale name="projects.project.site.panel.information.openInSiteStructure">
+            <pt><![CDATA[Abrir no mapa do site do projeto]]></pt>
+        </locale>
+        <locale name="projects.project.site.window.create.header" html="1">
+            <pt><![CDATA[<h3>Criar página</h3><p>Ao clicar em Aplicar, cria uma nova página em <b>[name]</b>.</p>]]></pt>
+        </locale>
+        <locale name="projects.project.site.window.create.inputTitle">
+            <pt><![CDATA[Título da nova página]]></pt>
+        </locale>
+        <locale name="projects.project.site.window.create.seoTitle">
+            <pt><![CDATA[Título SEO da nova página (opcional)]]></pt>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

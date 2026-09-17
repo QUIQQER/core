@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/core" datatype="js,php">
+        <locale name="menu.search.title">
+            <en><![CDATA[Search]]></en>
+        </locale>
+        <locale name="menu.search.sites.title">
+            <en><![CDATA[Search sites]]></en>
+        </locale>
+        <locale name="menu.search.users.title">
+            <en><![CDATA[Search users]]></en>
+        </locale>
+        <locale name="menu.search.groups.title">
+            <en><![CDATA[Search groups]]></en>
+        </locale>
+        <locale name="menu.loged.in">
+            <en><![CDATA[Loged in as: [username]]]></en>
+        </locale>
+        <locale name="menu.log.out">
+            <en><![CDATA[Log out]]></en>
+        </locale>
+        <locale name="workspace.fixed">
+            <en><![CDATA[Workspace is fixed]]></en>
+        </locale>
+        <locale name="workspace.flexible">
+            <en><![CDATA[Workspace is flexible]]></en>
+        </locale>
+        <locale name="menu.settings.forwardings.text">
+            <en><![CDATA[Global forwarding]]></en>
+        </locale>
+        <locale name="control.editor.toolbar.select.search.field.placeholder">
+            <en><![CDATA[Search toolbars ...]]></en>
+        </locale>
+        <locale name="control.editor.button.switch.to.sourcecode">
+            <en><![CDATA[Switch to Sourcecode]]></en>
+        </locale>
+        <locale name="control.editor.button.switch.to.rich.text.editing">
+            <en><![CDATA[Switch to Rich Text Editing]]></en>
+        </locale>
+        <locale name="panels.bookmarks.title">
+            <en><![CDATA[Bookmarks]]></en>
+        </locale>
+        <locale name="panels.bookmarks.description">
+            <en><![CDATA[
+            Use bookmarks to help you quickly reach your frequently used functions.
+            ]]></en>
+        </locale>
+        <locale name="menu.profile.userPassword.text">
+            <en><![CDATA[Change password]]></en>
+        </locale>
+        <locale name="welcome.message">
+            <en><![CDATA[Welcome [username]]]></en>
+        </locale>
+        <locale name="logs.panel.title">
+            <en><![CDATA[Log manager]]></en>
+        </locale>
+        <locale name="logs.panel.log.file">
+            <en><![CDATA[Log file]]></en>
+        </locale>
+        <locale name="logs.panel.log.title">
+            <en><![CDATA[Logs: [file]]]></en>
+        </locale>
+        <locale name="logs.panel.btn.refresh">
+            <en><![CDATA[Update log file]]></en>
+        </locale>
+        <locale name="logs.panel.btn.delete.marked">
+            <en><![CDATA[Delete selected log files]]></en>
+        </locale>
+        <locale name="logs.panel.btn.open.log">
+            <en><![CDATA[Open log from [date]]]></en>
+        </locale>
+        <locale name="logs.panel.delete.window.title">
+            <en><![CDATA[Delete log [file]]]></en>
+        </locale>
+        <locale name="logs.panel.delete.window.text">
+            <en><![CDATA[Do you really want to delete the log file?]]></en>
+        </locale>
+        <locale name="logs.panel.search.placeholder">
+            <en><![CDATA[Search for...]]></en>
+        </locale>
+        <locale name="logs.panel.search.btn.start.alt">
+            <en><![CDATA[Start search]]></en>
+        </locale>
+        <locale name="logs.panel.search.btn.start.title">
+            <en><![CDATA[Start search]]></en>
+        </locale>
+        <locale name="editors.settings.title">
+            <en><![CDATA[Toolbar management for the content editor]]></en>
+        </locale>
+        <locale name="editors.settings.btn.edit.toolbar">
+            <en><![CDATA[Edit the toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.btn.delete.toolbar">
+            <en><![CDATA[Delete the toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.btn.add.toolbar">
+            <en><![CDATA[Add a toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.table.toolbar.name">
+            <en><![CDATA[Name of the toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.editsheet.title">
+            <en><![CDATA[Edit [toolbar] toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.editsheet.btn.save">
+            <en><![CDATA[Save changes]]></en>
+        </locale>
+        <locale name="editors.settings.delete.window.title">
+            <en><![CDATA[Really delete toolbar?]]></en>
+        </locale>
+        <locale name="editors.settings.delete.window.text">
+            <en><![CDATA[Are you sure you want to delete the toolbar [toolbar]?]]></en>
+        </locale>
+        <locale name="editors.settings.add.window.title">
+            <en><![CDATA[Add a toolbar]]></en>
+        </locale>
+        <locale name="editors.settings.add.window.text">
+            <en><![CDATA[Please enter a new toolbar name:]]></en>
+        </locale>
+        <locale name="lang.popup.title">
+            <en><![CDATA[Available languages]]></en>
+        </locale>
+        <locale name="desktop.panels.xml.btn.cancel">
+            <en><![CDATA[Cancel changes]]></en>
+        </locale>
+        <locale name="desktop.panels.xml.btn.save">
+            <en><![CDATA[Save changes]]></en>
+        </locale>
+        <locale name="workspace.toolarge.window.title">
+            <en><![CDATA[The workspace is too large]]></en>
+        </locale>
+        <locale name="workspace.toolarge.window.text">
+            <en><![CDATA[
+                <h1>The workspace is too large</h1>
+                <p>The workspace is unfortunately too big for your browser window. Please choose an appropriate workspace.</p>
+                <h2>Available matching workspaces:</h2>
+            ]]></en>
+        </locale>
+        <locale name="workspace.toolarge.window.noWorkspaces.text">
+            <en><![CDATA[
+                <h1>The workspace is too large</h1>
+                <p>The workspace is unfortunately too big and no suitable workspace exists.</p>
+                <p>Would you like to create a new workspace?</p>
+            ]]></en>
+        </locale>
+        <locale name="grid.is.empty">
+            <en><![CDATA[The table contains no data]]></en>
+        </locale>
+        <locale name="grid.sizing.button.title">
+            <en><![CDATA[Compact mode - reduce table size]]></en>
+        </locale>
+        <locale name="grid.sizing.button.title.small">
+            <en><![CDATA[Normal mode - enlarge the table]]></en>
+        </locale>
+        <locale name="grid.export.button.title">
+            <en><![CDATA[Export the data]]></en>
+        </locale>
+        <locale name="grid.export.type.csv">
+            <en><![CDATA[CSV]]></en>
+        </locale>
+        <locale name="grid.export.type.xls">
+            <en><![CDATA[Excel]]></en>
+        </locale>
+        <locale name="grid.export.type.pdf">
+            <en><![CDATA[PDF]]></en>
+        </locale>
+        <locale name="grid.export.type.json">
+            <en><![CDATA[JSON]]></en>
+        </locale>
+        <locale name="grid.export.type.print">
+            <en><![CDATA[Print]]></en>
+        </locale>
+        <locale name="grid.export.nav.fields">
+            <en><![CDATA[Fields]]></en>
+        </locale>
+        <locale name="grid.export.nav.export">
+            <en><![CDATA[File format]]></en>
+        </locale>
+        <locale name="grid.export.message.title">
+            <en><![CDATA[Select fields]]></en>
+        </locale>
+        <locale name="grid.export.message">
+            <en><![CDATA[Please select the fields to be exported.]]></en>
+        </locale>
+        <locale name="grid.export.item.noLabel">
+            <en><![CDATA[No label]]></en>
+        </locale>
+        <locale name="grid.export.message.exportType.title">
+            <en><![CDATA[Select file format]]></en>
+        </locale>
+        <locale name="grid.export.message.exportType">
+            <en><![CDATA[Please select the file format in which the data is to be exported.]]></en>
+        </locale>
+        <locale name="grid.export.button.next">
+            <en><![CDATA[Next]]></en>
+        </locale>
+        <locale name="grid.export.button.download">
+            <en><![CDATA[Download]]></en>
+        </locale>
+        <locale name="grid.export.button.print">
+            <en><![CDATA[Print]]></en>
+        </locale>
+        <locale name="window.grid.sorting.submit">
+            <en><![CDATA[Customize]]></en>
+        </locale>
+
+        <locale name="window.grid.sorting.title">
+            <en><![CDATA[Customize the table according to your needs]]></en>
+        </locale>
+        <locale name="window.grid.sorting.description" html="true">
+            <en><![CDATA[
+            <p>You can easily change the order of the columns using the drag-and-drop feature, or turn
+            unwanted columns on or off. So you can change the table according to your ideas</p>
+            ]]></en>
+        </locale>
+        <locale name="window.grid.sorting.btn.text">
+            <en><![CDATA[Reset view]]></en>
+        </locale>
+        <locale name="window.grid.sorting.errorMsg">
+            <en><![CDATA[Please activate the checkbox first, and then click on the button.]]></en>
+        </locale>
+        <locale name="window.grid.sorting.hint">
+            <en><![CDATA[Clicking on the button resets the table to the default settings.]]></en>
+        </locale>
+
+        <locale name="menu.quiqqer.text">
+            <en><![CDATA[<img src="../bin/quiqqer_logo.svg" />]]></en>
+        </locale>
+        <locale name="menu.profile.text">
+            <en><![CDATA[Profile]]></en>
+        </locale>
+        <locale name="menu.profile.workspace.text">
+            <en><![CDATA[Workspaces]]></en>
+        </locale>
+        <locale name="menu.profile.userProfile.text">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="menu.goto.text">
+            <en><![CDATA[Administration]]></en>
+        </locale>
+        <locale name="menu.settings.text">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="menu.settings.quiqqer.text">
+            <en><![CDATA[QUIQQER]]></en>
+        </locale>
+        <locale name="menu.settings.media.text">
+            <en><![CDATA[Media settings]]></en>
+        </locale>
+        <locale name="menu.settings.editor.text">
+            <en><![CDATA[Toolbar management for the content editor]]></en>
+        </locale>
+        <locale name="menu.settings.vhosts.text">
+            <en><![CDATA[Virtual hosts]]></en>
+        </locale>
+        <locale name="menu.settings.mailqueue.text">
+            <en><![CDATA[Mail queue]]></en>
+        </locale>
+        <locale name="menu.extras.rights.text">
+            <en><![CDATA[User management]]></en>
+        </locale>
+        <locale name="menu.extras.permissions.text">
+            <en><![CDATA[Permissions]]></en>
+        </locale>
+        <locale name="menu.extras.groups.text">
+            <en><![CDATA[Groups]]></en>
+        </locale>
+        <locale name="menu.extras.users.text">
+            <en><![CDATA[User]]></en>
+        </locale>
+        <locale name="menu.extras.logs.text">
+            <en><![CDATA[Logs]]></en>
+        </locale>
+        <locale name="menu.extras.trash.text">
+            <en><![CDATA[Trash]]></en>
+        </locale>
+        <locale name="menu.help.text">
+            <en><![CDATA[QUIQQER]]></en>
+        </locale>
+        <locale name="menu.help.dashboard.text">
+            <en><![CDATA[Dashboard]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui">
+            <en><![CDATA[Interface (GUI)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.title">
+            <en><![CDATA[Interface Settings (GUI)]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.displayTimeMessages.text">
+            <en><![CDATA[Displaytime of the Messages]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.displayTimeMessages.description">
+            <en><![CDATA[
+                Determine how long is the display time of the message.<br />                Messages are success, information, warnings or error messages.<br >                The value are specified in milliseconds.            ]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.panel.task.limit">
+            <en><![CDATA[Maximum tasks in a task panel]]></en>
+        </locale>
+        <locale name="quiqqer.settings.gui.panel.task.limit.description">
+            <en><![CDATA[
+                Determine the maximum number of tasks in a task panel.                If too many tasks are opened in a panel, this affects the performance of the workspace.            ]]></en>
+        </locale>
+        <locale name="panels.project.title">
+            <en><![CDATA[Website Panel]]></en>
+        </locale>
+        <locale name="panels.project.description">
+            <en><![CDATA[Displays all web pages and the web page tree.]]></en>
+        </locale>
+        <locale name="panels.help.title">
+            <en><![CDATA[QUIQQER Help]]></en>
+        </locale>
+        <locale name="panels.help.description">
+            <en><![CDATA[Displays the QUIQQER Help.]]></en>
+        </locale>
+        <locale name="panels.upload.title">
+            <en><![CDATA[Uploads]]></en>
+        </locale>
+        <locale name="panels.upload.description">
+            <en><![CDATA[Display of the uploaded Files.]]></en>
+        </locale>
+        <locale name="panels.messages.description">
+            <en><![CDATA[Displays messages and status messages.]]></en>
+        </locale>
+        <locale name="panels.tasks.title">
+            <en><![CDATA[Task panel]]></en>
+        </locale>
+        <locale name="panels.tasks.description">
+            <en><![CDATA[Panel that manages multiple panels.]]></en>
+        </locale>
+        <locale name="exception.template.not.found">
+            <en><![CDATA[Template not found.]]></en>
+        </locale>
+        <locale name="menu.file.search.text">
+            <en><![CDATA[Search sites...]]></en>
+        </locale>
+        <locale name="exception.lib.qui.exceptions.handler.nocallback">
+            <en><![CDATA[No callback passed to [function] method]]></en>
+        </locale>
+        <locale name="exception.lib.qui.exceptions.handler.invalid">
+            <en><![CDATA[Invalid callback passed to the [function] method]]></en>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.exist">
+            <en><![CDATA[The toolbar already exists.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.empty">
+            <en><![CDATA[The toolbar is empty and could not be saved.]]></en>
+        </locale>
+        <locale name="exception.lib.qui.editor.manager.toolbar.xml.error">
+            <en><![CDATA[During the parsing of a toolbar XML file, an error occurred [error]]]></en>
+        </locale>
+        <locale name="menu.extras.projects.text">
+            <en><![CDATA[Projects manager]]></en>
+        </locale>
+        <locale name="menu.settings.projects.text">
+            <en><![CDATA[Projects settings]]></en>
+        </locale>
+        <locale name="control.breadcrumb.text">
+            <en><![CDATA[You are here:]]></en>
+        </locale>
+        <locale name="menu.apps.text">
+            <en><![CDATA[Apps]]></en>
+        </locale>
+        <locale name="message.editor.toolbar.save.success">
+            <en><![CDATA[The toolbar has been successfully saved.]]></en>
+        </locale>
+        <locale name="menu.extras.packages.text">
+            <en><![CDATA[System administration]]></en>
+        </locale>
+        <locale name="menu.help.about.text">
+            <en><![CDATA[About QUIQQER]]></en>
+        </locale>
+        <locale name="quiqqer.setup.workspace.title">
+            <en><![CDATA[
+            Set up working environment
+            ]]></en>
+        </locale>
+        <locale name="quiqqer.setup.workspace.description">
+            <en><![CDATA[
+            Choose the work environment that best suits you and your project.
+            ]]></en>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="php">
+
+        <locale name="exception.custom.css.is.not.writeable">
+            <en><![CDATA[The Custom CSS [file] is not writable. Please change the write permission.]]></en>
+        </locale>
+        <locale name="menu.settings.forwarding.text">
+            <en><![CDATA[Global forwarding]]></en>
+        </locale>
+    </groups>
+    <groups name="quiqqer/core" datatype="js">        <locale name="menu.workspaces.edit">
+            <en><![CDATA[Settings]]></en>
+        </locale>
+        <locale name="window.workspaces.title">
+            <en><![CDATA[Workspaces]]></en>
+        </locale>
+        <locale name="window.workspaces.message">
+            <en><![CDATA[Edit your workspaces by double-clicking]]></en>
+        </locale>
+        <locale name="window.workspaces.width">
+            <en><![CDATA[Window width]]></en>
+        </locale>
+        <locale name="window.workspaces.height">
+            <en><![CDATA[Window height]]></en>
+        </locale>
+        <locale name="window.workspaces.add">
+            <en><![CDATA[Create new workspace]]></en>
+        </locale>
+        <locale name="window.workspaces.delete">
+            <en><![CDATA[Delete selected workspaces]]></en>
+        </locale>
+        <locale name="window.workspaces.delete.title">
+            <en><![CDATA[Delete workspaces?]]></en>
+        </locale>
+        <locale name="window.workspaces.delete.text">
+            <en><![CDATA[Really delete the workspaces?]]></en>
+        </locale>
+        <locale name="window.workspaces.delete.information" html="true">
+            <en><![CDATA[
+            Are you sure you want to delete the following workspaces?
+            <br /><br />
+            [ids]
+            ]]></en>
+        </locale>
+        <locale name="workspaces.2.columns">
+            <en><![CDATA[2 columns]]></en>
+        </locale>
+        <locale name="workspaces.3.columns">
+            <en><![CDATA[3 columns]]></en>
+        </locale>
+        <locale name="message.error.in.workspace">
+            <en><![CDATA[The data in your workspace are incorrect.]]></en>
+        </locale>
+        <locale name="message.workspace.not.found">
+            <en><![CDATA[Workspace not found.]]></en>
+        </locale>
+        <locale name="window.workspaces.create.header.title">
+            <en><![CDATA[Workspace settings]]></en>
+        </locale>
+        <locale name="window.workspaces.create.cols">
+            <en><![CDATA[Columns]]></en>
+        </locale>
+        <locale name="window.workspaces.create.usage">
+            <en><![CDATA[Use at]]></en>
+        </locale>
+        <locale name="window.workspaces.create.usage.minWidth">
+            <en><![CDATA[Minimum window width]]></en>
+        </locale>
+        <locale name="window.workspaces.create.usage.minHeight">
+            <en><![CDATA[Minimum window height]]></en>
+        </locale>
+        <locale name="window.workspaces.select.title">
+            <en><![CDATA[Select standard Workspace]]></en>
+        </locale>
+        <locale name="window.workspaces.select.text">
+            <en><![CDATA[<p>Please select a workspace which you would like to use</p>]]></en>
+        </locale>
+        <locale name="window.workspaces.panel.list.title">
+            <en><![CDATA[Panel list]]></en>
+        </locale>
+        <locale name="workspace.contextmenu.add.panel">
+            <en><![CDATA[Add Panel]]></en>
+        </locale>
+        <locale name="workspace.contextmenu.remove.panel">
+            <en><![CDATA[Remove Panel]]></en>
+        </locale>
+        <locale name="workspace.contextmenu.add.column">
+            <en><![CDATA[Add column]]></en>
+        </locale>
+        <locale name="workspace.contextmenu.add.column.before">
+            <en><![CDATA[Add column nefore]]></en>
+        </locale>
+        <locale name="workspace.contextmenu.add.column.after">
+            <en><![CDATA[Add column after]]></en>
+        </locale>
+        <locale name="workspace.contextmenu.delete.column">
+            <en><![CDATA[Delete column]]></en>
+        </locale>
+        <locale name="window.workspace.corrupt.title">
+            <en><![CDATA[Workspace is damaged]]></en>
+        </locale>
+        <locale name="window.workspace.corrupt.text">
+            <en><![CDATA[The workspace is corrupted and could not be loaded.]]></en>
+        </locale>
+        <locale name="window.workspace.corrupt.information">
+            <en><![CDATA[
+            We are sorry but the workspace is damaged and could not be restored. <br />
+            We recommend to load one of the QUIQQER standard workspaces.
+            ]]></en>
+        </locale>
+        <locale name="controls.workspace.search.btn.text">
+            <en><![CDATA[Start]]></en>
+        </locale>
+        <locale name="controls.workspace.search.filter.placeholder">
+            <en><![CDATA[Searched areas]]></en>
+        </locale>        <locale name="dialog.projects.media.folder.delete.title">
+            <en><![CDATA[Delete folder / file (s)]]></en>
+        </locale>
+        <locale name="dialog.projects.media.folder.delete.text">
+            <en><![CDATA[Are you sure you want to delete the following folders or files?]]></en>
+        </locale>
+        <locale name="dialog.projects.media.rename.title">
+            <en><![CDATA[Rename]]></en>
+        </locale>
+        <locale name="dialog.projects.media.rename.information">
+            <en><![CDATA[Please enter a new name for the folder or file.]]></en>
+        </locale>
+        <locale name="dialog.projects.media.file.replace.title">
+            <en><![CDATA[Replace file]]></en>
+        </locale>
+        <locale name="dialog.projects.media.file.replace.information" html="true">
+            <en><![CDATA[
+            Please choose a file or drag a file with which you want to replace <b>[file]</b> into this window
+            ]]></en>
+        </locale>
+        <locale name="message.to.much.tasks">
+            <en><![CDATA[Unfortunately, too many tasks are open. Some tasks have been closed]]></en>
+        </locale>
+        <locale name="control.date.button.alt">
+            <en><![CDATA[Clear date]]></en>
+        </locale>
+        <locale name="control.date.button.title">
+            <en><![CDATA[Clear date]]></en>
+        </locale>
+        <locale name="control.date.missing.package">
+            <en><![CDATA[
+                The calendar package could not be found.
+                Please install quiqqer/calendar
+            ]]></en>
+        </locale>
+        <locale name="help.panel.title">
+            <en><![CDATA[QUIQQER Help]]></en>
+        </locale>
+        <locale name="help.panel.button.open.text">
+            <en><![CDATA[Open help]]></en>
+        </locale>
+
+        <locale name="control.bookmarks.panel.button.add.title">
+            <en><![CDATA[Add Bookmark]]></en>
+        </locale>
+        <locale name="control.bookmarks.panel.button.edit.title">
+            <en><![CDATA[Edit Bookmarks]]></en>
+        </locale>
+        <locale name="control.bookmarks.panel.button.sort.title">
+            <en><![CDATA[Sort]]></en>
+        </locale>
+
+        <locale name="dashboard.messages.empty">
+            <en><![CDATA[No messages available.]]></en>
+        </locale>
+
+        <locale name="control.server.button.add.text">
+            <en><![CDATA[Add new server]]></en>
+        </locale>
+        <locale name="control.server.filter.placeholder">
+            <en><![CDATA[Filter...]]></en>
+        </locale>
+        <locale name="control.server.filter.submit">
+            <en><![CDATA[Start search]]></en>
+        </locale>
+
+        <locale name="control.icons.confirm.title">
+            <en><![CDATA[Icon-Select]]></en>
+        </locale>
+        <locale name="control.icons.confirm.filterIcons">
+            <en><![CDATA[Search icons]]></en>
+        </locale>
+        <locale name="control.icons.confirm.noResultsInfo">
+            <en><![CDATA[There are no icons that match the search query]]></en>
+        </locale>
+        <locale name="control.icons.confirm.category.all">
+            <en><![CDATA[All]]></en>
+        </locale>
+        <locale name="control.icons.confirm.preview.placeholder">
+            <en><![CDATA[Select an icon]]></en>
+        </locale>
+        <locale name="control.icons.confirm.preview.cssClass">
+            <en><![CDATA[CSS class]]></en>
+        </locale>
+        <locale name="control.icons.confirm.preview.copyHtml">
+            <en><![CDATA[Copy code]]></en>
+        </locale>
+        <locale name="control.icons.confirm.preview.copied">
+            <en><![CDATA[Copied]]></en>
+        </locale>
+        <locale name="control.icons.confirm.cssClassHint">
+            <en><![CDATA[Copy the class to use the icon in your project.]]></en>
+        </locale>
+        <locale name="control.grid.menu.button">
+            <en><![CDATA[Menu]]></en>
+        </locale>
+        <locale name="panels.messages.title">
+            <en><![CDATA[Messages]]></en>
+        </locale>
+
+        <locale name="message.handler.title">
+            <en><![CDATA[Notifications]]></en>
+        </locale>
+        <locale name="message.handler.clear">
+            <en><![CDATA[clear]]></en>
+        </locale>
+        <locale name="message.handler.no.messages">
+            <en><![CDATA[No messages received]]></en>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

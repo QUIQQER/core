@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/widgets.xsd">
 <widgets>
 
     <widget>
@@ -17,3 +19,4 @@
     </widget>
 
 </widgets>
+</quiqqer>

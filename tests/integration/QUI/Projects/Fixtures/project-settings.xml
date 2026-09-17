@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
+    <project>
+        <settings>
+            <window>
+                <categories>
+                    <category name="templateQUI">
+                        <text>Test Settings</text>
+                        <icon>fa fa-cog</icon>
+                        <settings name="test.settings">
+                            <title>Project Settings Fixture</title>
+                            <input conf="test.settings.title" type="text">
+                                <text>Title</text>
+                            </input>
+                        </settings>
+                    </category>
+                </categories>
+            </window>
+        </settings>
+    </project>
+</quiqqer>

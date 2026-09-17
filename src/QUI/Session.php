@@ -335,6 +335,11 @@ class Session
                 throw new \RuntimeException('Database session storage requires a PDO connection.');
             }
 
+            if ($PDO->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
+                // SQLite has no advisory locks; transactional locks would interfere with the shared DBAL connection.
+                return new NativeFileSessionHandler(VAR_DIR . 'sessions');
+            }
+
             $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return new PdoSessionHandler($PDO, [

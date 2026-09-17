@@ -846,6 +846,8 @@ abstract class Item extends QUI\QDOM
             'id' => $this->getId()
         ]);
 
+        $Media->invalidateItemCache($this->getId());
+
         QUI::getEvents()->fireEvent('mediaDestroy', [$this]);
 
         // remove fila path cache

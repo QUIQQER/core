@@ -149,11 +149,9 @@ class RunEntrypoint
             return null;
         }
 
-        $state->markRunning($now);
-        $state->setProcess($process['pid'], $command, $now, $process['method']);
-        $repository->save($state);
-
-        return $state;
+        // The runner records its own PID under its lock. A launcher write here
+        // could overwrite a phase or terminal status already saved by the child.
+        return $repository->load($id);
     }
 
     private function createCliCommand(string $id, string $root, string $token): string

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+<locales>
+    <groups name="quiqqer/qui" datatype="js">
+        <locale name="handler.button.clear">
+            <pt><![CDATA[Limpar mensagens]]></pt>
+        </locale>
+        <locale name="handler.button.success">
+            <pt><![CDATA[Mensagens de sucesso]]></pt>
+        </locale>
+        <locale name="handler.button.information">
+            <pt><![CDATA[Mensagens informativas]]></pt>
+        </locale>
+        <locale name="handler.button.attention">
+            <pt><![CDATA[Mensagens de aviso]]></pt>
+        </locale>
+        <locale name="handler.button.error">
+            <pt><![CDATA[Mensagens de erro]]></pt>
+        </locale>
+    </groups>
+</locales>
+</quiqqer>

@@ -8,6 +8,8 @@
 <!-- locale/permissions quiqqer.site.edit._title -->
 <!-- locale/permissions quiqqer.site.edit._descrition -->
 
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/permissions.xsd">
 <permissions>
 
     <!-- standard quiqqer permissions -->
@@ -45,6 +47,29 @@
 
     <!-- Darf Cache löschen -->
     <permission name="quiqqer.system.cache" type="bool"/>
+
+    <!-- Access to the Core REST API; domain permissions remain required. -->
+    <permission name="quiqqer.core.rest.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyonePermission>0</everyonePermission>
+        <guestPermission>0</guestPermission>
+    </permission>
+
+    <!-- Access to user administration through REST. -->
+    <permission name="quiqqer.core.rest.users.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyonePermission>0</everyonePermission>
+        <guestPermission>0</guestPermission>
+    </permission>
+
+    <permission name="quiqqer.core.rest.groups.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyonePermission>0</everyonePermission>
+        <guestPermission>0</guestPermission>
+    </permission>
 
     <!-- Darf QUIQQER Core per MCP nutzen -->
     <permission name="quiqqer.core.mcp.canUse" type="bool">
@@ -183,6 +208,13 @@
     <permission name="quiqqer.projects.editCustomJS" type="bool"/>
 
 
+    <permission name="quiqqer.core.rest.permissions.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
     <!-- Project permissions  -->
 
     <!-- Darf Projektdaten verändern -->
@@ -242,4 +274,40 @@
     <permission name="quiqqer.projects.media.del" type="users_and_groups" area="media"/>
     <permission name="quiqqer.projects.media.upload" type="users_and_groups" area="media"/>
 
+    <permission name="quiqqer.core.rest.forwardings.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.vhosts.canUse" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.system.viewInfo" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.system.clearCache" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
+    <permission name="quiqqer.core.rest.system.updateAllowed" type="bool">
+        <defaultvalue>0</defaultvalue>
+        <rootPermission>1</rootPermission>
+        <everyone>0</everyone>
+        <guest>0</guest>
+    </permission>
+
 </permissions>
+</quiqqer>

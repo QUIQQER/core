@@ -1,4 +1,5 @@
-<quiqqer>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/package.xsd">
     <package>
         <title>
             <locale group="quiqqer/core" var="package.title"/>
@@ -19,7 +20,7 @@
         </preview>
 
         <provider>
-            <rest src="\QUI\Projects\RestProvider"/>
+            <rest src="\QUI\REST\Core\Provider"/>
             <auth src="\QUI\Users\Auth\QUIQQER"/>
             <auth src="\QUI\Users\Auth\VerifiedMail2FA"/>
             <auth src="\QUI\Users\Auth\WebAuthn"/>

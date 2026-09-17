@@ -4,8 +4,11 @@ namespace QUI\Workspace;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Types\TextType;
+use Doctrine\DBAL\Types\Type;
 use PHPUnit\Framework\TestCase;
 use QUI;
+use QUI\Cache\Manager as CacheManager;
 use QUI\Exception;
 use QUI\Interfaces\Users\User;
 use QUI\Users\Nobody;
@@ -16,9 +19,15 @@ class ManagerTest extends TestCase
 {
     private Connection $Connection;
     private ?Connection $previousConnection;
+    private ?QUI\Package\Manager $previousPackageManager;
+    private ?QUI\Config $previousCacheConfig;
+    private ?\Stash\Pool $previousStash;
 
     protected function setUp(): void
     {
+        $this->previousPackageManager = QUI::$PackageManager;
+        $this->previousCacheConfig = CacheManager::$Config;
+        $this->previousStash = CacheManager::$Stash;
         $ConnectionProperty = new ReflectionProperty(QUI::class, 'QueryBuilder');
         $this->previousConnection = $ConnectionProperty->getValue();
         $this->Connection = DriverManager::getConnection([
@@ -31,18 +40,143 @@ class ManagerTest extends TestCase
 
     protected function tearDown(): void
     {
+        QUI::$PackageManager = $this->previousPackageManager;
+        CacheManager::$Config = $this->previousCacheConfig;
+        CacheManager::$Stash = $this->previousStash;
         (new ReflectionProperty(QUI::class, 'QueryBuilder'))->setValue(null, $this->previousConnection);
         $this->Connection->close();
     }
 
     public function testSetup(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $SchemaManager = $this->Connection->createSchemaManager();
+        $SchemaManager->dropTable(Manager::table());
+
+        Manager::setup();
+
+        $Table = $SchemaManager->introspectTable(Manager::table());
+        $this->assertSame(
+            ['id', 'uid', 'title', 'data', 'minHeight', 'minWidth', 'standard'],
+            array_map(static fn ($Column) => $Column->getName(), array_values($Table->getColumns()))
+        );
+        $this->assertSame(['id'], $Table->getPrimaryKey()?->getColumns());
+        $this->assertTrue($Table->getColumn('id')->getAutoincrement());
+        $this->assertTrue($Table->getColumn('uid')->getNotnull());
+        $this->assertSame(50, $Table->getColumn('uid')->getLength());
+        $this->assertInstanceOf(TextType::class, $Table->getColumn('data')->getType());
+
+        foreach (['title', 'data', 'minHeight', 'minWidth', 'standard'] as $column) {
+            $this->assertFalse($Table->getColumn($column)->getNotnull());
+        }
+
+        $User = $this->createUserStub();
+        $id = Manager::addWorkspace($User, 'Preserved workspace', '[{"panel":"test"}]', 100, 200);
+        $workspace = Manager::getWorkspaceById($id, $User);
+
+        Manager::setup();
+
+        $this->assertSame($workspace, Manager::getWorkspaceById($id, $User));
+    }
+
+    public function testSetupMigratesLegacyDataColumnWithoutLosingWorkspaces(): void
+    {
+        $SchemaManager = $this->Connection->createSchemaManager();
+        $Table = $SchemaManager->introspectTable(Manager::table());
+        $Table->getColumn('data')->setType(Type::getType('string'));
+        $Table->getColumn('data')->setLength(255);
+        $SchemaManager->dropTable(Manager::table());
+        $SchemaManager->createTable($Table);
+        $this->assertNotInstanceOf(
+            TextType::class,
+            $SchemaManager->introspectTable(Manager::table())->getColumn('data')->getType()
+        );
+        $User = $this->createUserStub();
+        $id = Manager::addWorkspace($User, 'Legacy workspace', '[{"panel":"legacy"}]', 100, 200);
+        $workspace = Manager::getWorkspaceById($id, $User);
+
+        Manager::setup();
+
+        $Data = $SchemaManager->introspectTable(Manager::table())->getColumn('data');
+        $this->assertInstanceOf(TextType::class, $Data->getType());
+        $this->assertFalse($Data->getNotnull());
+        $this->assertSame($workspace, Manager::getWorkspaceById($id, $User));
+    }
+
+    public function testSetupLeavesTableWithoutDataColumnUnchanged(): void
+    {
+        $SchemaManager = $this->Connection->createSchemaManager();
+        $Table = $SchemaManager->introspectTable(Manager::table());
+        $Table->dropColumn('data');
+        $SchemaManager->dropTable(Manager::table());
+        $SchemaManager->createTable($Table);
+        $this->Connection->insert(Manager::table(), ['uid' => Uuid::get(), 'title' => 'Existing workspace']);
+
+        Manager::setup();
+
+        $this->assertFalse($SchemaManager->introspectTable(Manager::table())->hasColumn('data'));
+        $this->assertSame(
+            ['Existing workspace'],
+            $this->Connection->fetchFirstColumn('SELECT title FROM ' . Manager::table())
+        );
     }
 
     public function testCleanup(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $Admin = $this->createConfiguredStub(User::class, ['getUUID' => Uuid::get(), 'isSU' => false]);
+        $RegularUser = $this->createConfiguredStub(User::class, ['getUUID' => Uuid::get(), 'isSU' => false]);
+        $deletedUserUuid = Uuid::get();
+        $previousUsers = QUI::$Users;
+        $previousRights = QUI::$Rights;
+
+        try {
+            $Users = $this->createMock(QUI\Users\Manager::class);
+            $Users->method('isSystemUser')->willReturn(false);
+            $Users->method('get')->willReturnCallback(
+                static function (string $uuid) use ($Admin, $RegularUser, $deletedUserUuid): User {
+                    return match ($uuid) {
+                        $Admin->getUUID() => $Admin,
+                        $RegularUser->getUUID() => $RegularUser,
+                        $deletedUserUuid => throw new Exception('User not found', 404),
+                        default => throw new \LogicException('Unexpected user lookup: ' . $uuid)
+                    };
+                }
+            );
+            QUI::$Users = $Users;
+            $Rights = $this->createMock(QUI\Permissions\Manager::class);
+            $Rights->method('getPermissions')->willReturnMap([
+                [$Admin, ['quiqqer.admin' => 1]],
+                [$RegularUser, ['quiqqer.admin' => 0]]
+            ]);
+            QUI::$Rights = $Rights;
+
+            foreach ([$Admin->getUUID(), $RegularUser->getUUID(), $deletedUserUuid] as $uuid) {
+                foreach (['First workspace', 'Second workspace'] as $title) {
+                    $this->Connection->insert(Manager::table(), ['uid' => $uuid, 'title' => $title, 'data' => '[]']);
+                }
+            }
+
+            $adminWorkspaces = $this->Connection->fetchAllAssociative(
+                'SELECT * FROM ' . Manager::table() . ' WHERE uid = ? ORDER BY id',
+                [$Admin->getUUID()]
+            );
+
+            Manager::cleanup();
+
+            $this->assertSame(
+                $adminWorkspaces,
+                $this->Connection->fetchAllAssociative('SELECT * FROM ' . Manager::table() . ' ORDER BY id')
+            );
+
+            Manager::cleanup();
+
+            $this->assertSame(
+                $adminWorkspaces,
+                $this->Connection->fetchAllAssociative('SELECT * FROM ' . Manager::table() . ' ORDER BY id')
+            );
+        } finally {
+            QUI::$Users = $previousUsers;
+            QUI::$Rights = $previousRights;
+        }
     }
 
     public function testGetWorkspacesByUser(): void
@@ -256,7 +390,48 @@ class ManagerTest extends TestCase
 
     public function testGetAvailablePanels(): void
     {
-        $this->markTestIncomplete('Figure out how to test this');
+        $this->preparePanelCache();
+        $PackageManager = $this->createMock(QUI\Package\Manager::class);
+        $PackageManager->expects($this->once())->method('getPackageXMLFiles')
+            ->with('panels.xml')->willReturn([__DIR__ . '/Fixtures/panels.xml']);
+        QUI::$PackageManager = $PackageManager;
+        $corePanels = QUI\Utils\Text\XML::getPanelsFromXMLFile(SYS_DIR . 'panels.xml');
+        $this->assertNotEmpty($corePanels);
+        $expected = array_merge($corePanels, [
+            [
+                'image' => 'fa fa-star',
+                'title' => 'Workspace test panel',
+                'text' => 'Panel supplied by a package',
+                'require' => 'package/workspace-test/Panel'
+            ],
+            [
+                'image' => '',
+                'title' => 'Minimal panel',
+                'text' => '',
+                'require' => 'package/workspace-test/Minimal'
+            ]
+        ]);
+
+        $this->assertSame($expected, Manager::getAvailablePanels());
+        $this->assertSame($expected, CacheManager::get('quiqqer/package/quiqqer/core/available-panels'));
+        $this->assertSame($expected, Manager::getAvailablePanels());
+    }
+
+    public function testGetAvailablePanelsReturnsCachedEmptyListWithoutScanningPackages(): void
+    {
+        $this->preparePanelCache();
+        $PackageManager = $this->createMock(QUI\Package\Manager::class);
+        $PackageManager->expects($this->never())->method('getPackageXMLFiles');
+        QUI::$PackageManager = $PackageManager;
+        CacheManager::set('quiqqer/package/quiqqer/core/available-panels', []);
+
+        $this->assertSame([], Manager::getAvailablePanels());
+    }
+
+    private function preparePanelCache(): void
+    {
+        CacheManager::$Stash = new \Stash\Pool(new \Stash\Driver\Ephemeral());
+        CacheManager::$Config = $this->createConfiguredStub(QUI\Config::class, ['get' => 0]);
     }
 
     protected function createUserStub(?string $userUuid = null): User
