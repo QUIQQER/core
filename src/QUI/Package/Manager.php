@@ -636,6 +636,11 @@ class Manager extends QUI\QDOM
                 'url' => $server
             ];
 
+            if ($params['type'] === 'composer' && rtrim($server, '/') === 'https://composer.quiqqer.com') {
+                // Let Packagist provide versions that the public mirror has not synchronized yet.
+                $package['canonical'] = false;
+            }
+
             if (isset($params['options'])) {
                 $options = json_decode($params['options'], true);
 
