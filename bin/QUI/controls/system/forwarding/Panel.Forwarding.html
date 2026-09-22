@@ -7,7 +7,8 @@
                 <span class="field-container-item" title="{{from}}">
                     {{from}}
                 </span>
-                    <input type="text" name="from" class="field-container-field"/>
+                    <input type="text" name="from" class="field-container-field"
+                           placeholder="https://example.com/old-page"/>
                 </label>
             </td>
         </tr>
@@ -17,7 +18,7 @@
                 <span class="field-container-item" title="{{target}}">
                     {{target}}
                 </span>
-                    <input type="text" name="target" class="field-container-field"/>
+                    <input type="text" name="target" class="field-container-field" placeholder="/new-page"/>
                 </label>
             </td>
         </tr>
@@ -27,7 +28,13 @@
                 <span class="field-container-item" title="{{code}}">
                     {{code}}
                 </span>
-                    <input type="number" name="code" class="field-container-field" min="1" placeholder="301"/>
+                    <select name="code" data-name="code" class="field-container-field">
+                        <option value="301" selected>301 – Moved Permanently</option>
+                        <option value="302">302 – Found</option>
+                        <option value="303">303 – See Other</option>
+                        <option value="307">307 – Temporary Redirect</option>
+                        <option value="308">308 – Permanent Redirect</option>
+                    </select>
                 </label>
             </td>
         </tr>

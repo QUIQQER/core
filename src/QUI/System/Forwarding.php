@@ -7,10 +7,13 @@ use QUI;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+use function debug_backtrace;
 use function file_exists;
 use function file_put_contents;
 use function is_array;
 use function trim;
+
+use const DEBUG_BACKTRACE_IGNORE_ARGS;
 
 /**
  * Class Forwarding
@@ -33,9 +36,7 @@ class Forwarding
             ]);
         }
 
-        if (empty($httpCode)) {
-            $httpCode = 301;
-        }
+        $httpCode = self::normalizeHttpCode($httpCode);
 
         self::getConfig()->setValue($from, 'target', $target);
         self::getConfig()->setValue($from, 'code', $httpCode);
@@ -75,9 +76,7 @@ class Forwarding
             );
         }
 
-        if (empty($httpCode)) {
-            $httpCode = 301;
-        }
+        $httpCode = self::normalizeHttpCode($httpCode);
 
         self::getConfig()->setValue($from, 'target', $target);
         self::getConfig()->setValue($from, 'code', $httpCode);
@@ -198,20 +197,39 @@ class Forwarding
      */
     public static function createRedirectResponse(array $data): RedirectResponse
     {
+        $code = self::normalizeHttpCode($data['code']);
         $target = $data['target'];
-        $code = (int)$data['code'];
 
         if (empty($target)) {
             $target = URL_DIR;
-        }
-
-        if (!$code) {
-            $code = 301;
         }
 
         $Redirect = new RedirectResponse($target);
         $Redirect->setStatusCode($code);
 
         return $Redirect;
+    }
+
+    private static function normalizeHttpCode(mixed $httpCode): int
+    {
+        $code = match ($httpCode) {
+            '', 0, '0', 301, '301' => 301,
+            302, '302' => 302,
+            303, '303' => 303,
+            307, '307' => 307,
+            308, '308' => 308,
+            default => null
+        };
+
+        if ($code !== null) {
+            return $code;
+        }
+
+        Log::addError('Unsupported forwarding HTTP status; using 301.', [
+            'httpCode' => $httpCode,
+            'trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)
+        ]);
+
+        return 301;
     }
 }
