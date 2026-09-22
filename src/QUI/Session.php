@@ -155,7 +155,7 @@ class Session
 
         QUI::getEvents()->fireEvent('quiqqerSessionStorageInit', [$this, &$storageOptions]);
 
-        if (!class_exists('NativeSessionStorage')) {
+        if (!class_exists($classNativeSessionStorage)) {
             $fileNativeSessionStorage = $symfonyDir . 'Session/Storage/NativeSessionStorage.php';
 
             if (!file_exists($fileNativeSessionStorage)) {
@@ -185,7 +185,7 @@ class Session
             );
         }
 
-        if (!class_exists('NativeSessionStorage')) {
+        if (!class_exists($classSession)) {
             $fileSession = $symfonyDir . 'Session/Session.php';
 
             if (!file_exists($fileSession)) {
