@@ -8,7 +8,7 @@
          data-locked="1"
     >
         <span class="msg">
-            {assign var=lastlogin value=$MarcateUser->getAttribute('lastvisit')|date_format:"d.m.Y H:M:S"}
+            {assign var=lastlogin value=$MarcateUser->getAttribute('lastvisit')|date_format:"d.m.Y H:i:s"}
 
             {locale
                 username=$MarcateUser->getName()

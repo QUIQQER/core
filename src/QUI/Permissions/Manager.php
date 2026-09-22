@@ -1885,6 +1885,12 @@ class Manager
         string $permission,
         callable | bool | string $ruleset = false
     ): mixed {
+        // Boolean rights are additive: any user/group grant allows the action.
+        // Keep explicit rulesets and non-boolean value precedence unchanged.
+        if (!$ruleset && ($this->cache[$permission]['type'] ?? null) === 'bool') {
+            return (bool)PermissionOrder::firstGranted($permission, $User, $this);
+        }
+
         /* @var $User User */
         $usersAndGroups = $User->getGroups();
         $result = false;

@@ -31,6 +31,35 @@ use function is_string;
 class PermissionOrder
 {
     /**
+     * Resolve a global grant from the user or any of their groups.
+     * False and empty values do not revoke grants from other sources.
+     * Object ACLs and numeric aggregation rules are evaluated separately.
+     *
+     * @return bool|int|array<array-key, mixed>|string
+     */
+    public static function firstGranted(
+        string $permission,
+        UserInterface $User,
+        Manager $Manager
+    ): bool|int|array|string {
+        $permissions = $Manager->getPermissions($User);
+
+        if (!empty($permissions[$permission])) {
+            return $permissions[$permission];
+        }
+
+        foreach ($User->getGroups() as $Group) {
+            $permissions = $Manager->getPermissions($Group);
+
+            if (!empty($permissions[$permission])) {
+                return $permissions[$permission];
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Finds the maximum integer value of a specified permission from a list of objects.
      *
      * @param string $permission The permission to check.

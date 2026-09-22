@@ -127,7 +127,7 @@ class PermissionTest extends TestCase
         );
     }
 
-    public function testCheckPermissionRejectsGroupGrantAfterExplicitUserDenial(): void
+    public function testCheckPermissionAcceptsGroupGrantDespiteUserFalse(): void
     {
         $Group = $this->createMock(Group::class);
         $User = $this->createUser(false, groups: [$Group]);
@@ -139,12 +139,10 @@ class PermissionTest extends TestCase
         );
         QUI::$Rights = $Manager;
 
-        $this->expectException(Exception::class);
-
-        Permission::checkPermission('test.permission', $User);
+        $this->assertTrue(Permission::checkPermission('test.permission', $User));
     }
 
-    public function testHasPermissionRejectsGroupGrantAfterExplicitUserDenial(): void
+    public function testHasPermissionAcceptsGroupGrantDespiteUserFalse(): void
     {
         $Group = $this->createMock(Group::class);
         $User = $this->createUser(false, groups: [$Group]);
@@ -156,7 +154,7 @@ class PermissionTest extends TestCase
         );
         QUI::$Rights = $Manager;
 
-        $this->assertFalse(
+        $this->assertTrue(
             Permission::hasPermission('test.permission', $User)
         );
     }
@@ -400,6 +398,46 @@ class PermissionTest extends TestCase
         );
     }
 
+    public function testSiteAllowlistStillRestrictsUsersWithGlobalGroupGrant(): void
+    {
+        $Site = $this->createMock(Site::class);
+        $Group = $this->createMock(Group::class);
+        $User = $this->createUser(false, groups: [$Group]);
+        $Manager = $this->createPermissionManagerMock();
+        $Manager->method('getSitePermissions')->willReturn([
+            'quiqqer.projects.site.view' => 'uother-user'
+        ]);
+        $Manager->method('getPermissionData')->willReturn(['type' => 'users_and_groups']);
+        $Manager->method('getPermissions')->willReturnCallback(
+            static fn (object $Object): array => [
+                'quiqqer.projects.sites.view' => $Object === $Group
+            ]
+        );
+        QUI::$Rights = $Manager;
+
+        self::assertTrue(Permission::hasPermission('quiqqer.projects.sites.view', $User));
+        self::assertFalse(Permission::hasSitePermission('quiqqer.projects.site.view', $Site, $User));
+    }
+
+    public function testEmptySiteAclUsesGroupGrantDespiteUserFalse(): void
+    {
+        $Site = $this->createMock(Site::class);
+        $Group = $this->createMock(Group::class);
+        $User = $this->createUser(false, groups: [$Group]);
+        $Manager = $this->createPermissionManagerMock();
+        $Manager->method('getSitePermissions')->willReturn([
+            'quiqqer.projects.site.view' => false
+        ]);
+        $Manager->method('getPermissions')->willReturnCallback(
+            static fn (object $Object): array => [
+                'quiqqer.projects.sites.view' => $Object === $Group
+            ]
+        );
+        QUI::$Rights = $Manager;
+
+        self::assertTrue(Permission::checkSitePermission('quiqqer.projects.site.view', $Site, $User));
+    }
+
     /**
      * @return array<string, array{string, string, string}>
      */
@@ -560,8 +598,10 @@ class PermissionTest extends TestCase
                 'denied.permission' => false
             ]);
             $Manager->method('getPermissionData')->willReturn(['type' => 'bool']);
+            $Manager->method('getPermissions')->willReturn(['denied.permission' => true]);
             QUI::$Rights = $Manager;
 
+            $this->assertTrue(Permission::hasPermission('denied.permission', $User));
             $this->assertTrue(
                 Permission::checkMediaPermission(
                     'media.permission',
@@ -616,7 +656,12 @@ class PermissionTest extends TestCase
         $User->method('getId')->willReturn($id);
         $User->method('getUUID')->willReturn($uuid);
         $User->method('getName')->willReturn('Test User');
-        $User->method('getGroups')->willReturn($groups);
+        $User->method('getGroups')->willReturnCallback(
+            static fn (bool $objects = true): array => $objects ? $groups : array_map(
+                static fn (Group|int|string $Group): int|string => $Group instanceof Group ? $Group->getUUID() : $Group,
+                $groups
+            )
+        );
 
         return $User;
     }
