@@ -55,6 +55,30 @@ class PanelSettingsTest extends TestCase
         }
     }
 
+    public function testCategoryIndexesAreRespectedAcrossCoreAndLegacyPackageTabs(): void
+    {
+        $OriginalPackages = QUI::$PackageManager;
+
+        try {
+            $Packages = $this->createMock(QUI\Package\Manager::class);
+            $Packages->method('getInstalled')->willReturn([
+                ['name' => 'quiqqer/core/tests/Fixtures/UserPanel/legacy'],
+                ['name' => 'quiqqer/core/tests/Fixtures/UserPanel/modern']
+            ]);
+            QUI::$PackageManager = $Packages;
+            $User = $this->createMock(UserInterface::class);
+            $User->method('getUUID')->willReturn('user-panel-order-test');
+            $categories = Utils::getUserToolbar($User)->toArray();
+
+            self::assertSame(
+                ['details', 'security', 'data', 'modern', 'later', 'legacy', 'legacy-second'],
+                array_slice(array_column($categories, 'name'), 0, 7)
+            );
+        } finally {
+            QUI::$PackageManager = $OriginalPackages;
+        }
+    }
+
     public function testDetailsPreserveFormFieldsAndPopulateAvailableLanguages(): void
     {
         $Path = $this->render('details');

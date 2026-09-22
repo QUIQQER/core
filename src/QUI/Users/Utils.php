@@ -87,6 +87,21 @@ class Utils
             );
         }
 
+        // Match XML panels: explicit indexes first, unindexed tabs keep their relative order.
+        $items = $TabBar->getItems();
+        usort($items, static function ($First, $Second): int {
+            $firstIndex = $First->getAttribute('index');
+            $secondIndex = $Second->getAttribute('index');
+
+            return (is_numeric($firstIndex) ? (float)$firstIndex : INF)
+                <=> (is_numeric($secondIndex) ? (float)$secondIndex : INF);
+        });
+        $TabBar->clear();
+
+        foreach ($items as $Item) {
+            $TabBar->appendChild($Item);
+        }
+
         return $TabBar;
     }
 
@@ -103,6 +118,7 @@ class Utils
             $TabBar->appendChild(
                 new QUI\Controls\Toolbar\Tab([
                     'name' => $category['name'],
+                    'index' => $category['index'],
                     'text' => QUI::getLocale()->parseLocaleString($category['title']),
                     'image' => $category['icon'],
                     'wysiwyg' => false,
