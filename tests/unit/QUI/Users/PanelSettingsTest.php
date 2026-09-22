@@ -86,7 +86,7 @@ class PanelSettingsTest extends TestCase
         $radioIds = $this->values($Path, '//input[@name="expire"]/@id');
         self::assertCount(2, array_unique($radioIds));
         self::assertSame(1.0, $Path->evaluate('count(//div[@data-name="generate-and-send-password"])'));
-        self::assertSame(0.0, $Path->evaluate('count(//table[@data-name="authenticator"])'));
+        self::assertSame(0.0, $Path->evaluate('count(//li[@data-name="authenticator"])'));
         self::assertSame(
             QUI::getLocale()->get('quiqqer/core', 'user.settings.authenticators.2faList.empty'),
             $Path->evaluate('string(//div[@data-name="authenticators"]/p)')
@@ -109,18 +109,25 @@ class PanelSettingsTest extends TestCase
     {
         $Authenticator = $this->createMock(AuthenticatorInterface::class);
         $Authenticator->method('getTitle')->willReturn('<script>alert("x")</script> & Test');
+        $Authenticator->method('getIcon')->willReturn('fa fa-brands fa-google');
         $Authenticator->method('getSettingsControl')->willReturn($hasSettings ? new QUI\Control() : null);
         $User = $this->createMock(UserInterface::class);
         $User->method('hasAuthenticator')->with($Authenticator::class)->willReturn($enabled);
         $Path = $this->parse(PanelSettings::render([OPT_DIR . 'quiqqer/core/user.xml'], 'security', $User, [
             $Authenticator
         ]));
-        $Table = $Path->query('//table[@data-name="authenticator"]')->item(0);
-        self::assertInstanceOf(DOMElement::class, $Table);
-        self::assertSame($enabled, str_contains($Table->getAttribute('class'), 'authenticator-enabled'));
-        self::assertSame($enabled || $hasSettings ? '1' : '', $Table->getAttribute('data-settings'));
-        self::assertSame($Authenticator::class, $Table->getAttribute('data-authenticator'));
-        self::assertSame('<script>alert("x")</script> & Test', $Table->textContent);
+        $Entry = $Path->query('//li[@data-name="authenticator"]')->item(0);
+        self::assertInstanceOf(DOMElement::class, $Entry);
+        self::assertSame(0.0, $Path->evaluate('count(//div[@data-name="authenticators"]//table)'));
+        self::assertSame(1.0, $Path->evaluate('count(//ul/li/div[@data-name="authenticator-actions"])'));
+        self::assertSame(0.0, $Path->evaluate('count(//div[@class="description"]/div[@data-name="authenticators"])'));
+        self::assertSame($enabled, str_contains($Entry->getAttribute('class'), 'authenticator-enabled'));
+        self::assertSame($enabled || $hasSettings ? '1' : '', $Entry->getAttribute('data-settings'));
+        self::assertSame($Authenticator::class, $Entry->getAttribute('data-authenticator'));
+        $Icon = $Path->query('//li[@data-name="authenticator"]/span[@aria-hidden="true"]')->item(0);
+        self::assertInstanceOf(DOMElement::class, $Icon);
+        self::assertSame('quiqqer-user-authenticator-icon fa fa-brands fa-google', $Icon->getAttribute('class'));
+        self::assertSame('<script>alert("x")</script> & Test', $Entry->textContent);
         self::assertSame(0.0, $Path->evaluate('count(//script)'));
     }
 

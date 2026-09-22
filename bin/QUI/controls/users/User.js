@@ -513,8 +513,6 @@ define('controls/users/User', [
                 });
 
                 // password save
-                let i, len;
-
                 const PasswordField = Body.getElement('input[name="password2"]'),
                     PasswordExpire = Body.getElements('input[name="expire"]'),
                     ShowPasswords = Body.getElement('input[name="showPasswords"]'),
@@ -583,79 +581,7 @@ define('controls/users/User', [
                     }).inject(GenerateAndSendContainer);
                 }
 
-                // authenticator
-                if (authenticators) {
-                    let cls, text, title, enabled,
-                        button, settingButton;
-
-                    for (i = 0, len = authenticators.length; i < len; i++) {
-                        enabled = false;
-                        title = QUILocale.get('quiqqer/core', 'isDeactivate');
-                        text = QUILocale.get('quiqqer/core', 'isDeactivate');
-                        cls = 'btn-red';
-
-                        if (authenticators[i].classList.contains('authenticator-enabled')) {
-                            enabled = true;
-                            title = QUILocale.get('quiqqer/core', 'isActivate');
-                            text = QUILocale.get('quiqqer/core', 'isActivate');
-                            cls = 'btn-green';
-                        }
-
-                        button = document.createElement('button');
-                        button.classList.add('btn', 'btn-secondary', 'qui-button', 'quiqqer-user-authenticator-status', cls);
-                        button.type = 'button';
-                        button.dataset.name = 'authenticator-status';
-                        button.setAttribute('aria-pressed', String(enabled));
-                        button.title = text;
-                        button.textContent = text;
-                        button.style.float = 'right';
-
-                        button.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-
-                            const button = e.currentTarget;
-
-                            this.$toggleAuthentication(button).catch((err) => {
-                                console.error(err);
-                            });
-                        });
-
-                        authenticators[i].querySelector('[data-name="authenticator-title"]').appendChild(button);
-
-
-                        if (authenticators[i].getAttribute('data-settings')) {
-                            settingButton = document.createElement('button');
-                            settingButton.classList.add(
-                                'btn',
-                                'btn-secondary',
-                                'qui-button',
-                                'quiqqer-user-authenticator-settings'
-                            );
-                            settingButton.type = 'button';
-                            settingButton.name = 'settings';
-                            settingButton.dataset.name = 'authenticator-settings';
-                            settingButton.setAttribute('aria-label', QUILocale.get(
-                                lg, 'user.settings.authenticators.additionalSettings'
-                            ));
-                            settingButton.innerHTML = '<span class="fa fa-gears" aria-hidden="true"></span>';
-                            settingButton.style.float = 'right';
-                            settingButton.style.marginRight = '10px';
-
-
-                            settingButton.addEventListener('click', (e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-
-                                this.$openAuthSettings(e.currentTarget);
-                            });
-
-                            settingButton.disabled = !authenticators[i].classList.contains('authenticator-enabled');
-
-                            authenticators[i].querySelector('[data-name="authenticator-title"]').appendChild(settingButton);
-                        }
-                    }
-                }
+                authenticators.forEach(Entry => this.$createAuthenticatorButtons(Entry));
 
                 // password expire
                 if (PasswordExpire.length) {
@@ -690,7 +616,7 @@ define('controls/users/User', [
                                 html: ''
                             }).inject(Toolbar);
 
-                            for (i = 0, len = toolbars.length; i < len; i++) {
+                            for (let i = 0, len = toolbars.length; i < len; i++) {
                                 let label = toolbars[i];
 
                                 if (label.indexOf(':') !== -1) {
@@ -1525,156 +1451,106 @@ define('controls/users/User', [
             });
         },
 
-        $toggleAuthentication: function (button) {
-            const user = this.getUser();
+        $createAuthenticatorButtons: function (Entry) {
+            const Actions = Entry.querySelector('[data-name="authenticator-actions"]');
+            const Status = document.createElement('button');
+            Status.type = 'button';
+            Status.dataset.name = 'authenticator-status';
+            Status.classList.add('btn', 'btn-secondary', 'qui-button', 'quiqqer-user-authenticator-status');
+            Status.addEventListener('click', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                this.$toggleAuthentication(Status).catch(error => console.error(error));
+            });
 
-            let table = button.closest('table'),
-                tbody = table.querySelector('tbody'),
-                auth = table.get('data-authenticator'),
-                wasEnabled = table.hasClass('authenticator-enabled'),
-                toggleStatus = Promise.resolve();
-
-            button.style.width = button.offsetWidth + 'px';
-            button.innerHTML = '<span class="fa fa-spinner fa-spin"></span>';
-
-            if (wasEnabled) {
-                toggleStatus = user.disableAuthenticator(auth);
-            } else {
-                toggleStatus = user.enableAuthenticator(auth);
+            if (Entry.dataset.settings) {
+                const Settings = document.createElement('button');
+                Settings.type = 'button';
+                Settings.name = 'settings';
+                Settings.dataset.name = 'authenticator-settings';
+                Settings.classList.add('btn', 'btn-secondary', 'qui-button', 'quiqqer-user-authenticator-settings');
+                Settings.setAttribute('aria-label', QUILocale.get(
+                    lg, 'user.settings.authenticators.additionalSettings'
+                ));
+                Settings.title = Settings.getAttribute('aria-label');
+                const Icon = document.createElement('span');
+                Icon.classList.add('fa', 'fa-gears');
+                Icon.setAttribute('aria-hidden', 'true');
+                Settings.appendChild(Icon);
+                Settings.addEventListener('click', event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    this.$openAuthSettings(Settings);
+                });
+                Actions.appendChild(Settings);
             }
 
-            return toggleStatus.then(() => {
-                return user.hasAuthenticator(auth);
-            }).then((enabled) => {
-                button.setAttribute('aria-pressed', String(enabled));
+            Actions.appendChild(Status);
+            this.$setAuthenticatorState(Entry, Entry.classList.contains('authenticator-enabled'));
+        },
 
-                if (enabled) {
-                    table.classList.add('authenticator-enabled');
+        $setAuthenticatorState: function (Entry, enabled) {
+            const Status = Entry.querySelector('[data-name="authenticator-status"]');
+            const Settings = Entry.querySelector('[data-name="authenticator-settings"]');
+            Entry.classList.toggle('authenticator-enabled', enabled);
 
-                    button.style.width = '';
-                    button.innerHTML = QUILocale.get('quiqqer/core', 'isActivate');
-                    button.classList.remove('btn-red');
-                    button.classList.add('btn-green');
+            if (Status) {
+                Status.textContent = QUILocale.get(lg, enabled ? 'isActivate' : 'isDeactivate');
+                Status.title = Status.textContent;
+                Status.setAttribute('aria-label', Status.textContent);
+                Status.setAttribute('aria-pressed', String(enabled));
+                Status.classList.toggle('btn-green', enabled);
+                Status.classList.toggle('btn-red', !enabled);
+            }
 
-                    if (table.querySelector('[name="settings"]')) {
-                        table.querySelector('[name="settings"]').disabled = false;
+            if (Settings) {
+                Settings.disabled = !enabled;
+            }
+        },
+
+        $toggleAuthentication: function (button) {
+            const user = this.getUser();
+            const Entry = button.closest('[data-name="authenticator"]');
+            const auth = Entry.dataset.authenticator;
+            const wasEnabled = Entry.classList.contains('authenticator-enabled');
+
+            button.style.width = button.offsetWidth + 'px';
+            button.disabled = true;
+            button.setAttribute('aria-busy', 'true');
+            button.innerHTML = '<span class="fa fa-spinner fa-spin" aria-hidden="true"></span>';
+
+            const toggleStatus = wasEnabled ? user.disableAuthenticator(auth) : user.enableAuthenticator(auth);
+
+            return toggleStatus.then(() => user.hasAuthenticator(auth)).then(enabled => {
+                this.$setAuthenticatorState(Entry, enabled);
+
+                if (enabled && !wasEnabled && auth === 'QUI\\Users\\Auth\\WebAuthn') {
+                    const Settings = Entry.querySelector('[data-name="authenticator-settings"]');
+
+                    if (Settings) {
+                        this.$openAuthSettings(Settings);
                     }
-
-                    if (!wasEnabled && auth === 'QUI\\Users\\Auth\\WebAuthn') {
-                        const settingsButton = table.querySelector('[name="settings"]');
-
-                        if (settingsButton) {
-                            this.$openAuthSettings(settingsButton);
-                        }
-                    }
-
-                    //return user.getAuthenticatorSettings(auth);
-                    return;
                 }
-
-                table.classList.remove('authenticator-enabled');
-
+            }).catch(error => {
+                this.$setAuthenticatorState(Entry, wasEnabled);
+                throw error;
+            }).finally(() => {
                 button.style.width = '';
-                button.innerHTML = QUILocale.get('quiqqer/core', 'isDeactivate');
-                button.classList.add('btn-red');
-                button.classList.remove('btn-green');
-
-                if (table.querySelector('[name="settings"]')) {
-                    table.querySelector('[name="settings"]').disabled = true;
-                }
-
-                return false;
-            }).then((settings) => {
-                return;
-
-                if (!settings || settings === '') {
-                    if (tbody) {
-                        tbody.destroy();
-                    }
-                    return;
-                }
-
-                if (!tbody) {
-                    tbody = new Element('tbody', {
-                        html: '<tr><td></td></tr>'
-                    }).inject(table);
-                }
-
-                tbody.querySelector('td').innerHTML = settings;
-
-                Array.from(tbody.querySelectorAll('[data-qui]')).forEach((node) => {
-                    node.setAttribute('data-qui-options-uid', user.getId());
-                });
-
-                return QUI.parse(tbody);
-            }).then(() => {
-                QUI.Controls.getControlsInElement(tbody).each((Control) => {
-                    Control.setAttribute('Panel', this);
-                    Control.setAttribute('uid', this.getUser().getId());
-                    Control.setAttribute('User', this.getUser());
-                });
-            }).catch(function (Exception) {
-                console.error(Exception);
-                button.innerHTML = '<span class="fa fa-bolt"></span>';
+                button.disabled = false;
+                button.removeAttribute('aria-busy');
             });
         },
 
         $refreshAuthenticator: function (authenticator) {
-            const user = this.getUser();
-            const authenticators = Array.from(this.getBody().querySelectorAll('[data-name="authenticator"]'));
+            const Entry = Array.from(this.getBody().querySelectorAll('[data-name="authenticator"]'))
+                .find(entry => entry.dataset.authenticator === authenticator);
 
-            let table = null;
-
-            authenticators.some((entry) => {
-                if (entry.get('data-authenticator') === authenticator) {
-                    table = entry;
-                    return true;
-                }
-
-                return false;
-            });
-
-            if (!table) {
+            if (!Entry) {
                 return Promise.resolve();
             }
 
-            const button = table.querySelector('thead th > button:not([name="settings"])');
-            const settingsButton = table.querySelector('thead th > button[name="settings"]');
-
-            return user.hasAuthenticator(authenticator).then((enabled) => {
-                if (button) {
-                    button.setAttribute('aria-pressed', String(enabled));
-                }
-
-                if (enabled) {
-                    table.classList.add('authenticator-enabled');
-
-                    if (button) {
-                        button.innerHTML = QUILocale.get('quiqqer/core', 'isActivate');
-                        button.title = QUILocale.get('quiqqer/core', 'isActivate');
-                        button.classList.remove('btn-red');
-                        button.classList.add('btn-green');
-                    }
-
-                    if (settingsButton) {
-                        settingsButton.disabled = false;
-                    }
-
-                    return;
-                }
-
-                table.classList.remove('authenticator-enabled');
-
-                if (button) {
-                    button.innerHTML = QUILocale.get('quiqqer/core', 'isDeactivate');
-                    button.title = QUILocale.get('quiqqer/core', 'isDeactivate');
-                    button.classList.add('btn-red');
-                    button.classList.remove('btn-green');
-                }
-
-                if (settingsButton) {
-                    settingsButton.disabled = true;
-                }
+            return this.getUser().hasAuthenticator(authenticator).then(enabled => {
+                this.$setAuthenticatorState(Entry, enabled);
             });
         },
 
@@ -1682,8 +1558,8 @@ define('controls/users/User', [
             const user = this.getUser();
             const Panel = this;
 
-            let table = button.closest('table'),
-                auth = table.get('data-authenticator');
+            const Entry = button.closest('[data-name="authenticator"]');
+            const auth = Entry.dataset.authenticator;
 
             require([
                 'qui/controls/windows/Popup'

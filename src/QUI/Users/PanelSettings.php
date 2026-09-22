@@ -61,6 +61,13 @@ class PanelSettings
                 continue;
             }
 
+            // This placeholder contains an interactive list, not explanatory text.
+            $Wrapper = $Container->parentNode;
+
+            if ($Wrapper instanceof DOMElement && $Wrapper->getAttribute('class') === 'description') {
+                $Wrapper->parentNode?->replaceChild($Container, $Wrapper);
+            }
+
             if (!$authenticators) {
                 $Empty = $Document->createElement('p');
                 $Empty->appendChild($Document->createTextNode(QUI::getLocale()->get(
@@ -70,22 +77,37 @@ class PanelSettings
                 $Container->appendChild($Empty);
             }
 
+            $List = $Document->createElement('ul');
+            $List->setAttribute('class', 'quiqqer-user-authenticators');
+
             foreach ($authenticators as $Authenticator) {
                 $enabled = $User->hasAuthenticator($Authenticator::class);
-                $Table = $Document->createElement('table');
-                $Table->setAttribute('class', 'authenticator data-table' . ($enabled ? ' authenticator-enabled' : ''));
-                $Table->setAttribute('data-name', 'authenticator');
-                $Table->setAttribute('data-authenticator', $Authenticator::class);
-                $Table->setAttribute('data-settings', $enabled || $Authenticator->getSettingsControl() ? '1' : '');
-                $Head = $Document->createElement('thead');
-                $Row = $Document->createElement('tr');
-                $Title = $Document->createElement('th');
+                $Entry = $Document->createElement('li');
+                $Entry->setAttribute('class', 'quiqqer-user-authenticator' . ($enabled ? ' authenticator-enabled' : ''));
+                $Entry->setAttribute('data-name', 'authenticator');
+                $Entry->setAttribute('data-authenticator', $Authenticator::class);
+                $Entry->setAttribute('data-settings', $enabled || $Authenticator->getSettingsControl() ? '1' : '');
+                $Icon = $Document->createElement('span');
+                $Icon->setAttribute(
+                    'class',
+                    'quiqqer-user-authenticator-icon ' . (trim($Authenticator->getIcon()) ?: 'fa fa-key')
+                );
+                $Icon->setAttribute('aria-hidden', 'true');
+                $Title = $Document->createElement('span');
+                $Title->setAttribute('class', 'quiqqer-user-authenticator-title');
                 $Title->setAttribute('data-name', 'authenticator-title');
                 $Title->appendChild($Document->createTextNode($Authenticator->getTitle()));
-                $Row->appendChild($Title);
-                $Head->appendChild($Row);
-                $Table->appendChild($Head);
-                $Container->appendChild($Table);
+                $Actions = $Document->createElement('div');
+                $Actions->setAttribute('class', 'quiqqer-user-authenticator-actions');
+                $Actions->setAttribute('data-name', 'authenticator-actions');
+                $Entry->appendChild($Icon);
+                $Entry->appendChild($Title);
+                $Entry->appendChild($Actions);
+                $List->appendChild($Entry);
+            }
+
+            if ($authenticators) {
+                $Container->appendChild($List);
             }
         }
 
