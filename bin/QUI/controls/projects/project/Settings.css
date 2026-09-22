@@ -1,5 +1,23 @@
 /*@CHARSET "UTF-8";*/
 
+.qui-panel-categories .qui-button.qui-project-settings-module-start {
+    --_module-gap: var(--quiqqer-core-project-settings-module-gap, 8px);
+    --_module-divider-bg: var(--quiqqer-core-project-settings-module-divider-bg, var(--qui-colors-gray-100));
+
+    margin-top: var(--_module-gap) !important;
+}
+
+.qui-panel-categories .qui-button.qui-project-settings-module-start::before {
+    background: var(--_module-divider-bg);
+    content: "";
+    height: var(--_module-gap);
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: calc(-1 * var(--_module-gap));
+    width: 100%;
+}
+
 .qui-project-settings [name="langs"] {
     border: none;
     clear: both;

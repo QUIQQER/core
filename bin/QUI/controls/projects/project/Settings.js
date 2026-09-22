@@ -201,7 +201,18 @@ define('controls/projects/project/Settings', [
 
 
             Ajax.get('ajax_project_panel_categories_get', function (list) {
+                const Sorter = new Intl.Collator(Locale.getCurrent(), {
+                    numeric: true,
+                    sensitivity: 'base'
+                });
+
+                list.sort((a, b) => Sorter.compare(a.text || '', b.text || ''));
+
                 for (let i = 0, len = list.length; i < len; i++) {
+                    if (i === 0) {
+                        list[i].class = (list[i].class || '') + ' qui-project-settings-module-start';
+                    }
+
                     self.addCategory(list[i]);
                 }
 

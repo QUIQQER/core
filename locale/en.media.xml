@@ -625,7 +625,7 @@
             <en><![CDATA[top left]]></en>
         </locale>
         <locale name="projects.project.panel.settings.btn.media">
-            <en><![CDATA[Media settings]]></en>
+            <en><![CDATA[Media]]></en>
         </locale>
         <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize">
             <en><![CDATA[Maximum size of an image]]></en>
