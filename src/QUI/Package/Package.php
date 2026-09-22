@@ -759,6 +759,11 @@ class Package extends QUI\QDOM
 
         // xml
         try {
+            if ($pkgName === 'quiqqer/core') {
+                // Migrate legacy session data before the generic XML schema import.
+                QUI\Session::setup();
+            }
+
             Update::importDatabase($dir . self::DATABASE_XML);
         } catch (\Exception $Exception) {
             QUI\System\Log::writeException($Exception);

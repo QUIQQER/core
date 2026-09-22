@@ -6,6 +6,10 @@
 
 namespace QUI;
 
+use Doctrine\DBAL\Schema\Column;
+use Doctrine\DBAL\Schema\TableDiff;
+use Doctrine\DBAL\Types\BlobType;
+use Doctrine\DBAL\Types\Type;
 use Memcache;
 use Memcached;
 use PDO;
@@ -453,10 +457,37 @@ class Session
      */
     public static function setup(): void
     {
+        $Connection = QUI::getDataBaseConnection();
         $SchemaManager = QUI::getSchemaManager();
         $tableName = QUI::getDBTableName("sessions");
+        $valueOptions = ['length' => 16777215, 'notnull' => false];
 
         if ($SchemaManager->tablesExist([$tableName])) {
+            $Table = $SchemaManager->introspectTable($tableName);
+
+            if ($Table->hasColumn('session_value') && $Table->getColumn('session_value')->getType() instanceof BlobType) {
+                return;
+            }
+
+            // Sessions may expire during this migration. Replacing the column also avoids
+            // database-specific TEXT-to-binary casts, particularly on PostgreSQL.
+            $Connection->createQueryBuilder()
+                ->delete($Connection->quoteIdentifier($tableName))
+                ->executeStatement();
+
+            if ($Table->hasColumn('session_value')) {
+                $SchemaManager->alterTable(new TableDiff(
+                    $Table,
+                    droppedColumns: [$Table->getColumn('session_value')]
+                ));
+                $Table = $SchemaManager->introspectTable($tableName);
+            }
+
+            $SchemaManager->alterTable(new TableDiff(
+                $Table,
+                addedColumns: [new Column('session_value', Type::getType('blob'), $valueOptions)]
+            ));
+
             return;
         }
 
@@ -464,7 +495,7 @@ class Session
         $Table->addOption("charset", "utf8mb4");
         $Table->addOption("collation", "utf8mb4_general_ci");
         $Table->addColumn("session_id", "string", ["length" => 255]);
-        $Table->addColumn("session_value", "text");
+        $Table->addColumn("session_value", "blob", $valueOptions);
         $Table->addColumn("session_time", "integer");
         $Table->addColumn("session_lifetime", "integer");
         $Table->addColumn("uid", "integer", ["notnull" => false]);
