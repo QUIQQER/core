@@ -116,7 +116,7 @@ class Utils
         $tabs = XML::getTabsFromXml($file);
 
         if (!empty($tabs)) {
-            QUI\System\Log::addDeprecated(
+            QUI\System\Log::addError(
                 'Using <window><tab> in user.xml is deprecated. Use <categories>/<category>/<settings> instead.',
                 ['file' => $file]
             );
