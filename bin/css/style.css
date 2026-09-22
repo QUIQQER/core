@@ -46,6 +46,59 @@ html, body {
     background: #2F8FC6;
 }
 
+.qui-panel-categories {
+    --_scroll-bg: var(--quiqqer-core-panel-category-scroll-bg, var(--qui-colors-gray-50));
+    --_scroll-hover-bg: var(--quiqqer-core-panel-category-scroll-hover-bg, var(--qui-colors-gray-100));
+    --_scroll-active-bg: var(--quiqqer-core-panel-category-scroll-active-bg, var(--qui-colors-gray-200));
+    --_scroll-color: var(--quiqqer-core-panel-category-scroll-color, var(--qui-colors-gray-700));
+    --_scroll-focus: var(--quiqqer-core-panel-category-scroll-focus, var(--qui-colors-primary));
+    --_scroll-radius: var(--quiqqer-core-panel-category-scroll-radius, 6px);
+    --_scroll-gap: var(--quiqqer-core-panel-category-scroll-gap, 3px);
+}
+
+.qui-panel-categories .qui-toolbar-button:is(.qui-toolbar-button-scrollUp, .qui-toolbar-button-scrollDown) {
+    align-items: center;
+    background: var(--_scroll-bg);
+    border: 0 !important;
+    border-radius: var(--_scroll-radius) !important;
+    box-shadow: none !important;
+    color: var(--_scroll-color);
+    cursor: pointer;
+    display: flex;
+    height: calc(30px - 2 * var(--_scroll-gap));
+    justify-content: center;
+    margin: var(--_scroll-gap) !important;
+    padding: 0 !important;
+    touch-action: manipulation;
+    width: calc(100% - 2 * var(--_scroll-gap));
+}
+
+.qui-panel-categories .qui-toolbar-button:is(.qui-toolbar-button-scrollUp, .qui-toolbar-button-scrollDown):hover,
+.qui-panel-categories .qui-toolbar-button:is(.qui-toolbar-button-scrollUp, .qui-toolbar-button-scrollDown).qui-button-over {
+    background: var(--_scroll-hover-bg) !important;
+    color: var(--_scroll-color);
+}
+
+.qui-panel-categories .qui-toolbar-button:is(.qui-toolbar-button-scrollUp, .qui-toolbar-button-scrollDown):active {
+    background: var(--_scroll-active-bg) !important;
+}
+
+.qui-panel-categories .qui-toolbar-button:is(.qui-toolbar-button-scrollUp, .qui-toolbar-button-scrollDown):focus-visible {
+    outline: 2px solid var(--_scroll-focus);
+    outline-offset: -2px;
+}
+
+.qui-panel-categories .qui-toolbar-button:is(.qui-toolbar-button-scrollUp, .qui-toolbar-button-scrollDown) .qui-button-text {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
 th {
     text-align: left;
 }
