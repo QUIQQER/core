@@ -25,7 +25,11 @@ class PanelSettings
         $Settings->setXMLPath('//user/window');
         $html = $Settings->getCategoriesHtml($files, $category);
 
-        if (!str_contains($html, 'data-name="user-language"') && !str_contains($html, 'data-name="authenticators"')) {
+        if (
+            !str_contains($html, 'data-name="user-language"')
+            && !str_contains($html, 'data-name="authenticators"')
+            && !str_contains($html, 'data-name="address-list"')
+        ) {
             return $html;
         }
 
@@ -35,6 +39,20 @@ class PanelSettings
             LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING
         );
         $Path = new DOMXPath($Document);
+
+        // The address grid supplies its own toolbar and layout.
+        foreach ($Path->query('//div[@data-name="address-list"]') ?: [] as $Container) {
+            if (!$Container instanceof DOMElement) {
+                continue;
+            }
+
+            $Tables = $Path->query('ancestor::table[1]', $Container);
+            $Table = $Tables ? $Tables->item(0) : null;
+
+            if ($Table instanceof DOMElement) {
+                $Table->parentNode?->replaceChild($Container, $Table);
+            }
+        }
 
         foreach ($Path->query('//select[@data-name="user-language"]') ?: [] as $Select) {
             if (!$Select instanceof DOMElement) {

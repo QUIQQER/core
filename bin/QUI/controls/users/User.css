@@ -1,7 +1,18 @@
 
-.address-list {
+.quiqqer-user-address-form,
+.quiqqer-user-address-form .address-list {
     float: left;
+    height: 100%;
     width: 100%;
+}
+
+.quiqqer-user-address-form .address-list {
+    /* Grid redraws write a pixel height including an extra border allowance. */
+    height: 100% !important;
+}
+
+.quiqqer-user-address-count {
+    white-space: nowrap;
 }
 
 .quiqqer-quiqqer-user-mail-extrasbtn .qui-button-multiple-dd {

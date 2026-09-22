@@ -133,7 +133,9 @@ class PanelSettingsTest extends TestCase
 
     public function testAddressCategoryRetainsTheGridMountPoint(): void
     {
-        self::assertSame(1.0, $this->render('data')->evaluate('count(//div[@data-name="address-list"])'));
+        $Path = $this->render('data');
+        self::assertSame(1.0, $Path->evaluate('count(/html/body/div[@data-name="address-list"])'));
+        self::assertSame(0.0, $Path->evaluate('count(//table)'));
     }
 
     public function testUnknownCategoryIsEmpty(): void

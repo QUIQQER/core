@@ -49,6 +49,7 @@ define('controls/users/User', [
 
             '$onCreate',
             '$onDestroy',
+            '$resizeAddressGrid',
             '$onStatusButtonChange',
             '$onButtonActive',
             '$onButtonNormal',
@@ -76,7 +77,9 @@ define('controls/users/User', [
             this.addEvents({
                 onCreate: this.$onCreate,
                 onDestroy: this.$onDestroy,
+                onResize: this.$resizeAddressGrid,
                 onShow: function () {
+                    this.$resizeAddressGrid();
                     const Status = this.getButtons('status');
 
                     if (Status) {
@@ -1145,19 +1148,25 @@ define('controls/users/User', [
         $createAddressTable: function () {
             const self = this,
                 Content = this.getContent(),
-                size = Content.getSize(),
                 AddressList = Content.querySelector('[data-name="address-list"]');
 
             if (!AddressList) {
                 return;
             }
 
+            const Form = AddressList.closest('form');
+            Form.classList.add('quiqqer-user-address-form');
+
             this.$AddressGrid = new Grid(AddressList, {
+                'button-reload': true,
+                exportData: true,
+                exportName: QUILocale.get(lg, 'addresses'),
                 columnModel: [
                     {
                         header: '&nbsp;',
                         dataIndex: 'default',
                         dataType: 'node',
+                        export: false,
                         width: 40
                     },
                     {
@@ -1240,9 +1249,6 @@ define('controls/users/User', [
                         }
                     },
                     {
-                        type: 'separator'
-                    },
-                    {
                         name: 'edit',
                         text: QUILocale.get(lg, 'users.user.address.table.btn.edit'),
                         textimage: 'fa fa-edit',
@@ -1257,8 +1263,9 @@ define('controls/users/User', [
                     },
                     {
                         name: 'delete',
-                        text: QUILocale.get(lg, 'users.user.address.table.btn.delete'),
-                        textimage: 'fa fa-remove',
+                        title: QUILocale.get(lg, 'users.user.address.table.btn.delete'),
+                        position: 'right',
+                        icon: 'fa fa-trash-o',
                         disabled: true,
                         events: {
                             onClick: function () {
@@ -1270,7 +1277,8 @@ define('controls/users/User', [
                     }
                 ],
 
-                height: 300,
+                height: Form.clientHeight,
+                width: Form.clientWidth,
                 onrefresh: function () {
                     self.$refreshAddresses();
                 }
@@ -1303,8 +1311,23 @@ define('controls/users/User', [
                 }
             });
 
-            this.$AddressGrid.setWidth(size.x - 60);
             this.$AddressGrid.refresh();
+        },
+
+        /**
+         * Fit the address grid to the available panel content.
+         */
+        $resizeAddressGrid: function () {
+            const AddressList = this.getContent()?.querySelector('[data-name="address-list"]');
+
+            if (!this.$AddressGrid || !AddressList || this.$AddressGrid.container !== AddressList) {
+                return;
+            }
+
+            const Form = AddressList.closest('form');
+            this.$AddressGrid.setHeight(Form.clientHeight);
+            this.$AddressGrid.setWidth(Form.clientWidth);
+            this.$AddressGrid.resize();
         },
 
         /**
@@ -1315,7 +1338,7 @@ define('controls/users/User', [
                 return;
             }
 
-            const self = this;
+            const AddressGrid = this.$AddressGrid;
 
             QUIAjax.get('ajax_users_address_list', function (result) {
                 for (let i = 0, len = result.length; i < len; i++) {
@@ -1330,9 +1353,26 @@ define('controls/users/User', [
                     }
                 }
 
-                self.$AddressGrid.setData({
+                AddressGrid.setData({
                     data: result
                 });
+
+                let Count = AddressGrid.container.querySelector('[data-name="address-count"]');
+
+                if (!Count) {
+                    Count = document.createElement('span');
+                    Count.dataset.name = 'address-count';
+                    Count.className = 'quiqqer-user-address-count';
+                    Count.setAttribute('role', 'status');
+                    // The shared grid footer currently exposes only a CSS class.
+                    AddressGrid.container.querySelector('.pDiv2').prepend(Count);
+                }
+
+                Count.textContent = QUILocale.get(
+                    lg,
+                    result.length === 1 ? 'users.user.address.count.one' : 'users.user.address.count.other',
+                    {count: result.length}
+                );
             }, {
                 uid: this.getUser().getId()
             });
