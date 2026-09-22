@@ -187,7 +187,6 @@ class Forwarding
     {
         $Redirect = self::createRedirectResponse($data);
 
-        echo $Redirect->getContent();
         $Redirect->send();
         exit;
     }
