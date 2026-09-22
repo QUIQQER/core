@@ -16,7 +16,8 @@ define('controls/projects/project/Settings', [
     'utils/Controls',
     'package/quiqqer/translator/bin/controls/Create',
 
-    'css!controls/projects/project/Settings.css'
+    'css!controls/projects/project/Settings.css',
+    'css!controls/desktop/panels/XML.css'
 
 ], function (QUI,
              QUIPanel,
@@ -116,6 +117,7 @@ define('controls/projects/project/Settings', [
         $onCreate: function () {
             const self = this;
 
+            this.getElm().classList.add('quiqqer-xml-panel');
             this.Loader.show();
             this.getContent().addClass('qui-project-settings');
 
