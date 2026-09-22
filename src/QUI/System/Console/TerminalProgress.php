@@ -8,6 +8,7 @@ use function basename;
 use function extension_loaded;
 use function fwrite;
 use function getcwd;
+use function getenv;
 use function is_resource;
 use function pcntl_async_signals;
 use function pcntl_fork;
@@ -18,6 +19,7 @@ use function posix_kill;
 use function preg_replace;
 use function register_shutdown_function;
 use function stream_isatty;
+use function str_starts_with;
 use function usleep;
 
 use const STDOUT;
@@ -209,6 +211,19 @@ class TerminalProgress
 
     private function isInteractiveOutput(): bool
     {
-        return is_resource($this->output) && stream_isatty($this->output);
+        if (!is_resource($this->output) || !stream_isatty($this->output)) {
+            return false;
+        }
+
+        $terminal = getenv('TERM');
+        $screenSession = getenv('STY');
+
+        // A TTY alone does not guarantee support for the title/progress sequences.
+        // Screen can display their payload as ordinary output on every animation frame.
+        return $terminal !== false
+            && $terminal !== ''
+            && $terminal !== 'dumb'
+            && !str_starts_with($terminal, 'screen')
+            && ($screenSession === false || $screenSession === '');
     }
 }
