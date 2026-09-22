@@ -5,7 +5,15 @@ use Monolog\Logger as MonologLogger;
 use QUI\Log\Logger;
 use QUI\Rewrite;
 
-require dirname(__DIR__, 3) . '/runtime-bootstrap.php';
+define('QUIQQER_SYSTEM', true);
+define('QUIQQER_AJAX', true);
+require dirname(__DIR__, 3) . '/Support/DatabaseEnvironment.php';
+
+if (\QUITests\Support\DatabaseEnvironment::usesCiDatabase()) {
+    require dirname(__DIR__, 7) . '/bootstrap.php';
+} else {
+    require dirname(__DIR__, 3) . '/runtime-bootstrap.php';
+}
 
 $Handler = new TestHandler();
 Logger::$Logger = new MonologLogger('rewrite-response-test', [$Handler]);

@@ -96,7 +96,7 @@ class RewriteResponseTest extends TestCase
         fclose($pipes[2]);
         $exitCode = proc_close($process);
 
-        self::assertSame(0, $exitCode, (string)$metadata);
+        self::assertSame(0, $exitCode, "STDOUT:\n" . $output . "\nSTDERR:\n" . $metadata);
         self::assertIsString($output);
         self::assertStringContainsString('https://target.example.test', $output);
         $data = json_decode((string)$metadata, true);
