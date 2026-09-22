@@ -79,23 +79,10 @@ class Permission
         }
 
         $Manager = QUI::getPermissionManager();
-        $permissions = $Manager->getPermissions($User);
+        $grant = PermissionOrder::firstGranted($perm, $User, $Manager);
 
-        if (!empty($permissions[$perm])) {
-            return $permissions[$perm];
-        }
-
-        // An explicitly stored user denial takes precedence over group values.
-        if (!($User instanceof QUI\Users\User && isset($permissions[$perm]))) {
-            $groups = $User->getGroups();
-
-            foreach ($groups as $Group) {
-                $permissions = $Manager->getPermissions($Group);
-
-                if (!empty($permissions[$perm])) {
-                    return $permissions[$perm];
-                }
-            }
+        if ($grant !== false) {
+            return $grant;
         }
 
         throw new Exception(
