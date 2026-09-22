@@ -44,6 +44,12 @@
     line-height: 1;
 }
 
+.quiqqer-user-authenticator-status:focus-visible,
+.quiqqer-user-authenticator-settings:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
 .user-delete-window-list-entry {
     margin-bottom: 0.5rem;
 }

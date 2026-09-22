@@ -38,6 +38,8 @@ class Utils
             'quiqqer/core'
         );
 
+        self::addSettingsCategoriesToToolbar([OPT_DIR . 'quiqqer/core/user.xml'], $TabBar);
+
         if (!$User->getUUID()) {
             return $TabBar;
         }
@@ -70,25 +72,7 @@ class Utils
             );
         }
 
-        // category xml
-        $Settings = QUI\Utils\XML\Settings::getInstance();
-        $Settings->setXMLPath('//user/window');
-
-        $result = $Settings->getPanel($userXmlFiles);
-        $categories = $result['categories']->toArray();
-
-        foreach ($categories as $category) {
-            $TabBar->appendChild(
-                new QUI\Controls\Toolbar\Tab([
-                    'name' => $category['name'],
-                    'text' => QUI::getLocale()->parseLocaleString($category['title']),
-                    'image' => $category['icon'],
-                    'wysiwyg' => false,
-                    'type' => 'xml',
-                    'plugin' => $category['file']
-                ])
-            );
-        }
+        self::addSettingsCategoriesToToolbar($userXmlFiles, $TabBar);
 
         /**
          * user extension from projects
@@ -104,6 +88,29 @@ class Utils
         }
 
         return $TabBar;
+    }
+
+    /**
+     * @param list<string> $files
+     */
+    private static function addSettingsCategoriesToToolbar(array $files, Bar $TabBar): void
+    {
+        $Settings = new QUI\Utils\XML\Settings();
+        $Settings->setXMLPath('//user/window');
+        $result = $Settings->getPanel($files);
+
+        foreach ($result['categories'] as $category) {
+            $TabBar->appendChild(
+                new QUI\Controls\Toolbar\Tab([
+                    'name' => $category['name'],
+                    'text' => QUI::getLocale()->parseLocaleString($category['title']),
+                    'image' => $category['icon'],
+                    'wysiwyg' => false,
+                    'type' => 'xml',
+                    'plugin' => $category['file']
+                ])
+            );
+        }
     }
 
     /**
@@ -159,17 +166,11 @@ class Utils
 
         // <category>
         if (!file_exists($plugin) && file_exists(CMS_DIR . $plugin)) {
-            $Settings = QUI\Utils\XML\Settings::getInstance();
-            $Settings->setXMLPath('//user/window');
-
-            return $Settings->getCategoriesHtml([CMS_DIR . $plugin], $tab);
+            return PanelSettings::render([CMS_DIR . $plugin], $tab, $User, $userAuthenticators);
         }
 
         if (file_exists($plugin)) {
-            $Settings = QUI\Utils\XML\Settings::getInstance();
-            $Settings->setXMLPath('//user/window');
-
-            return $Settings->getCategoriesHtml([$plugin], $tab);
+            return PanelSettings::render([$plugin], $tab, $User, $userAuthenticators);
         }
 
 
