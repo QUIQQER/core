@@ -289,10 +289,6 @@ class Setup
 
 EOF;
 
-        $OPT_DIR = OPT_DIR;
-        $CMS_DIR = CMS_DIR;
-        $SYS_DIR = SYS_DIR;
-
         $ajax = CMS_DIR . 'ajax.php';
         $ajaxBundler = CMS_DIR . 'ajaxBundler.php';
         $image = CMS_DIR . 'image.php';
@@ -301,7 +297,12 @@ EOF;
         $bootstrap = CMS_DIR . 'bootstrap.php';
         $console = CMS_DIR . 'console';
         $systemId = License::getSystemId();
-        $relativeOptDir = str_replace($CMS_DIR, '', $OPT_DIR);
+        $coreBootstrap = self::relativeFileExpression(CMS_DIR, OPT_DIR . 'quiqqer/core/bootstrap.php');
+        $coreAjax = self::relativeFileExpression(CMS_DIR, OPT_DIR . 'quiqqer/core/ajax.php');
+        $coreAjaxBundler = self::relativeFileExpression(CMS_DIR, SYS_DIR . 'ajaxBundler.php');
+        $coreImage = self::relativeFileExpression(CMS_DIR, OPT_DIR . 'quiqqer/core/image.php');
+        $coreIndex = self::relativeFileExpression(CMS_DIR, OPT_DIR . 'quiqqer/core/index.php');
+        $coreConsole = self::relativeFileExpression(CMS_DIR, OPT_DIR . 'quiqqer/core/quiqqer.php');
 
 
         ////////
@@ -312,7 +313,7 @@ EOF;
 \$etc_dir = dirname(__FILE__).'/etc/';
 
 if (!file_exists(\$etc_dir.'conf.ini.php')) {
-    require_once 'quiqqer.php';
+    require_once __DIR__ . '/quiqqer.php';
     exit;
 }
 
@@ -320,7 +321,7 @@ if (!defined('ETC_DIR')) {
     define('ETC_DIR', \$etc_dir);
 }
 
-\$boot = '{$OPT_DIR}quiqqer/core/bootstrap.php';
+\$boot = {$coreBootstrap};
 
 if (file_exists(\$boot)) {
     require \$boot;
@@ -353,7 +354,7 @@ if (!\$isBackendBundle && file_exists(\$maintenanceFile)) {
 }
 
 define('QUIQQER_SYSTEM',true);
-require '{$OPT_DIR}quiqqer/core/ajax.php';
+require {$coreAjax};
 EOT;
         file_put_contents($ajax, $content);
 
@@ -382,7 +383,7 @@ if (!\$isBackendBundle && file_exists(\$maintenanceFile)) {
 }
 
 define('QUIQQER_SYSTEM',true);
-require '{$SYS_DIR}ajaxBundler.php';
+require {$coreAjaxBundler};
 EOT;
 
         file_put_contents($ajaxBundler, $content);
@@ -394,7 +395,7 @@ EOT;
         $content = $fileHeader .
             "define('QUIQQER_SYSTEM',true);" .
             "require dirname(__FILE__) .'/bootstrap.php';\n" .
-            "require '{$OPT_DIR}quiqqer/core/image.php';\n";
+            "require {$coreImage};\n";
 
         file_put_contents($image, $content);
 
@@ -421,7 +422,7 @@ if (!\$ignoreMaintenance && !\$allowMaintenanceRequest && file_exists(\$maintena
 
 define('QUIQQER_SYSTEM',true);
 require dirname(__FILE__) .'/bootstrap.php';
-require '{$OPT_DIR}quiqqer/core/index.php';
+require {$coreIndex};
 EOT;
 
         file_put_contents($index, $content);
@@ -433,7 +434,7 @@ EOT;
         ////////
         $content = $fileHeader .
             "define('CMS_DIR', dirname(__FILE__) . '/');\n" .
-            "require CMS_DIR . '{$relativeOptDir}quiqqer/core/quiqqer.php';\n";
+            "require {$coreConsole};\n";
 
         file_put_contents($quiqqer, $content);
 
@@ -450,10 +451,43 @@ EOT;
         $content = "#!/usr/bin/env $phpCommand\n" .
             $fileHeader .
             "define('CMS_DIR', dirname(__FILE__) . '/');\n" .
-            "require CMS_DIR . '{$relativeOptDir}quiqqer/core/quiqqer.php';\n";
+            "require {$coreConsole};\n";
 
         file_put_contents($console, $content);
         chmod($console, 0755);
+    }
+
+    /**
+     * Build a PHP path expression anchored to the generated file's directory.
+     * Resolve directory symlinks because __DIR__ resolves them at runtime as well.
+     */
+    private static function relativeFileExpression(string $directory, string $file): string
+    {
+        $source = str_replace('\\', '/', realpath($directory) ?: $directory);
+        $targetDirectory = dirname($file);
+        $target = str_replace('\\', '/', realpath($targetDirectory) ?: $targetDirectory);
+        $sourceParts = explode('/', rtrim($source, '/'));
+        $targetParts = explode('/', rtrim($target, '/'));
+
+        // Separate Windows drives have no relative path between them.
+        if ($sourceParts[0] !== $targetParts[0]) {
+            return var_export($file, true);
+        }
+
+        $common = 0;
+
+        while (isset($sourceParts[$common], $targetParts[$common]) && $sourceParts[$common] === $targetParts[$common]) {
+            $common++;
+        }
+
+        $relative = str_repeat('../', count($sourceParts) - $common)
+            . implode('/', array_slice($targetParts, $common));
+
+        if ($relative !== '' && !str_ends_with($relative, '/')) {
+            $relative .= '/';
+        }
+
+        return '__DIR__ . ' . var_export('/' . $relative . basename($file), true);
     }
 
     /**
@@ -535,18 +569,16 @@ EOT;
     {
         QUI::getEvents()->fireEvent('setupMakeHeaderFilesBegin');
 
-        $str = "<?php require_once '" . CMS_DIR . "bootstrap.php'; ?>";
+        foreach ([USR_DIR, OPT_DIR] as $directory) {
+            $bootstrap = self::relativeFileExpression($directory, CMS_DIR . 'bootstrap.php');
+            $header = $directory . 'header.php';
 
-        if (file_exists(USR_DIR . 'header.php')) {
-            unlink(USR_DIR . 'header.php');
+            if (file_exists($header)) {
+                unlink($header);
+            }
+
+            file_put_contents($header, "<?php require_once {$bootstrap}; ?>");
         }
-
-        if (file_exists(OPT_DIR . 'header.php')) {
-            unlink(OPT_DIR . 'header.php');
-        }
-
-        file_put_contents(USR_DIR . 'header.php', $str);
-        file_put_contents(OPT_DIR . 'header.php', $str);
 
         QUI::getEvents()->fireEvent('setupMakeHeaderFilesEnd');
     }
