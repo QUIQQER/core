@@ -275,6 +275,8 @@ Follow `https://quiqqer.com/docs/developer/package-development#composer-metadata
 
 - Use `quiqqer-module` for normal extension packages, `quiqqer-template` for project presentation packages, and
   `quiqqer-asset` only for the corresponding generated browser asset packages.
+- For an existing normal extension package, explicitly replace `"type": "quiqqer-plugin"` with
+  `"type": "quiqqer-module"` in `composer.json` as part of the quality upgrade.
 - Remove a `version` field. The QUIQQER update server derives and manages package versions.
 - When maintainer metadata is missing, stale, or still contains a personal legacy entry that no longer represents current
   maintenance, use the company maintainer entry:
