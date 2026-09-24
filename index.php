@@ -52,7 +52,6 @@ try {
         $Redirect = new RedirectResponse(URL_DIR);
         $Redirect->setStatusCode(Response::HTTP_SEE_OTHER);
 
-        echo $Redirect->getContent();
         $Redirect->send();
         exit;
     }

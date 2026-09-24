@@ -117,16 +117,20 @@ class QUIQQER extends AbstractAuthenticator
             try {
                 $this->User = QUI::getUsers()->getUserByMail($this->user);
                 return $this->User;
-            } catch (QUI\Exception $Exception) {
-                QUI\System\Log::addError($Exception->getMessage());
+            } catch (QUI\Users\Exception $Exception) {
+                if ($Exception->getCode() !== 404) {
+                    throw $Exception;
+                }
             }
         }
 
         try {
             $this->User = QUI::getUsers()->getUserByName($this->user);
             return $this->User;
-        } catch (QUI\Exception $Exception) {
-            QUI\System\Log::addError($Exception->getMessage());
+        } catch (QUI\Users\Exception $Exception) {
+            if ($Exception->getCode() !== 404) {
+                throw $Exception;
+            }
         }
 
         throw new QUI\Users\Exception(
@@ -198,6 +202,7 @@ class QUIQQER extends AbstractAuthenticator
         }
 
         $authParams = trim($authParams);
+        $User = $this->getUser();
 
         try {
             $QueryBuilder = QUI::getQueryBuilder();
@@ -205,14 +210,16 @@ class QUIQQER extends AbstractAuthenticator
                 ->select('password')
                 ->from(QUI\Utils\Doctrine::quoteIdentifier(QUI\Users\Manager::table()))
                 ->where($QueryBuilder->expr()->eq('uuid', ':uuid'))
-                ->setParameter('uuid', $this->getUser()->getUUID())
+                ->setParameter('uuid', $User->getUUID())
                 ->setMaxResults(1)
                 ->executeQuery()
                 ->fetchAssociative();
-        } catch (QUI\Exception | \Doctrine\DBAL\Exception $Exception) {
+        } catch (\Doctrine\DBAL\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+
             throw new QUI\Database\Exception(
-                $Exception->getMessage(),
-                (int)$Exception->getCode()
+                ['quiqqer/core', 'exception.login.fail'],
+                500
             );
         }
 
@@ -246,9 +253,11 @@ class QUIQQER extends AbstractAuthenticator
                     ['uuid' => $this->getUserUUID()]
                 );
             } catch (\Doctrine\DBAL\Exception $Exception) {
+                QUI\System\Log::writeException($Exception);
+
                 throw new QUI\Database\Exception(
-                    $Exception->getMessage(),
-                    (int)$Exception->getCode()
+                    ['quiqqer/core', 'exception.login.fail'],
+                    500
                 );
             }
         }

@@ -605,10 +605,10 @@
             <pt><![CDATA[Desativar]]></pt>
         </locale>
         <locale name="projects.project.panel.settings.btn.adminSettings">
-            <pt><![CDATA[Definições do backend]]></pt>
+            <pt><![CDATA[Backend]]></pt>
         </locale>
         <locale name="projects.project.panel.settings.btn.settings">
-            <pt><![CDATA[Definições]]></pt>
+            <pt><![CDATA[Geral]]></pt>
         </locale>
         <locale name="projects.project.settings.panel.adminSettings.title">
             <pt><![CDATA[Definições do projeto para o backend]]></pt>

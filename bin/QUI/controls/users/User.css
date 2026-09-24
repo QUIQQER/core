@@ -1,7 +1,18 @@
 
-.address-list {
+.quiqqer-user-address-form,
+.quiqqer-user-address-form .address-list {
     float: left;
+    height: 100%;
     width: 100%;
+}
+
+.quiqqer-user-address-form .address-list {
+    /* Grid redraws write a pixel height including an extra border allowance. */
+    height: 100% !important;
+}
+
+.quiqqer-user-address-count {
+    white-space: nowrap;
 }
 
 .quiqqer-quiqqer-user-mail-extrasbtn .qui-button-multiple-dd {
@@ -16,6 +27,55 @@
 
 .quiqqer-quiqqer-user-mail-extrasbtn > button .qui-button-multiple-textimage {
     float: none;
+}
+
+.quiqqer-user-authenticators {
+    --_list-gap: var(--quiqqer-users-authenticators-list-gap, 5px);
+    --_gap: var(--quiqqer-users-authenticators-gap, 0.5rem);
+    --_row-padding: var(--quiqqer-users-authenticators-row-padding, 0.75rem 0.875rem);
+    --_row-radius: var(--quiqqer-users-authenticators-row-radius, 0.375rem);
+    --_row-background: var(--quiqqer-users-authenticators-row-background, var(--qui-colors-gray-25));
+    --_text-color: var(--quiqqer-users-authenticators-text-color, var(--qui-colors-gray-800));
+    --_icon-color: var(--quiqqer-users-authenticators-icon-color, var(--qui-colors-gray-600));
+    --_icon-size: var(--quiqqer-users-authenticators-icon-size, 1.25rem);
+
+    color: var(--_text-color);
+    display: grid;
+    gap: var(--_list-gap);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.quiqqer-user-authenticator {
+    align-items: center;
+    background: var(--_row-background);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--_gap);
+    border-radius: var(--_row-radius);
+    padding: var(--_row-padding);
+}
+
+.quiqqer-user-authenticator-icon {
+    color: var(--_icon-color);
+    flex: 0 0 2rem;
+    font-size: var(--_icon-size);
+    text-align: center;
+}
+
+.quiqqer-user-authenticator-title {
+    flex: 1;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.quiqqer-user-authenticator-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--_gap);
+    margin-left: auto;
 }
 
 .quiqqer-user-authenticator-status,
@@ -42,6 +102,12 @@
 
 .quiqqer-user-authenticator-settings .fa {
     line-height: 1;
+}
+
+.quiqqer-user-authenticator-status:focus-visible,
+.quiqqer-user-authenticator-settings:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
 }
 
 .user-delete-window-list-entry {

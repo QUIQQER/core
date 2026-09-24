@@ -1804,23 +1804,37 @@ class User implements QUIUserInterface
 
         $avatar = $this->getAttribute('avatar');
 
-        if (!QUI\Projects\Media\Utils::isMediaUrl($avatar)) {
-            $Project = QUI::getProjectManager()->getStandard();
-            $Media = $Project->getMedia();
-
-            return $Media->getPlaceholderImage();
-        }
-
-        try {
-            return QUI\Projects\Media\Utils::getImageByUrl($avatar);
-        } catch (QUI\Exception $Exception) {
-            QUI\System\Log::addError($Exception->getMessage());
+        if (QUI\Projects\Media\Utils::isMediaUrl($avatar)) {
+            try {
+                return QUI\Projects\Media\Utils::getImageByUrl($avatar);
+            } catch (QUI\Exception) {
+            }
         }
 
         $Project = QUI::getProjectManager()->getStandard();
         $Media = $Project->getMedia();
+        $Placeholder = $Media->getPlaceholderImage();
 
-        return $Media->getPlaceholderImage();
+        if ($Placeholder !== null) {
+            return $Placeholder;
+        }
+
+        $placeholder = $Project->getConfig('placeholder');
+        $context = [
+            'userId' => $this->getId(),
+            'project' => $Project->getName()
+        ];
+
+        if ($placeholder) {
+            QUI\System\Log::addError(
+                'Could not load the configured user avatar placeholder image.',
+                [...$context, 'placeholder' => $placeholder]
+            );
+        } else {
+            QUI\System\Log::addInfo('No user avatar placeholder image is configured.', $context);
+        }
+
+        return null;
     }
 
     /**

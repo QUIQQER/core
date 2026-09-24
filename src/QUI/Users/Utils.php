@@ -38,6 +38,8 @@ class Utils
             'quiqqer/core'
         );
 
+        self::addSettingsCategoriesToToolbar([OPT_DIR . 'quiqqer/core/user.xml'], $TabBar);
+
         if (!$User->getUUID()) {
             return $TabBar;
         }
@@ -70,25 +72,7 @@ class Utils
             );
         }
 
-        // category xml
-        $Settings = QUI\Utils\XML\Settings::getInstance();
-        $Settings->setXMLPath('//user/window');
-
-        $result = $Settings->getPanel($userXmlFiles);
-        $categories = $result['categories']->toArray();
-
-        foreach ($categories as $category) {
-            $TabBar->appendChild(
-                new QUI\Controls\Toolbar\Tab([
-                    'name' => $category['name'],
-                    'text' => QUI::getLocale()->parseLocaleString($category['title']),
-                    'image' => $category['icon'],
-                    'wysiwyg' => false,
-                    'type' => 'xml',
-                    'plugin' => $category['file']
-                ])
-            );
-        }
+        self::addSettingsCategoriesToToolbar($userXmlFiles, $TabBar);
 
         /**
          * user extension from projects
@@ -103,7 +87,46 @@ class Utils
             );
         }
 
+        // Match XML panels: explicit indexes first, unindexed tabs keep their relative order.
+        $items = $TabBar->getItems();
+        usort($items, static function ($First, $Second): int {
+            $firstIndex = $First->getAttribute('index');
+            $secondIndex = $Second->getAttribute('index');
+
+            return (is_numeric($firstIndex) ? (float)$firstIndex : INF)
+                <=> (is_numeric($secondIndex) ? (float)$secondIndex : INF);
+        });
+        $TabBar->clear();
+
+        foreach ($items as $Item) {
+            $TabBar->appendChild($Item);
+        }
+
         return $TabBar;
+    }
+
+    /**
+     * @param list<string> $files
+     */
+    private static function addSettingsCategoriesToToolbar(array $files, Bar $TabBar): void
+    {
+        $Settings = new QUI\Utils\XML\Settings();
+        $Settings->setXMLPath('//user/window');
+        $result = $Settings->getPanel($files);
+
+        foreach ($result['categories'] as $category) {
+            $TabBar->appendChild(
+                new QUI\Controls\Toolbar\Tab([
+                    'name' => $category['name'],
+                    'index' => $category['index'],
+                    'text' => QUI::getLocale()->parseLocaleString($category['title']),
+                    'image' => $category['icon'],
+                    'wysiwyg' => false,
+                    'type' => 'xml',
+                    'plugin' => $category['file']
+                ])
+            );
+        }
     }
 
     /**
@@ -116,7 +139,7 @@ class Utils
         $tabs = XML::getTabsFromXml($file);
 
         if (!empty($tabs)) {
-            QUI\System\Log::addDeprecated(
+            QUI\System\Log::addError(
                 'Using <window><tab> in user.xml is deprecated. Use <categories>/<category>/<settings> instead.',
                 ['file' => $file]
             );
@@ -159,17 +182,11 @@ class Utils
 
         // <category>
         if (!file_exists($plugin) && file_exists(CMS_DIR . $plugin)) {
-            $Settings = QUI\Utils\XML\Settings::getInstance();
-            $Settings->setXMLPath('//user/window');
-
-            return $Settings->getCategoriesHtml([CMS_DIR . $plugin], $tab);
+            return PanelSettings::render([CMS_DIR . $plugin], $tab, $User, $userAuthenticators);
         }
 
         if (file_exists($plugin)) {
-            $Settings = QUI\Utils\XML\Settings::getInstance();
-            $Settings->setXMLPath('//user/window');
-
-            return $Settings->getCategoriesHtml([$plugin], $tab);
+            return PanelSettings::render([$plugin], $tab, $User, $userAuthenticators);
         }
 
 

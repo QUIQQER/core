@@ -106,6 +106,27 @@ class ImageCacheStampedeTest extends TestCase
         return [['image/png', false], ['image/gif', true]];
     }
 
+    #[DataProvider('unscaledImageDimensions')]
+    public function testUnscaledCacheDimensionsUseOriginalImageWidth(string $mime, bool $resize): void
+    {
+        $Image = $this->image($mime);
+        $Image->method('isAnimated')->willReturn($mime === 'image/gif');
+
+        self::assertSame(
+            ['width' => 64, 'height' => 64],
+            $Image->getSizeCacheImageDimensions($resize ? 16 : false)
+        );
+    }
+
+    public static function unscaledImageDimensions(): array
+    {
+        return [
+            'original raster' => ['image/png', false],
+            'vector' => ['image/svg+xml', true],
+            'animated gif' => ['image/gif', true]
+        ];
+    }
+
     public function testFailedRenderingCleansUpAndTheNextRequestCanRetry(): void
     {
         $Image = $this->image();

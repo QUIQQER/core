@@ -1,0 +1,20 @@
+<ul class="qui-backend-menu-apps">
+    {{#items}}
+    {{#separator}}<li class="qui-backend-menu-separator" aria-hidden="true"></li>{{/separator}}
+    {{^separator}}
+    <li class="qui-backend-menu-app{{#group}} qui-backend-menu-app-group{{/group}}">
+        {{#action}}<div class="qui-backend-menu-drag-entry"><button type="button" class="qui-backend-menu-tile" data-name="action" data-id="{{id}}" {{#disabled}}disabled{{/disabled}}>{{/action}}
+        {{^action}}<div class="qui-backend-menu-group-title">{{/action}}
+            {{#image}}<img class="qui-backend-menu-icon" src="{{image}}" alt="" loading="lazy">{{/image}}
+            {{^image}}<span class="qui-backend-menu-icon {{icon}}" aria-hidden="true"></span>{{/image}}
+            <span class="qui-backend-menu-label">
+                <span>{{text}}</span>
+                {{#description}}<small>{{description}}</small>{{/description}}
+            </span>
+        {{#action}}</button></div>{{/action}}
+        {{^action}}</div>{{/action}}
+        {{#group}}{{#children}}{{> entries}}{{/children}}{{/group}}
+    </li>
+    {{/separator}}
+    {{/items}}
+</ul>

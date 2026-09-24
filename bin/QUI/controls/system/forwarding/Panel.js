@@ -299,6 +299,12 @@ define('controls/system/forwarding/Panel', [
                                 Form
                             );
 
+                            const Code = Form.querySelector('[data-name="code"]');
+
+                            if (!Code.value) {
+                                Code.value = '301';
+                            }
+
                             Win.Loader.hide();
                         }, {
                             forwarding: forwarding

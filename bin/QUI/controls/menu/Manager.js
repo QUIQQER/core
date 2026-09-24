@@ -9,13 +9,14 @@ define('controls/menu/Manager', [
     'qui/controls/contextmenu/BarItem',
     'qui/controls/contextmenu/Item',
     'qui/controls/desktop/Panel',
+    'controls/menu/BackendMenu',
     'Ajax',
     'Locale',
     'utils/Panels',
 
     'css!controls/menu/Manager.css'
 
-], function (QUI, Control, ContextmenuBar, ContextmenuBarItem, ContextmenuItem, Panel, Ajax, QUILocale, PanelUtils) {
+], function (QUI, Control, ContextmenuBar, ContextmenuBarItem, ContextmenuItem, Panel, BackendMenu, Ajax, QUILocale, PanelUtils) {
     "use strict";
 
     return new Class({
@@ -28,7 +29,10 @@ define('controls/menu/Manager', [
 
             this.$Bar = null;
             this.$Profile = null;
+            this.$BackendMenu = null;
             this.$isLoaded = false;
+
+            this.addEvent('destroy', () => this.$BackendMenu?.destroy());
         },
 
         /**
@@ -73,6 +77,9 @@ define('controls/menu/Manager', [
                 });
 
                 self.$renderProfile();
+
+                self.$BackendMenu = new BackendMenu(self.$Bar);
+                self.$BackendMenu.inject(self.$Bar.getElm());
 
                 self.$isLoaded = true;
                 self.fireEvent('menuLoaded');

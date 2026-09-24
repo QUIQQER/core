@@ -356,7 +356,7 @@ class Utils
         $md5 = md5(
             serialize([
                 'attributes' => $attributes,
-                'responsiveImageVersion' => 2,
+                'responsiveImageVersion' => 3,
                 'src' => $src,
                 'withHost' => $withHost
             ])
@@ -499,14 +499,18 @@ class Utils
 
                 foreach ($widths as $width) {
                     $imageUrl = $Image->getSizeCacheUrl($width, $maxHeight);
+                    $dimensions = $Image->getSizeCacheImageDimensions($width, $maxHeight);
+                    $physicalWidth = $dimensions['width'];
 
-                    if (isset($duplicate[$imageUrl])) {
+                    if ($physicalWidth <= 0 || isset($duplicate[$imageUrl]) || isset($srcset[$physicalWidth])) {
                         continue;
                     }
 
                     $duplicate[$imageUrl] = true;
-                    $srcset[] = htmlspecialchars($host . $imageUrl) . ' ' . $width . 'w';
+                    $srcset[$physicalWidth] = htmlspecialchars($host . $imageUrl) . ' ' . $physicalWidth . 'w';
                 }
+
+                ksort($srcset);
             }
         } catch (QUI\Exception $Exception) {
             Log::addDebug($Exception->getMessage());

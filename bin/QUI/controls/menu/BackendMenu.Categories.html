@@ -1,0 +1,32 @@
+{{#overview}}
+<div class="qui-backend-menu-sections">
+    {{#groups}}
+    <div class="qui-backend-menu-section{{#singleSection}} qui-backend-menu-section--full{{/singleSection}}" data-name="groups">{{> entries}}</div>
+    {{/groups}}
+    {{#links}}
+    <div class="qui-backend-menu-section qui-backend-menu-section--links{{#singleSection}} qui-backend-menu-section--full{{/singleSection}}" data-name="links" style="--_link-rows: {{rows}}">{{> entries}}</div>
+    {{/links}}
+    {{#wide}}
+    <div class="qui-backend-menu-section qui-backend-menu-section--wide" data-name="wide-group">{{> entries}}</div>
+    {{/wide}}
+</div>
+{{/overview}}
+{{^overview}}
+<ul class="qui-backend-menu-categories">
+    {{#items}}
+    {{#separator}}<li class="qui-backend-menu-separator" aria-hidden="true"></li>{{/separator}}
+    {{^separator}}
+    <li class="qui-backend-menu-category{{#group}} qui-backend-menu-category-group{{/group}}{{#nested}} qui-backend-menu-category-subgroup{{/nested}}">
+        {{#action}}<div class="qui-backend-menu-drag-entry"><button type="button" class="qui-backend-menu-link" data-name="action" data-id="{{id}}" {{#disabled}}disabled{{/disabled}}>{{/action}}
+        {{^action}}<div class="qui-backend-menu-group-title">{{/action}}
+            {{#image}}<img class="qui-backend-menu-icon" src="{{image}}" alt="" loading="lazy">{{/image}}
+            {{^image}}<span class="qui-backend-menu-icon {{icon}}" aria-hidden="true"></span>{{/image}}
+            <span class="qui-backend-menu-label">{{#nested}}<span class="qui-backend-menu-path">{{breadcrumb}}</span>{{/nested}}{{text}}</span>
+        {{#action}}</button></div>{{/action}}
+        {{^action}}</div>{{/action}}
+        {{#group}}{{#children}}{{> entries}}{{/children}}{{/group}}
+    </li>
+    {{/separator}}
+    {{/items}}
+</ul>
+{{/overview}}

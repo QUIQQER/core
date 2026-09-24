@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
+    <user>
+        <window>
+            <categories>
+                <category name="later" index="50">
+                    <title>Later category</title>
+                    <icon>fa fa-user</icon>
+                </category>
+                <category name="modern" index="4">
+                    <title>Modern category</title>
+                    <icon>fa fa-user</icon>
+                </category>
+            </categories>
+        </window>
+    </user>
+</quiqqer>

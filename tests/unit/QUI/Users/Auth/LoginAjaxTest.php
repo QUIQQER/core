@@ -20,8 +20,13 @@ use ReflectionProperty;
 #[PreserveGlobalState(false)]
 class LoginAjaxTest extends TestCase
 {
+    private \Monolog\Handler\TestHandler $Logs;
+
     protected function setUp(): void
     {
+        $this->Logs = new \Monolog\Handler\TestHandler();
+        QUI\Log\Logger::$Logger = new \Monolog\Logger('login-ajax-test', [$this->Logs]);
+        QUI\Log\Config::getPackageConfig()->setValue('log_levels', 'error', 1);
         $Connection = DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true]);
         (new ReflectionProperty(QUI::class, 'QueryBuilder'))->setValue(null, $Connection);
         $table = $Connection->getDatabasePlatform()->quoteIdentifier(QUI\Security\Throttle::table());
@@ -106,7 +111,8 @@ class LoginAjaxTest extends TestCase
         require dirname(__DIR__, 5) . '/admin/ajax/users/login.php';
         $login = Ajax::getRegisteredCallables()['ajax_users_login']['callable'];
 
-        $this->expectException(\Doctrine\DBAL\Exception::class);
+        $this->expectException(QUI\Users\UserAuthException::class);
+        $this->expectExceptionCode(401);
         $login(QUIQQER::class, ['username' => 'unknown', 'password' => 'wrong'], 'primary');
     }
 
@@ -147,8 +153,8 @@ class LoginAjaxTest extends TestCase
         try {
             $login('unconfigured-authenticator', [], 'primary');
             self::fail('Unconfigured authenticator accepted.');
-        } catch (QUI\Users\Auth\Exception $Exception) {
-            self::assertSame(404, $Exception->getCode());
+        } catch (QUI\Users\UserAuthException $Exception) {
+            self::assertSame(401, $Exception->getCode());
         }
 
         $this->expectException(QUI\Users\UserAuthException::class);
@@ -214,6 +220,130 @@ class LoginAjaxTest extends TestCase
             SessionFailureCounter::STEP_PRIMARY,
             ['TestPrimaryAuthenticator']
         );
+    }
+
+    public static function internalLoginFailures(): array
+    {
+        return [
+            'preparation exception' => ['start', \RuntimeException::class, 500],
+            'preparation error' => ['start', \Error::class, 0],
+            'user exception' => ['authenticate', QUI\Users\Exception::class, 404],
+            'authenticator exception' => ['authenticate', QUI\Users\Auth\Exception::class, 403],
+            'user auth exception' => ['authenticate', QUI\Users\UserAuthException::class, 401],
+            'database exception' => ['authenticate', \Doctrine\DBAL\Exception\NoActiveTransaction::class, 500],
+            'runtime exception' => ['authenticate', \RuntimeException::class, 500],
+            'PHP error' => ['authenticate', \TypeError::class, 0],
+            'account locked' => ['authenticate', QUI\Users\Exception::class, 429],
+            'final login exception' => ['login', QUI\Users\Exception::class, 401],
+            'final login database failure' => ['login', \Doctrine\DBAL\Exception\NoActiveTransaction::class, 500],
+            'final login error' => ['login', \Error::class, 0]
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('internalLoginFailures')]
+    public function testLoginOnlyExposesItsOwnErrors(string $phase, string $exceptionClass, int $code): void
+    {
+        $InternalError = new $exceptionClass('private database or account details', $code);
+
+        if ($InternalError instanceof QUI\Exception) {
+            $InternalError->setAttribute('private', 'private database or account details');
+        }
+
+        $Config = $this->createMock(Config::class);
+        $Config->method('get')->willReturn(false);
+        QUI::$Conf = $Config;
+        QUI::$Session = new QUI\System\Console\Session();
+        QUI::$Ajax = new Ajax();
+        $Events = $this->createMock(EventsManager::class);
+        if ($phase === 'start') {
+            $Events->method('fireEvent')->willThrowException($InternalError);
+        }
+        QUI::$Events = $Events;
+
+        $Nobody = $this->createMock(User::class);
+        $Nobody->method('getUUID')->willReturn('');
+        $Users = $this->createMock(UserManager::class);
+        $Users->method('getUserBySession')->willReturn($Nobody);
+        if ($phase === 'authenticate') {
+            $Users->expects(self::once())->method('authenticate')->willThrowException($InternalError);
+        } elseif ($phase === 'login') {
+            $Users->method('authenticate')->willReturnCallback(static function (): bool {
+                QUI::getSession()->set('uid', 'test-user');
+                return true;
+            });
+            $Users->expects(self::once())->method('login')->willThrowException($InternalError);
+        } else {
+            $Users->expects(self::never())->method('authenticate');
+        }
+        QUI::$Users = $Users;
+
+        $Handler = $this->createMock(Handler::class);
+        $Handler->method('getGlobalFrontendAuthenticators')->willReturn([QUIQQER::class]);
+        $Handler->method('getGlobalBackendAuthenticators')->willReturn([QUIQQER::class]);
+        (new ReflectionProperty(Handler::class, 'Instance'))->setValue(null, $Handler);
+        require dirname(__DIR__, 5) . '/admin/ajax/users/login.php';
+        $login = Ajax::getRegisteredCallables()['ajax_users_login']['callable'];
+
+        try {
+            $login(QUIQQER::class, ['username' => 'test-user', 'password' => 'wrong'], 'primary');
+            self::fail('Login failure must be reported.');
+        } catch (QUI\Users\UserAuthException $PublicError) {
+            self::assertNotSame($InternalError, $PublicError);
+            self::assertSame($code === 429 ? 429 : 401, $PublicError->getCode());
+            self::assertSame([
+                'quiqqer/core',
+                $code === 429 ? 'exception.login.fail.login_locked' : 'exception.login.fail'
+            ], $PublicError->getContext()['locale']);
+            self::assertStringNotContainsString(
+                'private database or account details',
+                json_encode(QUI::getAjax()->writeException($PublicError), JSON_THROW_ON_ERROR)
+            );
+        }
+
+        if ($phase === 'login') {
+            self::assertFalse(QUI::getSession()->get('uid'));
+            self::assertFalse(QUI::getSession()->get('auth-primary'));
+        }
+
+        self::assertSame(!$InternalError instanceof QUI\Exception, $this->Logs->hasErrorRecords());
+    }
+
+    public function testUnknownEmailIsCountedWithoutErrorLogs(): void
+    {
+        QUI::getDataBaseConnection()->executeStatement(
+            'CREATE TABLE ' . QUI\Utils\Doctrine::quoteIdentifier(UserManager::table())
+            . ' (id INTEGER PRIMARY KEY, uuid VARCHAR(36), username VARCHAR(255), email VARCHAR(255))'
+        );
+        QUI::$Session = new QUI\System\Console\Session();
+        QUI::$Events = $this->createMock(EventsManager::class);
+        QUI::$Conf->setValue('globals', 'emaillogin', true);
+        QUI::$Ajax = new Ajax();
+        $Nobody = $this->createMock(User::class);
+        $Nobody->method('getUUID')->willReturn('');
+        $Users = $this->getMockBuilder(UserManager::class)->onlyMethods(['getUserBySession'])->getMock();
+        $Users->method('getUserBySession')->willReturn($Nobody);
+        QUI::$Users = $Users;
+        $Handler = $this->createMock(Handler::class);
+        $Handler->method('getGlobalFrontendAuthenticators')->willReturn([QUIQQER::class]);
+        $Handler->method('getGlobalBackendAuthenticators')->willReturn([QUIQQER::class]);
+        $Handler->method('getAuthenticator')->willReturn(new QUIQQER('missing@example.invalid'));
+        (new ReflectionProperty(Handler::class, 'Instance'))->setValue(null, $Handler);
+
+        $Logs = new \Monolog\Handler\TestHandler();
+        QUI\Log\Logger::$Logger = new \Monolog\Logger('login-test', [$Logs]);
+        QUI\Log\Config::getPackageConfig()->setValue('log_levels', 'error', 1);
+        require dirname(__DIR__, 5) . '/admin/ajax/users/login.php';
+        $login = Ajax::getRegisteredCallables()['ajax_users_login']['callable'];
+
+        try {
+            $login(QUIQQER::class, ['username' => 'missing@example.invalid', 'password' => 'wrong'], 'primary');
+            self::fail('Unknown email must not authenticate.');
+        } catch (QUI\Users\UserAuthException $Exception) {
+            self::assertSame(401, $Exception->getCode());
+        }
+
+        self::assertSame(1, QUI::getSession()->get('auth-failures-primary'));
+        self::assertFalse($Logs->hasErrorRecords());
     }
 
     public function testPrimaryAuthenticatorCannotBeReusedAsSecondaryAuthenticator(): void
