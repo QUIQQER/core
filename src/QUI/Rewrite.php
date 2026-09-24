@@ -25,6 +25,7 @@ use function array_map;
 use function array_shift;
 use function array_unshift;
 use function count;
+use function debug_backtrace;
 use function define;
 use function defined;
 use function explode;
@@ -58,6 +59,7 @@ use function urldecode;
 use function usort;
 
 use const PHP_URL_PATH;
+use const DEBUG_BACKTRACE_IGNORE_ARGS;
 use const URL_DIR;
 
 /**
@@ -1170,6 +1172,14 @@ class Rewrite
             return false;
         }
 
+        if ($code === Response::HTTP_USE_PROXY) {
+            QUI\System\Log::addError('HTTP status 305 (Use Proxy) is no longer supported; using 301.', [
+                'httpCode' => $code,
+                'trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)
+            ]);
+            $code = Response::HTTP_MOVED_PERMANENTLY;
+        }
+
         try {
             QUI::getEvents()->fireEvent('errorHeaderShowBefore', [$code, $url]);
         } catch (\Exception $e) {
@@ -1201,15 +1211,8 @@ class Rewrite
                 break;
 
             case 304:
-                $Redirect = new RedirectResponse($url);
-                $Redirect->setStatusCode(Response::HTTP_NOT_MODIFIED);
-                $Redirect->send();
-                break;
-
-            case 305:
-                $Redirect = new RedirectResponse($url);
-                $Redirect->setStatusCode(Response::HTTP_USE_PROXY);
-                $Redirect->send();
+                $Response->headers->remove('Location');
+                $Response->setNotModified();
                 break;
 
             // Client Request Errors

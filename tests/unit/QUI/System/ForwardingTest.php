@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace QUITests\System;
 
+use Monolog\Handler\TestHandler;
+use Monolog\Level;
+use Monolog\Logger as MonologLogger;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use QUI;
 use QUI\Config;
+use QUI\Log\Logger;
 use QUI\System\Forwarding;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,8 +25,28 @@ class ForwardingTest extends TestCase
 
     private ?Config $PreviousConfig = null;
 
+    private MonologLogger $PreviousLogger;
+
+    private TestHandler $LogHandler;
+
+    private Config $LogConfig;
+
+    /**
+     * @var array<string, mixed>
+     */
+    private array $previousLogLevels;
+
     protected function setUp(): void
     {
+        $this->PreviousLogger = Logger::getLogger();
+        $this->LogHandler = new TestHandler();
+        Logger::$Logger = new MonologLogger('forwarding-test', [$this->LogHandler]);
+        $LogConfig = QUI\Log\Config::getPackageConfig();
+        self::assertNotNull($LogConfig);
+        $this->LogConfig = $LogConfig;
+        $this->previousLogLevels = $LogConfig->get('log_levels');
+        $LogConfig->setValue('log_levels', 'error', 1);
+
         $configFile = tempnam(sys_get_temp_dir(), 'quiqqer-forwarding-');
         self::assertNotFalse($configFile);
         $this->configFile = $configFile;
@@ -36,6 +61,9 @@ class ForwardingTest extends TestCase
 
     protected function tearDown(): void
     {
+        Logger::$Logger = $this->PreviousLogger;
+        $this->LogConfig->setSection('log_levels', $this->previousLogLevels);
+
         if ($this->hadPreviousConfig && $this->PreviousConfig instanceof Config) {
             QUI::$Configs[self::CONFIG_KEY] = $this->PreviousConfig;
         } else {
@@ -73,6 +101,7 @@ class ForwardingTest extends TestCase
         Forwarding::create('/old', '/new', '');
 
         self::assertSame(301, Forwarding::getList()->toArray()['/old']['code']);
+        self::assertSame([], $this->LogHandler->getRecords());
     }
 
     public function testDuplicateCreateIsRejected(): void
@@ -159,5 +188,111 @@ class ForwardingTest extends TestCase
 
         self::assertSame(URL_DIR, $Response->getTargetUrl());
         self::assertSame(301, $Response->getStatusCode());
+        self::assertSame([], $this->LogHandler->getRecords());
+    }
+
+    #[DataProvider('allowedHttpCodes')]
+    public function testAllowedHttpCodesCanBeCreatedUpdatedAndExecuted(int|string $code): void
+    {
+        Forwarding::create('/old', '/created', $code);
+        self::assertSame((int)$code, Forwarding::getList()->toArray()['/old']['code']);
+
+        Forwarding::update('/old', '/updated', $code);
+        $Response = Forwarding::createRedirectResponse(Forwarding::getList()->toArray()['/old']);
+
+        self::assertSame((int)$code, $Response->getStatusCode());
+        self::assertSame('/updated', $Response->headers->get('Location'));
+        self::assertSame([], $this->LogHandler->getRecords());
+    }
+
+    #[DataProvider('invalidHttpCodes')]
+    public function testInvalidCreateLogsErrorAndPersistsPermanentRedirect(int|string $code): void
+    {
+        Forwarding::create('/invalid', '/target', $code);
+        QUI::$Configs[self::CONFIG_KEY] = new Config($this->configFile);
+
+        self::assertSame([
+            'target' => '/target',
+            'code' => '301'
+        ], Forwarding::getList()->toArray()['/invalid']);
+        $this->assertFallbackWasLogged($code);
+    }
+
+    #[DataProvider('invalidHttpCodes')]
+    public function testInvalidUpdateLogsErrorAndPersistsPermanentRedirect(int|string $code): void
+    {
+        Forwarding::create('/existing', '/original', 302);
+        Forwarding::update('/existing', '/changed', $code);
+        QUI::$Configs[self::CONFIG_KEY] = new Config($this->configFile);
+
+        self::assertSame([
+            'target' => '/changed',
+            'code' => '301'
+        ], Forwarding::getList()->toArray()['/existing']);
+        $this->assertFallbackWasLogged($code);
+    }
+
+    #[DataProvider('invalidHttpCodes')]
+    public function testManuallyConfiguredInvalidRuleLogsErrorAndUsesPermanentRedirect(int|string $code): void
+    {
+        $Config = QUI::$Configs[self::CONFIG_KEY];
+        $Config->setValue('https://example.test/invalid', 'target', '/target');
+        $Config->setValue('https://example.test/invalid', 'code', $code);
+        $Config->save();
+        QUI::$Configs[self::CONFIG_KEY] = new Config($this->configFile);
+
+        $rule = Forwarding::resolve(Request::create('https://example.test/invalid'));
+        self::assertNotNull($rule);
+        $Response = Forwarding::createRedirectResponse($rule);
+
+        self::assertSame(301, $Response->getStatusCode());
+        self::assertSame('/target', $Response->headers->get('Location'));
+        $this->assertFallbackWasLogged($code);
+    }
+
+    private function assertFallbackWasLogged(int|string $code): void
+    {
+        $records = $this->LogHandler->getRecords();
+        self::assertCount(1, $records);
+        self::assertSame(Level::Error, $records[0]->level);
+        self::assertSame('Unsupported forwarding HTTP status; using 301.', $records[0]->message);
+        self::assertSame((string)$code, (string)$records[0]->context['httpCode']);
+        $trace = $records[0]->context['trace'];
+        self::assertNotEmpty($trace);
+        self::assertSame(Forwarding::class, $trace[0]['class']);
+        self::assertArrayHasKey('file', $trace[0]);
+        self::assertArrayHasKey('line', $trace[0]);
+
+        foreach ($trace as $frame) {
+            self::assertArrayNotHasKey('args', $frame);
+            self::assertArrayNotHasKey('object', $frame);
+        }
+    }
+
+    /**
+     * @return iterable<string, array{int|string}>
+     */
+    public static function allowedHttpCodes(): iterable
+    {
+        foreach ([301, 302, 303, 307, 308] as $code) {
+            yield 'integer ' . $code => [$code];
+            yield 'string ' . $code => [(string)$code];
+        }
+    }
+
+    /**
+     * @return iterable<string, array{int|string}>
+     */
+    public static function invalidHttpCodes(): iterable
+    {
+        foreach ([200, 300, 304, 305, 306, 404, 500, -1, 999] as $code) {
+            yield 'integer ' . $code => [$code];
+            yield 'string ' . $code => [(string)$code];
+        }
+
+        yield 'trailing text' => ['301abc'];
+        yield 'fractional number' => ['302.5'];
+        yield 'scientific notation' => ['3.01e2'];
+        yield 'nonnumeric input' => ['invalid'];
     }
 }

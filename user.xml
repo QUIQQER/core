@@ -1,41 +1,218 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/user.xsd">
-<user>
-
-    <attributes>
-        <attribute>quiqqer.set.new.password</attribute>
-        <attribute>quiqqer.sitemap.showNames</attribute>
-        <attribute>quiqqer.has.seen.2fa.info</attribute>
-        <attribute>qui-bookmarks</attribute>
-    </attributes>
-
-    <window>
-        <tab name="details">
-            <text>
-                <locale group="quiqqer/core" var="user.panel.details"/>
-            </text>
-            <image>fa fa-user</image>
-            <template>SYS_DIR/template/users/details.html</template>
-        </tab>
-
-        <tab name="security">
-            <text>
-                <locale group="quiqqer/core" var="user.panel.password"/>
-            </text>
-            <image>fa fa-key</image>
-            <template>SYS_DIR/template/users/security.html</template>
-        </tab>
-
-        <tab name="data">
-            <text>
-                <locale group="quiqqer/core" var="user.panel.personalData"/>
-            </text>
-            <image>fa fa-envelope</image>
-            <template>SYS_DIR/template/users/data.html</template>
-        </tab>
-
-    </window>
-
-</user>
+<?xml version='1.0' encoding='UTF-8'?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/user.xsd">
+    <user>
+        <attributes>
+            <attribute>quiqqer.set.new.password</attribute>
+            <attribute>quiqqer.sitemap.showNames</attribute>
+            <attribute>quiqqer.has.seen.2fa.info</attribute>
+            <attribute>qui-bookmarks</attribute>
+        </attributes>
+        <window>
+            <categories>
+                <category name="details" index="1">
+                    <title>
+                        <locale group="quiqqer/core" var="user.panel.details"/>
+                    </title>
+                    <icon>fa fa-user</icon>
+                    <settings name="details">
+                        <title>
+                            <locale group="quiqqer/core" var="user.panel.details"/>
+                        </title>
+                        <input conf="id" disabled="disabled" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user_id"/>
+                            </text>
+                        </input>
+                        <input conf="uuid" disabled="disabled" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user_uuid"/>
+                            </text>
+                        </input>
+                        <input conf="su" type="checkbox">
+                            <text>
+                                <locale group="quiqqer/core" var="permission.quiqqer.su"/>
+                            </text>
+                        </input>
+                        <input conf="username" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="username"/>
+                            </text>
+                        </input>
+                        <input conf="email" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="email"/>
+                            </text>
+                            <description><![CDATA[<div data-qui="controls/users/attribute/VerifiableUserAttribute" data-qui-options-input="email" data-qui-options-attribute-type="QUI\Users\Attribute\Verifiable\MailAttribute"></div>]]></description>
+                        </input>
+                        <input conf="avatar" class="media-image" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.avatar"/>
+                            </text>
+                        </input>
+                        <input conf="usergroup" data-qui="controls/groups/Select" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="groups"/>
+                            </text>
+                        </input>
+                        <select conf="lang" data-name="user-language">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.userlanguage"/>
+                            </text>
+                        </select>
+                    </settings>
+                    <settings name="personal">
+                        <title>
+                            <locale group="quiqqer/core" var="user.panel.personal"/>
+                        </title>
+                        <input conf="firstname" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="firstname"/>
+                            </text>
+                        </input>
+                        <input conf="lastname" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="lastname"/>
+                            </text>
+                        </input>
+                        <input conf="birthday" type="date">
+                            <text>
+                                <locale group="quiqqer/core" var="birthday"/>
+                            </text>
+                        </input>
+                        <input conf="shortcuts" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="abbreviation"/>
+                            </text>
+                        </input>
+                    </settings>
+                    <settings name="editor-toolbar">
+                        <title>
+                            <locale group="quiqqer/core" var="user.toolbar.title"/>
+                        </title>
+                        <select conf="toolbar">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.editorToolbar"/>
+                            </text>
+                        </select>
+                        <input conf="assigned_toolbar" data-qui="controls/editors/toolbars/Select" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.assignedToolbars"/>
+                            </text>
+                        </input>
+                    </settings>
+                    <settings name="timestamps">
+                        <title>
+                            <locale group="quiqqer/core" var="data"/>
+                        </title>
+                        <input conf="regdate" disabled="disabled" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.created"/>
+                            </text>
+                        </input>
+                        <input conf="lastedit" disabled="disabled" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.lastChanged"/>
+                            </text>
+                        </input>
+                        <input conf="lastvisit" disabled="disabled" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.lastLogin"/>
+                            </text>
+                        </input>
+                        <input conf="user_agent" disabled="disabled" type="text">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.browser"/>
+                            </text>
+                        </input>
+                    </settings>
+                </category>
+                <category name="security" index="2">
+                    <title>
+                        <locale group="quiqqer/core" var="user.panel.password"/>
+                    </title>
+                    <icon>fa fa-key</icon>
+                    <settings name="password">
+                        <title>
+                            <locale group="quiqqer/core" var="user.panel.password"/>
+                        </title>
+                        <input conf="password" type="password" autocomplete="new-password">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.password.new"/>
+                            </text>
+                        </input>
+                        <input conf="password2" type="password" autocomplete="new-password">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.password.repeat"/>
+                            </text>
+                        </input>
+                        <input conf="showPasswords" type="checkbox">
+                            <text>
+                                <locale group="quiqqer/core" var="user.panel.password.show"/>
+                            </text>
+                        </input>
+                        <input conf="quiqqer.set.new.password" type="checkbox">
+                            <text>
+                                <locale group="quiqqer/core" var="user.settings.setNewPassword"/>
+                            </text>
+                            <description>
+                                <locale group="quiqqer/core" var="user.settings.setNewPassword.text"/>
+                            </description>
+                        </input>
+                        <description><![CDATA[<div data-name="generate-and-send-password"></div>]]></description>
+                    </settings>
+                    <settings name="expiration">
+                        <title>
+                            <locale group="quiqqer/core" var="user.settings.expire"/>
+                        </title>
+                        <input conf="expire" type="radio" value="never" data-name="expire-never">
+                            <text>
+                                <locale group="quiqqer/core" var="user.settings.expire.always"/>
+                            </text>
+                        </input>
+                        <input conf="expire" type="radio" value="date" data-name="expire-on-date">
+                            <text>
+                                <locale group="quiqqer/core" var="user.settings.expire.date"/>
+                            </text>
+                        </input>
+                        <input conf="expire_date" type="date">
+                            <text>
+                                <locale group="quiqqer/core" var="user.settings.expire.date"/>
+                            </text>
+                        </input>
+                    </settings>
+                    <settings name="authenticator-settings">
+                        <title>
+                            <locale group="quiqqer/core" var="user.settings.authenticators.additionalSettings"/>
+                        </title>
+                        <input conf="quiqqer.has.seen.2fa.info" type="checkbox">
+                            <text>
+                                <locale group="quiqqer/core" var="user.settings.hasSeen2faInfo"/>
+                            </text>
+                            <description>
+                                <locale group="quiqqer/core" var="user.settings.hasSeen2faInfo.description"/>
+                            </description>
+                        </input>
+                    </settings>
+                    <settings name="authenticators">
+                        <title>
+                            <locale group="quiqqer/core" var="user.settings.authenticators.2faList"/>
+                        </title>
+                        <description><![CDATA[<div data-name="authenticators"></div>]]></description>
+                    </settings>
+                </category>
+                <category name="data" index="3">
+                    <title>
+                        <locale group="quiqqer/core" var="user.panel.personalData"/>
+                    </title>
+                    <icon>fa fa-envelope</icon>
+                    <settings name="addresses">
+                        <title>
+                            <locale group="quiqqer/core" var="addresses"/>
+                        </title>
+                        <description><![CDATA[<div class="address-list" data-name="address-list"></div>]]></description>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+    </user>
 </quiqqer>

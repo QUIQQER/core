@@ -3,6 +3,12 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="users.user.address.count.one">
+            <pt><![CDATA[[count] endereço]]></pt>
+        </locale>
+        <locale name="users.user.address.count.other">
+            <pt><![CDATA[[count] endereços]]></pt>
+        </locale>
         <locale name="address.suffix">
             <pt><![CDATA[Complemento da morada]]></pt>
         </locale>

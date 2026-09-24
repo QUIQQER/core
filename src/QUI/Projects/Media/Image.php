@@ -7,6 +7,7 @@
 namespace QUI\Projects\Media;
 
 use Exception;
+use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Exceptions\EncoderException;
 use QUI;
@@ -136,14 +137,6 @@ class Image extends Item implements QUI\Interfaces\Projects\Media\File
 
         $this->checkPermission('quiqqer.projects.media.view');
 
-
-        if ($width > $this->IMAGE_MAX_SIZE) {
-            $width = $this->IMAGE_MAX_SIZE;
-        }
-
-        if ($height > $this->IMAGE_MAX_SIZE) {
-            $height = $this->IMAGE_MAX_SIZE;
-        }
 
         if ($this->getAttribute('mime_type') != 'image/svg+xml' && ($width || $height)) {
             $resizeSize = $this->getSizeCacheDimensions($width, $height);
@@ -434,14 +427,6 @@ class Image extends Item implements QUI\Interfaces\Projects\Media\File
         }
 
 
-        if ($maxWidth > $this->IMAGE_MAX_SIZE) {
-            $maxWidth = $this->IMAGE_MAX_SIZE;
-        }
-
-        if ($maxHeight > $this->IMAGE_MAX_SIZE) {
-            $maxHeight = $this->IMAGE_MAX_SIZE;
-        }
-
         $extra = '';
         $params = $this->getSizeCacheDimensions($maxWidth, $maxHeight);
         $height = $params['height'];
@@ -477,7 +462,42 @@ class Image extends Item implements QUI\Interfaces\Projects\Media\File
     }
 
     /**
-     * Return the canonical dimensions used for the cache path and generated image.
+     * Return the physical dimensions of a size-cache image without generating it.
+     *
+     * The proportional image resize can differ from the rounded cache-path dimensions.
+     * Use the same geometry as the renderer when describing responsive image candidates.
+     *
+     * @return array{width: int, height: int}
+     *
+     * @throws QUI\Exception
+     */
+    public function getSizeCacheImageDimensions(
+        bool | string | int $maxWidth = false,
+        bool | string | int $maxHeight = false
+    ): array {
+        $width = (int)$this->getWidth();
+        $height = (int)$this->getHeight();
+        $mimeType = $this->getAttribute('mime_type');
+
+        if (
+            (!$maxWidth && !$maxHeight)
+            || in_array($mimeType, ['image/svg', 'image/svg+xml'], true)
+            || ($mimeType === 'image/gif' && $this->isAnimated())
+        ) {
+            return ['width' => $width, 'height' => $height];
+        }
+
+        $dimensions = $this->getSizeCacheDimensions($maxWidth, $maxHeight);
+        $Size = (new Rectangle($width, $height))->scaleDown(
+            $dimensions['width'] ?: null,
+            $dimensions['height'] ?: null
+        );
+
+        return ['width' => $Size->width(), 'height' => $Size->height()];
+    }
+
+    /**
+     * Return the canonical dimensions used for the cache path and resize bounds.
      *
      * Small target sizes remain exact to avoid visible quality loss for logos and
      * icons. Larger sizes retain the cache-size bucketing that limits the number
@@ -491,6 +511,14 @@ class Image extends Item implements QUI\Interfaces\Projects\Media\File
         bool | string | int $maxWidth = false,
         bool | string | int $maxHeight = false
     ): array {
+        if ($maxWidth > $this->IMAGE_MAX_SIZE) {
+            $maxWidth = $this->IMAGE_MAX_SIZE;
+        }
+
+        if ($maxHeight > $this->IMAGE_MAX_SIZE) {
+            $maxHeight = $this->IMAGE_MAX_SIZE;
+        }
+
         $params = $this->getResizeSize($maxWidth, $maxHeight);
         $width = (int)$params['width'];
         $height = (int)$params['height'];

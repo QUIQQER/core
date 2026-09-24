@@ -588,7 +588,7 @@
             <pl><![CDATA[lewy górny róg]]></pl>
         </locale>
         <locale name="projects.project.panel.settings.btn.media">
-            <pl><![CDATA[Ustawienia mediów]]></pl>
+            <pl><![CDATA[Media]]></pl>
         </locale>
         <locale name="projects.project.settings.panel.mediaSettings.maxUploadSize">
             <pl><![CDATA[Maksymalny rozmiar obrazu]]></pl>

@@ -1198,9 +1198,11 @@ class Manager
                 ->executeQuery()
                 ->fetchAssociative();
         } catch (\Doctrine\DBAL\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+
             throw new Exception(
-                $Exception->getMessage(),
-                (int)$Exception->getCode()
+                ['quiqqer/core', 'exception.login.fail'],
+                500
             );
         }
 
@@ -1306,9 +1308,11 @@ class Manager
                 ['uuid' => $userId]
             );
         } catch (\Doctrine\DBAL\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+
             throw new Exception(
-                $Exception->getMessage(),
-                (int)$Exception->getCode()
+                ['quiqqer/core', 'exception.login.fail'],
+                500
             );
         }
 
@@ -1339,14 +1343,11 @@ class Manager
                 ->executeQuery()
                 ->fetchAssociative();
         } catch (\Doctrine\DBAL\Exception $Exception) {
-            QUI\System\Log::addError($Exception->getMessage());
+            QUI\System\Log::writeException($Exception);
 
-            throw new QUI\Users\Exception(
-                QUI::getLocale()->get(
-                    'quiqqer/core',
-                    'exception.lib.user.user.not.found'
-                ),
-                404
+            throw new QUI\Database\Exception(
+                ['quiqqer/core', 'exception.login.fail'],
+                500
             );
         }
 
@@ -1397,8 +1398,10 @@ class Manager
             try {
                 $User = self::getUserByName($username);
                 $userId = $User->getUUID();
-            } catch (\Exception $Exception) {
-                QUI\System\Log::addError($Exception->getMessage());
+            } catch (QUI\Users\Exception $Exception) {
+                if ($Exception->getCode() !== 404) {
+                    throw $Exception;
+                }
             }
         }
 
@@ -1414,7 +1417,11 @@ class Manager
         if ($userId === false) {
             try {
                 $userId = $Authenticator->getUser()->getUUID();
-            } catch (\Exception) {
+            } catch (\Exception $Exception) {
+                if ($Exception instanceof QUI\Database\Exception) {
+                    throw $Exception;
+                }
+
                 // The authenticator reports an invalid identity during authentication.
             }
         }
@@ -1602,14 +1609,11 @@ class Manager
                 ->executeQuery()
                 ->fetchAssociative();
         } catch (\Doctrine\DBAL\Exception $Exception) {
-            QUI\System\Log::addError($Exception->getMessage());
+            QUI\System\Log::writeException($Exception);
 
-            throw new QUI\Users\Exception(
-                QUI::getLocale()->get(
-                    'quiqqer/core',
-                    'exception.lib.user.user.not.found'
-                ),
-                404
+            throw new QUI\Database\Exception(
+                ['quiqqer/core', 'exception.login.fail'],
+                500
             );
         }
 

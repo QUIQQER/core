@@ -344,10 +344,10 @@
             <de><![CDATA[Projekt erstellen]]></de>
         </locale>
         <locale name="projects.project.panel.settings.btn.customCSS">
-            <de><![CDATA[Custom-CSS]]></de>
+            <de><![CDATA[Custom CSS]]></de>
         </locale>
         <locale name="projects.project.panel.settings.btn.customJS">
-            <de><![CDATA[Custom-JavaScript]]></de>
+            <de><![CDATA[Custom JavaScript]]></de>
         </locale>
         <locale name="message.site.save.success">
             <de><![CDATA[Die Seite [id] [title] wurde erfolgreich gespeichert.]]></de>
@@ -653,10 +653,10 @@
             <de><![CDATA[Deaktivieren]]></de>
         </locale>
         <locale name="projects.project.panel.settings.btn.adminSettings">
-            <de><![CDATA[Backend-Einstellungen]]></de>
+            <de><![CDATA[Backend]]></de>
         </locale>
         <locale name="projects.project.panel.settings.btn.settings">
-            <de><![CDATA[Einstellungen]]></de>
+            <de><![CDATA[Allgemein]]></de>
         </locale>
         <locale name="projects.project.settings.panel.adminSettings.title">
             <de><![CDATA[Projekteinstellungen für das Backend]]></de>

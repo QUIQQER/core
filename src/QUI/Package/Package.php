@@ -293,16 +293,20 @@ class Package extends QUI\QDOM
      */
     public function getComposerData(): mixed
     {
-        if (!empty($this->composerData)) {
+        if (is_array($this->composerData) && !empty($this->composerData['name'])) {
             return $this->composerData;
         }
 
         $cache = $this->getCacheName() . '/composerData';
 
         try {
-            $this->composerData = LongTermCache::get($cache);
+            $cachedData = LongTermCache::get($cache);
 
-            return $this->composerData;
+            if (is_array($cachedData) && !empty($cachedData['name'])) {
+                $this->composerData = $cachedData;
+
+                return $this->composerData;
+            }
         } catch (QUI\Exception $Exception) {
             QUI\System\Log::writeDebugException($Exception);
         }
@@ -342,7 +346,11 @@ class Package extends QUI\QDOM
             $this->composerData['version'] = $lock['version'];
         }
 
-        LongTermCache::set($cache, $this->composerData);
+        // During package replacement the manifest can be temporarily unavailable.
+        // A lockfile version alone must not permanently hide the package from setup.
+        if (is_array($this->composerData) && !empty($this->composerData['name'])) {
+            LongTermCache::set($cache, $this->composerData);
+        }
 
         return $this->composerData;
     }
@@ -759,6 +767,11 @@ class Package extends QUI\QDOM
 
         // xml
         try {
+            if ($pkgName === 'quiqqer/core') {
+                // Migrate legacy session data before the generic XML schema import.
+                QUI\Session::setup();
+            }
+
             Update::importDatabase($dir . self::DATABASE_XML);
         } catch (\Exception $Exception) {
             QUI\System\Log::writeException($Exception);

@@ -202,7 +202,7 @@
 
         <table name="sessions">
             <field type="VARCHAR(255) NOT NULL DEFAULT ''">session_id</field>
-            <field type="TEXT NULL ">session_value</field>
+            <field type="blob" length="16777215" nullable="true">session_value</field>
             <field type="INT(11) NOT NULL DEFAULT 0">session_time</field>
             <field type="INT(11) NOT NULL DEFAULT 0">session_lifetime</field>
 

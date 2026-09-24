@@ -6,25 +6,18 @@
 
 namespace QUI\System\Console\Tools;
 
-use Composer\Semver\VersionParser;
 use Exception;
 use QUI;
 use RuntimeException;
 
-use function copy;
 use function date;
 use function explode;
-use function file_exists;
-use function file_get_contents;
-use function file_put_contents;
-use function json_decode;
-use function json_encode;
+use function implode;
+use function is_file;
+use function rtrim;
 use function str_replace;
-use function substr_count;
 use function trim;
-use function unlink;
 
-use const JSON_PRETTY_PRINT;
 use const PHP_EOL;
 use const VAR_DIR;
 
@@ -87,80 +80,27 @@ class SecurityUpdate extends QUI\System\Console\Tool
 
         $this->writeLn(QUI::getLocale()->get('quiqqer/core', 'security.update.start'));
 
-        // create security composer
-        $workingDir = $Composer->getWorkingDir();
-
-        $composerOriginal = $workingDir . 'composer.json';
-        $composerBackups = $workingDir . 'composer-security-update-backup.json';
+        $workingDir = rtrim($Composer->getWorkingDir(), '/') . '/';
 
         try {
-            if (!file_exists($composerOriginal)) {
-                $this->writeLn('Couldn\'t find the composer.json file.', 'red');
-                exit;
+            if (!is_file($workingDir . 'composer.json')) {
+                throw new RuntimeException("Couldn't find the composer.json file.");
             }
 
-            copy($composerOriginal, $composerBackups);
-
-            // get all packages
-            $VersionParser = new VersionParser();
-            $installed = QUI::getPackageManager()->getInstalledVersions();
-            $packages = [];
-
-            foreach ($installed as $package => $v) {
-                $stability = $VersionParser->parseStability($v);
-
-                if ($stability === 'stable') {
-                    $parts = $VersionParser->normalize($v);
-                    $parts = explode('.', $parts);
-                    $v = $parts[0] . '.' . $parts[1] . '.*';
-                }
-
-                $packages[$package] = $v;
+            if (!is_file($workingDir . 'composer.lock')) {
+                throw new RuntimeException('Patch updates require an existing composer.lock file.');
             }
 
-            $composerJSON = json_decode((string)file_get_contents($composerOriginal), true);
-            $originalRequire = $composerJSON['require'];
-            $composerJSON['require'] = $packages;
+            $help = $Composer->executeComposer('update', ['--help' => true]);
 
-            // keep composer.json versions
-            // quiqqer/website-locker
-            foreach ($originalRequire as $package => $v) {
-                if ($package === 'php') {
-                    if (!isset($composerJSON['require']['php'])) {
-                        $composerJSON['require']['php'] = $v;
-                    }
-
-                    continue;
-                }
-
-                $stability = $VersionParser->parseStability($v);
-
-                if ($stability !== 'stable') {
-                    continue;
-                }
-
-                if (str_contains($v, '*')) {
-                    continue;
-                }
-
-                try {
-                    $version = $VersionParser->normalize($v);
-                } catch (RuntimeException) {
-                    continue;
-                }
-
-                // wenn version direkt festgesetzt wurde, nicht ändern
-                // quiqqer/core#1192
-                if (substr_count($version, '.') === 3) {
-                    $composerJSON['require'][$package] = $v;
-                }
+            if (!str_contains(implode(PHP_EOL, $help), '--patch-only')) {
+                throw new RuntimeException('Patch updates require Composer 2.8 or newer (--patch-only).');
             }
 
-            file_put_contents($composerOriginal, json_encode($composerJSON, JSON_PRETTY_PRINT));
-
-            // run the test with the security package list
+            $dryRunOutput = '';
             $Composer->update([
-                '--dry-run' => true
+                '--dry-run' => true,
+                '--patch-only' => true
             ]);
 
             $dryRunOutput = explode(PHP_EOL, $dryRunOutput);
@@ -194,19 +134,17 @@ class SecurityUpdate extends QUI\System\Console\Tool
                 return;
             }
 
-            // run the update with the security package list
+            // Apply the same patch restriction used by the dry run.
             $this->writeLn(QUI::getLocale()->get('quiqqer/core', 'security.update.updates.found'));
             $this->writeLn();
             $this->writeLn();
             $this->dryRun = false;
 
             // if update exist, activate maintenance
-            $Maintenance = new Maintenance();
-            $Maintenance->setArgument('status', 'on');
-            $Maintenance->execute();
+            $this->setMaintenance(true);
+            $maintenanceEnabled = true;
 
-
-            $Composer->update();
+            $Composer->update(['--patch-only' => true]);
 
             $wasExecuted = QUI::getLocale()->get('quiqqer/core', 'update.message.execute');
             $webserver = QUI::getLocale()->get('quiqqer/core', 'update.message.webserver');
@@ -242,10 +180,9 @@ class SecurityUpdate extends QUI\System\Console\Tool
             $this->resetColor();
             $this->writeLn();
         } finally {
-            // reset the composer jsons
-            unlink($composerOriginal);
-            copy($composerBackups, $composerOriginal);
-            unlink($composerBackups);
+            if (isset($maintenanceEnabled)) {
+                $this->setMaintenance(false);
+            }
         }
 
         // mail
@@ -279,10 +216,12 @@ class SecurityUpdate extends QUI\System\Console\Tool
                 QUI\System\Log::addError($Exception->getMessage());
             }
         }
+    }
 
-        if (isset($Maintenance)) {
-            $Maintenance->setArgument('status', 'off');
-            $Maintenance->execute();
-        }
+    protected function setMaintenance(bool $enabled): void
+    {
+        $Maintenance = new Maintenance();
+        $Maintenance->setArgument('status', $enabled ? 'on' : 'off');
+        $Maintenance->execute();
     }
 }
