@@ -1163,6 +1163,8 @@ class Rewrite
      * @param integer $code - Error Code
      * @param string $url - Bei manchen Error Codes muss eine URL übergeben werden (30*)
      *
+     * Redirect responses terminate the request after the errorHeaderShowAfter event.
+     *
      * @return boolean
      */
     public function showErrorHeader(int $code = 404, string $url = ''): bool
@@ -1254,6 +1256,12 @@ class Rewrite
             QUI::getEvents()->fireEvent('errorHeaderShowAfter', [$code, $url]);
         } catch (\Exception $e) {
             QUI\System\Log::writeException($e);
+        }
+
+        // Redirects have already sent their body. The frontend must not render
+        // another response or try to send headers after this point.
+        if (in_array($code, [301, 302, 303], true)) {
+            exit;
         }
 
         return true;

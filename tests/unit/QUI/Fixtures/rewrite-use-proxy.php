@@ -29,23 +29,33 @@ foreach (['onErrorHeaderShowBefore', 'onErrorHeaderShowAfter'] as $event) {
 }
 
 $Rewrite = new Rewrite();
-$result = $Rewrite->showErrorHeader(305, 'https://target.example.test');
-$errors = [];
+$continued = false;
 
-foreach ($Handler->getRecords() as $Record) {
-    if ($Record->level->value === 400) {
-        $errors[] = [
-            'message' => $Record->message,
-            'httpCode' => $Record->context['httpCode'],
-            'trace' => $Record->context['trace']
-        ];
+register_shutdown_function(static function () use ($Handler, $Rewrite, &$events, &$continued): void {
+    $errors = [];
+
+    foreach ($Handler->getRecords() as $Record) {
+        if ($Record->level->value === 400) {
+            $errors[] = [
+                'message' => $Record->message,
+                'httpCode' => $Record->context['httpCode'] ?? null,
+                'trace' => $Record->context['trace'] ?? []
+            ];
+        }
     }
-}
 
-fwrite(STDERR, json_encode([
-    'result' => $result,
-    'status' => http_response_code(),
-    'rewriteStatus' => $Rewrite->getHeaderCode(),
-    'events' => $events,
-    'errors' => $errors
-]));
+    fwrite(STDERR, json_encode([
+        'continued' => $continued,
+        'status' => http_response_code(),
+        'rewriteStatus' => $Rewrite->getHeaderCode(),
+        'events' => $events,
+        'errors' => $errors
+    ]));
+});
+
+$Rewrite->showErrorHeader((int)($argv[1] ?? 305), $argv[2] ?? 'https://target.example.test');
+$continued = true;
+
+// Simulate the frontend rendering and sending its page after rewrite.
+QUI::getGlobalResponse()->setContent('UNEXPECTED_SECOND_RESPONSE');
+QUI::getGlobalResponse()->send();
