@@ -26,6 +26,17 @@ class RunExecutor
             $state = $this->repository->load($id);
             $state->assertAuthorized($token, $now);
             $isAuthorized = true;
+
+            if (
+                in_array($state->getStatus(), [
+                    RunState::STATUS_FINISHED,
+                    RunState::STATUS_FAILED,
+                    RunState::STATUS_CANCELLED
+                ], true)
+            ) {
+                return $state;
+            }
+
             $state->markRunning($now);
             $pid = getmypid();
 
@@ -45,7 +56,7 @@ class RunExecutor
             $result = $action->execute($state);
 
             if ($result->isRestartRequired()) {
-                $state->markRestartRequired();
+                $state->markRestartRequired($result->getNextPhase() ?? RunState::PHASE_RESTART_REQUIRED);
             } elseif ($result->isFinished()) {
                 $state->markFinished($now);
             } elseif ($result->getNextPhase() !== null) {
