@@ -367,6 +367,12 @@
         </locale>
 
 
+        <locale name="security.update.console.mail.failure.subject">
+            <es><![CDATA[Error en la actualización automática de seguridad - [host]]]></es>
+        </locale>
+        <locale name="security.update.console.mail.failure.body" html="true">
+            <es><![CDATA[<p>La actualización automática de seguridad ha fallado. Revisa el error que aparece a continuación y el registro de actualización. Si la instalación ya había comenzado, el modo de mantenimiento permanece activo hasta que se revise y repare la instalación.</p>]]></es>
+        </locale>
         <locale name="security.update.console.mail.subject">
             <es><![CDATA[Se ha realizado una actualización de seguridad automática - [host]]]></es>
         </locale>

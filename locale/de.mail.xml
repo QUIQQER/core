@@ -454,6 +454,12 @@
         </locale>
 
 
+        <locale name="security.update.console.mail.failure.subject">
+            <de><![CDATA[Automatisiertes Sicherheitsupdate fehlgeschlagen - [host]]]></de>
+        </locale>
+        <locale name="security.update.console.mail.failure.body" html="true">
+            <de><![CDATA[<p>Das automatische Sicherheitsupdate ist fehlgeschlagen. Bitte überprüfe die folgende Fehlermeldung und das Update-Protokoll. Falls die Installation bereits begonnen hatte, bleibt der Wartungsmodus bis zur Prüfung und Reparatur aktiv.</p>]]></de>
+        </locale>
         <locale name="security.update.console.mail.subject">
             <de><![CDATA[Automatisiertes Sicherheitsupdate wurde durchgeführt - [host]]]></de>
         </locale>
