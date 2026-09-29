@@ -394,7 +394,7 @@ class Console
         $year = date('Y');
 
         $lastUpdate = QUI::getPackageManager()->getLastUpdateDate();
-        $lastUpdate = QUI::getLocale()->formatDate($lastUpdate);
+        $lastUpdate = date('d.m.Y H:i:s', $lastUpdate);
 
         $str = '
   _______          _________ _______  _______  _______  _______
