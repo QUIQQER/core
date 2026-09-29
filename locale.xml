@@ -2,6 +2,8 @@
 <quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
+    <file file="/src/QUI/Upload/MobileUpload/locale.xml"/>
+
     <!-- Deutsch -->
     <file file="/locale/de.xml"/>
     <file file="/locale/de.languages.xml"/>

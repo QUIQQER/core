@@ -1,0 +1,262 @@
+.quiqqer-mobile-upload-page {
+    --_page-background: var(--quiqqer-mobile-upload-page-background, var(--qui-colors-gray-25));
+    margin: 0;
+    padding: clamp(1rem, 5vw, 3rem) 1rem;
+    background: var(--_page-background);
+    font: 1rem/1.5 system-ui, sans-serif;
+}
+
+.quiqqer-mobile-upload {
+    --_background: var(--quiqqer-mobile-upload-background, var(--qui-colors-white));
+    --_text: var(--quiqqer-mobile-upload-color, var(--qui-colors-dark));
+    --_muted: var(--quiqqer-mobile-upload-muted, var(--qui-colors-gray));
+    --_accent: var(--quiqqer-mobile-upload-accent, var(--qui-colors-primary-700));
+    --_accent-surface: var(--quiqqer-mobile-upload-accent-surface, var(--qui-colors-primary-50));
+    --_border: var(--quiqqer-mobile-upload-border, var(--qui-colors-gray-100));
+    --_surface: var(--quiqqer-mobile-upload-surface, var(--qui-colors-gray-25));
+    --_success: var(--quiqqer-mobile-upload-success, var(--qui-colors-success-800));
+    --_success-surface: var(--quiqqer-mobile-upload-success-surface, var(--qui-colors-success-50));
+    --_error: var(--quiqqer-mobile-upload-error, var(--qui-colors-danger-800));
+    --_error-surface: var(--quiqqer-mobile-upload-error-surface, var(--qui-colors-danger-50));
+    --_gap: var(--quiqqer-mobile-upload-gap, 1rem);
+
+    box-sizing: border-box;
+    color: var(--_text);
+    background: var(--_background);
+    max-width: 42rem;
+    margin: auto;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    border: 1px solid var(--_border);
+    border-radius: 1.5rem;
+    box-shadow: 0 12px 40px color-mix(in srgb, var(--_text) 5%, transparent);
+    overflow-wrap: anywhere;
+}
+
+.quiqqer-mobile-upload [hidden] {
+    display: none !important;
+}
+
+.quiqqer-mobile-upload-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.quiqqer-mobile-upload-symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    color: var(--_accent);
+    background: var(--_accent-surface);
+    border-radius: 1rem;
+}
+
+.quiqqer-mobile-upload svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.quiqqer-mobile-upload h1 {
+    margin: 1rem 0 0.5rem;
+    font-size: clamp(1.4rem, 4vw, 1.75rem);
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+}
+
+.quiqqer-mobile-upload-intro {
+    color: var(--_muted);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.quiqqer-mobile-upload [data-name="reference"] {
+    display: inline-block;
+    margin: 1rem 0 0;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--_border);
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.quiqqer-mobile-upload [data-name="reference"]:empty,
+.quiqqer-mobile-upload [data-name="status"]:empty,
+.quiqqer-mobile-upload [data-name="files"]:empty,
+.quiqqer-mobile-upload [data-name="receipts"]:empty {
+    display: none;
+}
+
+.quiqqer-mobile-upload fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+.quiqqer-mobile-upload legend {
+    padding: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.quiqqer-mobile-upload .btn {
+    min-height: 48px;
+    font-weight: 600;
+}
+
+.quiqqer-mobile-upload .btn:disabled,
+.quiqqer-mobile-upload fieldset:disabled .btn {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.quiqqer-mobile-upload :focus-visible {
+    outline: 3px solid var(--_accent);
+    outline-offset: 3px;
+}
+
+.quiqqer-mobile-upload-actions {
+    display: flex;
+    gap: var(--_gap);
+    margin-block: var(--_gap);
+}
+
+.quiqqer-mobile-upload-actions .btn {
+    --qui-btn-color: var(--_text);
+    --qui-btn-bgColor: var(--_background);
+    --qui-btn-borderColor: var(--_border);
+    --qui-btn-color--hover: var(--_accent);
+    --qui-btn-bgColor--hover: var(--_accent-surface);
+    --qui-btn-borderColor--hover: var(--_accent);
+    --padding-block: 1.5rem;
+    --padding-inline: 0.5rem;
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+    border-radius: 1rem;
+}
+
+.quiqqer-mobile-upload-actions svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--_accent);
+    margin-bottom: 0.5rem;
+}
+
+.quiqqer-mobile-upload-actions strong {
+    font-size: 0.95rem;
+}
+
+.quiqqer-mobile-upload-actions span,
+.quiqqer-mobile-upload [data-name="limits"] {
+    color: var(--_muted);
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.quiqqer-mobile-upload [data-name="limits"] {
+    text-align: center;
+    margin: 0 0 1.5rem;
+}
+
+.quiqqer-mobile-upload ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--_gap) 0;
+}
+
+.quiqqer-mobile-upload [data-name="files"] li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-block: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--_border);
+    border-radius: 0.75rem;
+}
+
+.quiqqer-mobile-upload [data-name="files"] p {
+    flex: 1;
+    min-width: 6rem;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.quiqqer-mobile-upload li img {
+    order: -1;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.quiqqer-mobile-upload [data-name="empty"] {
+    padding: 1.5rem var(--_gap);
+    border: 1px dashed var(--_border);
+    border-radius: 0.75rem;
+    background: var(--_surface);
+    color: var(--_muted);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.quiqqer-mobile-upload [data-name="status"],
+.quiqqer-mobile-upload [data-name="error"],
+.quiqqer-mobile-upload [data-name="receipts"] li {
+    padding: 0.75rem var(--_gap);
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.quiqqer-mobile-upload [data-name="status"] {
+    background: var(--_accent-surface);
+    color: var(--_accent);
+}
+
+.quiqqer-mobile-upload [data-name="error"] {
+    background: var(--_error-surface);
+    color: var(--_error);
+}
+
+.quiqqer-mobile-upload [data-name="receipts"] li {
+    margin-top: 0.5rem;
+    background: var(--_success-surface);
+    color: var(--_success);
+}
+
+.quiqqer-mobile-upload [data-name="send"],
+.quiqqer-mobile-upload [data-name="done"],
+.quiqqer-mobile-upload progress {
+    width: 100%;
+    margin-top: var(--_gap);
+}
+
+.quiqqer-mobile-upload progress {
+    accent-color: var(--_accent);
+}
+
+@media (max-width: 380px) {
+    .quiqqer-mobile-upload-page {
+        padding: 0.75rem;
+    }
+
+    .quiqqer-mobile-upload {
+        --_gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    .quiqqer-mobile-upload-actions span {
+        display: none;
+    }
+}
