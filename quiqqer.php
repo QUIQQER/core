@@ -11,7 +11,11 @@ $isRepairMode = false;
 $isPathMigration = false;
 
 $scriptName = $_SERVER['argv'][0] ?? '';
-$command = $_SERVER['argv'][1] ?? '';
+$commandArguments = array_values(array_filter(
+    $_SERVER['argv'],
+    static fn (string $argument): bool => explode('=', $argument, 2)[0] !== '--no-header'
+));
+$command = $commandArguments[1] ?? '';
 
 $validScripts = ['quiqqer.php', './console'];
 
@@ -43,6 +47,11 @@ if (in_array($scriptName, $validScripts, true)) {
 }
 
 // execute params
+
+// Bootstrap commands bypass Console and must not receive its global header flag.
+if ($isPathMigration || $isRepairMode || $isComposerMode) {
+    $_SERVER['argv'] = $commandArguments;
+}
 
 if ($isPathMigration) {
     require 'src/pathMigration.php';

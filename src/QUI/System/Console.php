@@ -225,6 +225,7 @@ class Console
 
         // read argv params
         $params = $this->getArguments();
+        unset($params['no-header']);
         $this->argv = $params;
 
         $this->read();
@@ -249,6 +250,7 @@ class Console
         }
 
         $args = $this->readArgv();
+        unset($args['--no-header']);
         $isSystemTool = key($args);
 
         if (
@@ -371,6 +373,10 @@ class Console
     public function title(): void
     {
         $params = $this->readArgv();
+
+        if (isset($params['--no-header'])) {
+            return;
+        }
 
         if (!$this->needsHelpHeader($params)) {
             // Completion output is consumed by the shell and must contain only suggestions.
@@ -1230,6 +1236,7 @@ class Console
         $this->writeLn();
         $this->writeLn(" Optional arguments");
         $this->writeLn(" --help			This help text");
+        $this->writeLn(" --no-header             Suppress the QUIQQER header, keeping tool output unchanged");
 
         $this->writeLn(" --username		Username", 'red');
         $this->writeLn(" --password		Password to login", 'red');
