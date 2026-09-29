@@ -14,6 +14,12 @@ class QueueRecipientsTest extends TestCase
     private bool $previousMailSendingDisabled;
     private mixed $previousMaxRetries;
     private TestHandler $LogHandler;
+    private QUI\Config $LogConfig;
+
+    /**
+     * @var array<string, mixed>
+     */
+    private array $previousLogLevels;
 
     protected function setUp(): void
     {
@@ -26,6 +32,15 @@ class QueueRecipientsTest extends TestCase
         Mailer::$DISABLE_MAIL_SENDING = false;
         QUI::getConfig('etc/conf.ini.php')->setValue('mail', 'queueMaxRetries', 0);
 
+        $LogConfig = QUI\Log\Config::getPackageConfig();
+        self::assertNotNull($LogConfig);
+
+        $this->LogConfig = $LogConfig;
+        $this->previousLogLevels = $LogConfig->get('log_levels');
+
+        // The diagnostic assertion must not depend on the installation's logging settings.
+        $LogConfig->setValue('log_levels', 'warning', 1);
+
         $this->LogHandler = new TestHandler();
         QUI\Log\Logger::getLogger()->pushHandler($this->LogHandler);
     }
@@ -33,6 +48,7 @@ class QueueRecipientsTest extends TestCase
     protected function tearDown(): void
     {
         QUI\Log\Logger::getLogger()->popHandler();
+        $this->LogConfig->setSection('log_levels', $this->previousLogLevels);
 
         Mailer::$DISABLE_MAIL_SENDING = $this->previousMailSendingDisabled;
         QUI::getConfig('etc/conf.ini.php')->setValue(
