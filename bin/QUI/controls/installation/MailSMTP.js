@@ -102,7 +102,7 @@ define('controls/installation/MailSMTP', [
         },
 
         checkSMTPServer: function () {
-            const Form   = this.getElm().getElement('form');
+            const Form   = this.getElm().querySelector('[data-name="smtp-form"]');
             const Wizard = this.getAttribute('Wizard');
             const data   = Wizard.getData();
 
@@ -111,20 +111,22 @@ define('controls/installation/MailSMTP', [
             }
 
             return new Promise(function (resolve, reject) {
-                QUIAjax.get('ajax_system_mailTest', resolve, {
+                QUIAjax.post('ajax_system_mailTest', resolve, {
                     'package': 'quiqqer/core',
                     onError  : reject,
-                    params   : JSON.encode({
+                    params   : JSON.stringify({
                         adminMail : data['mail.admin_mail'],
+                        SMTP      : 1,
+                        SMTPAuth  : Form.elements['smtp-auth'].checked ? 1 : 0,
                         SMTPServer: Form.elements['smtp-server'].value,
                         SMTPUser  : Form.elements['smtp-user'].value,
                         SMTPPass  : Form.elements['smtp-password'].value,
                         SMTPPort  : Form.elements['smtp-port'].value,
                         SMTPSecure: Form.elements['smtp-secure'].value,
 
-                        SMTPSecureSSL_verify_peer      : Form.elements['smtp-secure-verify_peer'].value,
-                        SMTPSecureSSL_verify_peer_name : Form.elements['smtp-secure-verify_peer_name'].value,
-                        SMTPSecureSSL_allow_self_signed: Form.elements['mail.settings.allow_self_signed'].values
+                        SMTPSecureSSL_verify_peer      : Form.elements['smtp-secure-verify_peer'].checked ? 1 : 0,
+                        SMTPSecureSSL_verify_peer_name : Form.elements['smtp-secure-verify_peer_name'].checked ? 1 : 0,
+                        SMTPSecureSSL_allow_self_signed: Form.elements['mail.settings.allow_self_signed'].checked ? 1 : 0
                     })
                 });
             });
