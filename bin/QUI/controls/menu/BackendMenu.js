@@ -186,7 +186,6 @@ define('controls/menu/BackendMenu', [
             this.$Content.scrollTop = 0;
 
             document.addEventListener('pointerdown', this.$outside, true);
-            document.addEventListener('focusin', this.$outside);
             document.addEventListener('keydown', this.$escape);
             window.addEventListener('resize', this.$resize);
         },
@@ -202,7 +201,6 @@ define('controls/menu/BackendMenu', [
             this.$Popup.hidden = true;
             Root.Button.setAttribute('aria-expanded', 'false');
             document.removeEventListener('pointerdown', this.$outside, true);
-            document.removeEventListener('focusin', this.$outside);
             document.removeEventListener('keydown', this.$escape);
             window.removeEventListener('resize', this.$resize);
 
