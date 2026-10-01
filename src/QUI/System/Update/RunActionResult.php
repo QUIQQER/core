@@ -21,6 +21,11 @@ class RunActionResult
         return new self(null, true, false);
     }
 
+    public static function restartAt(string $phase): self
+    {
+        return new self($phase, true, false);
+    }
+
     public static function finished(): self
     {
         return new self(null, false, true);

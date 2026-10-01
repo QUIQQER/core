@@ -23,7 +23,7 @@ class ConsoleTest extends TestCase
              */
             public function titleIsVisible(array $arguments): bool
             {
-                return $this->shouldDisplayTitle($arguments);
+                return $this->needsHelpHeader($arguments);
             }
         };
 

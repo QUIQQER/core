@@ -63,6 +63,9 @@ class Update extends QUI\System\Console\Tool
 
     private int $updateOutputSectionOffset = 0;
 
+    /** @var array{backupFolder: string, finalizePackages: bool}|null */
+    private ?array $pendingCompletion = null;
+
     /**
      * constructor
      */
@@ -156,8 +159,9 @@ class Update extends QUI\System\Console\Tool
         }
     }
 
-    public function executeSystemUpdate(): bool
+    public function executeSystemUpdate(bool $deferCompletion = false): bool
     {
+        $this->pendingCompletion = null;
         $Output = $this->getUpdateOutput();
 
         $this->writeUpdateLog('====== EXECUTE UPDATE ======');
@@ -412,12 +416,47 @@ class Update extends QUI\System\Console\Tool
                 ob_start();
 
                 try {
-                    $Packages->update(false, false, $PackageOutput);
+                    $Packages->update(false, false, $PackageOutput, false);
                 } finally {
                     $this->writeBufferedPackageOutput((string)ob_get_clean(), $PackageOutput);
                 }
 
                 $Output->success('Composer update completed');
+            }
+
+            $this->pendingCompletion = [
+                'backupFolder' => (string)$etcBackupFolder,
+                'finalizePackages' => !$this->getArgument('package')
+            ];
+        } catch (Exception $Exception) {
+            return $this->reportUpdateFailure($Exception);
+        }
+
+        if ($deferCompletion) {
+            // No package services may be used after this point in the current runner.
+            return true;
+        }
+
+        return $this->completeSystemUpdate(
+            $this->pendingCompletion['backupFolder'],
+            $this->pendingCompletion['finalizePackages']
+        );
+    }
+
+    /** @return array{backupFolder: string, finalizePackages: bool}|null */
+    public function getPendingCompletion(): ?array
+    {
+        return $this->pendingCompletion;
+    }
+
+    public function completeSystemUpdate(string $etcBackupFolder, bool $finalizePackages): bool
+    {
+        $Output = $this->getUpdateOutput();
+        $Maintenance = new Maintenance();
+
+        try {
+            if ($finalizePackages) {
+                QUI::getPackageManager()->completeUpdate($this);
             }
 
             $wasExecuted = 'Update executed';
@@ -468,37 +507,39 @@ class Update extends QUI\System\Console\Tool
                 QUI\System\Backup::deleteEtcBackup((string)$etcBackupFolder);
             }
         } catch (Exception $Exception) {
-            $this->write(' [error]', 'red');
-            $this->writeLn();
-            $this->writeLn(
-                QUI::getLocale()->get('quiqqer/core', 'update.message.error.1') . '::' . $Exception->getMessage(),
-                'red'
-            );
-
-            if ($Exception instanceof QUI\Exception) {
-                QUI\System\Log::addError($Exception->getMessage(), $Exception->getContext());
-            }
-
-            $this->writeLn(
-                QUI::getLocale()->get('quiqqer/core', 'update.message.error'),
-                'red'
-            );
-
-            $this->writeLn();
-            $this->writeLn('./console repair', 'red');
-            $this->resetColor();
-            $this->writeLn();
-
-            $Maintenance->setArgument('status', 'off');
-            $Maintenance->execute();
-
-            return false;
+            return $this->reportUpdateFailure($Exception);
         }
 
         $Maintenance->setArgument('status', 'off');
         $Maintenance->execute();
 
         return true;
+    }
+
+    private function reportUpdateFailure(Exception $Exception): bool
+    {
+        $this->write(' [error]', 'red');
+        $this->writeLn();
+        $this->writeLn(
+            QUI::getLocale()->get('quiqqer/core', 'update.message.error.1') . '::' . $Exception->getMessage(),
+            'red'
+        );
+
+        if ($Exception instanceof QUI\Exception) {
+            QUI\System\Log::addError($Exception->getMessage(), $Exception->getContext());
+        }
+
+        $this->writeLn(QUI::getLocale()->get('quiqqer/core', 'update.message.error'), 'red');
+        $this->writeLn();
+        $this->writeLn('./console repair', 'red');
+        $this->resetColor();
+        $this->writeLn();
+
+        $Maintenance = new Maintenance();
+        $Maintenance->setArgument('status', 'off');
+        $Maintenance->execute();
+
+        return false;
     }
 
     protected function launchUpdateRun(): void

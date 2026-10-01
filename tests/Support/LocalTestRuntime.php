@@ -72,7 +72,8 @@ final class LocalTestRuntime
         define('VAR_DIR', $directory . 'var/');
         define('USR_DIR', $directory . 'usr/');
         define('OPT_DIR', $directory . 'packages/');
-        define('LIB_DIR', OPT_DIR . 'quiqqer/core/src/');
+        // Console resolves tool files with realpath(), so use the physical library root too.
+        define('LIB_DIR', dirname(__DIR__, 2) . '/src/');
 
 
         ini_set('error_log', VAR_DIR . 'php-errors.log');

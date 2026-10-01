@@ -225,6 +225,7 @@ class Console
 
         // read argv params
         $params = $this->getArguments();
+        unset($params['no-header']);
         $this->argv = $params;
 
         $this->read();
@@ -249,6 +250,7 @@ class Console
         }
 
         $args = $this->readArgv();
+        unset($args['--no-header']);
         $isSystemTool = key($args);
 
         if (
@@ -372,7 +374,25 @@ class Console
     {
         $params = $this->readArgv();
 
-        if (!$this->shouldDisplayTitle($params)) {
+        if (isset($params['--no-header'])) {
+            return;
+        }
+
+        if (!$this->needsHelpHeader($params)) {
+            // Completion output is consumed by the shell and must contain only suggestions.
+            foreach (array_keys($params) as $argument) {
+                if (trim($argument, '-') === '_complete') {
+                    return;
+                }
+            }
+
+            $PackageManager = QUI::getPackageManager();
+            $lastUpdate = date('d.m.Y H:i:s', $PackageManager->getLastUpdateDate());
+
+            echo "\033[1mQUIQQER\033[22m " . $PackageManager->getVersion()
+                . ' | PHP ' . phpversion()
+                . ' | Last update: ' . $lastUpdate . PHP_EOL;
+
             return;
         }
 
@@ -380,7 +400,7 @@ class Console
         $year = date('Y');
 
         $lastUpdate = QUI::getPackageManager()->getLastUpdateDate();
-        $lastUpdate = QUI::getLocale()->formatDate($lastUpdate);
+        $lastUpdate = date('d.m.Y H:i:s', $lastUpdate);
 
         $str = '
   _______          _________ _______  _______  _______  _______
@@ -414,7 +434,7 @@ class Console
     /**
      * @param array<string, mixed> $params
      */
-    protected function shouldDisplayTitle(array $params): bool
+    protected function needsHelpHeader(array $params): bool
     {
         return empty($params)
             || (count($params) === 1 && isset($params['--help']));
@@ -1216,6 +1236,7 @@ class Console
         $this->writeLn();
         $this->writeLn(" Optional arguments");
         $this->writeLn(" --help			This help text");
+        $this->writeLn(" --no-header             Suppress the QUIQQER header, keeping tool output unchanged");
 
         $this->writeLn(" --username		Username", 'red');
         $this->writeLn(" --password		Password to login", 'red');

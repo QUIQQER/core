@@ -28,15 +28,15 @@
             </button>
         </div>
 
-        <form style="margin-top: 3rem; display: none">
+        <form data-name="smtp-form" style="margin-top: 3rem; display: none">
             <label>
                 <span>{locale group="quiqqer/core" var="quiqqer.settings.email.smtp.server"}</span>
-                <input type="text" name="smtp-server" value="{$SMTPServer}" />
+                <input type="text" name="smtp-server" value="{$SMTPServer|escape:'html'}" />
             </label>
 
             <label>
                 <span>{locale group="quiqqer/core" var="quiqqer.settings.email.smtp.port"}</span>
-                <input type="text" name="smtp-port" value="{$SMTPPort}" />
+                <input type="text" name="smtp-port" value="{$SMTPPort|escape:'html'}" />
             </label>
 
             <label>
@@ -64,14 +64,19 @@
                 <span>{locale group="quiqqer/core" var="mail.settings.allow_self_signed"}</span>
             </label>
 
+            <label class="checkbox">
+                <input type="checkbox" name="smtp-auth"{if $SMTPAuth} checked{/if} />
+                <span>{locale group="quiqqer/core" var="quiqqer.settings.email.smtp.auth.activasion"}</span>
+            </label>
+
             <label style="margin-top: 2rem">
                 <span>{locale group="quiqqer/core" var="quiqqer.settings.email.smtp.auth.user"}</span>
-                <input type="text" name="smtp-user" autocomplete="new-user" value="{$SMTPUser}" />
+                <input type="text" name="smtp-user" autocomplete="new-user" value="{$SMTPUser|escape:'html'}" />
             </label>
 
              <label>
                 <span>{locale group="quiqqer/core" var="quiqqer.settings.email.smtp.auth.password"}</span>
-                <input type="password" name="smtp-password" autocomplete="new-password" value="{$SMTPPass}" />
+                <input type="password" name="smtp-password" autocomplete="new-password" value="{$SMTPPass|escape:'html'}" />
             </label>
 
             <input type="hidden" name="use-smtp" value="0" />

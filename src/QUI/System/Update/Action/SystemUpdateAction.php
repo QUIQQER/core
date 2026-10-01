@@ -12,10 +12,14 @@ use const PHP_EOL;
 
 class SystemUpdateAction implements RunActionInterface
 {
+    public function __construct(private readonly bool $complete = false)
+    {
+    }
+
     public function execute(RunState $state): RunActionResult
     {
-        $Update = new Update();
-        $Update->setUpdateOutputSectionOffset(2);
+        $Update = $this->createUpdate();
+        $Update->setUpdateOutputSectionOffset($this->complete ? 4 : 2);
         $Output = $this->createCliOutput();
         $Update->setAttribute('parent', $Output);
         $arguments = $state->getMetadata()['arguments'] ?? [];
@@ -32,13 +36,44 @@ class SystemUpdateAction implements RunActionInterface
             }
         }
 
-        if (!$Update->executeSystemUpdate()) {
+        if ($this->complete) {
+            $completion = $state->getMetadata()['systemUpdateCompletion'] ?? null;
+
+            // Runs created before completion became a separate phase have already finished this work.
+            if ($completion === null) {
+                return RunActionResult::finished();
+            }
+
+            if (
+                !is_array($completion)
+                || !is_string($completion['backupFolder'] ?? null)
+                || !is_bool($completion['finalizePackages'] ?? null)
+            ) {
+                throw new RuntimeException('Invalid system update completion state.');
+            }
+
+            $successful = $Update->completeSystemUpdate($completion['backupFolder'], $completion['finalizePackages']);
+        } else {
+            $successful = $Update->executeSystemUpdate(true);
+        }
+
+        if (!$successful) {
             $message = $Output->getLastErrorMessage() ?: 'Update was aborted.';
 
             throw new RuntimeException($message);
         }
 
-        return RunActionResult::next(RunState::PHASE_CLEANUP);
+        if ($this->complete || $Update->getPendingCompletion() === null) {
+            return RunActionResult::finished();
+        }
+
+        $state->setMetadataValue('systemUpdateCompletion', $Update->getPendingCompletion());
+        return RunActionResult::restartAt(RunState::PHASE_CLEANUP);
+    }
+
+    protected function createUpdate(): Update
+    {
+        return new Update();
     }
 
     private function createCliOutput(): SystemUpdateOutput

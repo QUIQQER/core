@@ -81,17 +81,8 @@ class RunEntrypoint
             if ($sapi === 'cli') {
                 $loopCount = $this->getLoopCount($argv);
 
-                if ($loopCount > 1) {
-                    $state = $this->processCliLoop($processor, $id, $token, $loopCount, $now);
-
-                    $this->sendResponse([
-                        'success' => true,
-                        'id' => $state->getId(),
-                        'phase' => $state->getPhase(),
-                        'status' => $state->getStatus()
-                    ], $sapi);
-
-                    return 0;
+                if ($loopCount !== null) {
+                    return $this->processCliLoop($processor, $id, $root, $token, $loopCount, $now);
                 }
             }
 
@@ -435,7 +426,7 @@ class RunEntrypoint
     /**
      * @param array<int, string> $argv
      */
-    private function getLoopCount(array $argv): int
+    private function getLoopCount(array $argv): ?int
     {
         foreach ($argv as $argument) {
             if (!str_starts_with($argument, '--loop=')) {
@@ -445,32 +436,58 @@ class RunEntrypoint
             return max(1, (int)substr($argument, 7));
         }
 
-        return 1;
+        return null;
     }
 
     private function processCliLoop(
         RunProcessor $processor,
         string $id,
+        string $root,
         string $token,
         int $loopCount,
         ?int $now
-    ): RunState {
-        for ($attempt = 0; $attempt < $loopCount; $attempt++) {
-            $state = $processor->process($id, $token, $now);
+    ): int {
+        $state = $processor->process($id, $token, $now);
+        $this->sendResponse([
+            'success' => true,
+            'id' => $state->getId(),
+            'phase' => $state->getPhase(),
+            'status' => $state->getStatus()
+        ], 'cli');
 
-            if ($state->getStatus() !== RunState::STATUS_RESTART_REQUIRED) {
-                return $state;
-            }
-
-            $this->sendResponse([
-                'success' => true,
-                'id' => $state->getId(),
-                'phase' => $state->getPhase(),
-                'status' => $state->getStatus()
-            ], 'cli');
+        if ($state->getStatus() !== RunState::STATUS_RESTART_REQUIRED) {
+            return 0;
         }
 
-        throw new \RuntimeException('Update run still requires a restart after maximum attempts.');
+        if ($loopCount <= 1) {
+            throw new \RuntimeException('Update run still requires a restart after maximum attempts.');
+        }
+
+        // A loop in this PHP process would retain definitions from before the update.
+        $command = escapeshellarg(PHP_BINARY) . ' '
+            . escapeshellarg($this->getExecuteFile($id, $root)) . ' '
+            . escapeshellarg($token) . ' --loop=' . ($loopCount - 1);
+
+        if (!function_exists('proc_open')) {
+            if (!function_exists('system')) {
+                throw new \RuntimeException('Cannot start a fresh update runner.');
+            }
+
+            system($command, $exitCode);
+            return $exitCode;
+        }
+
+        $process = proc_open($command, [
+            0 => ['file', 'php://stdin', 'r'],
+            1 => ['file', 'php://stdout', 'w'],
+            2 => ['file', 'php://stderr', 'w']
+        ], $pipes);
+
+        if (!is_resource($process)) {
+            throw new \RuntimeException('Cannot start a fresh update runner.');
+        }
+
+        return proc_close($process);
     }
 
     /**
@@ -505,6 +522,11 @@ class RunEntrypoint
         $phase = (string)($payload['phase'] ?? '');
 
         if ($status === RunState::STATUS_RESTART_REQUIRED) {
+            if ($phase === RunState::PHASE_CLEANUP) {
+                echo '  [..] Continuing update completion in a fresh process' . PHP_EOL;
+                return;
+            }
+
             echo '[2/6] Composer tool' . PHP_EOL;
             echo '  [OK] Composer updated' . PHP_EOL;
             echo '  [..] Continuing with system update' . PHP_EOL;

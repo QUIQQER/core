@@ -463,16 +463,16 @@
             <it><![CDATA[Elimina utente]]></it>
         </locale>
         <locale name="users.panel.delete.window.text">
-            <it><![CDATA[Stai per eliminare i seguenti utenti:]]></it>
+            <it><![CDATA[Eliminare definitivamente gli account utente?]]></it>
         </locale>
         <locale name="users.panel.delete.window.submit.user">
-            <it><![CDATA[Elimina utente]]></it>
+            <it><![CDATA[Elimina definitivamente utente]]></it>
         </locale>
         <locale name="users.panel.delete.window.submit.users">
-            <it><![CDATA[Elimina utente]]></it>
+            <it><![CDATA[Elimina definitivamente utenti]]></it>
         </locale>
         <locale name="users.panel.delete.window.information">
-            <it><![CDATA[Gli utenti verranno rimossi completamente dal sistema e non potranno essere ripristinati.]]></it>
+            <it><![CDATA[Questa azione non può essere annullata. Verranno rimossi anche i record degli utenti con i relativi ID/UUID. Per conservarli, annulla e scegli «Cancella dati utente».]]></it>
         </locale>
         <locale name="users.entry.user.remove">
             <it><![CDATA[Rimuovi utente]]></it>
@@ -572,6 +572,27 @@
         </locale>
         <locale name="quiqqer.setup.groups.alone.text">
             <it><![CDATA[Uso QUIQQER da solo o con pochi altri utenti che dispongono tutti delle stesse autorizzazioni di amministrazione.]]></it>
+        </locale>
+        <locale name="users.user.btn.wipe">
+            <it><![CDATA[Cancella dati utente]]></it>
+        </locale>
+        <locale name="users.panel.wipe.window.title">
+            <it><![CDATA[Cancella dati utente]]></it>
+        </locale>
+        <locale name="users.panel.wipe.window.text">
+            <it><![CDATA[Cancellare definitivamente i dati utente?]]></it>
+        </locale>
+        <locale name="users.panel.wipe.window.description">
+            <it><![CDATA[I seguenti account verranno contrassegnati come eliminati. Nomi, indirizzi e-mail, credenziali di accesso, gruppi e altri dati degli account verranno cancellati; gli indirizzi salvati degli utenti verranno eliminati.]]></it>
+        </locale>
+        <locale name="users.panel.wipe.window.information">
+            <it><![CDATA[Questa azione non può essere annullata. I record degli utenti con i relativi ID/UUID verranno conservati, ma non sarà più possibile accedere. I dati presenti in altri moduli, come le fatture, non verranno eliminati automaticamente.]]></it>
+        </locale>
+        <locale name="users.panel.delete.window.description">
+            <it><![CDATA[I seguenti account utente e i relativi indirizzi salvati verranno rimossi completamente dal database degli utenti.]]></it>
+        </locale>
+        <locale name="message.user.wiped.successful">
+            <it><![CDATA[I dati utente sono stati cancellati. Gli account vengono conservati e contrassegnati come eliminati.]]></it>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">

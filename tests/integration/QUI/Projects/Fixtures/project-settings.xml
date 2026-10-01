@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiqqer>
+    <settings>
+        <window name="fixture-global-a">
+            <categories>
+                <category name="templateQUI">
+                    <settings name="test.global-a">
+                        <title>Global Settings Fixture A</title>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+        <window name="fixture-global-b">
+            <categories>
+                <category name="templateQUI">
+                    <settings name="test.global-b">
+                        <title>Global Settings Fixture B</title>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+    </settings>
     <project>
         <settings>
             <window>

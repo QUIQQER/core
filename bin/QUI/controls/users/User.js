@@ -57,6 +57,7 @@ define('controls/users/User', [
             '$onUserDelete',
             '$onClickSave',
             '$onClickDel',
+            '$onClickWipe',
             '$onClickSendMail',
             '$refreshAuthenticator'
         ],
@@ -217,6 +218,16 @@ define('controls/users/User', [
                 disabled: true,
                 events: {
                     onClick: this.$onClickSendMail
+                }
+            });
+
+            ExtrasBtn.appendChild({
+                name: 'userWipe',
+                title: QUILocale.get(lg, 'users.user.btn.wipe'),
+                text: QUILocale.get(lg, 'users.user.btn.wipe'),
+                icon: 'fa fa-eraser',
+                events: {
+                    onClick: this.$onClickWipe
                 }
             });
 
@@ -1009,39 +1020,22 @@ define('controls/users/User', [
          * @method controls/users/User#$onClickDel
          */
         $onClickDel: function () {
-            const uid = this.getUser().getId();
-            const username = this.getUser().getAttribute('username');
-            const List = new Element('ul');
+            this.$openDeleteWindow('delete');
+        },
 
-            new Element('li', {
-                'class': 'user-delete-window-list-entry',
-                html: '<span class="user-delete-window-list-entry-username">' + username + '</span>' +
-                    '<span class="user-delete-window-list-entry-uuid">' + uid + '</span>'
-            }).inject(List);
+        $onClickWipe: function () {
+            this.$openDeleteWindow('wipe');
+        },
 
-            new QUIConfirm({
-                name: 'DeleteUsers',
-                icon: 'fa fa-trash-o',
-                texticon: 'fa fa-trash-o',
-                title: QUILocale.get(lg, 'users.panel.delete.window.title'),
-                text: QUILocale.get(lg, 'users.panel.delete.window.text'),
-                information: QUILocale.get(lg, 'users.panel.delete.window.information'),
-                maxWidth: 700,
-                maxHeight: 400,
-                events: {
-                    onOpen: (Win) => {
-                        const Header = Win.getContent().getElement('.text');
+        $openDeleteWindow: function (mode) {
+            const User = this.getUser();
 
-                        List.inject(Header, 'after');
-                    },
-                    onSubmit: function (Win) {
-                        Win.Loader.show();
-                        Users.deleteUsers([uid]).then(function () {
-                            Win.close();
-                        });
-                    }
-                }
-            }).open();
+            require(['controls/users/DeleteWindow'], function (DeleteWindow) {
+                new DeleteWindow({
+                    mode: mode,
+                    users: [{id: User.getId(), name: User.getAttribute('username')}]
+                }).open();
+            });
         },
 
         /**

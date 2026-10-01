@@ -367,6 +367,12 @@
         </locale>
 
 
+        <locale name="security.update.console.mail.failure.subject">
+            <it><![CDATA[Aggiornamento automatico di sicurezza non riuscito - [host]]]></it>
+        </locale>
+        <locale name="security.update.console.mail.failure.body" html="true">
+            <it><![CDATA[<p>L’aggiornamento automatico di sicurezza non è riuscito. Controlla l’errore seguente e il registro di aggiornamento. Se l’installazione era già iniziata, la modalità di manutenzione rimane attiva fino alla verifica e alla riparazione dell’installazione.</p>]]></it>
+        </locale>
         <locale name="security.update.console.mail.subject">
             <it><![CDATA[Aggiornamento automatico di sicurezza eseguito - [host]]]></it>
         </locale>

@@ -82,13 +82,13 @@ class QuiqqerProvider extends AbstractInstallationWizard
             $Config->set('mail', 'SMTPServer', $data['smtp-server']);
 
             $Config->set('mail', 'SMTPPort', $data['smtp-port']);
-            $Config->set('mail', 'SMTPAuth', $data['smtp-server']);
+            $Config->set('mail', 'SMTPAuth', (int)!empty($data['smtp-auth']));
             $Config->set('mail', 'SMTPUser', $data['smtp-user']);
             $Config->set('mail', 'SMTPPass', $data['smtp-password']);
-            $Config->set('mail', 'SMTPSecure', (int)$data['smtp-secure']);
-            $Config->set('mail', 'SMTPSecureSSL_verify_peer', $data['smtp-secure-verify_peer']);
-            $Config->set('mail', 'SMTPSecureSSL_verify_peer_name', $data['smtp-secure-verify_peer_name']);
-            $Config->set('mail', 'SMTPSecureSSL_allow_self_signed', $data['mail.settings.allow_self_signed']);
+            $Config->set('mail', 'SMTPSecure', $data['smtp-secure']);
+            $Config->set('mail', 'SMTPSecureSSL_verify_peer', (int)!empty($data['smtp-secure-verify_peer']));
+            $Config->set('mail', 'SMTPSecureSSL_verify_peer_name', (int)!empty($data['smtp-secure-verify_peer_name']));
+            $Config->set('mail', 'SMTPSecureSSL_allow_self_signed', (int)!empty($data['mail.settings.allow_self_signed']));
         }
 
         if (!empty($data['add-quiqqer-groups'])) {

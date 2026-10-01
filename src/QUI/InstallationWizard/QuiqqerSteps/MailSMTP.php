@@ -46,6 +46,7 @@ class MailSMTP extends QUI\InstallationWizard\AbstractInstallationWizardStep
             'SMTPServer' => QUI::conf('mail', 'SMTPServer'),
             'SMTPPort' => QUI::conf('mail', 'SMTPPort'),
             'SMTPSecure' => QUI::conf('mail', 'SMTPSecure'),
+            'SMTPAuth' => QUI::conf('mail', 'SMTPAuth'),
             'SMTPUser' => QUI::conf('mail', 'SMTPUser'),
             'SMTPPass' => QUI::conf('mail', 'SMTPPass'),
 

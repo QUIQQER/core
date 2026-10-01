@@ -478,16 +478,16 @@
             <en><![CDATA[Delete users]]></en>
         </locale>
         <locale name="users.panel.delete.window.text">
-            <en><![CDATA[You want to delete the following users:]]></en>
+            <en><![CDATA[Permanently delete user accounts?]]></en>
         </locale>
         <locale name="users.panel.delete.window.submit.user">
-            <en><![CDATA[Delete user]]></en>
+            <en><![CDATA[Permanently delete user]]></en>
         </locale>
         <locale name="users.panel.delete.window.submit.users">
-            <en><![CDATA[Delete users]]></en>
+            <en><![CDATA[Permanently delete users]]></en>
         </locale>
         <locale name="users.panel.delete.window.information">
-            <en><![CDATA[Users are completely removed from the system and can not be restored.]]></en>
+            <en><![CDATA[This action cannot be undone. The user records with their IDs/UUIDs will also be removed. To retain these records, cancel and choose “Clear user data”.]]></en>
         </locale>
         <locale name="users.entry.user.remove">
             <en><![CDATA[Remove user]]></en>
@@ -602,6 +602,27 @@
             <en><![CDATA[
             I use QUIQQER alone or with a few other users who all have the same (administration) permissions.
             ]]></en>
+        </locale>
+        <locale name="users.user.btn.wipe">
+            <en><![CDATA[Clear user data]]></en>
+        </locale>
+        <locale name="users.panel.wipe.window.title">
+            <en><![CDATA[Clear user data]]></en>
+        </locale>
+        <locale name="users.panel.wipe.window.text">
+            <en><![CDATA[Permanently clear user data?]]></en>
+        </locale>
+        <locale name="users.panel.wipe.window.description">
+            <en><![CDATA[The following accounts will be marked as deleted. Names, email addresses, credentials, groups and other account data will be cleared; saved user addresses will be deleted.]]></en>
+        </locale>
+        <locale name="users.panel.wipe.window.information">
+            <en><![CDATA[This action cannot be undone. The user records with their IDs/UUIDs remain, but signing in is no longer possible. Data in other modules, such as invoices, is not automatically deleted.]]></en>
+        </locale>
+        <locale name="users.panel.delete.window.description">
+            <en><![CDATA[The following user accounts and their saved addresses will be completely removed from the user database.]]></en>
+        </locale>
+        <locale name="message.user.wiped.successful">
+            <en><![CDATA[The user data has been cleared. The accounts remain marked as deleted.]]></en>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">

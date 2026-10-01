@@ -70,6 +70,8 @@ class Queue
 
     const STATUS_CANCELED = 4;
 
+    private const MISSING_RECIPIENTS_MESSAGE = 'Mail has no recipients in To, CC or BCC.';
+
     /**
      * Execute the db mail queue setup
      *
@@ -202,6 +204,10 @@ class Queue
     public static function addToQueue(Mailer $Mail): int
     {
         $params = $Mail->toArray();
+
+        if (!self::hasRecipients($params)) {
+            throw new QUI\Exception(self::MISSING_RECIPIENTS_MESSAGE, 400);
+        }
 
         $params['mailto'] = json_encode($params['mailto']);
         $params['replyto'] = json_encode($params['replyto']);
@@ -336,6 +342,29 @@ class Queue
     {
         if (Mailer::$DISABLE_MAIL_SENDING) {
             return true;
+        }
+
+        if (!self::hasRecipients($params)) {
+            $mailId = (int)$params['id'];
+
+            self::connection()->update(
+                self::quotedTable(),
+                ['status' => self::STATUS_CANCELED],
+                ['id' => $mailId]
+            );
+
+            $this->appendError($mailId, self::MISSING_RECIPIENTS_MESSAGE);
+
+            QUI\System\Log::addWarning(
+                'Mail queue entry canceled: ' . self::MISSING_RECIPIENTS_MESSAGE,
+                [
+                    'mailQueueId' => $mailId,
+                    'reason' => 'missing_recipients'
+                ],
+                'mail_queue'
+            );
+
+            return false;
         }
 
         try {
@@ -840,6 +869,48 @@ class Queue
         } catch (Exception $Exception) {
             QUI\System\Log::writeException($Exception);
         }
+    }
+
+    /**
+     * Accept both Mailer arrays and JSON fields from existing queue entries.
+     * Address syntax remains the mail transport's responsibility.
+     *
+     * @param array<string, mixed> $params
+     */
+    private static function hasRecipients(array $params): bool
+    {
+        $recipientFields = [
+            'mailto',
+            'cc',
+            'bcc'
+        ];
+
+        foreach ($recipientFields as $field) {
+            $addresses = $params[$field] ?? [];
+
+            if (is_string($addresses)) {
+                $addresses = json_decode($addresses, true);
+            }
+
+            if (!is_array($addresses)) {
+                continue;
+            }
+
+            foreach ($addresses as $address) {
+                if (is_array($address)) {
+                    $address = $address[0] ?? null;
+                }
+
+                if (
+                    is_string($address)
+                    && trim($address) !== ''
+                ) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
