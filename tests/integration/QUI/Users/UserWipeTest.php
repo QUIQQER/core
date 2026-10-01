@@ -133,6 +133,25 @@ final class UserWipeTest extends TestCase
         Ajax::checkPermissions('ajax_users_wipe');
     }
 
+    public static function specialAccounts(): array
+    {
+        return ['nobody' => [0], 'system' => [5]];
+    }
+
+    #[DataProvider('specialAccounts')]
+    public function testSpecialAccountsAreRejectedBeforeAnyUserIsWiped(int $id): void
+    {
+        $Target = $this->createUser();
+
+        try {
+            $this->wipe([$Target->getUUID(), $id]);
+            self::fail('Special accounts must not be wiped.');
+        } catch (QUI\Exception $Exception) {
+            self::assertSame(400, $Exception->getCode());
+            $this->assertUnchanged($Target);
+        }
+    }
+
     private function wipe(array $ids): bool
     {
         Ajax::checkPermissions('ajax_users_wipe');

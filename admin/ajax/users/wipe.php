@@ -22,6 +22,11 @@ QUI::getAjax()->registerFunction(
         // Check every selected account before changing the first one.
         foreach (array_unique($ids) as $id) {
             $User = $Users->get($id);
+
+            if (!($User instanceof QUI\Users\User)) {
+                throw new QUI\Exception('Invalid user ID', 400);
+            }
+
             $User->checkDeletePermission($SessionUser);
             $User->checkEditPermission($SessionUser);
             $targets[] = $User;
