@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
+    <locales>
+        <groups name="quiqqer/core" datatype="php,js">
+            <locale name="upload.mobileUpload.keepOpen">
+                <de>Dieses Fenster während des Uploads geöffnet lassen. Beim Schließen wird der Link deaktiviert.</de>
+                <en>Keep this window open while uploading. Closing it deactivates the link.</en>
+            </locale>
+            <locale name="upload.mobileUpload.closeError">
+                <de>Der Link konnte nicht deaktiviert werden. Bitte erneut versuchen.</de>
+                <en>The link could not be deactivated. Please try again.</en>
+            </locale>
+            <locale name="upload.mobileUpload.title">
+                <de>Mit Smartphone hochladen</de>
+                <en>Upload with smartphone</en>
+            </locale>
+            <locale name="upload.mobileUpload.intro">
+                <de>QR-Code scannen oder den Link auf dem Smartphone öffnen.</de>
+                <en>Scan the QR code or open the link on your smartphone.</en>
+            </locale>
+            <locale name="upload.mobileUpload.qr">
+                <de>QR-Code für den mobilen Upload</de>
+                <en>QR code for mobile upload</en>
+            </locale>
+            <locale name="upload.mobileUpload.copy">
+                <de>Link kopieren</de>
+                <en>Copy link</en>
+            </locale>
+            <locale name="upload.mobileUpload.copied">
+                <de>Link kopiert</de>
+                <en>Link copied</en>
+            </locale>
+            <locale name="upload.mobileUpload.copyError">
+                <de>Bitte den Link manuell kopieren.</de>
+                <en>Please copy the link manually.</en>
+            </locale>
+            <locale name="upload.mobileUpload.open">
+                <de>Upload-Seite öffnen</de>
+                <en>Open upload page</en>
+            </locale>
+            <locale name="upload.mobileUpload.revoke">
+                <de>Link deaktivieren</de>
+                <en>Deactivate link</en>
+            </locale>
+            <locale name="upload.mobileUpload.endUpload">
+                <de>Upload beenden</de>
+                <en>End upload</en>
+            </locale>
+            <locale name="upload.mobileUpload.expires">
+                <de>Zugang gültig für</de>
+                <en>Access expires in</en>
+            </locale>
+            <locale name="upload.mobileUpload.inactive">
+                <de>Dieser Upload-Link ist nicht mehr aktiv.</de>
+                <en>This upload link is no longer active.</en>
+            </locale>
+            <locale name="upload.mobileUpload.mobileIntro">
+                <de>Fotos aufnehmen oder Dateien auswählen – direkt von deinem Gerät.</de>
+                <en>Take photos or choose files – directly from your device.</en>
+            </locale>
+            <locale name="upload.mobileUpload.documents">
+                <de>Dokumente hinzufügen</de>
+                <en>Add documents</en>
+            </locale>
+            <locale name="upload.mobileUpload.camera">
+                <de>Fotos aufnehmen</de>
+                <en>Take photos</en>
+            </locale>
+            <locale name="upload.mobileUpload.cameraHint">
+                <de>Kamera öffnen</de>
+                <en>Open camera</en>
+            </locale>
+            <locale name="upload.mobileUpload.files">
+                <de>Dateien auswählen</de>
+                <en>Choose files</en>
+            </locale>
+            <locale name="upload.mobileUpload.filesHint">
+                <de>Auf deinem Gerät suchen</de>
+                <en>Browse your device</en>
+            </locale>
+            <locale name="upload.mobileUpload.images">
+                <de>Bilder</de>
+                <en>Images</en>
+            </locale>
+            <locale name="upload.mobileUpload.types">
+                <de>Erlaubte Dateiarten</de>
+                <en>Allowed file types</en>
+            </locale>
+            <locale name="upload.mobileUpload.maxSize">
+                <de>Maximale Dateigröße</de>
+                <en>Maximum file size</en>
+            </locale>
+            <locale name="upload.mobileUpload.remove">
+                <de>Entfernen</de>
+                <en>Remove</en>
+            </locale>
+            <locale name="upload.mobileUpload.send">
+                <de>Dateien hochladen</de>
+                <en>Upload files</en>
+            </locale>
+            <locale name="upload.mobileUpload.uploading">
+                <de>Wird hochgeladen…</de>
+                <en>Uploading…</en>
+            </locale>
+            <locale name="upload.mobileUpload.saved">
+                <de>Datei gespeichert</de>
+                <en>File saved</en>
+            </locale>
+            <locale name="upload.mobileUpload.arrived">
+                <de>Dateien eingegangen</de>
+                <en>Files received</en>
+            </locale>
+            <locale name="upload.mobileUpload.done">
+                <de>Fertig – Zugang schließen</de>
+                <en>Done – close access</en>
+            </locale>
+            <locale name="upload.mobileUpload.finished">
+                <de>Zugang geschlossen. Die hochgeladenen Dateien sind gespeichert.</de>
+                <en>Access closed. Your uploaded files have been saved.</en>
+            </locale>
+            <locale name="upload.mobileUpload.empty">
+                <de>Noch keine Dateien ausgewählt.</de>
+                <en>No files selected yet.</en>
+            </locale>
+            <locale name="upload.mobileUpload.loading">
+                <de>Wird geladen…</de>
+                <en>Loading…</en>
+            </locale>
+            <locale name="upload.mobileUpload.error">
+                <de>Der Upload konnte nicht abgeschlossen werden. Bitte erneut versuchen.</de>
+                <en>The upload could not be completed. Please try again.</en>
+            </locale>
+            <locale name="upload.mobileUpload.limit">
+                <de>Das konfigurierte Upload-Limit ist erreicht.</de>
+                <en>The configured upload limit was reached.</en>
+            </locale>
+            <locale name="upload.mobileUpload.invalid">
+                <de>Die Datei entspricht nicht den angezeigten Upload-Vorgaben.</de>
+                <en>The file does not meet the displayed upload requirements.</en>
+            </locale>
+            <locale name="upload.mobileUpload.rate">
+                <de>Zu viele Anfragen. Bitte eine Minute warten und erneut versuchen.</de>
+                <en>Too many requests. Please wait a minute and try again.</en>
+            </locale>
+            <locale name="upload.mobileUpload.discard">
+                <de>Die ausgewählten, noch nicht gesendeten Dateien verwerfen und den Zugang schließen?</de>
+                <en>Discard the selected, unsent files and close access?</en>
+            </locale>
+        </groups>
+    </locales>
+</quiqqer>

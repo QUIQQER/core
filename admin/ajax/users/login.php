@@ -155,7 +155,9 @@ QUI::getAjax()->registerFunction(
                     $authParams,
                     $authenticationExecuted
                 );
-            } catch (QUI\Users\UserAuthException | QUI\Users\Auth\Exception | QUI\Users\Exception $Exception) {
+            } catch (
+                QUI\Users\UserAuthException | QUI\Users\Auth\Exception | QUI\Users\Exception | QUI\ExceptionStack $Exception
+            ) {
                 if ($Exception->getCode() === 429) {
                     $failureMessage = 'exception.login.fail.login_locked';
                     $failureCode = 429;

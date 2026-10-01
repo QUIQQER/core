@@ -116,7 +116,7 @@ class RewriteResponseTest extends TestCase
         unset($data['errors'][0]['trace']);
 
         self::assertSame([
-            'result' => true,
+            'continued' => false,
             'status' => 301,
             'rewriteStatus' => 301,
             'events' => [301, 301],
@@ -125,6 +125,61 @@ class RewriteResponseTest extends TestCase
                 'httpCode' => 305
             ]]
         ], $data);
+    }
+
+    #[DataProvider('redirectResponses')]
+    public function testRedirectTerminatesBeforeFrontendCanSendAnotherResponse(int $status, string $url): void
+    {
+        $process = proc_open(
+            [PHP_BINARY, __DIR__ . '/Fixtures/rewrite-use-proxy.php', (string)$status, $url],
+            [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+            $pipes
+        );
+        self::assertIsResource($process);
+        fclose($pipes[0]);
+        $output = stream_get_contents($pipes[1]);
+        $metadata = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        $exitCode = proc_close($process);
+
+        self::assertSame(0, $exitCode, (string)$metadata);
+        self::assertIsString($output);
+        self::assertStringContainsString($url, $output);
+        self::assertStringNotContainsString('UNEXPECTED_SECOND_RESPONSE', $output);
+        self::assertSame([
+            'continued' => false,
+            'status' => $status,
+            'rewriteStatus' => $status,
+            'events' => [$status, $status],
+            'errors' => []
+        ], json_decode((string)$metadata, true));
+    }
+
+    public function testServiceUnavailableOnlyPreparesResponseAndAllowsRendering(): void
+    {
+        $Response = QUI::getGlobalResponse();
+        $Rewrite = new Rewrite();
+        ob_start();
+
+        try {
+            self::assertTrue($Rewrite->showErrorHeader(503));
+            self::assertSame('', ob_get_contents());
+            self::assertSame(503, $Response->getStatusCode());
+            self::assertSame('3600', $Response->headers->get('Retry-After'));
+        } finally {
+            ob_end_clean();
+        }
+    }
+
+    /**
+     * @return iterable<string, array{int, string}>
+     */
+    public static function redirectResponses(): iterable
+    {
+        yield 'missing path with trailing slash' => [301, '/wp-content/uploads.html'];
+        yield 'temporary redirect' => [302, 'https://target.example.test/temporary'];
+        yield 'see other redirect' => [303, 'https://target.example.test/other'];
     }
 
     /**

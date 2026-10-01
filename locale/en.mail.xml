@@ -433,6 +433,12 @@
             ]]></en>
         </locale>
 
+        <locale name="security.update.console.mail.failure.subject">
+            <en><![CDATA[Automated security update failed - [host]]]></en>
+        </locale>
+        <locale name="security.update.console.mail.failure.body" html="true">
+            <en><![CDATA[<p>The automatic security update failed. Please review the error below and the update log. If installation had already started, maintenance mode remains enabled until the installation has been checked and repaired.</p>]]></en>
+        </locale>
         <locale name="security.update.console.mail.subject">
             <en><![CDATA[Automated security update was performed - [host]]]></en>
         </locale>

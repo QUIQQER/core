@@ -463,16 +463,16 @@
             <pl><![CDATA[Usuń użytkowników]]></pl>
         </locale>
         <locale name="users.panel.delete.window.text">
-            <pl><![CDATA[Chcesz usunąć następujących użytkowników:]]></pl>
+            <pl><![CDATA[Trwale usunąć konta użytkowników?]]></pl>
         </locale>
         <locale name="users.panel.delete.window.submit.user">
-            <pl><![CDATA[Usuń użytkowników]]></pl>
+            <pl><![CDATA[Trwale usuń użytkownika]]></pl>
         </locale>
         <locale name="users.panel.delete.window.submit.users">
-            <pl><![CDATA[Usuń użytkowników]]></pl>
+            <pl><![CDATA[Trwale usuń użytkowników]]></pl>
         </locale>
         <locale name="users.panel.delete.window.information">
-            <pl><![CDATA[Użytkownicy zostaną całkowicie usunięci z systemu i nie będzie można ich przywrócić.]]></pl>
+            <pl><![CDATA[Tej operacji nie można cofnąć. Rekordy użytkowników wraz z ich ID/UUID również zostaną usunięte. Aby je zachować, anuluj i wybierz „Wyczyść dane użytkownika”.]]></pl>
         </locale>
         <locale name="users.entry.user.remove">
             <pl><![CDATA[Usuń użytkownika]]></pl>
@@ -572,6 +572,27 @@
         </locale>
         <locale name="quiqqer.setup.groups.alone.text">
             <pl><![CDATA[Korzystam z QUIQQER samodzielnie lub z kilkoma użytkownikami, którzy mają takie same uprawnienia administracyjne.]]></pl>
+        </locale>
+        <locale name="users.user.btn.wipe">
+            <pl><![CDATA[Wyczyść dane użytkownika]]></pl>
+        </locale>
+        <locale name="users.panel.wipe.window.title">
+            <pl><![CDATA[Wyczyść dane użytkownika]]></pl>
+        </locale>
+        <locale name="users.panel.wipe.window.text">
+            <pl><![CDATA[Trwale wyczyścić dane użytkowników?]]></pl>
+        </locale>
+        <locale name="users.panel.wipe.window.description">
+            <pl><![CDATA[Poniższe konta zostaną oznaczone jako usunięte. Imiona, nazwiska, adresy e-mail, dane logowania, grupy i pozostałe dane kont zostaną wyczyszczone, a zapisane adresy użytkowników zostaną usunięte.]]></pl>
+        </locale>
+        <locale name="users.panel.wipe.window.information">
+            <pl><![CDATA[Tej operacji nie można cofnąć. Rekordy użytkowników wraz z ich ID/UUID zostaną zachowane, ale logowanie nie będzie już możliwe. Dane w innych modułach, na przykład faktury, nie zostaną automatycznie usunięte.]]></pl>
+        </locale>
+        <locale name="users.panel.delete.window.description">
+            <pl><![CDATA[Poniższe konta użytkowników i ich zapisane adresy zostaną całkowicie usunięte z bazy danych użytkowników.]]></pl>
+        </locale>
+        <locale name="message.user.wiped.successful">
+            <pl><![CDATA[Dane użytkowników zostały wyczyszczone. Konta pozostają zachowane i oznaczone jako usunięte.]]></pl>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">

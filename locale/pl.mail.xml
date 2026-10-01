@@ -367,6 +367,12 @@
         </locale>
 
 
+        <locale name="security.update.console.mail.failure.subject">
+            <pl><![CDATA[Automatyczna aktualizacja zabezpieczeń nie powiodła się - [host]]]></pl>
+        </locale>
+        <locale name="security.update.console.mail.failure.body" html="true">
+            <pl><![CDATA[<p>Automatyczna aktualizacja zabezpieczeń nie powiodła się. Sprawdź poniższy błąd oraz dziennik aktualizacji. Jeśli instalacja już się rozpoczęła, tryb konserwacji pozostaje włączony do czasu sprawdzenia i naprawy instalacji.</p>]]></pl>
+        </locale>
         <locale name="security.update.console.mail.subject">
             <pl><![CDATA[Przeprowadzono automatyczną aktualizację bezpieczeństwa – [host]]]></pl>
         </locale>

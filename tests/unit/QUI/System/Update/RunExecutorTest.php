@@ -98,6 +98,21 @@ class RunExecutorTest extends TestCase
         $this->assertSame(RunState::STATUS_CREATED, $state->getStatus());
     }
 
+    public function testLateExecutorCannotRepeatOrFailAnAlreadyFinishedRun(): void
+    {
+        $repository = new RunRepository($this->root, 600);
+        $run = $repository->create(1000);
+        $action = new RecordingUpdateRunAction(RunActionResult::finished());
+        $executor = new RunExecutor($repository, [RunState::PHASE_CREATED => $action]);
+
+        $executor->execute($run->getState()->getId(), $run->getToken(), 1001);
+        $result = $executor->execute($run->getState()->getId(), $run->getToken(), 1002);
+
+        $this->assertSame(RunState::STATUS_FINISHED, $result->getStatus());
+        $this->assertSame([$run->getState()->getId()], $action->executedRunIds);
+        $this->assertSame(1001, $result->toArray()['finishedAt']);
+    }
+
     public function testExecuteRejectsExpiredRunWithoutChangingState(): void
     {
         $repository = new RunRepository($this->root, 600);

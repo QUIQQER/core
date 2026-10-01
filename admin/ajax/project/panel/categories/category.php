@@ -57,7 +57,8 @@ QUI::getAjax()->registerFunction(
             $files[$key] = $settingsFile;
         }
 
-        $cacheName = 'quiqqer/package/quiqqer/core/menu/categories/' . md5((string)json_encode($files)) . '/' . $category;
+        $cacheName = 'quiqqer/package/quiqqer/core/menu/categories/project/'
+            . md5((string)json_encode($files)) . '/' . $category;
         $Settings = QUI\Utils\XML\Settings::getInstance();
         $Settings->setXMLPath('//quiqqer/project/settings/window');
 

@@ -19,7 +19,7 @@ class DefaultRunActions
             RunState::PHASE_COMPOSER_UPDATE => new ComposerToolUpdateAction(),
             RunState::PHASE_RESTART_REQUIRED => new PhaseTransitionAction(RunState::PHASE_SYSTEM_UPDATE),
             RunState::PHASE_SYSTEM_UPDATE => new SystemUpdateAction(),
-            RunState::PHASE_CLEANUP => new PhaseTransitionAction(RunState::PHASE_FINISHED)
+            RunState::PHASE_CLEANUP => new SystemUpdateAction(true)
         ];
     }
 }

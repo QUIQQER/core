@@ -59,6 +59,7 @@ define('controls/users/Panel', [
             '$onUserRefresh',
             '$onButtonEditClick',
             '$onButtonDelClick',
+            '$onButtonWipeClick',
             '$gridClick',
             '$gridDblClick',
             '$gridBlur',
@@ -229,6 +230,16 @@ define('controls/users/Panel', [
                         textimage: 'fa fa-edit',
                         events: {
                             onMousedown: this.$onButtonEditClick
+                        }
+                    },
+                    {
+                        name: 'userWipe',
+                        title: QUILocale.get(lg, 'users.user.btn.wipe'),
+                        disabled: true,
+                        icon: 'fa fa-eraser',
+                        position: 'right',
+                        events: {
+                            onMousedown: this.$onButtonWipeClick
                         }
                     },
                     {
@@ -527,11 +538,13 @@ define('controls/users/Panel', [
         $gridClick: function (data) {
             const len = data.target.selected.length,
                 Edit = this.$Grid.getButton('userEdit'),
-                Delete = this.$Grid.getButton('userDel');
+                Delete = this.$Grid.getButton('userDel'),
+                Wipe = this.$Grid.getButton('userWipe');
 
             if (len === 0) {
                 Edit.disable();
                 Delete.disable();
+                Wipe.disable();
 
                 return;
             }
@@ -543,6 +556,7 @@ define('controls/users/Panel', [
             }
 
             Delete.enable();
+            Wipe.enable();
             data.evt.stop();
         },
 
@@ -564,6 +578,7 @@ define('controls/users/Panel', [
 
             this.$Grid.getButton('userEdit').disable();
             this.$Grid.getButton('userDel').disable();
+            this.$Grid.getButton('userWipe').disable();
         },
 
         /**
@@ -906,83 +921,33 @@ define('controls/users/Panel', [
         $onButtonDelClick: function (instance, event) {
             event.preventDefault();
             event.stopPropagation();
+            this.$openDeleteWindow('delete');
+        },
 
-            let i, len, username;
+        $onButtonWipeClick: function (instance, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.$openDeleteWindow('wipe');
+        },
 
-            const uids = [],
-                data = this.getGrid().getSelectedData(),
-                List = new Element('ul');
+        $openDeleteWindow: function (mode) {
+            const users = this.getGrid().getSelectedData().map(user => ({
+                id: user.uuid,
+                name: [user.firstname, user.lastname].filter(Boolean).join(' ').trim() ||
+                    user.email || user.username
+            }));
 
-            for (i = 0, len = data.length; i < len; i++) {
-                username = '';
-
-                if (data[i].firstname) {
-                    username += data[i].firstname + ' ';
-                }
-
-                if (data[i].lastname) {
-                    username += data[i].lastname + ' ';
-                }
-
-                username = username.trim();
-
-                if (username === '' && data[i].email) {
-                    username += data[i].email;
-                }
-
-                new Element('li', {
-                    'class': 'user-delete-window-list-entry',
-                    html: '<span class="user-delete-window-list-entry-username">' + username + '</span>' +
-                        '<span class="user-delete-window-list-entry-uuid">' + data[i].uuid + '</span>'
-                }).inject(List);
-
-                uids.push(data[i].uuid);
-            }
-
-            if (!uids.length) {
+            if (!users.length) {
                 return;
             }
 
-            new QUIConfirm({
-                name: 'DeleteUsers',
-                icon: 'fa fa-trash-o',
-                texticon: 'fa fa-trash-o',
-                title: QUILocale.get(lg, 'users.panel.delete.window.title'),
-                text: QUILocale.get(lg, 'users.panel.delete.window.text'),
-                information: QUILocale.get(lg, 'users.panel.delete.window.information'),
-                ok_button: {
-                    text: QUILocale.get(
-                        lg,
-                        uids.length === 1 ?
-                            'users.panel.delete.window.submit.user' :
-                            'users.panel.delete.window.submit.users'
-                    ),
-                    textimage: 'fa fa-trash-o'
-                },
-                maxWidth: 700,
-                maxHeight: 400,
-                autoclose: false,
-                uids: uids,
-                events: {
-                    onOpen: (Win) => {
-                        const Header = Win.getContent().getElement('.text');
-
-                        List.inject(Header, 'after');
-                    },
-                    onSubmit: (Win) => {
-                        Win.Loader.show();
-
-                        require(['Users'], (Users) => {
-                            Users.deleteUsers(Win.getAttribute('uids')).then(() => {
-                                Win.close();
-                                this.load();
-                            }).catch(() => {
-                                Win.Loader.hide();
-                            });
-                        });
-                    }
-                }
-            }).open();
+            require(['controls/users/DeleteWindow'], (DeleteWindow) => {
+                new DeleteWindow({
+                    mode: mode,
+                    users: users,
+                    events: {onComplete: () => this.load()}
+                }).open();
+            });
         },
 
         /**

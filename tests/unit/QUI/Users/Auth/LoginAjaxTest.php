@@ -234,6 +234,7 @@ class LoginAjaxTest extends TestCase
             'runtime exception' => ['authenticate', \RuntimeException::class, 500],
             'PHP error' => ['authenticate', \TypeError::class, 0],
             'account locked' => ['authenticate', QUI\Users\Exception::class, 429],
+            'other event failure' => ['authenticate', QUI\ExceptionStack::class, 500],
             'final login exception' => ['login', QUI\Users\Exception::class, 401],
             'final login database failure' => ['login', \Doctrine\DBAL\Exception\NoActiveTransaction::class, 500],
             'final login error' => ['login', \Error::class, 0]
@@ -344,6 +345,77 @@ class LoginAjaxTest extends TestCase
 
         self::assertSame(1, QUI::getSession()->get('auth-failures-primary'));
         self::assertFalse($Logs->hasErrorRecords());
+    }
+
+    public function testAccountLockFromLoginEventKeeps429WithoutErrorLogs(): void
+    {
+        $Config = $this->createMock(Config::class);
+        $Config->method('get')->willReturn(false);
+        QUI::$Conf = $Config;
+        QUI::$Session = new QUI\System\Console\Session();
+        QUI::$Ajax = new Ajax();
+
+        $LockedUser = $this->createMock(QUI\Users\User::class);
+        $LockedUser->method('getUUID')->willReturn('locked-user-uuid');
+        $LockedUser->method('getAttribute')->willReturnMap([
+            ['failedLogins', 60],
+            ['lastLoginAttempt', date('Y-m-d H:i:s')]
+        ]);
+        $Nobody = $this->createMock(User::class);
+        $Nobody->method('getUUID')->willReturn('');
+        $Users = $this->getMockBuilder(UserManager::class)
+            ->onlyMethods(['get', 'getUserBySession'])
+            ->getMock();
+        $Users->method('get')->with('locked-user-uuid')->willReturn($LockedUser);
+        $Users->method('getUserBySession')->willReturn($Nobody);
+        QUI::$Users = $Users;
+        QUI::getDataBaseConnection()->executeStatement(
+            'CREATE TABLE ' . QUI\Utils\Doctrine::quoteIdentifier(UserManager::table())
+            . ' (id INTEGER PRIMARY KEY, uuid VARCHAR(36), username VARCHAR(255))'
+        );
+        QUI::getDataBaseConnection()->insert(UserManager::table(), [
+            'id' => 42,
+            'uuid' => 'locked-user-uuid',
+            'username' => 'locked-user'
+        ]);
+
+        $Authenticator = $this->createMock(AuthenticatorInterface::class);
+        $Authenticator->expects(self::never())->method('auth');
+        $Handler = $this->createMock(Handler::class);
+        $Handler->method('getGlobalFrontendAuthenticators')->willReturn([QUIQQER::class]);
+        $Handler->method('getGlobalBackendAuthenticators')->willReturn([QUIQQER::class]);
+        $Handler->method('getAuthenticator')->willReturn($Authenticator);
+        (new ReflectionProperty(Handler::class, 'Instance'))->setValue(null, $Handler);
+
+        // Use the real event dispatcher: it wraps the lock exception in an ExceptionStack.
+        $Event = new QUI\Events\Event();
+        $Event->addEvent('onUserAuthenticatorLoginStart', QUI\EventHandler::class . '::onUserAuthenticatorLoginStart');
+        $Events = $this->createMock(EventsManager::class);
+        $Events->method('fireEvent')->willReturnCallback(
+            static fn(string $name, array|false $args = false): array => $Event->fireEvent($name, $args)
+        );
+        QUI::$Events = $Events;
+        require dirname(__DIR__, 5) . '/admin/ajax/users/login.php';
+        $login = Ajax::getRegisteredCallables()['ajax_users_login']['callable'];
+
+        try {
+            $login(QUIQQER::class, ['username' => 'locked-user', 'password' => 'wrong'], 'primary');
+            self::fail('Locked accounts must not authenticate.');
+        } catch (QUI\Users\UserAuthException $Exception) {
+            self::assertFalse($this->Logs->hasErrorRecords());
+            self::assertSame(429, $Exception->getCode());
+            self::assertSame(
+                ['quiqqer/core', 'exception.login.fail.login_locked'],
+                $Exception->getContext()['locale']
+            );
+            $response = QUI::getAjax()->writeException($Exception);
+            self::assertSame(429, $response['Exception']['code']);
+            self::assertStringNotContainsString('onUserAuthenticatorLoginStart', $response['Exception']['message']);
+        }
+
+        self::assertFalse(QUI::getSession()->get('auth-failures-primary'));
+        self::assertFalse(QUI::getSession()->get('uid'));
+        self::assertFalse($this->Logs->hasErrorRecords());
     }
 
     public function testPrimaryAuthenticatorCannotBeReusedAsSecondaryAuthenticator(): void

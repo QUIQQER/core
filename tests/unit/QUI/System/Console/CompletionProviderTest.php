@@ -38,7 +38,7 @@ class CompletionProviderTest extends TestCase
         $Provider = new CompletionProvider([], ['quiqqer:test' => $this->createTool()]);
 
         self::assertSame(
-            ['--help', '--project'],
+            ['--help', '--no-header', '--project'],
             $Provider->getSuggestions('quiqqer:test', '--')
         );
         self::assertSame(
@@ -52,6 +52,14 @@ class CompletionProviderTest extends TestCase
         $Provider = new CompletionProvider([], ['quiqqer:test' => $this->createTool()]);
 
         self::assertSame([], $Provider->getSuggestions('quiqqer:test', 'project-name'));
+    }
+
+    public function testNoHeaderIsSuggestedBeforeAndAfterCommands(): void
+    {
+        $Provider = new CompletionProvider(['update'], []);
+
+        self::assertSame(['--no-header'], $Provider->getSuggestions('', '--no-'));
+        self::assertSame(['--no-header'], $Provider->getSuggestions('update', '--no-'));
     }
 
     private function createTool(): Tool

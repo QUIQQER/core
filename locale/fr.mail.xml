@@ -329,6 +329,12 @@
         </locale>
 
 
+        <locale name="security.update.console.mail.failure.subject">
+            <fr><![CDATA[Échec de la mise à jour automatique de sécurité - [host]]]></fr>
+        </locale>
+        <locale name="security.update.console.mail.failure.body" html="true">
+            <fr><![CDATA[<p>La mise à jour automatique de sécurité a échoué. Consultez le message ci-dessous et le journal de mise à jour. Si l’installation avait déjà commencé, le mode maintenance reste actif jusqu’à la vérification et la réparation de l’installation.</p>]]></fr>
+        </locale>
         <locale name="security.update.console.mail.subject">
             <fr><![CDATA[Mise à jour de sécurité automatique effectuée - [host]]]></fr>
         </locale>

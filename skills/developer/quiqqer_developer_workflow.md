@@ -164,6 +164,72 @@ When PHPUnit cannot resolve optional package dependencies, MCP classes, external
 - Keep imports organized and names consistent with the package namespace.
 - Add comments only when they clarify non-obvious behavior.
 
+### Readable Code
+
+Apply these rules to new and changed production code, tests, fixtures, and examples. A passing PHPCS check does not
+replace a readability review.
+
+- Use consistent indentation. Put each entry of a configuration, payload, or result array on its own line.
+- Split long calls and declarations across lines, with one argument or parameter per line and aligned closing brackets.
+- Put each part of a compound validation condition on its own line. Keep the order of type checks before field access
+  visible so short-circuit behavior is easy to review.
+- Separate nested operations into meaningful local variables when they mix steps such as reading, JSON decoding,
+  validation, result construction, encoding, and writing. Avoid constructs such as `fwrite($handle, json_encode([...]))`.
+- Prefer explicit control flow over nested ternaries or dense fallback expressions. Keep simple, clear nullsafe calls
+  and fallbacks; do not replace them with unnecessary boilerplate.
+- Separate logical steps with blank lines. Use descriptive names for intermediate values and do not introduce helpers
+  or abstractions solely to hide a short expression.
+- Keep these rules consistent throughout the changed implementation, including error paths and tests. Limit unrelated
+  formatting to a separately requested cleanup.
+- Use the existing QUIQQER/Composer autoloader. Load it at standalone entrypoints when needed; do not add autoloader
+  `require` calls inside ordinary classes or methods.
+
+### System Commands With Symfony Process
+
+Execute external commands from PHP through `Symfony\Component\Process\Process`, as agreed in
+[Core #1466](https://dev.quiqqer.com/quiqqer/core/-/work_items/1466). This applies to Core and packages, including CLI,
+background jobs, and process-launching test fixtures.
+
+- Replace native process execution such as `exec`, `shell_exec`, `system`, `passthru`, `popen`, `proc_open`, and PHP
+  backtick execution when changing the affected code. Do not build a new native fallback or custom process wrapper that
+  reimplements Symfony's process lifecycle.
+- Pass executable and arguments as an array to `new Process(...)`. Do not manually concatenate or shell-escape arguments
+  in that array. Declare a compatible `symfony/process` dependency in the package that uses it instead of relying on an
+  unrelated package to install it.
+- Use `Process::fromShellCommandline()` only when shell syntax is actually required, for example a shell pipeline.
+  Keep the shell expression fixed and pass dynamic values through Symfony's escaped placeholders or standard input;
+  never interpolate user-controlled values into the shell expression. Still use Symfony for execution and errors.
+- Preserve the intended binary, working directory, environment, standard input, output handling, and synchronous or
+  asynchronous behavior. Choose the timeout deliberately; disabling it requires an execution model that permits an
+  unbounded job, not a blanket workaround.
+- Use `mustRun()` when nonzero exit codes are exceptional, or `run()` with explicit exit-code handling. Handle relevant
+  start failures, timeouts, and signals at the caller's error boundary. For asynchronous execution, manage completion
+  through Symfony's process API.
+- Choose output handling to match the workload: read bounded output, stream it, or disable capture when it is not needed.
+  Do not retain unlimited output from long-running jobs or copy credentials and raw command output into diagnostics.
+
+Example of an argument-array command with readable configuration:
+
+```php
+use Symfony\Component\Process\Process;
+
+$command = [
+    PHP_BINARY,
+    $scriptPath,
+    '--mode',
+    $mode
+];
+
+$Process = new Process(
+    $command,
+    cwd: $workingDirectory,
+    timeout: 60
+);
+
+$Process->mustRun();
+$output = $Process->getOutput();
+```
+
 ## Git Workflow
 
 - Before changing code, inspect the current branch and worktree. If the developer has not already selected a branch
@@ -195,6 +261,7 @@ Before opening or handing over a merge request:
 - Verify commit messages.
 - Run PHPCS, PHPStan, and PHPUnit through the package-local tools.
 - Add or update PHPUnit coverage for each fix and feature.
+- Review changed code for readability and verify external commands use Symfony Process.
 - Document behavior changes and known test gaps.
 - Target the repository's branching flow; normal package work is reviewed into the matching `next-*.x` branch.
 - Verify that breaking changes target the next unreleased major branch, not the current stable major branch.

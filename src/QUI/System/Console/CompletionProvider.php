@@ -16,6 +16,7 @@ class CompletionProvider
         '--help',
         '--ignore-file-permissions',
         '--listtools',
+        '--no-header',
         '--noLogo',
         '--password',
         '--username'
@@ -50,7 +51,7 @@ class CompletionProvider
             return [];
         }
 
-        $options = ['--help'];
+        $options = ['--help', '--no-header'];
         $Tool = $this->tools[$command] ?? null;
 
         if ($Tool) {

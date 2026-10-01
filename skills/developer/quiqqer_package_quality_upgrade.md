@@ -8,7 +8,8 @@ category: developer
 
 Modernize one package at a time. Preserve behavior and keep commits reviewable. Work in the repository and branch the
 developer has already selected. Do not switch branches or infer that another branch would be more appropriate.
-Load `quiqqer_developer_workflow` as well when commit or handover rules are needed.
+Load [quiqqer_developer_workflow](./quiqqer_developer_workflow.md) for coding standards, Symfony Process requirements,
+commit rules, and handover checks.
 
 ## 1. Respect The Current Repository State
 
@@ -35,6 +36,8 @@ Inspect at least:
 - `database.xml`
 - `locale.xml`, referenced language files, locale groups, and translation coverage
 - active legacy database calls
+- native external-command execution and existing Symfony Process usage
+- readability of production code, tests, fixtures, and examples
 
 Use `rg` to find suppressed analysis, optional dependencies, PDO, MySQL-only SQL, and old database APIs. Include dead or
 commented legacy implementations in the cleanup decision.
@@ -81,6 +84,8 @@ migration before or together with only those type fixes that are inseparable fro
 After the DBAL migration, resolve the remaining PHPStan 2 level-8 findings in production and test code. Keep the baseline
 empty and do not add ignores merely to make the final gate pass. Run the complete package quality command sequence twice,
 including PHPCS, PHPStan, and PHPUnit, then verify coverage remains at least 80% and commit the final analysis fixes.
+Include the readability and external-command review below in this phase. Keep process migrations and broad formatting
+cleanup in separate coherent changes; do not mix them into unrelated DBAL or type fixes.
 
 If the developer explicitly requests a different phase boundary, follow that request and document the deviation.
 Task-specific content restrictions, such as not changing README or package texts, also override the completion defaults
@@ -146,6 +151,31 @@ such as `QUI::getAjax()`.
 Prefer PHP's nullsafe operator (`?->`) when `null` may naturally propagate and the surrounding condition, fallback, or
 return value already handles it correctly. Use an explicit null check only when `null` requires distinct control flow,
 logging, state changes, or an exception. Do not add a verbose guard when a nullsafe call expresses the same behavior.
+
+### Readability And External Commands
+
+Apply the developer workflow's [Readable Code](./quiqqer_developer_workflow.md#readable-code) and
+[System Commands With Symfony Process](./quiqqer_developer_workflow.md#system-commands-with-symfony-process) rules.
+PHPCS alone does not detect dense expressions or incorrect process handling.
+
+- Review arrays, multiline calls, compound conditions, and nested expressions in the changed code and tests. Separate
+  decoding, validation, result construction, and output into readable steps where they are currently compressed.
+- Inventory native PHP command execution with a targeted search, for example:
+
+```shell
+rg -n --glob '*.php' '\b(exec|shell_exec|system|passthru|popen|proc_open|pcntl_exec)\s*\(' src ajax bin tests
+```
+
+Search the package's actual PHP paths and inspect PHP backtick execution separately. Distinguish external commands from
+unrelated methods such as database `exec()`; exclude vendor code and generated dependencies from the migration.
+
+- During a full quality upgrade, migrate active native command execution to Symfony Process. Reuse existing Process-based
+  helpers when suitable; do not introduce native fallbacks. Include an explicit compatible dependency when it is missing.
+- Preserve argument boundaries, exit-code behavior, working directory, environment, input/output handling, timeout policy,
+  and asynchronous completion. Review shell pipelines specifically for dynamic string interpolation.
+- Cover changed process behavior with focused tests, including successful execution, failed execution, and arguments with
+  spaces or shell metacharacters. Test timeouts, signals, and output limits when the changed behavior depends on them.
+  Use harmless fixture commands; do not run installed jobs or external business operations merely to test execution.
 
 ### Optional Dependency Stubs
 
@@ -418,7 +448,8 @@ git diff --check
 ```
 
 Omit `xmllint` only when the package has no `database.xml`. Scan one final time for legacy database access and MySQL-only
-constructs. Review `git diff` and confirm that the worktree contains only intended changes.
+constructs. Repeat the native process-execution scan and review the diff for readability and the Symfony Process
+requirements above. Confirm that the worktree contains only intended changes.
 
 Prefer separate Conventional Commits for:
 

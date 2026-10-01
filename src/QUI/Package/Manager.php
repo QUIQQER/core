@@ -1974,7 +1974,8 @@ class Manager extends QUI\QDOM
     public function update(
         bool | string $package = false,
         bool $mute = true,
-        ?QUI\Interfaces\System\SystemOutput $Output = null
+        ?QUI\Interfaces\System\SystemOutput $Output = null,
+        bool $finalize = true
     ): void {
         if (!$Output) {
             $Output = new QUI\System\Output\VoidOutput();
@@ -2026,7 +2027,14 @@ class Manager extends QUI\QDOM
             $Output->writeLn($line);
         }
 
-        // set last update
+        if ($finalize) {
+            $this->completeUpdate($Output);
+        }
+    }
+
+    /** Complete the update in a fresh runner after Composer has replaced package files. */
+    public function completeUpdate(QUI\Interfaces\System\SystemOutput $Output): void
+    {
         $Output->writeLn('Cleanup database');
 
         QUI::getPackageManager()->setLastUpdateDate();

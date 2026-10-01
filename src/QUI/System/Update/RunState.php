@@ -332,10 +332,10 @@ class RunState
         $this->startedAt ??= $now;
     }
 
-    public function markRestartRequired(): void
+    public function markRestartRequired(string $phase = self::PHASE_RESTART_REQUIRED): void
     {
+        $this->transitionTo($phase);
         $this->status = self::STATUS_RESTART_REQUIRED;
-        $this->transitionTo(self::PHASE_RESTART_REQUIRED);
     }
 
     public function markFinished(int $now): void
