@@ -284,19 +284,40 @@ define('classes/users/Manager', [
          * @param {Function} [onfinish] - (optional), callback function
          */
         deleteUsers: function(uids, params, onfinish) {
-            return new Promise((resolve) => {
+            return this.$removeUsers('ajax_users_delete', uids, params, onfinish);
+        },
+
+        /**
+         * Clear account data, retaining user IDs and UUIDs.
+         */
+        wipeUsers: function(uids, params) {
+            return this.$removeUsers('ajax_users_wipe', uids, params);
+        },
+
+        $removeUsers: function(endpoint, uids, params, onfinish) {
+            return new Promise((resolve, reject) => {
                 params = ObjectUtils.combine(params, {
-                    uid: JSON.stringify(uids)
+                    uid: JSON.stringify(uids),
+                    onError: reject
                 });
 
-                Ajax.post('ajax_users_delete', (result) => {
-                    for (let i = 0, len = uids.length; i < len; i++) {
-                        if (typeof this.$users[uids[i]] !== 'undefined') {
-                            delete this.$users[uids[i]];
-                        }
-                    }
+                Ajax.post(endpoint, (result) => {
+                    const removedIds = new Set(uids.map(String));
 
-                    this.fireEvent('delete', [this, uids]);
+                    // Accounts may be cached by numeric ID or UUID. Close every matching panel.
+                    Object.keys(this.$users).forEach((key) => {
+                        const User = this.$users[key];
+                        const aliases = [key, User.getId(), User.getAttribute('id'), User.getAttribute('uuid')]
+                            .filter(id => id !== null && id !== undefined && id !== false)
+                            .map(String);
+
+                        if (aliases.some(id => removedIds.has(id))) {
+                            aliases.forEach(id => removedIds.add(id));
+                            delete this.$users[key];
+                        }
+                    });
+
+                    this.fireEvent('delete', [this, Array.from(removedIds)]);
 
                     if (typeof onfinish !== 'undefined') {
                         onfinish(result);

@@ -1,4 +1,3 @@
-
 .quiqqer-user-address-form,
 .quiqqer-user-address-form .address-list {
     float: left;
@@ -108,21 +107,4 @@
 .quiqqer-user-authenticator-settings:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
-}
-
-.user-delete-window-list-entry {
-    margin-bottom: 0.5rem;
-}
-
-.user-delete-window-list-entry-username {
-    display: inline-block;
-    font-size: 1.1rem;
-    font-weight: bold;
-    width: 100%;
-}
-
-.user-delete-window-list-entry-uuid {
-    display: inline-block;
-    opacity: 0.5;
-    width: 100%;
 }
