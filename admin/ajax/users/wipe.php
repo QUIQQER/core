@@ -7,8 +7,6 @@
 QUI::getAjax()->registerFunction(
     'ajax_users_wipe',
     static function (string $uid): bool {
-        QUI\Permissions\Permission::checkPermission('quiqqer.admin.users.delete');
-
         $ids = json_decode($uid, true, 512, JSON_THROW_ON_ERROR);
         $ids = is_array($ids) ? $ids : [$ids];
         foreach ($ids as $id) {
@@ -40,5 +38,9 @@ QUI::getAjax()->registerFunction(
         return true;
     },
     ['uid'],
-    'Permission::checkAdminUser'
+    [
+        'Permission::checkAdminUser',
+        'quiqqer.admin.users.edit',
+        'quiqqer.admin.users.delete'
+    ]
 );

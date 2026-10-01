@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace QUI\Users;
 
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\TestCase;
 use QUI;
@@ -71,20 +72,29 @@ final class UserWipeTest extends TestCase
         ));
     }
 
-    public function testEditPermissionAloneCannotWipe(): void
+    public static function incompletePermissions(): array
+    {
+        return [
+            'edit without delete' => [true, false],
+            'delete without edit' => [false, true]
+        ];
+    }
+
+    #[DataProvider('incompletePermissions')]
+    public function testRegistrationRequiresBothPermissions(bool $edit, bool $delete): void
     {
         $Target = $this->createUser();
         $Actor = $this->createUser();
         QUI::getPermissionManager()->setPermissions($Actor, [
             'quiqqer.admin' => true,
-            'quiqqer.admin.users.edit' => true,
-            'quiqqer.admin.users.delete' => false
+            'quiqqer.admin.users.edit' => $edit,
+            'quiqqer.admin.users.delete' => $delete
         ], $this->Root);
         $this->setActor($Actor);
 
         try {
-            $this->wipe([$Target->getUUID()]);
-            self::fail('Wiping requires delete permission.');
+            Ajax::checkPermissions('ajax_users_wipe');
+            self::fail('Registration must require both edit and delete permission.');
         } catch (QUI\Permissions\Exception) {
             $this->assertUnchanged($Target);
         }

@@ -602,7 +602,7 @@ class Ajax extends QUI\QDOM
             if (!str_contains($func, '::')) {
                 Permissions\Permission::checkPermission($func);
 
-                return;
+                continue;
             }
 
             if (str_starts_with($func, 'Permission')) {

@@ -463,16 +463,16 @@
             <pt><![CDATA[Eliminar utilizadores]]></pt>
         </locale>
         <locale name="users.panel.delete.window.text">
-            <pt><![CDATA[Pretende eliminar os seguintes utilizadores:]]></pt>
+            <pt><![CDATA[Eliminar permanentemente as contas de utilizador?]]></pt>
         </locale>
         <locale name="users.panel.delete.window.submit.user">
-            <pt><![CDATA[Eliminar utilizador]]></pt>
+            <pt><![CDATA[Eliminar utilizador permanentemente]]></pt>
         </locale>
         <locale name="users.panel.delete.window.submit.users">
-            <pt><![CDATA[Eliminar utilizadores]]></pt>
+            <pt><![CDATA[Eliminar utilizadores permanentemente]]></pt>
         </locale>
         <locale name="users.panel.delete.window.information">
-            <pt><![CDATA[Os utilizadores serão completamente removidos do sistema e não podem ser recuperados.]]></pt>
+            <pt><![CDATA[Esta ação não pode ser anulada. Os registos dos utilizadores com os respetivos ID/UUID também serão removidos. Para os manter, cancele e escolha «Limpar dados dos utilizadores».]]></pt>
         </locale>
         <locale name="users.entry.user.remove">
             <pt><![CDATA[Remover utilizador]]></pt>
@@ -572,6 +572,27 @@
         </locale>
         <locale name="quiqqer.setup.groups.alone.text">
             <pt><![CDATA[Utilizo o QUIQQER sozinho ou com poucos utilizadores, todos com as mesmas permissões de administração.]]></pt>
+        </locale>
+        <locale name="users.user.btn.wipe">
+            <pt><![CDATA[Limpar dados dos utilizadores]]></pt>
+        </locale>
+        <locale name="users.panel.wipe.window.title">
+            <pt><![CDATA[Limpar dados dos utilizadores]]></pt>
+        </locale>
+        <locale name="users.panel.wipe.window.text">
+            <pt><![CDATA[Limpar permanentemente os dados dos utilizadores?]]></pt>
+        </locale>
+        <locale name="users.panel.wipe.window.description">
+            <pt><![CDATA[As seguintes contas serão marcadas como eliminadas. Os nomes, endereços de e-mail, credenciais de acesso, grupos e outros dados das contas serão limpos; as moradas guardadas dos utilizadores serão eliminadas.]]></pt>
+        </locale>
+        <locale name="users.panel.wipe.window.information">
+            <pt><![CDATA[Esta ação não pode ser anulada. Os registos dos utilizadores com os respetivos ID/UUID serão mantidos, mas deixará de ser possível iniciar sessão. Os dados de outros módulos, como as faturas, não serão eliminados automaticamente.]]></pt>
+        </locale>
+        <locale name="users.panel.delete.window.description">
+            <pt><![CDATA[As seguintes contas de utilizador e as respetivas moradas guardadas serão completamente removidas da base de dados de utilizadores.]]></pt>
+        </locale>
+        <locale name="message.user.wiped.successful">
+            <pt><![CDATA[Os dados dos utilizadores foram limpos. As contas são mantidas e ficam marcadas como eliminadas.]]></pt>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
