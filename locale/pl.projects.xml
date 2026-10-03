@@ -664,6 +664,42 @@
         <locale name="projects.project.site.select.entry.typeWildcard.badge">
             <pl><![CDATA[Wszystkie typy stron]]></pl>
         </locale>
+        <locale name="projects.frontend.title">
+            <pl><![CDATA[Interfejs witryny]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.title">
+            <pl><![CDATA[Wskaźniki ładowania]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.description">
+            <pl><![CDATA[Domyślne ustawienia projektu dla witryny. Poszczególne kontrolki mogą używać własnego typu wskaźnika.]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.type">
+            <pl><![CDATA[Typ wskaźnika]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.color">
+            <pl><![CDATA[Kolor animacji]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.color.description">
+            <pl><![CDATA[Pozostaw puste, aby użyć koloru szablonu. Jeśli szablon go nie określa, zostanie użyty domyślny kolor QUI.]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.background">
+            <pl><![CDATA[Kolor tła]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.background.description">
+            <pl><![CDATA[Pozostaw puste, aby użyć szablonu. Wybrany kolor będzie miał krycie 70%.]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.automatic">
+            <pl><![CDATA[Automatycznie (domyślne QUI)]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.automatic.description">
+            <pl><![CDATA[„Automatycznie” używa domyślnego typu QUI. „Standard” ustawia animację z ośmioma kwadratami jako domyślną dla projektu. Obecnie obie opcje wyglądają tak samo. Jeśli domyślny typ QUI się zmieni, tylko opcja „Automatycznie” uwzględni tę zmianę.]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.ownColors">
+            <pl><![CDATA[Ten typ używa własnych kolorów animacji. Kolor tła nadal można skonfigurować.]]></pl>
+        </locale>
+        <locale name="projects.frontend.loader.unavailable">
+            <pl><![CDATA[Zapisany typ jest niedostępny. Witryna używa domyślnego typu QUI.]]></pl>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 

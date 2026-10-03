@@ -31,6 +31,8 @@
 
 {$Favicon->output($Project)}
 
+{include file="`$smarty.const.LIB_DIR`templates/loaderSettings.html"}
+
 <script type="text/javascript" data-no-cache="1">
     var URL_DIR          = '{$URL_DIR}',
         URL_OPT_DIR      = '{$URL_OPT_DIR}',
@@ -103,6 +105,11 @@
 <script src="{$URL_OPT_DIR}bin/quiqqer-asset/requirejs/requirejs/require.js?lu={$lastUpdate|md5}"></script>
 <script>
     require.config({
+        config: {
+            'qui/controls/loader/Loader': {
+                type: {$loaderSettings.type|json_encode}
+            }
+        },
         baseUrl : URL_DIR,
         paths   : {
             "assets"    : URL_OPT_DIR +'bin',

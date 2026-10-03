@@ -691,6 +691,42 @@
         <locale name="projects.project.site.select.description.site_children">
             <en><![CDATA[<em>Add child pages</em> adds all child pages of the selected page unless a page type is set. In that case, the page type serves as a filter, and only child pages of the selected page type are displayed.]]></en>
         </locale>
+        <locale name="projects.frontend.title">
+            <en><![CDATA[Website interface]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.title">
+            <en><![CDATA[Loading indicators]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.description">
+            <en><![CDATA[Project-wide defaults for the website. Individual controls can use their own loader type.]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.type">
+            <en><![CDATA[Loader type]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.color">
+            <en><![CDATA[Animation color]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.color.description">
+            <en><![CDATA[Leave empty to use the template design color. Without a design default, the QUI default color applies.]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.background">
+            <en><![CDATA[Background color]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.background.description">
+            <en><![CDATA[Leave empty to use the template design. A selected color uses 70% opacity.]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.automatic">
+            <en><![CDATA[Automatic (QUI default)]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.automatic.description">
+            <en><![CDATA[“Automatic” uses the QUI default. “Standard” explicitly selects the animation with eight squares as the project default. Both currently look the same. If the QUI default changes in the future, only “Automatic” follows that change.]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.ownColors">
+            <en><![CDATA[This loader type uses its own animation colors. The background color remains configurable.]]></en>
+        </locale>
+        <locale name="projects.frontend.loader.unavailable">
+            <en><![CDATA[The saved loader type is unavailable. The website uses the QUI default.]]></en>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 

@@ -1,0 +1,8 @@
+{if $loaderSettings.color || $loaderSettings.background}
+<style>
+    :root {
+        {if $loaderSettings.color}--_q-loaderConf-color: {$loaderSettings.color};{/if}
+        {if $loaderSettings.background}--_q-loaderConf-background: {$loaderSettings.background};{/if}
+    }
+</style>
+{/if}

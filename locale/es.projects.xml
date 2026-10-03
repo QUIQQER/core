@@ -664,6 +664,42 @@
         <locale name="projects.project.site.select.entry.typeWildcard.badge">
             <es><![CDATA[Todos los tipos de página]]></es>
         </locale>
+        <locale name="projects.frontend.title">
+            <es><![CDATA[Interfaz del sitio web]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.title">
+            <es><![CDATA[Indicadores de carga]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.description">
+            <es><![CDATA[Valores predeterminados del proyecto para el sitio web. Cada control puede utilizar su propio tipo de indicador.]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.type">
+            <es><![CDATA[Tipo de indicador]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.color">
+            <es><![CDATA[Color de la animación]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.color.description">
+            <es><![CDATA[Déjelo vacío para utilizar el color del diseño de la plantilla. Si no existe, se utiliza el color predeterminado de QUI.]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.background">
+            <es><![CDATA[Color de fondo]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.background.description">
+            <es><![CDATA[Déjelo vacío para utilizar el diseño de la plantilla. El color seleccionado utiliza una opacidad del 70 %.]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.automatic">
+            <es><![CDATA[Automático (predeterminado de QUI)]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.automatic.description">
+            <es><![CDATA[«Automático» utiliza el tipo predeterminado de QUI. «Standard» establece explícitamente la animación de ocho cuadrados como opción predeterminada del proyecto. Actualmente ambos tienen el mismo aspecto. Si cambia el tipo predeterminado de QUI, solo «Automático» adoptará ese cambio.]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.ownColors">
+            <es><![CDATA[Este tipo utiliza sus propios colores de animación. El color de fondo sigue siendo configurable.]]></es>
+        </locale>
+        <locale name="projects.frontend.loader.unavailable">
+            <es><![CDATA[El tipo guardado no está disponible. El sitio web utiliza el predeterminado de QUI.]]></es>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 
