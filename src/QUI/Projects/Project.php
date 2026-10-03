@@ -498,7 +498,8 @@ class Project implements \Stringable
     }
 
     /**
-     * Return the package-independent locale entry used for the project title.
+     * Return the project title locale entry, preferring entries without a package.
+     * Fall back to a package-bound entry only when it is unambiguous.
      *
      * @return array<string, mixed>
      * @throws QUI\Database\Exception
@@ -516,7 +517,7 @@ class Project implements \Stringable
             }
         }
 
-        return [];
+        return count($entries) === 1 ? $entries[0] : [];
     }
 
     /**
@@ -573,6 +574,12 @@ class Project implements \Stringable
         $localeData['groups'] = $group;
         $localeData['var'] = 'title';
         $localeData['package'] = $entry['package'] ?? '';
+
+        if (!empty($entry['package'])) {
+            $localeData['datatype'] = $entry['datatype'];
+            $localeData['html'] = $entry['html'];
+            $localeData['priority'] = $entry['priority'];
+        }
 
         QUI\Translator::editById((int)$entry['id'], $localeData);
         QUI\Translator::publish($group);
