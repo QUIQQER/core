@@ -19,6 +19,18 @@ final class Session
     public int $rateStart = 0;
     public int $rateCount = 0;
 
+    public string $code = '';
+    public int $codeStep = -1;
+    public int $usedCodeStep = -1;
+    public int $failedCodes = 0;
+    public int $blockedUntil = 0;
+
+    /** @var array<string, int> Device ID => upload expiry. */
+    public array $grants = [];
+
+    // Old bearer-only sessions are deliberately invalidated during deployment.
+    public int $securityVersion = 2;
+
     /**
      * @param class-string<ProviderInterface> $provider
      * @param array<string, string> $context
@@ -30,7 +42,7 @@ final class Session
         public readonly string $provider,
         public readonly array $context,
         public readonly string $issuer,
-        public readonly int $expiresAt
+        public int $expiresAt
     ) {
     }
 
@@ -49,7 +61,14 @@ final class Session
          *     closed: bool,
          *     bytes: int,
          *     rateStart: int,
-         *     rateCount: int
+         *     rateCount: int,
+         *     securityVersion?: int,
+         *     code?: string,
+         *     codeStep?: int,
+         *     usedCodeStep?: int,
+         *     failedCodes?: int,
+         *     blockedUntil?: int,
+         *     grants?: array<string, int>
          * } $data
          */
         $data = json_decode($json, true, 32, JSON_THROW_ON_ERROR);
@@ -69,6 +88,13 @@ final class Session
         $Session->bytes = $data['bytes'];
         $Session->rateStart = $data['rateStart'];
         $Session->rateCount = $data['rateCount'];
+        $Session->securityVersion = $data['securityVersion'] ?? 0;
+        $Session->code = $data['code'] ?? '';
+        $Session->codeStep = $data['codeStep'] ?? -1;
+        $Session->usedCodeStep = $data['usedCodeStep'] ?? -1;
+        $Session->failedCodes = $data['failedCodes'] ?? 0;
+        $Session->blockedUntil = $data['blockedUntil'] ?? 0;
+        $Session->grants = $data['grants'] ?? [];
 
         return $Session;
     }

@@ -3,6 +3,94 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
     <locales>
         <groups name="quiqqer/core" datatype="php,js">
+            <locale name="upload.mobileUpload.cookiesRequired">
+                <de>Bitte diesen Link über HTTPS öffnen und Cookies für diese Website erlauben, damit dein Gerät wiedererkannt werden kann.</de>
+                <en>Please open this link over HTTPS and allow cookies for this website so your device can be recognized.</en>
+            </locale>
+            <locale name="upload.mobileUpload.codeLabel">
+                <de>6-stelliger Freigabecode</de>
+                <en>6-digit verification code</en>
+            </locale>
+            <locale name="upload.mobileUpload.codeChanges">
+                <de>Neuer Code in</de>
+                <en>New code in</en>
+            </locale>
+            <locale name="upload.mobileUpload.freshCode">
+                <de>Bitte auf einen neuen Code im QR-Fenster warten.</de>
+                <en>Please wait for a new code in the QR window.</en>
+            </locale>
+            <locale name="upload.mobileUpload.codeInvalid">
+                <de>Der Code ist falsch oder abgelaufen. Bitte den aktuellen Code eingeben.</de>
+                <en>The code is incorrect or has expired. Please enter the current code.</en>
+            </locale>
+            <locale name="upload.mobileUpload.registerTitle">
+                <de>Gerät zuerst erlauben</de>
+                <en>Allow this device first</en>
+            </locale>
+            <locale name="upload.mobileUpload.registerHint">
+                <de>Füge diesen Browser zu den erlaubten Upload-Geräten deines Benutzers hinzu. Vergib einen Namen und gib den Code aus dem QR-Fenster ein. Anschließend schaltest du den Upload mit einem neuen Code frei.</de>
+                <en>Add this browser to your user's allowed upload devices. Give it a name and enter the code from the QR window. Afterwards, unlock uploads with a new code.</en>
+            </locale>
+            <locale name="upload.mobileUpload.registerDevice">
+                <de>Gerät erlauben</de>
+                <en>Allow device</en>
+            </locale>
+            <locale name="upload.mobileUpload.unlockTitle">
+                <de>Upload freischalten</de>
+                <en>Unlock uploads</en>
+            </locale>
+            <locale name="upload.mobileUpload.unlockHint">
+                <de>Dieses Gerät ist erlaubt. Gib einen frischen Code aus dem QR-Fenster ein, um für 30 Minuten Dateien hochzuladen.</de>
+                <en>This device is allowed. Enter a fresh code from the QR window to upload files for 30 minutes.</en>
+            </locale>
+            <locale name="upload.mobileUpload.unlockUpload">
+                <de>Upload für 30 Minuten freischalten</de>
+                <en>Unlock uploads for 30 minutes</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceName">
+                <de>Gerätename</de>
+                <en>Device name</en>
+            </locale>
+            <locale name="upload.mobileUpload.devicesTitle">
+                <de>Erlaubte Geräte für Uploads</de>
+                <en>Allowed upload devices</en>
+            </locale>
+            <locale name="upload.mobileUpload.devicesHint">
+                <de>Geräte werden beim mobilen Upload mit einem Freigabecode hinzugefügt. Die Freigabe gilt für den jeweiligen Browser. Entfernen beendet auch laufende Upload-Freigaben dieses Geräts.</de>
+                <en>Devices are added during mobile upload using a verification code. Approval applies to the individual browser. Removing a device also revokes its current upload access.</en>
+            </locale>
+            <locale name="upload.mobileUpload.devicesEmpty">
+                <de>Noch keine Geräte erlaubt.</de>
+                <en>No devices allowed yet.</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceCreated">
+                <de>Erlaubt seit</de>
+                <en>Allowed since</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceLastUsed">
+                <de>Zuletzt verwendet</de>
+                <en>Last used</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRename">
+                <de>Namen speichern</de>
+                <en>Save name</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceSaved">
+                <de>Gerätename gespeichert.</de>
+                <en>Device name saved.</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRevoke">
+                <de>Gerät entfernen</de>
+                <en>Remove device</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRevokeConfirm">
+                <de>Dieses Gerät entfernen und seine laufenden Upload-Freigaben widerrufen?</de>
+                <en>Remove this device and revoke its current upload access?</en>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRevoked">
+                <de>Gerät entfernt. Der Upload-Zugriff wurde widerrufen.</de>
+                <en>Device removed. Upload access has been revoked.</en>
+            </locale>
             <locale name="upload.mobileUpload.keepOpen">
                 <de>Dieses Fenster während des Uploads geöffnet lassen. Beim Schließen wird der Link deaktiviert.</de>
                 <en>Keep this window open while uploading. Closing it deactivates the link.</en>
@@ -140,8 +228,8 @@
                 <en>The file does not meet the displayed upload requirements.</en>
             </locale>
             <locale name="upload.mobileUpload.rate">
-                <de>Zu viele Anfragen. Bitte eine Minute warten und erneut versuchen.</de>
-                <en>Too many requests. Please wait a minute and try again.</en>
+                <de>Zu viele Versuche. Bitte die Wartezeit abwarten und erneut versuchen.</de>
+                <en>Too many attempts. Please wait before trying again.</en>
             </locale>
             <locale name="upload.mobileUpload.discard">
                 <de>Die ausgewählten, noch nicht gesendeten Dateien verwerfen und den Zugang schließen?</de>

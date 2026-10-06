@@ -43,6 +43,9 @@ define('controls/upload/mobileUpload/Window', [
         let polling = false;
         let active = true;
         let closing = false;
+        let serverOffset = 0;
+        let codeExpiresAt = 0;
+        let lastPoll = 0;
 
         const Content = element('section', 'mobile-upload-window');
         Content.className = 'quiqqer-mobile-upload-window';
@@ -54,6 +57,13 @@ define('controls/upload/mobileUpload/Window', [
         QR.alt = labels.qr;
         QR.width = 340;
         QR.height = 340;
+
+        const CodeSection = element('div', 'verification');
+        const CodeLabel = element('p', 'code-label', labels.codeLabel);
+        const Code = element('output', 'code', '…');
+        Code.setAttribute('aria-label', labels.codeLabel);
+        const CodeCountdown = element('p', 'code-countdown');
+        CodeSection.append(CodeLabel, Code, CodeCountdown);
 
         const Link = element('a', 'link', labels.open);
         Link.href = session.url;
@@ -134,6 +144,8 @@ define('controls/upload/mobileUpload/Window', [
             window.clearInterval(timer);
 
             QR.hidden = true;
+            CodeSection.hidden = true;
+            Code.textContent = '';
             Link.removeAttribute('href');
             Copy.disabled = true;
             Countdown.textContent = labels.inactive;
@@ -144,20 +156,25 @@ define('controls/upload/mobileUpload/Window', [
                 return;
             }
 
-            const remaining = Math.max(0, session.expiresAt - Math.floor(Date.now() / 1000));
+            const now = Math.floor(Date.now() / 1000 + serverOffset);
+            const remaining = Math.max(0, session.expiresAt - now);
             const minutes = Math.floor(remaining / 60);
             const seconds = String(remaining % 60).padStart(2, '0');
             Countdown.textContent = labels.expires + ' ' + minutes + ':' + seconds;
 
-            if (!remaining) {
-                deactivate();
+            const codeRemaining = Math.max(0, codeExpiresAt - now);
+            CodeCountdown.textContent = labels.codeChanges + ' ' + codeRemaining + ' s';
+
+            if (!codeRemaining) {
+                Code.textContent = '…';
             }
 
-            if (polling || document.hidden) {
+            if (polling || document.hidden || (codeRemaining > 0 && Date.now() - lastPoll < 3000)) {
                 return;
             }
 
             polling = true;
+            lastPoll = Date.now();
 
             try {
                 const state = await request(session, 'status');
@@ -174,10 +191,18 @@ define('controls/upload/mobileUpload/Window', [
 
                 if (!state.active) {
                     deactivate();
+                } else {
+                    session.expiresAt = state.expiresAt;
+                    serverOffset = state.serverTime - Date.now() / 1000;
+                    codeExpiresAt = state.codeExpiresAt;
+                    CodeCountdown.textContent = labels.codeChanges + ' '
+                        + Math.max(0, state.codeExpiresAt - state.serverTime) + ' s';
+                    Code.textContent = state.codeUsed ? '…' : state.code;
                 }
             } catch (error) {
                 if (!disposed) {
                     Status.textContent = labels.error;
+                    Code.textContent = '…';
 
                     if ([403, 410].includes(error.status)) {
                         deactivate();
@@ -203,7 +228,7 @@ define('controls/upload/mobileUpload/Window', [
                     Window.getElm().setAttribute('aria-label', labels.title);
                     Window.getElm().focus();
 
-                    timer = window.setInterval(tick, 3000);
+                    timer = window.setInterval(tick, 1000);
                     tick();
                 },
                 onClose: () => {
@@ -274,7 +299,7 @@ define('controls/upload/mobileUpload/Window', [
             }
         });
 
-        Content.append(Heading, Intro, QR, Link, Countdown, KeepOpen, Status, Actions);
+        Content.append(Heading, Intro, QR, CodeSection, Link, Countdown, KeepOpen, Status, Actions);
         Window.open();
 
         return Window;

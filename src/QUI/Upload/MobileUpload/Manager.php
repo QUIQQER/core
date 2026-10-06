@@ -12,11 +12,16 @@ use Throwable;
 final class Manager
 {
     public const LIFETIME = 1800;
+    private readonly \Closure $clock;
 
+    /** @param null|callable(): int $clock */
     public function __construct(
         private readonly Store $Store = new Store(),
-        private readonly Providers $Providers = new Providers()
+        private readonly Providers $Providers = new Providers(),
+        private readonly Devices $Devices = new Devices(),
+        ?callable $clock = null
     ) {
+        $this->clock = \Closure::fromCallable($clock ?? time(...));
     }
 
     /**
@@ -58,7 +63,7 @@ final class Manager
             $Provider::class,
             $context,
             (string)$Issuer->getUUID(),
-            time() + self::LIFETIME
+            ($this->clock)() + self::LIFETIME
         );
 
         $this->Store->locked(
@@ -77,23 +82,36 @@ final class Manager
     }
 
     /**
-     * @return array{
-     *     expiresAt: int,
-     *     label: string,
-     *     maxBytes: int,
-     *     maxFiles: int,
-     *     allowedTypes: list<string>
-     * }
+     * @return array<string, mixed>
      */
-    public function info(string $id, string $token): array
+    public function info(string $id, string $token, string $deviceToken): array
     {
-        return $this->access($id, $token, static function (
+        return $this->access($id, $token, function (
             Session $Session,
             ProviderInterface $Provider,
             User $Issuer
-        ): array {
+        ) use ($deviceToken): array {
+            $now = ($this->clock)();
+            $device = $this->Devices->find($Session->issuer, $deviceToken);
+            $expiresAt = $device === null ? 0 : ($Session->grants[$device['id']] ?? 0);
+
+            if ($expiresAt <= $now) {
+                return [
+                    'stage' => $device === null ? 'register' : 'unlock',
+                    'serverTime' => $now,
+                    'retryAt' => max(
+                        $Session->blockedUntil,
+                        ($Session->usedCodeStep + 1) * 30,
+                        $device === null ? 0 : ($device['registeredStep'] + 1) * 30
+                    ),
+                    'expiresAt' => $Session->expiresAt
+                ];
+            }
+
             return [
-                'expiresAt' => $Session->expiresAt,
+                'stage' => 'upload',
+                'serverTime' => $now,
+                'expiresAt' => $expiresAt,
                 'label' => $Provider->authorize($Session->context, $Issuer),
                 ...Files::limits($Issuer),
                 'allowedTypes' => $Provider->getAllowedTypes($Session->context)
@@ -102,11 +120,7 @@ final class Manager
     }
 
     /**
-     * @return array{
-     *     active: bool,
-     *     count: int,
-     *     expiresAt: int
-     * }
+     * @return array<string, mixed>
      */
     public function manage(string $id, string $generation, User $Issuer, bool $revoke = false): array
     {
@@ -127,14 +141,27 @@ final class Manager
                 return [$Session, $state];
             }
 
-            if ($revoke || $Session->expiresAt <= time()) {
+            $now = ($this->clock)();
+
+            if ($revoke || $Session->expiresAt <= $now || $Session->securityVersion !== 2 || !$Issuer->isActive()) {
                 $Session->closed = true;
+            }
+
+            if (!$Session->closed) {
+                Permission::withUser($Issuer, function () use ($Session, $Issuer): void {
+                    $this->Providers->get($Session->provider)->authorize($Session->context, $Issuer);
+                });
+                $this->rotateCode($Session, $now);
             }
 
             $state = [
                 'active' => !$Session->closed,
                 'count' => count($Session->receipts),
-                'expiresAt' => $Session->expiresAt
+                'expiresAt' => $Session->expiresAt,
+                'serverTime' => $now,
+                'code' => $Session->closed ? '' : $Session->code,
+                'codeExpiresAt' => ($Session->codeStep + 1) * 30,
+                'codeUsed' => $Session->usedCodeStep === $Session->codeStep
             ];
 
             return [$Session, $state];
@@ -147,8 +174,14 @@ final class Manager
      *
      * @return array{name: string}
      */
-    public function upload(string $id, string $token, string $uploadId, string $path, string $name): array
-    {
+    public function upload(
+        string $id,
+        string $token,
+        string $uploadId,
+        string $path,
+        string $name,
+        string $deviceToken
+    ): array {
         Store::assertId($uploadId);
 
         $UploadManager = new QUI\Upload\Manager();
@@ -161,8 +194,10 @@ final class Manager
         ) use (
             $uploadId,
             $path,
-            $name
+            $name,
+            $deviceToken
         ): array {
+            $this->assertUploadAccess($Session, $deviceToken);
             $limits = Files::limits($Issuer);
             $allowedTypes = $Provider->getAllowedTypes($Session->context);
             $file = Files::validate($path, $limits['maxBytes'], $allowedTypes);
@@ -206,13 +241,110 @@ final class Manager
         return $this->access($id, $token, $receive);
     }
 
-    public function close(string $id, string $token): void
+    public function close(string $id, string $token, string $deviceToken): void
     {
-        $this->access($id, $token, static function (Session $Session): null {
+        $this->access($id, $token, function (Session $Session) use ($deviceToken): null {
+            $this->assertUploadAccess($Session, $deviceToken);
             $Session->closed = true;
 
             return null;
         });
+    }
+
+    /** @return array<string, mixed> */
+    public function verify(
+        string $id,
+        string $token,
+        string $deviceToken,
+        string $code,
+        string $action,
+        string $name = '',
+        string $description = ''
+    ): array {
+        Store::assertId($deviceToken);
+
+        $this->access($id, $token, function (Session $Session) use (
+            $deviceToken,
+            $code,
+            $action,
+            $name,
+            $description
+        ): void {
+            $now = ($this->clock)();
+
+            if ($Session->blockedUntil > $now) {
+                throw new QUI\Exception('Too many code attempts.', 429);
+            }
+
+            $device = $this->Devices->find($Session->issuer, $deviceToken);
+
+            if ($action !== ($device === null ? 'register' : 'unlock')) {
+                throw new QUI\Exception('Upload verification state changed.', 409);
+            }
+
+            $this->rotateCode($Session, $now);
+
+            if (!preg_match('/\A[0-9]{6}\z/D', $code) || !hash_equals($Session->code, $code)) {
+                $Session->failedCodes++;
+
+                if ($Session->failedCodes >= 10) {
+                    $Session->closed = true;
+                }
+
+                if ($Session->failedCodes % 5 === 0) {
+                    $Session->blockedUntil = $now + 300;
+                }
+
+                throw new QUI\Exception('Invalid verification code.', 422);
+            }
+
+            if (
+                $Session->usedCodeStep >= $Session->codeStep
+                || ($device !== null && $device['registeredStep'] >= $Session->codeStep)
+            ) {
+                throw new QUI\Exception('Wait for a fresh verification code.', 409);
+            }
+
+            if ($device === null) {
+                $this->Devices->register($Session->issuer, $deviceToken, $name, $description, $now);
+            } else {
+                $this->Devices->touch($Session->issuer, $deviceToken, $now);
+
+                if (($Session->grants[$device['id']] ?? 0) <= $now) {
+                    $Session->grants[$device['id']] = $now + self::LIFETIME;
+                    $Session->expiresAt = max($Session->expiresAt, $now + self::LIFETIME);
+                }
+            }
+
+            $Session->usedCodeStep = $Session->codeStep;
+        });
+
+        return $this->info($id, $token, $deviceToken);
+    }
+
+    private function rotateCode(Session $Session, int $now): void
+    {
+        $step = intdiv($now, 30);
+
+        if ($step === $Session->codeStep) {
+            return;
+        }
+
+        do {
+            $code = sprintf('%06d', random_int(0, 999999));
+        } while ($code === $Session->code);
+
+        $Session->code = $code;
+        $Session->codeStep = $step;
+    }
+
+    private function assertUploadAccess(Session $Session, string $deviceToken): void
+    {
+        $device = $this->Devices->find($Session->issuer, $deviceToken);
+
+        if ($device === null || ($Session->grants[$device['id']] ?? 0) <= ($this->clock)()) {
+            throw new QUI\Exception('Upload verification is required.', 403);
+        }
     }
 
     /**
@@ -230,14 +362,16 @@ final class Manager
             }
 
             try {
-                if ($Session->closed || $Session->expiresAt <= time()) {
+                $now = ($this->clock)();
+
+                if ($Session->closed || $Session->expiresAt <= $now || $Session->securityVersion !== 2) {
                     $Session->closed = true;
 
                     throw new QUI\Exception('Upload access has expired.', 410);
                 }
 
-                if ($Session->rateStart + 60 <= time()) {
-                    $Session->rateStart = time();
+                if ($Session->rateStart + 60 <= $now) {
+                    $Session->rateStart = $now;
                     $Session->rateCount = 0;
                 }
 

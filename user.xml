@@ -6,6 +6,7 @@
             <attribute>quiqqer.sitemap.showNames</attribute>
             <attribute>quiqqer.has.seen.2fa.info</attribute>
             <attribute>qui-bookmarks</attribute>
+            <attribute>quiqqer.upload.allowedDevices</attribute>
         </attributes>
         <window>
             <categories>
@@ -198,6 +199,12 @@
                             <locale group="quiqqer/core" var="user.settings.authenticators.2faList"/>
                         </title>
                         <description><![CDATA[<div data-name="authenticators"></div>]]></description>
+                    </settings>
+                    <settings name="upload-devices">
+                        <title>
+                            <locale group="quiqqer/core" var="upload.mobileUpload.devicesTitle"/>
+                        </title>
+                        <description><![CDATA[<div data-qui="controls/upload/mobileUpload/Devices"></div>]]></description>
                     </settings>
                 </category>
                 <category name="data" index="3">

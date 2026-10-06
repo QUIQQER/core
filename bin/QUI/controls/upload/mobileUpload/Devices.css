@@ -1,0 +1,30 @@
+.quiqqer-upload-devices {
+    --_gap: var(--quiqqer-upload-devices-gap, 1rem);
+    --_border: var(--quiqqer-upload-devices-border, var(--qui-colors-gray-100));
+    --_focus: var(--quiqqer-upload-devices-focus, var(--qui-colors-primary-700));
+}
+
+.quiqqer-upload-devices ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quiqqer-upload-devices li {
+    border-block-start: 1px solid var(--_border);
+    padding-block: var(--_gap);
+    overflow-wrap: anywhere;
+}
+
+.quiqqer-upload-devices label {
+    display: grid;
+    gap: var(--_gap);
+}
+
+.quiqqer-upload-devices button + button {
+    margin-inline-start: var(--_gap);
+}
+
+.quiqqer-upload-devices :focus-visible {
+    outline: 2px solid var(--_focus);
+    outline-offset: 3px;
+}

@@ -16,11 +16,17 @@
     const Progress = find('progress');
     const Send = find('send');
     const Done = find('done');
+    const Verification = find('verification');
+    const CodeInput = find('verification-code');
+    const DeviceName = find('device-name');
+    const Verify = find('verify');
     const entries = [];
     let busy = false;
     let active = true;
     let expiryTimer;
     let settings = null;
+    let stage = null;
+    let waitTimer;
 
     const formatSize = (bytes) => {
         const unit = bytes >= 1000000 ? 'MB' : 'KB';
@@ -42,6 +48,9 @@
             403: labels.inactive,
             404: labels.inactive,
             410: labels.inactive,
+            409: labels.freshCode,
+            422: labels.codeInvalid,
+            428: labels.cookiesRequired,
             413: labels.limit,
             415: labels.invalid,
             429: labels.rate
@@ -54,6 +63,8 @@
             active = false;
             Controls.disabled = true;
             Done.disabled = true;
+            Verify.disabled = true;
+            Verification.hidden = true;
         }
     };
 
@@ -281,7 +292,42 @@
         return;
     }
 
-    request('info').then((info) => {
+    const applyInfo = (info) => {
+        stage = info.stage;
+        window.clearInterval(waitTimer);
+        window.clearTimeout(expiryTimer);
+        Form.hidden = stage !== 'upload';
+        Verification.hidden = stage === 'upload';
+        Status.textContent = '';
+
+        if (stage !== 'upload') {
+            const registering = stage === 'register';
+            find('verification-title').textContent = registering ? labels.registerTitle : labels.unlockTitle;
+            find('verification-hint').textContent = registering ? labels.registerHint : labels.unlockHint;
+            find('device-name-label').hidden = !registering;
+            DeviceName.required = registering;
+            DeviceName.disabled = !registering;
+            Verify.textContent = registering ? labels.registerDevice : labels.unlockUpload;
+            CodeInput.value = '';
+
+            const waitUntil = Date.now() + Math.max(0, info.retryAt - info.serverTime) * 1000;
+            const updateWait = () => {
+                const remaining = Math.max(0, Math.ceil((waitUntil - Date.now()) / 1000));
+                Verify.disabled = remaining > 0;
+                CodeInput.disabled = remaining > 0;
+                find('verification-wait').textContent = remaining ? labels.freshCode + ' (' + remaining + ' s)' : '';
+
+                if (!remaining) {
+                    window.clearInterval(waitTimer);
+                }
+            };
+
+            waitTimer = window.setInterval(updateWait, 1000);
+            updateWait();
+            (registering ? DeviceName : CodeInput).focus();
+            return;
+        }
+
         settings = info;
         find('reference').textContent = info.label;
         find('file-input').accept = info.allowedTypes.join(',');
@@ -315,9 +361,42 @@
 
         expiryTimer = window.setTimeout(
             () => showError({status: 410}),
-            Math.max(0, info.expiresAt * 1000 - Date.now())
+            Math.max(0, (info.expiresAt - info.serverTime) * 1000)
         );
-    }).catch((error) => {
+        find('camera').hidden ? find('choose').focus() : find('camera').focus();
+    };
+
+    Verification.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (Verify.disabled || !active) {
+            return;
+        }
+
+        Verify.disabled = true;
+        ErrorMessage.hidden = true;
+
+        try {
+            const info = await request(stage, {
+                code: CodeInput.value,
+                name: DeviceName.value
+            });
+            applyInfo(info);
+        } catch (error) {
+            showError(error);
+
+            if (active) {
+                try {
+                    applyInfo(await request('info'));
+                } catch (refreshError) {
+                    showError(refreshError);
+                    Verify.disabled = !active;
+                }
+            }
+        }
+    });
+
+    request('info').then(applyInfo).catch((error) => {
         Status.textContent = '';
         showError(error);
     });
