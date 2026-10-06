@@ -18,6 +18,7 @@ use QUI\Upload\MobileUpload\Session;
 use QUI\Upload\MobileUpload\Store;
 
 require_once __DIR__ . '/UploadProviderFixture.php';
+require_once __DIR__ . '/LimitedUploadProviderFixture.php';
 
 final class ManagerTest extends TestCase
 {
@@ -61,7 +62,10 @@ final class ManagerTest extends TestCase
         QUI\Projects\Manager::$Standard = $Project;
 
         $this->Store = new Store($this->directory . '/sessions');
-        $Providers = new Providers(static fn (): array => [UploadProviderFixture::class]);
+        $Providers = new Providers(static fn (): array => [
+            UploadProviderFixture::class,
+            LimitedUploadProviderFixture::class
+        ]);
         $Connection = DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true]);
         $Connection->executeStatement('CREATE TABLE users (uuid TEXT PRIMARY KEY, extra TEXT)');
         $Connection->insert('users', ['uuid' => 'test-upload-issuer', 'extra' => '{}']);
@@ -368,9 +372,27 @@ final class ManagerTest extends TestCase
         $this->reject(410, fn () => $this->Manager->info($session['id'], $session['token'], $this->deviceToken));
     }
 
-    private function create(bool $unlock = true): array
+    public function testDestinationLimitsAreDisplayedAndEnforced(): void
     {
-        $session = $this->Manager->create(UploadProviderFixture::class, $this->context, $this->Issuer);
+        $session = $this->create(provider: LimitedUploadProviderFixture::class);
+        $info = $this->Manager->info($session['id'], $session['token'], $this->deviceToken);
+        self::assertSame(3, $info['maxBytes']);
+        self::assertSame(1, $info['maxFiles']);
+        $path = $this->file('too large');
+        $this->reject(413, fn () => $this->Manager->upload(
+            $session['id'],
+            $session['token'],
+            bin2hex(random_bytes(32)),
+            $path,
+            'notes.txt',
+            $this->deviceToken
+        ));
+        self::assertSame([], UploadProviderFixture::$received);
+    }
+
+    private function create(bool $unlock = true, string $provider = UploadProviderFixture::class): array
+    {
+        $session = $this->Manager->create($provider, $this->context, $this->Issuer);
 
         if (!$unlock) {
             return $session;

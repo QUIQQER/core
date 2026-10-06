@@ -9,7 +9,7 @@ use QUI\Interfaces\Users\User;
 use QUI\Upload\MobileUpload\Document;
 use QUI\Upload\MobileUpload\ProviderInterface;
 
-final class UploadProviderFixture implements ProviderInterface
+class UploadProviderFixture implements ProviderInterface
 {
     public static bool $allowed = true;
     public static bool $fail = false;

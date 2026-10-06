@@ -3,6 +3,15 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.media.qrUpload.allow">
+            <pl>Zezwalaj na przesyłanie przez kod QR</pl>
+        </locale>
+        <locale name="projects.media.qrUpload.description">
+            <pl>Umożliwia przesyłanie plików ze smartfona do tego projektu. Wymagane są zatwierdzenie urządzenia i kod weryfikacyjny. Wyłączenie blokuje również istniejące dostępy QR.</pl>
+        </locale>
+        <locale name="projects.media.qrUpload.menu">
+            <pl>Prześlij ze smartfona</pl>
+        </locale>
         <locale name="projects.popup.search">
             <pl><![CDATA[Szukaj stron: tytuł, nazwa lub ID]]></pl>
         </locale>

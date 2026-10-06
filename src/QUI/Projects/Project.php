@@ -436,6 +436,7 @@ class Project implements \Stringable
         return match ($name) {
             "sheets" => 5,
             "archive" => 10,
+            'media_allowQrUpload' => 1,
             default => false,
         };
     }

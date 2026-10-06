@@ -3,6 +3,15 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.media.qrUpload.allow">
+            <fr>Autoriser les imports par code QR</fr>
+        </locale>
+        <locale name="projects.media.qrUpload.description">
+            <fr>Autorise l’import de fichiers depuis un smartphone dans ce projet. L’appareil doit être autorisé et un code de vérification est requis. La désactivation bloque également les accès QR existants.</fr>
+        </locale>
+        <locale name="projects.media.qrUpload.menu">
+            <fr>Importer depuis un smartphone</fr>
+        </locale>
         <locale name="projects.popup.search">
             <fr><![CDATA[Rechercher des pages : titre, nom ou ID]]></fr>
         </locale>

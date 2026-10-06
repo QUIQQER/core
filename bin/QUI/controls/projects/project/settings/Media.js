@@ -79,6 +79,7 @@ define('controls/projects/project/settings/Media', [
 
                 const config = Object.merge({
                     media_maxUploadSize: 4000,
+                    media_allowQrUpload: 1,
                     media_maxImageCacheSize: 4000,
                     media_imageCacheSizeRounding: 1,
                     media_imageCacheExactSizeThreshold: 100,

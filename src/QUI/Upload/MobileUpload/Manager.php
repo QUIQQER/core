@@ -113,7 +113,7 @@ final class Manager
                 'serverTime' => $now,
                 'expiresAt' => $expiresAt,
                 'label' => $Provider->authorize($Session->context, $Issuer),
-                ...Files::limits($Issuer),
+                ...$this->limits($Session, $Provider, $Issuer),
                 'allowedTypes' => $Provider->getAllowedTypes($Session->context)
             ];
         });
@@ -198,7 +198,7 @@ final class Manager
             $deviceToken
         ): array {
             $this->assertUploadAccess($Session, $deviceToken);
-            $limits = Files::limits($Issuer);
+            $limits = $this->limits($Session, $Provider, $Issuer);
             $allowedTypes = $Provider->getAllowedTypes($Session->context);
             $file = Files::validate($path, $limits['maxBytes'], $allowedTypes);
             $digest = hash('sha256', $file['checksum'] . "\0" . $name);
@@ -320,6 +320,14 @@ final class Manager
         });
 
         return $this->info($id, $token, $deviceToken);
+    }
+
+    /** @return array{maxBytes: int, maxFiles: int} */
+    private function limits(Session $Session, ProviderInterface $Provider, User $Issuer): array
+    {
+        return $Provider instanceof LimitsProviderInterface
+            ? $Provider->getLimits($Session->context, $Issuer)
+            : Files::limits($Issuer);
     }
 
     private function rotateCode(Session $Session, int $now): void

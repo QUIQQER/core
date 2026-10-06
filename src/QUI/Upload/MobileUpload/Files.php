@@ -18,10 +18,11 @@ final class Files
      *     maxFiles: int
      * }
      */
-    public static function limits(User $Issuer): array
+    public static function limits(User $Issuer, ?QUI\Projects\Project $Project = null): array
     {
         $maxBytes = (int)$Issuer->getPermission('quiqqer.upload.maxFileUploadSize', 'maxInteger');
-        $mediaMaxBytes = (int)QUI\Projects\Manager::get()->getConfig('media_maxUploadFileSize');
+        $Project ??= QUI\Projects\Manager::get();
+        $mediaMaxBytes = (int)$Project->getConfig('media_maxUploadFileSize');
 
         if ($mediaMaxBytes > 0) {
             $maxBytes = $mediaMaxBytes;

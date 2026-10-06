@@ -11,6 +11,8 @@ use QUI\Permissions\Manager as PermissionManager;
 use QUI\Permissions\Permission;
 use QUI\Projects\Media\Folder;
 use QUI\Projects\Media\Item;
+use QUI\Projects\Media\MobileUploadProvider;
+use QUI\Upload\MobileUpload\Document;
 use QUI\QDOM;
 use QUI\Security\CsrfToken;
 use QUI\System\Console\Session as ConsoleSession;
@@ -38,6 +40,7 @@ final class MediaUploadAuthorizationTest extends ProjectAuthorizationTestCase
     private ReflectionProperty $mediaPermissionsProperty;
     private ReflectionProperty $permissionUserProperty;
     private string $temporaryFile;
+    private array $previousProjectConfig;
 
     protected function setUp(): void
     {
@@ -60,6 +63,7 @@ final class MediaUploadAuthorizationTest extends ProjectAuthorizationTestCase
         $this->cleanupUsers();
 
         $this->Project = ProjectTestHelper::getProject();
+        $this->previousProjectConfig = $this->Project->getConfig();
         $this->Media = $this->Project->getMedia();
         $this->User = $this->createBackendUploader();
         $this->createMediaFixture();
@@ -67,6 +71,8 @@ final class MediaUploadAuthorizationTest extends ProjectAuthorizationTestCase
         $this->Ajax = new Ajax();
         QUI::$Ajax = $this->Ajax;
         require dirname(__DIR__, 4) . '/admin/ajax/media/upload.php';
+        require dirname(__DIR__, 4) . '/admin/ajax/media/createMobileUpload.php';
+        require dirname(__DIR__, 4) . '/admin/ajax/project/get/config.php';
         require dirname(__DIR__, 4) . '/admin/ajax/media/folder/create.php';
     }
 
@@ -85,6 +91,9 @@ final class MediaUploadAuthorizationTest extends ProjectAuthorizationTestCase
         } catch (Throwable $Exception) {
             $cleanupFailure = $Exception;
         } finally {
+            if (isset($this->previousProjectConfig)) {
+                (new ReflectionProperty(Project::class, 'config'))->setValue($this->Project, $this->previousProjectConfig);
+            }
             $this->managerSessionProperty->setValue(QUI::getUsers(), $this->previousManagerSession);
             $this->mediaPermissionsProperty->setValue(null, $this->previousMediaPermissions);
             $this->permissionUserProperty->setValue(null, $this->previousPermissionUser);
@@ -106,6 +115,161 @@ final class MediaUploadAuthorizationTest extends ProjectAuthorizationTestCase
         $this->expectException(QUI\Permissions\Exception::class);
 
         $this->TargetFolder->uploadFile($this->temporaryFile, Folder::FILE_OVERWRITE_TRUE, $this->User);
+    }
+
+    public function testMobileUploadDefaultsToEnabledAndImportsOnlyOnceWithoutOverwriting(): void
+    {
+        $this->setTargetUploadPermission($this->User);
+        $this->setActor($this->User);
+        $config = $this->Project->getConfig();
+        unset($config['media_allowQrUpload']);
+        (new ReflectionProperty(Project::class, 'config'))->setValue($this->Project, $config);
+        $Provider = new MobileUploadProvider();
+        $context = $this->mobileContext();
+        self::assertStringContainsString($this->Project->getName(), $Provider->authorize($context, $this->User));
+
+        $existing = $this->TargetFolder->uploadFile($this->temporaryFile, Folder::FILE_OVERWRITE_NONE, $this->User);
+        $Document = new Document(bin2hex(random_bytes(32)), $this->temporaryFile, basename($this->temporaryFile));
+        $Provider->receive($context, $this->User, $Document);
+        $Provider->receive($context, $this->User, $Document);
+        $children = $this->TargetFolder->getChildren();
+        self::assertCount(2, $children);
+        self::assertSame('media upload authorization test', file_get_contents($existing->getFullPath()));
+        $name = pathinfo($this->temporaryFile, PATHINFO_FILENAME) . '_1.txt';
+        $Uploaded = $this->TargetFolder->getChildByName(pathinfo($name, PATHINFO_FILENAME));
+        self::assertSame($name, basename($Uploaded->getFullPath()));
+        self::assertSame($Document->id, $Uploaded->getAttribute(MobileUploadProvider::RECEIPT)['id']);
+        self::assertSame($this->User->getUUID(), $Uploaded->getAttribute('c_user'));
+
+        file_put_contents($this->temporaryFile, 'changed retry');
+        $this->expectException(QUI\Exception::class);
+        $this->expectExceptionCode(409);
+        $Provider->receive($context, $this->User, $Document);
+    }
+
+    public function testMobileUploadFlagAjaxDefaultsToEnabledAndPreservesExplicitDisable(): void
+    {
+        $this->setActor($this->User);
+        $config = $this->Project->getConfig();
+        unset($config['media_allowQrUpload']);
+        (new ReflectionProperty(Project::class, 'config'))->setValue($this->Project, $config);
+        $params = [
+            '_csrf' => CsrfToken::get(),
+            'project' => $this->Project->getName(),
+            'param' => 'media_allowQrUpload'
+        ];
+
+        $response = $this->Ajax->callRequestFunction('ajax_project_get_config', $params);
+        self::assertArrayNotHasKey('Exception', $response);
+        self::assertSame(1, $response['result']);
+
+        $this->setMobileConfig(['media_allowQrUpload' => 0]);
+        $response = $this->Ajax->callRequestFunction('ajax_project_get_config', $params);
+        self::assertArrayNotHasKey('Exception', $response);
+        self::assertSame(0, $response['result']);
+    }
+
+    public function testDisablingProjectBlocksExistingMobileUploadAccess(): void
+    {
+        $this->setTargetUploadPermission($this->User);
+        $this->setActor($this->User);
+        $Provider = new MobileUploadProvider();
+        $Provider->authorize($this->mobileContext(), $this->User);
+        $this->setMobileConfig(['media_allowQrUpload' => 0]);
+
+        $this->expectException(QUI\Exception::class);
+        $this->expectExceptionCode(403);
+        $Provider->receive(
+            $this->mobileContext(),
+            $this->User,
+            new Document(bin2hex(random_bytes(32)), $this->temporaryFile, 'denied.txt')
+        );
+    }
+
+    public function testMobileUploadRechecksDestinationPermission(): void
+    {
+        $this->setTargetUploadPermission($this->User);
+        $Provider = new MobileUploadProvider();
+        $Provider->authorize($this->mobileContext(), $this->User);
+        $this->setTargetUploadPermission($this->Root);
+
+        $this->expectException(QUI\Permissions\Exception::class);
+        $Provider->receive(
+            $this->mobileContext(),
+            $this->User,
+            new Document(bin2hex(random_bytes(32)), $this->temporaryFile, 'denied.txt')
+        );
+    }
+
+    public function testMobileUploadUsesDestinationProjectSizeLimit(): void
+    {
+        $this->setTargetUploadPermission($this->User);
+        $this->setMobileConfig(['media_maxUploadFileSize' => 3]);
+        $Provider = new MobileUploadProvider();
+        self::assertSame(3, $Provider->getLimits($this->mobileContext(), $this->User)['maxBytes']);
+
+        $this->expectException(QUI\Exception::class);
+        $this->expectExceptionCode(413);
+        $Provider->receive(
+            $this->mobileContext(),
+            $this->User,
+            new Document(bin2hex(random_bytes(32)), $this->temporaryFile, 'too-large.txt')
+        );
+    }
+
+    public function testMobileUploadHonorsAllowedFilenamePatterns(): void
+    {
+        $this->setTargetUploadPermission($this->User);
+        QUI::getPermissionManager()->setPermissions($this->User, [
+            'quiqqer.upload.allowedEndings' => '*.pdf'
+        ], $this->Root);
+        $this->expectException(QUI\Exception::class);
+        $this->expectExceptionCode(415);
+        (new MobileUploadProvider())->receive(
+            $this->mobileContext(),
+            $this->User,
+            new Document(bin2hex(random_bytes(32)), $this->temporaryFile, 'denied.txt')
+        );
+    }
+
+    public function testMobileUploadEndpointRequiresPostAndRespectsProjectSwitch(): void
+    {
+        $previousMethod = $_SERVER['REQUEST_METHOD'] ?? null;
+        $this->setActor($this->User);
+        $params = [
+            '_csrf' => CsrfToken::get(),
+            'project' => $this->Project->getName(),
+            'parentid' => $this->TargetFolder->getId()
+        ];
+
+        try {
+            $_SERVER['REQUEST_METHOD'] = 'GET';
+            $response = $this->Ajax->callRequestFunction('ajax_media_createMobileUpload', $params);
+            self::assertSame(405, $response['Exception']['code']);
+            $_SERVER['REQUEST_METHOD'] = 'POST';
+            $this->setMobileConfig(['media_allowQrUpload' => 0]);
+            $response = $this->Ajax->callRequestFunction('ajax_media_createMobileUpload', $params);
+            self::assertSame(403, $response['Exception']['code']);
+        } finally {
+            if ($previousMethod === null) {
+                unset($_SERVER['REQUEST_METHOD']);
+            } else {
+                $_SERVER['REQUEST_METHOD'] = $previousMethod;
+            }
+        }
+    }
+
+    private function mobileContext(): array
+    {
+        return ['project' => $this->Project->getName(), 'folderId' => (string)$this->TargetFolder->getId()];
+    }
+
+    private function setMobileConfig(array $values): void
+    {
+        (new ReflectionProperty(Project::class, 'config'))->setValue(
+            $this->Project,
+            array_merge($this->Project->getConfig(), $values)
+        );
     }
 
     public function testFolderUploadAllowsAuthorizedDestination(): void
