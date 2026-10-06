@@ -356,7 +356,7 @@ class Utils
         $md5 = md5(
             serialize([
                 'attributes' => $attributes,
-                'responsiveImageVersion' => 3,
+                'responsiveImageVersion' => 4,
                 'src' => $src,
                 'withHost' => $withHost
             ])
@@ -365,7 +365,9 @@ class Utils
         $cacheName = 'quiqqer/projects/' . $parts[3] . '/picture-' . $md5;
 
         try {
-            return QUI\Cache\Manager::get($cacheName);
+            $picture = QUI\Cache\Manager::get($cacheName);
+
+            return self::prepareImageHTML($picture, $attributes);
         } catch (QUi\Exception $Exception) {
             Log::addDebug($Exception->getMessage());
         }
@@ -557,6 +559,17 @@ class Utils
         // picture html (nur ein picture, keine mehrfachen sources)
         $picture = '<picture>' . $img . '</picture>';
 
+        // Cache only the base HTML; event listeners can depend on the current request.
+        QUI\Cache\Manager::set($cacheName, $picture);
+
+        return self::prepareImageHTML($picture, $attributes);
+    }
+
+    /**
+     * @param array<string, mixed> $attributes
+     */
+    private static function prepareImageHTML(string $picture, array $attributes): string
+    {
         try {
             QUI::getEvents()->fireEvent('mediaCreateImageHtml', [&$picture]);
         } catch (QUI\Exception $Exception) {
@@ -571,8 +584,6 @@ class Utils
                 $picture
             );
         }
-
-        QUI\Cache\Manager::set($cacheName, $picture);
 
         return $picture;
     }
