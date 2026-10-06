@@ -4,11 +4,144 @@ namespace QUI\Projects;
 
 use DOMDocument;
 use PHPUnit\Framework\Attributes\DataProvider;
+use QUI;
+use QUI\Cache\Manager as CacheManager;
 use QUI\Projects\Media\Image;
 use ReflectionClass;
 
 class ProjectMediaImageCacheTest extends ProjectIntegrationTestCase
 {
+    /**
+     * @param list<bool> $webpRequests
+     */
+    #[DataProvider('webpRequestSequences')]
+    public function testImageHtmlEventsUseCurrentRequestOnCacheHits(array $webpRequests): void
+    {
+        $Project = self::getTestProject();
+        $Media = $Project->getMedia();
+        $Root = $Media->firstChild();
+        $folderName = 'phpunit-picture-events-' . uniqid();
+        $sourceFile = sys_get_temp_dir() . '/' . $folderName . '.png';
+        $CacheConfig = CacheManager::getConfig();
+        $originalCacheConfig = $CacheConfig->getSection('general');
+        $Events = QUI::getEvents();
+        $EventsProperty = (new ReflectionClass($Events))->getProperty('Events');
+        $originalEvents = $EventsProperty->getValue($Events);
+        $fileId = null;
+        $folderId = null;
+        $cacheKeys = [];
+
+        self::createPng($sourceFile, 64, 32);
+
+        try {
+            $CacheConfig->set('general', 'nocache', 0);
+            $folderId = ProjectTestHelper::runAsSystemUser(
+                static fn (): int => $Root->createFolder($folderName)->getId()
+            );
+            $fileId = ProjectTestHelper::runAsSystemUser(
+                static function () use ($Media, $folderId, $sourceFile): int {
+                    $Image = $Media->get($folderId)->uploadFile($sourceFile);
+                    $Image->activate();
+
+                    return $Image->getId();
+                }
+            );
+
+            $Image = $Media->get($fileId);
+            self::assertInstanceOf(Image::class, $Image);
+            $attributes = [
+                'width' => 32,
+                'alt' => 'Picture cache regression',
+                'style' => 'display:block'
+            ];
+            $source = ProjectTestHelper::runAsSystemUser(
+                static fn (): string => Media\Utils::getImageSource($Image->getUrl(), $attributes)
+            );
+
+            foreach ([3, 4] as $version) {
+                $hash = md5(serialize([
+                    'attributes' => $attributes,
+                    'responsiveImageVersion' => $version,
+                    'src' => $source,
+                    'withHost' => false
+                ]));
+                $cacheKeys[$version] = 'quiqqer/projects/' . $Project->getName() . '/picture-' . $hash;
+            }
+
+            // Old entries contain already processed HTML and must never be reused.
+            CacheManager::set($cacheKeys[3], '<picture>legacy processed HTML</picture>');
+            $RuntimeEvents = clone $originalEvents;
+            $RuntimeEvents->removeEvent('onMediaCreateImageHtml');
+            $RuntimeEvents->removeEvent('onMediaCreateImageHtmlBegin');
+            $EventsProperty->setValue($Events, $RuntimeEvents);
+            $webpEnabled = false;
+            $buildCount = 0;
+            $eventCount = 0;
+            $Events->addEvent('onMediaCreateImageHtmlBegin', static function () use (&$buildCount): void {
+                $buildCount++;
+            });
+            $Events->addEvent(
+                'onMediaCreateImageHtml',
+                static function (string &$picture) use (&$webpEnabled, &$eventCount): void {
+                    $eventCount++;
+
+                    if ($webpEnabled) {
+                        $picture = str_replace(
+                            '<picture>',
+                            '<picture><source type="image/webp" srcset="/request.webp">',
+                            $picture
+                        );
+                    }
+                }
+            );
+
+            foreach ($webpRequests as $index => $webpEnabled) {
+                $html = ProjectTestHelper::runAsSystemUser(
+                    static fn (): string => Media\Utils::getImageHTML($Image->getUrl(), $attributes)
+                );
+
+                self::assertStringNotContainsString('legacy processed HTML', $html);
+                self::assertSame((int)$webpEnabled, substr_count($html, 'type="image/webp"'));
+                self::assertStringContainsString('<picture style="display:block">', $html);
+                self::assertStringContainsString('alt="Picture cache regression"', $html);
+                self::assertStringContainsString('.png', $html);
+                self::assertSame($index + 1, $eventCount, 'Run the output event once per request.');
+                self::assertSame(1, $buildCount, 'Reuse the cached base HTML.');
+
+                $cachedHtml = CacheManager::get($cacheKeys[4]);
+                self::assertStringNotContainsString('image/webp', $cachedHtml);
+                self::assertStringStartsWith('<picture><img ', $cachedHtml);
+            }
+        } finally {
+            $EventsProperty->setValue($Events, $originalEvents);
+
+            foreach ($cacheKeys as $cacheKey) {
+                CacheManager::clear($cacheKey);
+            }
+
+            if (is_array($originalCacheConfig)) {
+                $CacheConfig->setSection('general', $originalCacheConfig);
+            } else {
+                $CacheConfig->del('general');
+            }
+
+            self::deleteMediaItems($Media, $fileId, $folderId);
+
+            if (file_exists($sourceFile)) {
+                unlink($sourceFile);
+            }
+        }
+    }
+
+    /**
+     * @return iterable<string, array{list<bool>}>
+     */
+    public static function webpRequestSequences(): iterable
+    {
+        yield 'PNG first' => [[false, true, true, false]];
+        yield 'WebP first' => [[true, true, false, true]];
+    }
+
     /**
      * @param array<string, int> $attributes
      */
