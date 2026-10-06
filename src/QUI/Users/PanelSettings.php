@@ -29,6 +29,7 @@ class PanelSettings
             !str_contains($html, 'data-name="user-language"')
             && !str_contains($html, 'data-name="authenticators"')
             && !str_contains($html, 'data-name="address-list"')
+            && !str_contains($html, 'data-name="upload-devices"')
         ) {
             return $html;
         }
@@ -40,8 +41,10 @@ class PanelSettings
         );
         $Path = new DOMXPath($Document);
 
-        // The address grid supplies its own toolbar and layout.
-        foreach ($Path->query('//div[@data-name="address-list"]') ?: [] as $Container) {
+        // These grids supply their own toolbar and layout.
+        $Grids = $Path->query('//div[@data-name="address-list" or @data-name="upload-devices"]');
+
+        foreach ($Grids ?: [] as $Container) {
             if (!$Container instanceof DOMElement) {
                 continue;
             }

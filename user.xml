@@ -200,14 +200,20 @@
                         </title>
                         <description><![CDATA[<div data-name="authenticators"></div>]]></description>
                     </settings>
+                </category>
+                <category name="upload-devices" index="3">
+                    <title>
+                        <locale group="quiqqer/core" var="upload.mobileUpload.devicesCategory"/>
+                    </title>
+                    <icon>fa fa-mobile</icon>
                     <settings name="upload-devices">
                         <title>
                             <locale group="quiqqer/core" var="upload.mobileUpload.devicesTitle"/>
                         </title>
-                        <description><![CDATA[<div data-qui="controls/upload/mobileUpload/Devices"></div>]]></description>
+                        <description><![CDATA[<div data-name="upload-devices" data-qui="controls/upload/mobileUpload/Devices"></div>]]></description>
                     </settings>
                 </category>
-                <category name="data" index="3">
+                <category name="data" index="4">
                     <title>
                         <locale group="quiqqer/core" var="user.panel.personalData"/>
                     </title>

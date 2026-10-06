@@ -19,8 +19,11 @@ class PanelSettingsTest extends TestCase
         $User->method('getUUID')->willReturn('');
         $categories = Utils::getUserToolbar($User)->toArray();
 
-        self::assertSame(['details', 'security', 'data'], array_column($categories, 'name'));
-        self::assertSame(['fa fa-user', 'fa fa-key', 'fa fa-envelope'], array_column($categories, 'image'));
+        self::assertSame(['details', 'security', 'upload-devices', 'data'], array_column($categories, 'name'));
+        self::assertSame(
+            ['fa fa-user', 'fa fa-key', 'fa fa-mobile', 'fa fa-envelope'],
+            array_column($categories, 'image')
+        );
 
         foreach ($categories as $category) {
             self::assertSame('xml', $category['type']);
@@ -71,8 +74,8 @@ class PanelSettingsTest extends TestCase
             $categories = Utils::getUserToolbar($User)->toArray();
 
             self::assertSame(
-                ['details', 'security', 'data', 'modern', 'later', 'legacy', 'legacy-second'],
-                array_slice(array_column($categories, 'name'), 0, 7)
+                ['details', 'security', 'upload-devices', 'data', 'modern', 'later', 'legacy', 'legacy-second'],
+                array_slice(array_column($categories, 'name'), 0, 8)
             );
         } finally {
             QUI::$PackageManager = $OriginalPackages;
@@ -160,6 +163,18 @@ class PanelSettingsTest extends TestCase
         $Path = $this->render('data');
         self::assertSame(1.0, $Path->evaluate('count(/html/body/div[@data-name="address-list"])'));
         self::assertSame(0.0, $Path->evaluate('count(//table)'));
+    }
+
+    public function testUploadDevicesHaveTheirOwnCategoryWithoutSettingsTable(): void
+    {
+        $Path = $this->render('upload-devices');
+        self::assertSame(1.0, $Path->evaluate('count(//div[@data-name="upload-devices"])'));
+        self::assertSame(0.0, $Path->evaluate('count(//table)'));
+        self::assertSame(
+            ['controls/upload/mobileUpload/Devices'],
+            $this->values($Path, '//div[@data-name="upload-devices"]/@data-qui')
+        );
+        self::assertSame(0.0, $this->render('security')->evaluate('count(//div[@data-name="upload-devices"])'));
     }
 
     public function testUnknownCategoryIsEmpty(): void
