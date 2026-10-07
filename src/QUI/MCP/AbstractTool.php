@@ -72,6 +72,7 @@ abstract class AbstractTool implements ToolInterface
     protected static function parseSite(Site $Site, bool $withAttributes = false): array
     {
         $Project = $Site->getProject();
+        $urls = self::parseSiteUrls($Site);
         $result = [
             'id' => $Site->getId(),
             'project' => $Project->getName(),
@@ -82,8 +83,8 @@ abstract class AbstractTool implements ToolInterface
             'short' => $Site->getAttribute('short'),
             'type' => $Site->getAttribute('type'),
             'active' => (bool)$Site->getAttribute('active'),
-            'url' => $Site->getUrlRewritten(),
-            'urlWithHost' => $Site->getUrlRewrittenWithHost(),
+            'url' => $urls['url'],
+            'urlWithHost' => $urls['urlWithHost'],
             'languageLinks' => self::parseSiteLanguageLinks($Site)
         ];
 
@@ -92,6 +93,46 @@ abstract class AbstractTool implements ToolInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @return array{url: ?string, urlWithHost: ?string}
+     */
+    protected static function parseSiteUrls(Site $Site): array
+    {
+        $unavailable = [
+            'url' => null,
+            'urlWithHost' => null
+        ];
+
+        if (
+            (int)$Site->getAttribute('active') !== 1
+            || $Site->getAttribute('deleted')
+        ) {
+            return $unavailable;
+        }
+
+        try {
+            // MCP also lists children of unavailable parents. Check before Output logs a URL failure.
+            $Site->getLocation();
+        } catch (QUI\Exception $Exception) {
+            if ($Exception->getCode() !== 705) {
+                throw $Exception;
+            }
+
+            return $unavailable;
+        }
+
+        $url = $Site->getUrlRewritten();
+
+        if ($url === '') {
+            return $unavailable;
+        }
+
+        return [
+            'url' => $url,
+            'urlWithHost' => $Site->getUrlRewrittenWithHost()
+        ];
     }
 
     /**
@@ -133,6 +174,7 @@ abstract class AbstractTool implements ToolInterface
                 $LinkedSite = $lang === $currentLang
                     ? $Site
                     : new Edit(self::getProject($projectName, $lang), (int)$linkedId);
+                $urls = self::parseSiteUrls($LinkedSite);
 
                 $result[$lang] = [
                     'id' => $LinkedSite->getId(),
@@ -140,8 +182,8 @@ abstract class AbstractTool implements ToolInterface
                     'lang' => $lang,
                     'exists' => true,
                     'active' => (bool)$LinkedSite->getAttribute('active'),
-                    'url' => $LinkedSite->getUrlRewritten(),
-                    'urlWithHost' => $LinkedSite->getUrlRewrittenWithHost(),
+                    'url' => $urls['url'],
+                    'urlWithHost' => $urls['urlWithHost'],
                     'source' => $lang === $currentLang ? 'current' : 'multilingual'
                 ];
             } catch (\Throwable) {
