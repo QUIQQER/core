@@ -190,12 +190,16 @@ class Search
                 // always get id
                 $selectFields[] = 'uuid';
                 $result = self::fetchRowsByUuids(QUI\Groups\Manager::table(), $selectFields, $resultGroups);
+                $groups = [];
+
                 foreach ($result as $row) {
                     $row['type'] = 'group';
                     $row['id'] = $row['uuid'];
 
-                    $searchResult['groups'][] = $row;
+                    $groups[] = $row;
                 }
+
+                $searchResult['groups'] = $groups;
             }
         }
 
