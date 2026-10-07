@@ -48,6 +48,20 @@ test('workspace retains panel identity and layout without configuration secrets'
         file: panel.$file
     });
     assert.equal(panel.$config.google.oauth_client_secret, 'test-only-oauth-secret');
+    assert.equal(panel.getConfig(), panel.$config);
+});
+
+test('category controls can read settings before and after they have loaded', () => {
+    const panel = createPanel();
+
+    assert.equal(Object.keys(panel.getConfig()).length, 0);
+
+    panel.$config = {general: {cacheType: 'redis'}};
+    assert.equal(panel.getConfig().general.cacheType, 'redis');
+
+    panel.$config = {general: {cacheType: 'filesystem'}};
+    assert.equal(panel.getConfig().general.cacheType, 'filesystem');
+    assert.equal(Object.hasOwn(panel.serialize(), 'config'), false);
 });
 
 test('restoring and saving a legacy workspace drops its stored configuration', () => {

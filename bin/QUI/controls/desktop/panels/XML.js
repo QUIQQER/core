@@ -93,6 +93,14 @@ define('controls/desktop/panels/XML', [
         },
 
         /**
+         * Return the live settings for category controls, without workspace serialization.
+         * @returns {Object}
+         */
+        getConfig: function() {
+            return this.$config ?? {};
+        },
+
+        /**
          * Internal creation
          */
         $onCreate: function() {
