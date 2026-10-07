@@ -164,10 +164,6 @@ class Search
                     $resultGroups = [];
                 }
 
-                if (!is_array($searchResult['groups'])) {
-                    $searchResult['groups'] = [];
-                }
-
                 $selectFieldsAvailable = [
                     'name' => true,
                     'parent' => true,
