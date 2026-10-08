@@ -81,9 +81,6 @@ class Setup
         $Output->writeLn('> Execute package setups');
         self::executeEachPackageSetup([], $Output);
 
-        $Output->writeLn('> Publish locales');
-        self::publishLocales($Output);
-
         $Output->writeLn('> Import permissions');
         self::importPermissions();
 

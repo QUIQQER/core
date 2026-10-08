@@ -1,0 +1,116 @@
+.quiqqer-core-loaderSelect {
+    --_accent: var(--qui-colors-primary, Highlight);
+    --_surface: var(--qui-colors-background, Canvas);
+    --_text: var(--qui-colors-text, CanvasText);
+    --_border: var(--quiqqer-core-loaderSelect-border-color, color-mix(in srgb, var(--_text) 18%, var(--_surface)));
+    --_preview: var(--quiqqer-core-loaderSelect-preview-background, color-mix(in srgb, var(--_text) 1.5%, var(--_surface)));
+    --_title: var(--quiqqer-core-loaderSelect-title-background, color-mix(in srgb, var(--_text) 3%, var(--_surface)));
+    --_selection-glow: color-mix(in srgb, var(--_accent) 18%, transparent);
+    box-sizing: border-box;
+    padding: 6px 10px;
+    width: 100%;
+}
+
+.quiqqer-core-loaderSelect-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.quiqqer-core-loaderSelect-card {
+    background: var(--_surface);
+    border: 1px solid var(--_border);
+    border-radius: 12px;
+    color: var(--_text);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    width: 100%;
+}
+
+.quiqqer-core-loaderSelect-card:hover:not(:disabled),
+.quiqqer-core-loaderSelect-card[aria-pressed="true"] {
+    border-color: var(--_accent);
+    box-shadow: 0 0 0 3px var(--_selection-glow);
+}
+
+.quiqqer-core-loaderSelect-card:focus-visible {
+    outline: 2px solid var(--_accent);
+    outline-offset: 3px;
+}
+
+.quiqqer-core-loaderSelect-card:disabled {
+    cursor: default;
+    opacity: 0.6;
+}
+
+.quiqqer-core-loaderSelect-preview {
+    background: var(--_preview);
+    display: block;
+    flex-grow: 1;
+    height: 100px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.quiqqer-core-loaderSelect-preview .qui-loader {
+    --quiqqer-loader-background: transparent;
+    --quiqqer-loader-color: var(--_accent);
+    color-scheme: light;
+    cursor: inherit;
+    display: block;
+    pointer-events: none;
+    transform: scale(0.75);
+}
+
+.quiqqer-core-loaderSelect-preview .qui-loader .fa-spin {
+    height: 50px;
+    line-height: 1;
+    top: calc(50% - 25px);
+    width: 50px;
+}
+
+.quiqqer-core-loaderSelect-title {
+    background: var(--_title);
+    border-top: 1px solid var(--_border);
+    box-sizing: border-box;
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+    min-height: 54px;
+    padding: 10px;
+    width: 100%;
+}
+
+.quiqqer-core-loaderSelect-description {
+    color: var(--_text);
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 14px 0 0;
+}
+
+.quiqqer-core-loaderSelect-preview * {
+    animation-play-state: paused;
+}
+
+.quiqqer-core-loaderSelect-card:hover .quiqqer-core-loaderSelect-preview *,
+.quiqqer-core-loaderSelect-card:focus-visible .quiqqer-core-loaderSelect-preview *,
+.quiqqer-core-loaderSelect-card[aria-pressed="true"] .quiqqer-core-loaderSelect-preview * {
+    animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .quiqqer-core-loaderSelect-card {
+        transition: none;
+    }
+
+    .quiqqer-core-loaderSelect-card .quiqqer-core-loaderSelect-preview * {
+        animation: none;
+    }
+}

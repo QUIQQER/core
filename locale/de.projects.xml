@@ -3,6 +3,15 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.media.qrUpload.allow">
+            <de>QR-Code-Upload erlauben</de>
+        </locale>
+        <locale name="projects.media.qrUpload.description">
+            <de>Erlaubt den Upload vom Smartphone in dieses Projekt. Gerätefreigabe und Freigabecode sind erforderlich. Beim Ausschalten werden auch bestehende QR-Upload-Zugänge gesperrt.</de>
+        </locale>
+        <locale name="projects.media.qrUpload.menu">
+            <de>Mit Smartphone hochladen</de>
+        </locale>
         <locale name="projects.popup.search">
             <de><![CDATA[Seiten suchen: Titel, Name oder ID]]></de>
         </locale>
@@ -715,6 +724,42 @@
         </locale>
         <locale name="projects.project.site.select.entry.typeWildcard.badge">
             <de><![CDATA[Alle Seitentypen]]></de>
+        </locale>
+        <locale name="projects.frontend.title">
+            <de><![CDATA[Website-Oberfläche]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.title">
+            <de><![CDATA[Ladeanzeigen]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.description">
+            <de><![CDATA[Projektweite Vorgaben für die Website. Einzelne Controls können einen eigenen Ladetyp verwenden.]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.type">
+            <de><![CDATA[Ladetyp]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.color">
+            <de><![CDATA[Animationsfarbe]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.color.description">
+            <de><![CDATA[Leer lassen, um die Farbe des Template-Designs zu verwenden. Ohne Designvorgabe gilt die QUI-Standardfarbe.]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.background">
+            <de><![CDATA[Hintergrundfarbe]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.background.description">
+            <de><![CDATA[Leer lassen für das Template-Design. Eine gewählte Farbe wird mit 70 % Deckkraft verwendet.]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.automatic">
+            <de><![CDATA[Automatisch (QUI-Standard)]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.automatic.description">
+            <de><![CDATA[„Automatisch“ übernimmt den Standard von QUI. „Standard“ legt die Animation mit den acht Quadraten als Projektvorgabe fest. Beide sehen derzeit gleich aus. Ändert sich der QUI-Standard später, folgt nur „Automatisch“ dieser Änderung.]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.ownColors">
+            <de><![CDATA[Dieser Ladetyp verwendet eigene Animationsfarben. Die Hintergrundfarbe bleibt einstellbar.]]></de>
+        </locale>
+        <locale name="projects.frontend.loader.unavailable">
+            <de><![CDATA[Der gespeicherte Ladetyp ist nicht verfügbar. Die Website verwendet den QUI-Standard.]]></de>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">

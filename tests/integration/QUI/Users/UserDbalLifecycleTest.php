@@ -133,6 +133,36 @@ class UserDbalLifecycleTest extends TestCase
         $this->assertSame($groupsChangedByAnotherRequest, $groupsAfterSave);
     }
 
+    public function testUploadDevicesSurviveStaleUserSaveAndCannotBeForgedOrExported(): void
+    {
+        $System = QUI::getUsers()->getSystemUser();
+        $username = self::TEST_PREFIX . uniqid();
+        $User = QUI::getUsers()->createChildWithAttributes([
+            'username' => $username,
+            'email' => $username . '@example.invalid'
+        ], $System);
+        $uuid = (string)$User->getUUID();
+        $Devices = new QUI\Upload\MobileUpload\Devices();
+        $token = bin2hex(random_bytes(32));
+        $Devices->register($uuid, $token, 'Test phone', 'Test browser', time());
+        $registered = $Devices->get($uuid);
+
+        $User->setAttribute(QUI\Upload\MobileUpload\Devices::ATTRIBUTE, ['forged' => true]);
+        $User->setAttribute('firstname', 'Saved with protected devices');
+        $User->save($System);
+        self::assertSame($registered, $Devices->get($uuid));
+
+        $User->refresh();
+        self::assertSame('Saved with protected devices', $User->getAttribute('firstname'));
+        $export = json_encode($User->getAttributes(), JSON_THROW_ON_ERROR);
+        self::assertStringNotContainsString(hash('sha256', $token), $export);
+        self::assertStringNotContainsString(QUI\Upload\MobileUpload\Devices::ATTRIBUTE, $export);
+
+        $Devices->edit($uuid, $Devices->listing($uuid)[0]['id'], null);
+        $User->save($System);
+        self::assertSame([], $Devices->get($uuid));
+    }
+
     private static function skipIfDatabaseIsUnavailable(): void
     {
         try {

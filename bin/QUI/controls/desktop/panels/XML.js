@@ -63,8 +63,7 @@ define('controls/desktop/panels/XML', [
             return {
                 attributes: this.getAttributes(),
                 type: this.getType(),
-                file: this.$file,
-                config: this.$config
+                file: this.$file
             };
         },
 
@@ -78,7 +77,6 @@ define('controls/desktop/panels/XML', [
             this.setAttributes(data.attributes);
 
             this.$file = data.file;
-            this.$config = data.config;
 
             if (!this.$Elm) {
                 this.$serialize = data;
@@ -92,6 +90,14 @@ define('controls/desktop/panels/XML', [
          */
         getFile: function() {
             return this.$file;
+        },
+
+        /**
+         * Return the live settings for category controls, without workspace serialization.
+         * @returns {Object}
+         */
+        getConfig: function() {
+            return this.$config ?? {};
         },
 
         /**

@@ -47,6 +47,21 @@ $coreStyles = URL_OPT_DIR . 'quiqqer/core/bin/css/';
     </header>
     <p data-name="status" role="status" aria-live="polite"><?= $escape($labels['loading']) ?></p>
     <p data-name="error" role="alert" hidden></p>
+    <form data-name="verification" hidden>
+        <h2 data-name="verification-title"></h2>
+        <p data-name="verification-hint"></p>
+        <label data-name="device-name-label">
+            <?= $escape($labels['deviceName']) ?>
+            <input data-name="device-name" type="text" maxlength="100" autocomplete="off">
+        </label>
+        <label>
+            <?= $escape($labels['codeLabel']) ?>
+            <input data-name="verification-code" type="text" inputmode="numeric" pattern="[0-9]{6}"
+                   minlength="6" maxlength="6" autocomplete="one-time-code" required>
+        </label>
+        <p data-name="verification-wait" role="status"></p>
+        <button data-name="verify" type="submit" class="btn btn-primary"></button>
+    </form>
     <form data-name="form" hidden>
         <fieldset data-name="controls">
             <legend><?= $escape($labels['documents']) ?></legend>

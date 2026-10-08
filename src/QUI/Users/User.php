@@ -1020,7 +1020,6 @@ class User implements QUIUserInterface
             'email' => $email,
             'avatar' => $avatar,
             'su' => $this->isSU() ? 1 : 0,
-            'extra' => json_encode($extra),
             'lang' => $this->getAttribute('lang'),
             'lastedit' => date("Y-m-d H:i:s"),
             'expire' => $expire,
@@ -1049,7 +1048,16 @@ class User implements QUIUserInterface
         $saved = false;
 
         try {
-            $query->executeQuery();
+            (new QUI\Upload\MobileUpload\Devices())->preserveOnSave(
+                (string)$this->getUUID(),
+                $extra,
+                static function (array $protectedExtra) use ($query): void {
+                    $json = json_encode($protectedExtra, JSON_THROW_ON_ERROR);
+                    $query->set('extra', ':mobileUploadExtra');
+                    $query->setParameter('mobileUploadExtra', $json);
+                    $query->executeStatement();
+                }
+            );
             $saved = true;
         } catch (\Doctrine\DBAL\Exception $exception) {
             QUI\System\Log::addError($exception->getMessage());
@@ -1159,10 +1167,14 @@ class User implements QUIUserInterface
                 continue;
             }
 
+            $name = trim($Attribute->nodeValue ?? '');
+
             $attributes[] = [
-                'name' => trim($Attribute->nodeValue ?? ''),
+                'name' => $name,
                 'encrypt' => (bool)$Attribute->getAttribute('encrypt'),
-                'no-auto-save' => (bool)$Attribute->getAttribute('no-auto-save')
+                // Security state is only changed by the dedicated device actions.
+                'no-auto-save' => $name === QUI\Upload\MobileUpload\Devices::ATTRIBUTE
+                    || (bool)$Attribute->getAttribute('no-auto-save')
             ];
         }
 
@@ -1681,6 +1693,19 @@ class User implements QUIUserInterface
         $params['usergroup'] = $this->getGroups(false);
         $params['username'] = $this->getUsername();
         $params['extras'] = $this->extra;
+        unset($params[QUI\Upload\MobileUpload\Devices::ATTRIBUTE]);
+
+        // User data is returned by several APIs; never export device verifiers.
+        foreach (['extra', 'extras'] as $key) {
+            $value = $params[$key] ?? null;
+            $wasJson = is_string($value);
+            $value = $wasJson ? json_decode($value, true) : $value;
+
+            if (is_array($value)) {
+                unset($value[QUI\Upload\MobileUpload\Devices::ATTRIBUTE]);
+                $params[$key] = $wasJson ? json_encode($value) : $value;
+            }
+        }
         $params['hasPassword'] = empty($this->password) ? 0 : 1;
         $params['avatar'] = '';
         $params['displayName'] = $this->getDisplayName();

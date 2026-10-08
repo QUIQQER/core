@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/settings.xsd">
+    <project>
+        <settings>
+            <config>
+                <section name="quiqqer.frontend.loader">
+                    <conf name="type">
+                        <type>string</type>
+                        <defaultvalue></defaultvalue>
+                    </conf>
+                    <conf name="color">
+                        <type>string</type>
+                        <defaultvalue></defaultvalue>
+                    </conf>
+                    <conf name="background">
+                        <type>string</type>
+                        <defaultvalue></defaultvalue>
+                    </conf>
+                </section>
+            </config>
+            <window>
+                <categories>
+                    <category name="quiqqer.frontend">
+                        <text>
+                            <locale group="quiqqer/core" var="projects.frontend.title"/>
+                        </text>
+                        <icon>fa fa-paint-brush</icon>
+                        <settings name="quiqqer.frontend.loader">
+                            <title>
+                                <locale group="quiqqer/core" var="projects.frontend.loader.title"/>
+                            </title>
+                            <description>
+                                <locale group="quiqqer/core" var="projects.frontend.loader.description"/>
+                            </description>
+                            <input conf="quiqqer.frontend.loader.type" type="hidden"
+                                   data-qui="controls/projects/project/LoaderTypeSelect">
+                                <text>
+                                    <locale group="quiqqer/core" var="projects.frontend.loader.type"/>
+                                </text>
+                            </input>
+                            <input conf="quiqqer.frontend.loader.color" type="color" data-realvalue="">
+                                <text>
+                                    <locale group="quiqqer/core" var="projects.frontend.loader.color"/>
+                                </text>
+                                <description>
+                                    <locale group="quiqqer/core" var="projects.frontend.loader.color.description"/>
+                                </description>
+                            </input>
+                            <input conf="quiqqer.frontend.loader.background" type="color" data-realvalue="">
+                                <text>
+                                    <locale group="quiqqer/core" var="projects.frontend.loader.background"/>
+                                </text>
+                                <description>
+                                    <locale group="quiqqer/core" var="projects.frontend.loader.background.description"/>
+                                </description>
+                            </input>
+                        </settings>
+                    </category>
+                </categories>
+            </window>
+        </settings>
+    </project>
+</quiqqer>
