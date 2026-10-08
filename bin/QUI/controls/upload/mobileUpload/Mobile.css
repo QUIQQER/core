@@ -36,6 +36,33 @@
     display: none !important;
 }
 
+.quiqqer-mobile-upload [data-name="verification"]:not([hidden]) {
+    display: grid;
+    gap: var(--_gap);
+}
+
+.quiqqer-mobile-upload [data-name="verification"] label {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.quiqqer-mobile-upload [data-name="verification"] input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.75rem;
+    border: 1px solid var(--_border);
+    border-radius: 0.5rem;
+    color: var(--_text);
+    background: var(--_background);
+}
+
+.quiqqer-mobile-upload [data-name="verification-code"] {
+    font-size: 1.5rem;
+    letter-spacing: 0.25em;
+    font-variant-numeric: tabular-nums;
+}
+
 .quiqqer-mobile-upload-header {
     margin-bottom: 2rem;
     text-align: center;

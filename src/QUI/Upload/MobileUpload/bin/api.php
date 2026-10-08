@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use QUI\Upload\MobileUpload\Form;
 use QUI\Upload\MobileUpload\Manager;
+use QUI\Upload\MobileUpload\DeviceCookie;
 
 define('QUIQQER_SYSTEM', true);
 require_once dirname(__DIR__, 7) . '/header.php';
@@ -36,14 +37,35 @@ try {
     [, $id, $token] = $matches;
     $Manager = new Manager();
     $action = $_POST['action'] ?? '';
+    $deviceToken = DeviceCookie::get($action === 'info');
 
     switch ($action) {
         case 'info':
-            $result = $Manager->info($id, $token);
+            $result = $Manager->info($id, $token, $deviceToken);
+            break;
+
+        case 'register':
+        case 'unlock':
+            $code = $_POST['code'] ?? '';
+            $name = $_POST['name'] ?? '';
+
+            if (!is_string($code) || !is_string($name)) {
+                throw new QUI\Exception('Invalid verification request.', 400);
+            }
+
+            $result = $Manager->verify(
+                $id,
+                $token,
+                $deviceToken,
+                $code,
+                $action,
+                $name,
+                (string)($_SERVER['HTTP_USER_AGENT'] ?? '')
+            );
             break;
 
         case 'close':
-            $Manager->close($id, $token);
+            $Manager->close($id, $token, $deviceToken);
             $result = ['closed' => true];
             break;
 
@@ -66,7 +88,7 @@ try {
                 throw new QUI\Exception('Invalid upload.', 400);
             }
 
-            $result = $Manager->upload($id, $token, $uploadId, $file['tmp_name'], $file['name']);
+            $result = $Manager->upload($id, $token, $uploadId, $file['tmp_name'], $file['name'], $deviceToken);
             break;
 
         default:
@@ -75,7 +97,7 @@ try {
 
     echo json_encode($result, JSON_THROW_ON_ERROR);
 } catch (Throwable $Exception) {
-    $knownStatuses = [400, 401, 403, 404, 405, 409, 410, 413, 415, 429, 440];
+    $knownStatuses = [400, 401, 403, 404, 405, 409, 410, 413, 415, 422, 428, 429, 440];
     $status = in_array($Exception->getCode(), $knownStatuses, true) ? (int)$Exception->getCode() : 500;
 
     if ($status === 401 || $status === 440) {

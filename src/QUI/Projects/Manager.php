@@ -77,6 +77,7 @@ class Manager
         'media_image_library' => ['default' => '', 'type' => 'string'],
         'media_maxUploadSize' => ['default' => 4000, 'type' => 'integer'],
         'media_maxUploadFileSize' => ['default' => '', 'type' => 'string'],
+        'media_allowQrUpload' => ['default' => 1, 'type' => 'boolean'],
         'media_maxImageCacheSize' => ['default' => 4000, 'type' => 'integer'],
         'media_createCacheOnSave' => ['default' => 1, 'type' => 'boolean'],
         'media_imageCacheSizeRounding' => ['default' => 1, 'type' => 'boolean'],

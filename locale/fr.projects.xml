@@ -3,6 +3,15 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.media.qrUpload.allow">
+            <fr>Autoriser les imports par code QR</fr>
+        </locale>
+        <locale name="projects.media.qrUpload.description">
+            <fr>Autorise l’import de fichiers depuis un smartphone dans ce projet. L’appareil doit être autorisé et un code de vérification est requis. La désactivation bloque également les accès QR existants.</fr>
+        </locale>
+        <locale name="projects.media.qrUpload.menu">
+            <fr>Importer depuis un smartphone</fr>
+        </locale>
         <locale name="projects.popup.search">
             <fr><![CDATA[Rechercher des pages : titre, nom ou ID]]></fr>
         </locale>
@@ -663,6 +672,42 @@
         </locale>
         <locale name="projects.project.site.select.entry.typeWildcard.badge">
             <fr><![CDATA[Tous les types de pages]]></fr>
+        </locale>
+        <locale name="projects.frontend.title">
+            <fr><![CDATA[Interface du site web]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.title">
+            <fr><![CDATA[Indicateurs de chargement]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.description">
+            <fr><![CDATA[Valeurs par défaut du projet pour le site web. Chaque composant peut utiliser son propre type de chargement.]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.type">
+            <fr><![CDATA[Type de chargement]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.color">
+            <fr><![CDATA[Couleur de l’animation]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.color.description">
+            <fr><![CDATA[Laisser vide pour utiliser la couleur du thème. En l’absence de valeur dans le thème, la couleur par défaut de QUI est utilisée.]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.background">
+            <fr><![CDATA[Couleur de fond]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.background.description">
+            <fr><![CDATA[Laisser vide pour utiliser le thème. La couleur choisie utilise une opacité de 70 %.]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.automatic">
+            <fr><![CDATA[Automatique (valeur par défaut de QUI)]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.automatic.description">
+            <fr><![CDATA[« Automatique » utilise le type par défaut de QUI. « Standard » définit explicitement l’animation à huit carrés comme choix par défaut du projet. Les deux ont actuellement le même aspect. Si le type par défaut de QUI change, seul « Automatique » suivra ce changement.]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.ownColors">
+            <fr><![CDATA[Ce type utilise ses propres couleurs d’animation. La couleur de fond reste configurable.]]></fr>
+        </locale>
+        <locale name="projects.frontend.loader.unavailable">
+            <fr><![CDATA[Le type enregistré n’est pas disponible. Le site web utilise le type par défaut de QUI.]]></fr>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">

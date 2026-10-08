@@ -912,6 +912,7 @@ class Template extends QUI\QDOM
             'Hreflang' => new QUI\Projects\Site\Hreflang($Site),
             'lastUpdate' => QUI::getPackageManager()->getLastUpdateDate(),
             'localePublishVersion' => $localePublishVersion,
+            'loaderSettings' => QUI\Projects\LoaderSettings::fromProject($Project),
             'languages' => implode(',', $Project->getLanguages()),
             'systemCountry' => QUI::conf('globals', 'country'),
             'sessionUserIsUser' => (int)QUI::getUsers()->isUser($sessionUser),

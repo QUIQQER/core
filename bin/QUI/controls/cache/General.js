@@ -40,33 +40,24 @@ define('controls/cache/General', [
 
             var Elm = this.getElm(),
                 CacheType = Elm.querySelector('[name="general.cacheType"]'),
-                RedisTable = Elm.querySelector('[name="general.redis"]').getParent('table'),
-                data = this.$Settings.serialize();
+                RedisTable = Elm.querySelector('[name="general.redis"]').getParent('table');
+
+            const config = this.$Settings.getConfig();
+            const handlers = config.handlers ?? {};
+            const cacheType = config.general?.cacheType;
 
             // default setting check
-            if (typeof data.config.general.cacheType !== 'undefined') {
-                let cacheType = data.config.general.cacheType;
+            if (cacheType !== undefined && Object.prototype.hasOwnProperty.call(handlers, cacheType)) {
+                Object.keys(handlers).forEach(key => {
+                    handlers[key] = 0;
+                });
 
-                if (typeof data.config.handlers[cacheType] !== 'undefined') {
-                    Object.keys(data.config.handlers).forEach(key => {
-                        data.config.handlers[key] = 0;
-                    });
-
-                    data.config.handlers[cacheType] = 1;
-                }
+                handlers[cacheType] = 1;
             }
 
-            if (typeof data.config.handlers !== 'undefined') {
-                var handlers = data.config.handlers;
-
-                for (i in handlers) {
-                    if (!handlers.hasOwnProperty(i)) {
-                        continue;
-                    }
-
-                    if (parseInt(handlers[i])) {
-                        CacheType.value = i;
-                    }
+            for (const [handler, enabled] of Object.entries(handlers)) {
+                if (parseInt(enabled, 10)) {
+                    CacheType.value = handler;
                 }
             }
 

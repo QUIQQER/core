@@ -331,17 +331,6 @@
     position: relative;
 }
 
-.omnigrid div.bDiv ul li.section:after {
-    background: rgba(0, 0, 0, 0) linear-gradient(to top, rgba(0, 0, 0, 0.65) 0px, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0;
-    bottom: 0;
-    content: "";
-    height: 10px;
-    left: 0;
-    opacity: 0.4;
-    position: absolute;
-    width: 100%;
-}
-
 .omnigrid div.bDiv ul li.section ul {
     border-bottom: none;
     left: initial;

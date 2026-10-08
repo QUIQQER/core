@@ -48,6 +48,18 @@ final class Labels
         'invalid',
         'rate',
         'discard',
+        'codeLabel',
+        'codeChanges',
+        'freshCode',
+        'codeInvalid',
+        'registerTitle',
+        'registerHint',
+        'registerDevice',
+        'unlockTitle',
+        'unlockHint',
+        'unlockUpload',
+        'deviceName',
+        'cookiesRequired',
     ];
 
     /**

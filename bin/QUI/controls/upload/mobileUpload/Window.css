@@ -45,10 +45,23 @@
 
 .quiqqer-mobile-upload-window [data-name="qr"] {
     box-sizing: border-box;
-    width: min(340px, 100%);
+    width: min(240px, 100%);
     height: auto;
     border: 1px solid var(--_border);
     border-radius: 1rem;
+}
+
+.quiqqer-mobile-upload-window [data-name="code"] {
+    display: block;
+    font-size: 2rem;
+    letter-spacing: 0.25em;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.quiqqer-mobile-upload-window [data-name="code-countdown"] {
+    color: var(--_muted);
+    font-size: 0.85rem;
 }
 
 .quiqqer-mobile-upload-window [data-name="link"] {

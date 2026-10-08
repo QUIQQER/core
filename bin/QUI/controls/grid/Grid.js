@@ -1811,8 +1811,14 @@ define('controls/grid/Grid', [
 
         onBodyScroll: function () {
             const hbox = this.container.getElement('.hDivBox'),
-                bbox = this.container.getElement('.bDiv'),
-                xs = bbox.getScroll().x;
+                bbox = this.container.getElement('.bDiv');
+
+            // A queued scroll event can arrive after the grid has been destroyed.
+            if (!hbox || !bbox) {
+                return;
+            }
+
+            const xs = bbox.getScroll().x;
 
             hbox.setStyle('left', -xs);
             this.rePosDrag();

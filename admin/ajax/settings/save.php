@@ -181,7 +181,10 @@ QUI::getAjax()->registerFunction(
                 continue;
             }
 
-            if (!file_exists(CMS_DIR . ".htaccess")) {
+            // Regeneration can replace the file; do not reuse its cached status from before execute().
+            clearstatcache(true, CMS_DIR . ".htaccess");
+
+            if (!is_file(CMS_DIR . ".htaccess")) {
                 continue;
             }
 

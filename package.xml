@@ -20,6 +20,7 @@
         </preview>
 
         <provider>
+            <mobileUpload src="\QUI\Projects\Media\MobileUploadProvider"/>
             <rest src="\QUI\REST\Core\Provider"/>
             <auth src="\QUI\Users\Auth\QUIQQER"/>
             <auth src="\QUI\Users\Auth\VerifiedMail2FA"/>

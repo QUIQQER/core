@@ -26,6 +26,7 @@ define('controls/projects/project/media/Panel', [
     'Permissions',
     'classes/projects/project/media/Upload',
     'qui/controls/loader/Loader',
+    'controls/projects/project/media/MobileUpload',
 
     'css!controls/projects/project/media/Panel.css'
 
@@ -55,7 +56,8 @@ define('controls/projects/project/media/Panel', [
         MediaUtils = arguments[14],
         Projects = arguments[15],
         Permissions = arguments[16],
-        MediaUpload = arguments[17];
+        MediaUpload = arguments[17],
+        MediaMobileUpload = arguments[19];
 
     /**
      * A Media-Panel, opens the Media in an Apppanel
@@ -176,11 +178,13 @@ define('controls/projects/project/media/Panel', [
                 onOpen: this.$markClipboardTarget,
                 onResize: this.$onResize,
                 onShow: function () {
+                    this.$MobileUpload?.refresh();
                     if (this.$Pagination) {
                         this.$Pagination.$redraw();
                     }
                 }.bind(this),
                 onDestroy: function () {
+                    this.$MobileUpload?.destroy();
                     const Elm = this.getElm();
 
                     if (Elm) {
@@ -467,7 +471,10 @@ define('controls/projects/project/media/Panel', [
                 const Upload = new QUIButton({
                     name: 'upload',
                     icon: 'fa fa-plus',
-                    title: Locale.get(lg, 'projects.project.site.media.panel.btn.upload')
+                    title: Locale.get(lg, 'projects.project.site.media.panel.btn.upload'),
+                    events: {
+                        onClick: () => self.$MobileUpload?.refresh()
+                    }
                 });
 
                 Upload.appendChild(
@@ -505,6 +512,17 @@ define('controls/projects/project/media/Panel', [
                     })
                 );
 
+                const MobileUploadItem = new ContextmenuItem({
+                    name: 'upload_mobile',
+                    text: Locale.get(lg, 'projects.media.qrUpload.menu'),
+                    icon: 'fa fa-qrcode',
+                    events: {
+                        onMouseDown: () => self.$MobileUpload.open()
+                    }
+                });
+                Upload.appendChild(MobileUploadItem);
+                self.$MobileUpload = MediaMobileUpload(self, MobileUploadItem);
+                self.$MobileUpload.refresh();
                 self.addButton(Upload);
 
                 self.addButton(
@@ -725,6 +743,7 @@ define('controls/projects/project/media/Panel', [
          * @method controls/projects/project/media/Panel#openID
          */
         refresh: function () {
+            this.$MobileUpload?.refresh();
             if (this.getAttribute('fileid')) {
                 this.openID(this.getAttribute('fileid'), true);
                 return;

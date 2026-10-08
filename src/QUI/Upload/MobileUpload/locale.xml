@@ -3,6 +3,185 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
     <locales>
         <groups name="quiqqer/core" datatype="php,js">
+            <locale name="upload.mobileUpload.cookiesRequired">
+                <de>Bitte diesen Link über HTTPS öffnen und Cookies für diese Website erlauben, damit dein Gerät wiedererkannt werden kann.</de>
+                <en>Please open this link over HTTPS and allow cookies for this website so your device can be recognized.</en>
+            </locale>
+            <locale name="upload.mobileUpload.codeLabel">
+                <de>6-stelliger Freigabecode</de>
+                <en>6-digit verification code</en>
+            </locale>
+            <locale name="upload.mobileUpload.codeChanges">
+                <de>Neuer Code in</de>
+                <en>New code in</en>
+            </locale>
+            <locale name="upload.mobileUpload.freshCode">
+                <de>Bitte auf einen neuen Code im QR-Fenster warten.</de>
+                <en>Please wait for a new code in the QR window.</en>
+            </locale>
+            <locale name="upload.mobileUpload.codeInvalid">
+                <de>Der Code ist falsch oder abgelaufen. Bitte den aktuellen Code eingeben.</de>
+                <en>The code is incorrect or has expired. Please enter the current code.</en>
+            </locale>
+            <locale name="upload.mobileUpload.registerTitle">
+                <de>Gerät zuerst erlauben</de>
+                <en>Allow this device first</en>
+            </locale>
+            <locale name="upload.mobileUpload.registerHint">
+                <de>Füge diesen Browser zu den erlaubten Upload-Geräten deines Benutzers hinzu. Vergib einen Namen und gib den Code aus dem QR-Fenster ein. Anschließend schaltest du den Upload mit einem neuen Code frei.</de>
+                <en>Add this browser to your user's allowed upload devices. Give it a name and enter the code from the QR window. Afterwards, unlock uploads with a new code.</en>
+            </locale>
+            <locale name="upload.mobileUpload.registerDevice">
+                <de>Gerät erlauben</de>
+                <en>Allow device</en>
+            </locale>
+            <locale name="upload.mobileUpload.unlockTitle">
+                <de>Upload freischalten</de>
+                <en>Unlock uploads</en>
+            </locale>
+            <locale name="upload.mobileUpload.unlockHint">
+                <de>Dieses Gerät ist erlaubt. Gib einen frischen Code aus dem QR-Fenster ein, um für 30 Minuten Dateien hochzuladen.</de>
+                <en>This device is allowed. Enter a fresh code from the QR window to upload files for 30 minutes.</en>
+            </locale>
+            <locale name="upload.mobileUpload.unlockUpload">
+                <de>Upload für 30 Minuten freischalten</de>
+                <en>Unlock uploads for 30 minutes</en>
+            </locale>
+            <locale name="upload.mobileUpload.devicesCategory">
+                <de>Erlaubte Geräte</de>
+                <en>Allowed devices</en>
+                <es>Dispositivos permitidos</es>
+                <fr>Appareils autorisés</fr>
+                <it>Dispositivi autorizzati</it>
+                <pl>Dozwolone urządzenia</pl>
+                <pt>Dispositivos autorizados</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceBrowser">
+                <de>Browser / Gerät</de>
+                <en>Browser / device</en>
+                <es>Navegador / dispositivo</es>
+                <fr>Navigateur / appareil</fr>
+                <it>Browser / dispositivo</it>
+                <pl>Przeglądarka / urządzenie</pl>
+                <pt>Navegador / dispositivo</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceEditHint">
+                <de>Vergib einen eindeutigen Namen, damit du dieses Gerät bei zukünftigen Uploads schnell wiedererkennst.</de>
+                <en>Choose a clear name so you can easily recognize this device for future uploads.</en>
+                <es>Elige un nombre claro para reconocer fácilmente este dispositivo en futuras cargas.</es>
+                <fr>Choisis un nom clair pour reconnaître facilement cet appareil lors de prochains téléversements.</fr>
+                <it>Scegli un nome chiaro per riconoscere facilmente questo dispositivo nei caricamenti futuri.</it>
+                <pl>Nadaj czytelną nazwę, aby łatwo rozpoznać to urządzenie przy kolejnych przesyłaniach.</pl>
+                <pt>Escolhe um nome claro para reconhecer facilmente este dispositivo em futuros envios.</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceEdit">
+                <de>Gerät umbenennen</de>
+                <en>Rename device</en>
+                <es>Cambiar nombre del dispositivo</es>
+                <fr>Renommer l’appareil</fr>
+                <it>Rinomina dispositivo</it>
+                <pl>Zmień nazwę urządzenia</pl>
+                <pt>Renomear dispositivo</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceName">
+                <de>Gerätename</de>
+                <en>Device name</en>
+                <es>Nombre del dispositivo</es>
+                <fr>Nom de l’appareil</fr>
+                <it>Nome del dispositivo</it>
+                <pl>Nazwa urządzenia</pl>
+                <pt>Nome do dispositivo</pt>
+            </locale>
+            <locale name="upload.mobileUpload.devicesTitle">
+                <de>Erlaubte Geräte für Uploads</de>
+                <en>Allowed upload devices</en>
+                <es>Dispositivos permitidos para cargas</es>
+                <fr>Appareils autorisés pour les téléversements</fr>
+                <it>Dispositivi autorizzati per i caricamenti</it>
+                <pl>Urządzenia dozwolone do przesyłania plików</pl>
+                <pt>Dispositivos autorizados para envios</pt>
+            </locale>
+            <locale name="upload.mobileUpload.devicesHint">
+                <de>Geräte werden beim mobilen Upload mit einem Freigabecode hinzugefügt. Die Freigabe gilt für den jeweiligen Browser. Entfernen beendet auch laufende Upload-Freigaben dieses Geräts.</de>
+                <en>Devices are added during mobile upload using a verification code. Approval applies to the individual browser. Removing a device also revokes its current upload access.</en>
+                <es>Los dispositivos se añaden durante la carga móvil mediante un código de verificación. La autorización se aplica al navegador utilizado. Al eliminar un dispositivo también se revocan sus accesos de carga activos.</es>
+                <fr>Les appareils sont ajoutés lors du téléversement mobile à l’aide d’un code de vérification. L’autorisation concerne le navigateur utilisé. La suppression d’un appareil révoque aussi ses accès de téléversement en cours.</fr>
+                <it>I dispositivi vengono aggiunti durante il caricamento mobile tramite un codice di verifica. L’autorizzazione vale per il browser utilizzato. Rimuovendo un dispositivo si revocano anche i suoi accessi di caricamento attivi.</it>
+                <pl>Urządzenia są dodawane podczas przesyłania z telefonu za pomocą kodu weryfikacyjnego. Zezwolenie dotyczy danej przeglądarki. Usunięcie urządzenia cofa również jego aktywne zezwolenia na przesyłanie.</pl>
+                <pt>Os dispositivos são adicionados durante o envio móvel através de um código de verificação. A autorização aplica-se ao navegador utilizado. A remoção de um dispositivo também revoga os seus acessos de envio ativos.</pt>
+            </locale>
+            <locale name="upload.mobileUpload.devicesEmpty">
+                <de>Noch keine Geräte erlaubt.</de>
+                <en>No devices allowed yet.</en>
+                <es>Todavía no hay dispositivos permitidos.</es>
+                <fr>Aucun appareil autorisé pour le moment.</fr>
+                <it>Nessun dispositivo ancora autorizzato.</it>
+                <pl>Brak dozwolonych urządzeń.</pl>
+                <pt>Ainda não existem dispositivos autorizados.</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceCreated">
+                <de>Erlaubt seit</de>
+                <en>Allowed since</en>
+                <es>Permitido desde</es>
+                <fr>Autorisé depuis</fr>
+                <it>Autorizzato dal</it>
+                <pl>Dozwolone od</pl>
+                <pt>Autorizado desde</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceLastUsed">
+                <de>Zuletzt verwendet</de>
+                <en>Last used</en>
+                <es>Último uso</es>
+                <fr>Dernière utilisation</fr>
+                <it>Ultimo utilizzo</it>
+                <pl>Ostatnio używane</pl>
+                <pt>Última utilização</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRename">
+                <de>Namen speichern</de>
+                <en>Save name</en>
+                <es>Guardar nombre</es>
+                <fr>Enregistrer le nom</fr>
+                <it>Salva nome</it>
+                <pl>Zapisz nazwę</pl>
+                <pt>Guardar nome</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceSaved">
+                <de>Gerätename gespeichert.</de>
+                <en>Device name saved.</en>
+                <es>Nombre del dispositivo guardado.</es>
+                <fr>Nom de l’appareil enregistré.</fr>
+                <it>Nome del dispositivo salvato.</it>
+                <pl>Nazwa urządzenia została zapisana.</pl>
+                <pt>Nome do dispositivo guardado.</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRevoke">
+                <de>Gerät entfernen</de>
+                <en>Remove device</en>
+                <es>Eliminar dispositivo</es>
+                <fr>Supprimer l’appareil</fr>
+                <it>Rimuovi dispositivo</it>
+                <pl>Usuń urządzenie</pl>
+                <pt>Remover dispositivo</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRevokeConfirm">
+                <de>Wenn du dieses Gerät entfernst, werden alle seine Upload-Freigaben widerrufen. Vor dem nächsten Upload musst du das Gerät erneut mit einem Freigabecode zulassen. Bereits hochgeladene Dateien bleiben erhalten.</de>
+                <en>Removing this device revokes all its upload access. Before uploading again, you will need to authorize the device with a new approval code. Files already uploaded will be kept.</en>
+                <es>Al eliminar este dispositivo, se revocarán todos sus permisos de carga. Antes de volver a cargar archivos, tendrás que autorizar el dispositivo con un nuevo código de autorización. Los archivos ya cargados se conservarán.</es>
+                <fr>La suppression de cet appareil révoque toutes ses autorisations de téléversement. Avant de pouvoir à nouveau téléverser des fichiers, tu devras autoriser cet appareil avec un nouveau code d’autorisation. Les fichiers déjà téléversés seront conservés.</fr>
+                <it>Rimuovendo questo dispositivo, verranno revocate tutte le sue autorizzazioni al caricamento. Prima di caricare nuovamente dei file, dovrai autorizzare il dispositivo con un nuovo codice di autorizzazione. I file già caricati verranno conservati.</it>
+                <pl>Usunięcie tego urządzenia cofnie wszystkie jego zezwolenia na przesyłanie plików. Przed kolejnym przesyłaniem musisz ponownie autoryzować urządzenie nowym kodem autoryzacyjnym. Już przesłane pliki zostaną zachowane.</pl>
+                <pt>Ao remover este dispositivo, todas as suas autorizações de envio serão revogadas. Antes de voltar a enviar ficheiros, terás de autorizar o dispositivo com um novo código de autorização. Os ficheiros já enviados serão mantidos.</pt>
+            </locale>
+            <locale name="upload.mobileUpload.deviceRevoked">
+                <de>Gerät entfernt. Der Upload-Zugriff wurde widerrufen.</de>
+                <en>Device removed. Upload access has been revoked.</en>
+                <es>Dispositivo eliminado. Se ha revocado el acceso de carga.</es>
+                <fr>Appareil supprimé. L’accès au téléversement a été révoqué.</fr>
+                <it>Dispositivo rimosso. L’accesso al caricamento è stato revocato.</it>
+                <pl>Urządzenie zostało usunięte. Dostęp do przesyłania został cofnięty.</pl>
+                <pt>Dispositivo removido. O acesso de envio foi revogado.</pt>
+            </locale>
             <locale name="upload.mobileUpload.keepOpen">
                 <de>Dieses Fenster während des Uploads geöffnet lassen. Beim Schließen wird der Link deaktiviert.</de>
                 <en>Keep this window open while uploading. Closing it deactivates the link.</en>
@@ -140,8 +319,8 @@
                 <en>The file does not meet the displayed upload requirements.</en>
             </locale>
             <locale name="upload.mobileUpload.rate">
-                <de>Zu viele Anfragen. Bitte eine Minute warten und erneut versuchen.</de>
-                <en>Too many requests. Please wait a minute and try again.</en>
+                <de>Zu viele Versuche. Bitte die Wartezeit abwarten und erneut versuchen.</de>
+                <en>Too many attempts. Please wait before trying again.</en>
             </locale>
             <locale name="upload.mobileUpload.discard">
                 <de>Die ausgewählten, noch nicht gesendeten Dateien verwerfen und den Zugang schließen?</de>
