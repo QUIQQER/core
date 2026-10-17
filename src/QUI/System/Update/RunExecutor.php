@@ -17,6 +17,14 @@ class RunExecutor
 
     public function execute(string $id, string $token, ?int $now = null): RunState
     {
+        return \QUI\System\MaintenanceLock::run(
+            fn(): RunState => $this->executeLocked($id, $token, $now),
+            $id
+        );
+    }
+
+    private function executeLocked(string $id, string $token, ?int $now): RunState
+    {
         $now ??= time();
         $lock = $this->repository->acquireLock($id);
         $isAuthorized = false;

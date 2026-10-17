@@ -18,6 +18,13 @@ class ConsoleEntrypointTest extends TestCase
         $composer = $this->directory . '/packages/composer/composer/bin';
         mkdir($core . '/src', 0700, true);
         mkdir($composer, 0700, true);
+        mkdir($this->directory . '/etc', 0700, true);
+        $autoload = var_export(dirname(__DIR__, 6) . '/autoload.php', true);
+        file_put_contents($this->directory . '/packages/autoload.php', '<?php require_once ' . $autoload . ';');
+        file_put_contents(
+            $this->directory . '/etc/conf.ini.php',
+            '[globals]' . PHP_EOL . 'var_dir="' . $this->directory . '/var/"' . PHP_EOL
+        );
         self::assertTrue(copy(dirname(__DIR__, 4) . '/quiqqer.php', $core . '/quiqqer.php'));
         file_put_contents(
             $this->directory . '/console',

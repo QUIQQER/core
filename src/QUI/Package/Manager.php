@@ -419,6 +419,14 @@ class Manager extends QUI\QDOM
      */
     protected function createComposerJSON(array $packages = []): void
     {
+        QUI\System\MaintenanceLock::run(function () use ($packages): void {
+            $this->writeComposerJSON($packages);
+        });
+    }
+
+    /** @param array<array-key, mixed> $packages */
+    private function writeComposerJSON(array $packages): void
+    {
         $Parser = new JsonParser();
 
         if (file_exists($this->composer_json)) {
@@ -1225,6 +1233,14 @@ class Manager extends QUI\QDOM
      */
     public function install(array | string $packages, bool | string $version = false): void
     {
+        QUI\System\MaintenanceLock::run(function () use ($packages, $version): void {
+            $this->installPackages($packages, $version);
+        });
+    }
+
+    /** @param array<int, string>|string $packages */
+    private function installPackages(array|string $packages, bool|string $version): void
+    {
         QUI\System\Log::addDebug(
             'Install package ' . print_r($packages, true) . ' -> install'
         );
@@ -1340,6 +1356,14 @@ class Manager extends QUI\QDOM
         array | string $packages,
         int | float | bool $version = false
     ): void {
+        QUI\System\MaintenanceLock::run(function () use ($packages, $version): void {
+            $this->installLocalPackages($packages, $version);
+        });
+    }
+
+    /** @param array<int, string>|string $packages */
+    private function installLocalPackages(array|string $packages, int|float|bool $version): void
+    {
         QUI\System\Log::addDebug(
             'Install package ' . print_r($packages, true) . ' -> installLocalPackage'
         );
@@ -1976,6 +2000,17 @@ class Manager extends QUI\QDOM
         bool $mute = true,
         ?QUI\Interfaces\System\SystemOutput $Output = null,
         bool $finalize = true
+    ): void {
+        QUI\System\MaintenanceLock::run(function () use ($package, $mute, $Output, $finalize): void {
+            $this->updatePackages($package, $mute, $Output, $finalize);
+        });
+    }
+
+    private function updatePackages(
+        bool|string $package,
+        bool $mute,
+        ?QUI\Interfaces\System\SystemOutput $Output,
+        bool $finalize
     ): void {
         if (!$Output) {
             $Output = new QUI\System\Output\VoidOutput();

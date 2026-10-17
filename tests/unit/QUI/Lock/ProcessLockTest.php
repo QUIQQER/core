@@ -64,6 +64,23 @@ class ProcessLockTest extends TestCase
         }
     }
 
+    public function testFilesystemLockDoesNotExpireDuringInstallationChanges(): void
+    {
+        $First = Locker::createFilesystemLock('system-maintenance', $this->directory);
+        $Second = Locker::createFilesystemLock('system-maintenance', $this->directory);
+
+        try {
+            self::assertTrue($First->acquire());
+            self::assertNull($First->getRemainingLifetime());
+            self::assertFalse($Second->acquire());
+            $First->release();
+            self::assertTrue($Second->acquire());
+        } finally {
+            $First->release();
+            $Second->release();
+        }
+    }
+
     public function testCallbackReceivesTheLockAndItsResultIsReturned(): void
     {
         $result = Locker::synchronized('result', static function (LockInterface $Lock): array {
