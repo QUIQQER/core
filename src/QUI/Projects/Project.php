@@ -986,6 +986,8 @@ class Project implements \Stringable
 
     /**
      * Return the children ids from a site
+     * Use where.active = 1 (active), 0 (inactive) or -1 (both).
+     * Legacy active = "0&1" is supported unless where.active is set.
      *
      * @param integer $parentid - The parent site ID
      * @param array<string, mixed> $params - extra db statements, like order, where, count, limit
@@ -1015,16 +1017,22 @@ class Project implements \Stringable
             ->setParameter("parent", $parentid)
             ->setParameter("deleted", 0);
 
-        if (!(isset($params["active"]) && $params["active"] === "0&1")) {
+        $where = $params["where"] ?? [];
+
+        if (is_array($where) && isset($where["active"])) {
+            if ($where["active"] === -1 || $where["active"] === "-1") {
+                unset($where["active"]);
+            }
+        } elseif (!(isset($params["active"]) && $params["active"] === "0&1")) {
             $QueryBuilder
                 ->andWhere($siteAlias . "." . $Platform->quoteSingleIdentifier("active") . " = :active")
                 ->setParameter("active", 1);
         }
 
-        if (isset($params["where"]) && is_array($params["where"])) {
+        if (is_array($where)) {
             self::applySiteConditions(
                 $QueryBuilder,
-                $params["where"],
+                $where,
                 "andWhere",
                 $siteAlias,
                 [
@@ -1204,6 +1212,7 @@ class Project implements \Stringable
 
     /**
      * Ids von bestimmten Seiten bekommen
+     * Use where.active = 1 (active), 0 (inactive) or -1 (both).
      *
      * @param array<string, mixed> $params
      *
