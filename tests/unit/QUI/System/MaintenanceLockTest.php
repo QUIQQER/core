@@ -2,6 +2,7 @@
 
 namespace QUI\System;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use QUI\System\Update\RunExecutor;
 use QUI\System\Update\RunRepository;
@@ -120,6 +121,69 @@ class MaintenanceLockTest extends TestCase
         });
     }
 
+    #[DataProvider('legacyRunnerCases')]
+    public function testLegacyRunnerChildrenJoinButUnrelatedProcessesRemainBlocked(
+        string $mode,
+        string $expected
+    ): void {
+        if (!is_readable('/proc/self/stat')) {
+            self::markTestSkipped('The legacy runner bridge requires the Linux process tree.');
+        }
+
+        $Input = new InputStream();
+        $Runner = $this->worker('legacy-runner', mode: $mode);
+        $Runner->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+        $Runner->setInput($Input);
+
+        try {
+            $Runner->start();
+            self::assertTrue($Runner->waitUntil(static fn(string $type, string $output): bool =>
+                str_contains($output, 'ready')));
+            self::assertSame($expected . PHP_EOL . 'ready' . PHP_EOL, $Runner->getOutput());
+            self::assertSame('busy', $this->probe('probe', false));
+            self::assertSame('busy', $this->probe('security', false));
+
+            $Input->close();
+            $Runner->wait();
+            self::assertSame(0, $Runner->getExitCode(), $Runner->getErrorOutput());
+            self::assertSame('entered', $this->probe('probe', false));
+        } finally {
+            $Input->close();
+            $Runner->stop();
+        }
+    }
+
+    /** @return array<string, array{string, string}> */
+    public static function legacyRunnerCases(): array
+    {
+        return [
+            'active legacy runner and its descendants' => ['active', 'entered'],
+            'invalid tokens cannot use the legacy bridge' => ['invalid-token', 'busy'],
+            'paused runners cannot authorize children' => ['paused', 'busy'],
+            'another reserved run still blocks setup' => ['competing', 'busy']
+        ];
+    }
+
+    public function testLegacyRunnerMustStillOwnItsRunLock(): void
+    {
+        $Repository = new RunRepository(VAR_DIR . 'update/runs/');
+        $Run = $Repository->create();
+        $State = $Run->getState();
+        $State->transitionTo(RunState::PHASE_PREPARED);
+        $State->transitionTo(RunState::PHASE_SYSTEM_UPDATE);
+        $State->markRunning(time());
+        $State->setProcess((int)getmypid(), '', time(), 'runner');
+        $Repository->save($State);
+        $lock = $Repository->acquireLock($State->getId());
+        $Repository->releaseLock($lock);
+
+        try {
+            self::assertSame('busy', $this->probe('probe', false));
+        } finally {
+            $Repository->delete($State->getId());
+        }
+    }
+
     public function testSeparateInstallationsDoNotShareTheirMaintenanceLock(): void
     {
         $directory = sys_get_temp_dir() . '/quiqqer-maintenance-isolation-' . bin2hex(random_bytes(8)) . '/';
@@ -161,7 +225,7 @@ class MaintenanceLockTest extends TestCase
         return $Process->getOutput();
     }
 
-    private function worker(string $operation, ?string $varDirectory = null): Process
+    private function worker(string $operation, ?string $varDirectory = null, string $mode = 'active'): Process
     {
         return new Process(
             [
@@ -169,7 +233,8 @@ class MaintenanceLockTest extends TestCase
                 __DIR__ . '/Fixtures/maintenance-lock-worker.php',
                 $operation,
                 CMS_DIR,
-                $varDirectory ?? VAR_DIR
+                $varDirectory ?? VAR_DIR,
+                $mode
             ],
             timeout: 30
         );

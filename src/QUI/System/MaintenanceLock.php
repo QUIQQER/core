@@ -4,6 +4,7 @@ namespace QUI\System;
 
 use QUI\Lock\Locker;
 use QUI\System\Update\RunRepository;
+use QUI\System\Update\RunState;
 use RuntimeException;
 use Symfony\Component\Lock\LockInterface;
 
@@ -133,7 +134,10 @@ final class MaintenanceLock
         $runs = $Repository->cleanupAndFindActive(time(), 86400);
 
         foreach ($runs['active'] as $State) {
-            if ($State->getId() !== $runId) {
+            if (
+                $State->getId() !== $runId
+                && !$this->isLegacyRunnerChild($State, $Repository)
+            ) {
                 throw new MaintenanceBusyException();
             }
         }
@@ -153,6 +157,65 @@ final class MaintenanceLock
         // Symfony Process reads PHP's environment snapshots as well as getenv().
         $_SERVER[self::CONTEXT] = $token;
         $_ENV[self::CONTEXT] = $token;
+    }
+
+    /**
+     * An updater loaded before MaintenanceLock was installed cannot pass its token to Composer's new setup scripts.
+     * Only its own process tree may bridge that first upgrade, while the runner still holds its per-run lock.
+     */
+    private function isLegacyRunnerChild(RunState $State, RunRepository $Repository): bool
+    {
+        $runnerPid = (int)($State->getProcess()['pid'] ?? 0);
+
+        if (
+            PHP_SAPI !== 'cli'
+            || $State->getStatus() !== RunState::STATUS_RUNNING
+            || $State->getPhase() !== RunState::PHASE_SYSTEM_UPDATE
+            || $runnerPid <= 1
+        ) {
+            return false;
+        }
+
+        $pid = getmypid();
+        $visited = [];
+
+        while (
+            $pid !== false
+            && $pid > 1
+            && !isset($visited[$pid])
+        ) {
+            if ($pid === $runnerPid) {
+                $path = $Repository->getRunDirectory($State->getId()) . 'run.lock';
+                $handle = @fopen($path, 'r+');
+
+                if ($handle === false) {
+                    return false;
+                }
+
+                try {
+                    $acquired = flock($handle, LOCK_EX | LOCK_NB, $wouldBlock);
+
+                    return !$acquired && $wouldBlock === 1;
+                } finally {
+                    fclose($handle);
+                }
+            }
+
+            $visited[$pid] = true;
+            $stat = @file_get_contents('/proc/' . $pid . '/stat');
+
+            // Fail closed when the OS cannot prove ancestry. No command lines or bearer tokens are read.
+            if (
+                !is_string($stat)
+                || !preg_match('/^\d+ \(.*\) \S+ (\d+) /s', $stat, $matches)
+            ) {
+                return false;
+            }
+
+            $pid = (int)$matches[1];
+        }
+
+        return false;
     }
 
     private function release(): void
