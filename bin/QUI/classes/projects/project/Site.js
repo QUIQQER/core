@@ -21,6 +21,8 @@ define('classes/projects/project/Site', [
 ], function (QUI, DOM, Ajax, QUILocale) {
     "use strict";
 
+    const WORKING_STORAGE_MAX_AGE = 28 * 24 * 60 * 60 * 1000;
+
     /**
      * @class classes/projects/project/Site
      *
@@ -747,7 +749,7 @@ define('classes/projects/project/Site', [
          * @return {boolean}
          */
         hasWorkingStorage: function () {
-            return !!QUI.Storage.get(this.getWorkingStorageId());
+            return !!this.getWorkingStorage();
         },
 
         /**
@@ -760,8 +762,7 @@ define('classes/projects/project/Site', [
                 return Promise.resolve(false);
             }
 
-            var self = this,
-                storageData = this.getWorkingStorage();
+            const self = this;
 
             return new Promise(function (resolve) {
                 var Data;
@@ -775,6 +776,13 @@ define('classes/projects/project/Site', [
                 }
 
                 Data.then(function () {
+                    const storageData = self.getWorkingStorage();
+
+                    if (!storageData) {
+                        resolve(false);
+                        return;
+                    }
+
                     var siteData = self.getAttributes();
 
                     var hasChanges = function () {
@@ -806,22 +814,45 @@ define('classes/projects/project/Site', [
         },
 
         /**
-         * Return the data of the working storage
+         * Return a valid draft, removing entries that cannot be dated or have expired.
          *
-         * @returns {object|null|boolean}
+         * @returns {object|boolean}
          */
         getWorkingStorage: function () {
-            var storage = QUI.Storage.get(this.getWorkingStorageId());
+            const storage = QUI.Storage.get(this.getWorkingStorageId());
 
-            if (!storage) {
+            if (storage === null || storage === undefined) {
                 return false;
             }
+
+            let data;
 
             try {
-                return JSON.decode(storage);
+                data = JSON.parse(storage);
             } catch (e) {
+                this.clearWorkingStorage();
                 return false;
             }
+
+            if (!data || typeof data !== 'object' || Array.isArray(data)) {
+                this.clearWorkingStorage();
+                return false;
+            }
+
+            const storageTime = data.__storageTime;
+            const now = Date.now();
+
+            if (
+                !Number.isFinite(storageTime)
+                || storageTime <= 0
+                || storageTime > now
+                || now - storageTime >= WORKING_STORAGE_MAX_AGE
+            ) {
+                this.clearWorkingStorage();
+                return false;
+            }
+
+            return data;
         },
 
         /**
