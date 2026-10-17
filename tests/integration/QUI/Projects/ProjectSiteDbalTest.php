@@ -223,6 +223,97 @@ class ProjectSiteDbalTest extends ProjectIntegrationTestCase
         $this->assertIsArray($notArrayValueIds);
     }
 
+    public function testProjectSitesIdsGroupsSearchConditionsForResultsCountAndPagination(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createSearchSites();
+        $ids = $fixture['ids'];
+        $params = [
+            'where_or' => $fixture['conditions'],
+            'order' => 'name ASC'
+        ];
+
+        $results = $Project->getSitesIds($params);
+        $count = $Project->getSitesIds(array_merge($params, ['count' => true]));
+        $page = $Project->getSitesIds(array_merge($params, ['limit' => '1,1']));
+
+        $this->assertSame(
+            [$ids['title'], $ids['short'], $ids['content']],
+            array_map('intval', array_column($results, 'id'))
+        );
+        $this->assertSame(3, (int)$count[0]['count']);
+        $this->assertSame([$ids['short']], array_map('intval', array_column($page, 'id')));
+
+        $params['where'] = ['id' => $ids['title']];
+        $filtered = $Project->getSitesIds($params);
+        $this->assertSame([$ids['title']], array_map('intval', array_column($filtered, 'id')));
+
+        $params['where'] = ['id' => $ids['unmatched']];
+        $this->assertSame([], $Project->getSitesIds($params));
+    }
+
+    public function testProjectSitesIdsSearchPreservesExplicitVisibilityFilters(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createSearchSites();
+        $ids = $fixture['ids'];
+        $cases = [
+            [
+                'where' => ['active' => -1],
+                'expected' => [$ids['title'], $ids['short'], $ids['content'], $ids['inactive']]
+            ],
+            [
+                'where' => ['active' => 0],
+                'expected' => [$ids['inactive']]
+            ],
+            [
+                'where' => ['active' => -1, 'deleted' => 1],
+                'expected' => [$ids['deleted']]
+            ],
+            [
+                'where' => ['active' => -1, 'deleted' => -1],
+                'expected' => [
+                    $ids['title'],
+                    $ids['short'],
+                    $ids['content'],
+                    $ids['inactive'],
+                    $ids['deleted']
+                ]
+            ]
+        ];
+
+        foreach ($cases as $case) {
+            $results = $Project->getSitesIds([
+                'where' => $case['where'],
+                'where_or' => $fixture['conditions'],
+                'order' => 'name ASC'
+            ]);
+
+            $this->assertSame($case['expected'], array_map('intval', array_column($results, 'id')));
+        }
+    }
+
+    public function testGetSitesByInputListGroupsMixedSelectorsWithVisibilityFilters(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createSearchSites();
+        $ids = $fixture['ids'];
+        $selectors = [$ids['short'], $fixture['type']];
+        $params = [
+            'order' => 'name ASC',
+            'limit' => 10
+        ];
+
+        $Sites = Site\Utils::getSitesByInputList($Project, $selectors, $params);
+        $count = Site\Utils::getSitesByInputList($Project, $selectors, array_merge($params, ['count' => true]));
+
+        $this->assertSame([$ids['title'], $ids['short']], array_map(
+            static fn(Site $Site): int => $Site->getId(),
+            $Sites
+        ));
+        $this->assertSame(2, (int)$count[0]['count']);
+    }
+
     public function testGetSitesByInputListCombinesExplicitIdsWithWhereFilter(): void
     {
         $Project = self::getTestProject();
@@ -656,6 +747,67 @@ class ProjectSiteDbalTest extends ProjectIntegrationTestCase
             $RestoredSite->refresh();
             $RestoredSite->destroy();
         });
+    }
+
+    /**
+     * @return array{
+     *     ids: array<string, int>,
+     *     conditions: array<string, array{type: string, value: string}>,
+     *     type: string
+     * }
+     */
+    private function createSearchSites(): array
+    {
+        $Project = self::getTestProject();
+        $Root = $Project->firstChild()->getEdit();
+        $prefix = 'phpunit-search-' . bin2hex(random_bytes(6));
+        $search = $prefix . "' OR 1=1 --";
+        $type = 'phpunit/search-' . bin2hex(random_bytes(6));
+        $entries = [
+            'title' => ['title' => $search, 'type' => $type],
+            'short' => ['short' => $search],
+            'content' => ['content' => $search],
+            'inactive' => ['title' => $search, 'type' => $type],
+            'deleted' => ['title' => $search, 'type' => $type],
+            'unmatched' => ['title' => 'Unrelated active page']
+        ];
+        $ids = [];
+        $index = 0;
+
+        foreach ($entries as $key => $attributes) {
+            $attributes['name'] = $prefix . '-' . $index;
+            $siteId = $Root->createChild($attributes);
+            $Site = new Site\Edit($Project, $siteId);
+
+            if (isset($attributes['type'])) {
+                $Site->setAttribute('type', $attributes['type']);
+                $Site->save();
+            }
+
+            if ($key === 'deleted') {
+                $Site->delete();
+            } elseif ($key !== 'inactive') {
+                $Site->activate();
+            }
+
+            $ids[$key] = $siteId;
+            $index++;
+        }
+
+        $conditions = [];
+
+        foreach (['title', 'short', 'content'] as $field) {
+            $conditions[$field] = [
+                'type' => '%LIKE%',
+                'value' => $search
+            ];
+        }
+
+        return [
+            'ids' => $ids,
+            'conditions' => $conditions,
+            'type' => $type
+        ];
     }
 
     /**
