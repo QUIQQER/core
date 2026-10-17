@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<quiqqer>
+    <user>
+        <attributes>
+            <attribute>merged.first</attribute>
+        </attributes>
+        <window>
+            <categories>
+                <category name="shared">
+                    <title>Shared category</title>
+                    <icon>fa fa-user</icon>
+                    <settings name="first">
+                        <title>First settings</title>
+                        <input conf="merged.first" type="text">
+                            <text>First value</text>
+                        </input>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+    </user>
+</quiqqer>
