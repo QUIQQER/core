@@ -10,8 +10,10 @@ include:
 # The package installer does not install a dependency's require-dev section.
 # Register REST test dependencies through QUIQQER's Composer wrapper, which
 # selects var/composer/composer.json, before the installer updates packages.
+# Stop the image's automatic updates before changing or testing that installation.
 .core-rest-test-dependencies:
   before_script:
+    - bash "$CI_PROJECT_DIR/tests/Support/prepare-ci.sh"
     - cd /var/www/html
     - >-
       ./console composer require --dev --no-update --no-interaction

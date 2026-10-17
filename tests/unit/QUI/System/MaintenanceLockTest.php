@@ -120,6 +120,34 @@ class MaintenanceLockTest extends TestCase
         });
     }
 
+    public function testSeparateInstallationsDoNotShareTheirMaintenanceLock(): void
+    {
+        $directory = sys_get_temp_dir() . '/quiqqer-maintenance-isolation-' . bin2hex(random_bytes(8)) . '/';
+        mkdir($directory, 0700);
+        $Input = new InputStream();
+        $Owner = $this->worker('hold', $directory . 'first/');
+        $Owner->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+        $Owner->setInput($Input);
+
+        try {
+            $Owner->start();
+            self::assertTrue($Owner->waitUntil(static fn(string $type, string $output): bool =>
+                str_contains($output, 'ready')));
+
+            foreach (['first/' => 'busy', 'second/' => 'entered'] as $path => $expected) {
+                $Probe = $this->worker('probe', $directory . $path);
+                $Probe->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+                $Probe->mustRun();
+
+                self::assertSame($expected, $Probe->getOutput());
+            }
+        } finally {
+            $Input->close();
+            $Owner->stop();
+            \QUI\Utils\System\File::deleteDir($directory);
+        }
+    }
+
     private function probe(string $operation = 'probe', bool $join = true): string
     {
         $Process = $this->worker($operation);
@@ -133,10 +161,16 @@ class MaintenanceLockTest extends TestCase
         return $Process->getOutput();
     }
 
-    private function worker(string $operation): Process
+    private function worker(string $operation, ?string $varDirectory = null): Process
     {
         return new Process(
-            [PHP_BINARY, __DIR__ . '/Fixtures/maintenance-lock-worker.php', $operation, CMS_DIR, VAR_DIR],
+            [
+                PHP_BINARY,
+                __DIR__ . '/Fixtures/maintenance-lock-worker.php',
+                $operation,
+                CMS_DIR,
+                $varDirectory ?? VAR_DIR
+            ],
             timeout: 30
         );
     }
