@@ -642,6 +642,14 @@ define('controls/projects/project/site/Panel', [
                     return;
                 }
 
+                // Loading the editor user may outlive the draft's validity period.
+                const storage = Site.getWorkingStorage();
+
+                if (!storage) {
+                    Site.load();
+                    return;
+                }
+
                 const Sheet = self.createSheet({
                     icon : 'fa fa-window-restore',
                     title: Locale.get('quiqqer/core', 'panel.site.restore.title', {
@@ -652,7 +660,6 @@ define('controls/projects/project/site/Panel', [
 
                 let StorageTime = null;
                 let storageDate = '---';
-                const storage = Site.getWorkingStorage();
                 const EditDate = new Date(Site.getAttribute('e_date'));
 
                 if ("__storageTime" in storage) {
@@ -718,7 +725,12 @@ define('controls/projects/project/site/Panel', [
                                 Sheet.destroy();
                             });
 
-                            Site.setAttributes(storage);
+                            const currentStorage = Site.getWorkingStorage();
+
+                            if (currentStorage) {
+                                Site.setAttributes(currentStorage);
+                            }
+
                             Site.clearWorkingStorage();
                             self.load();
                         }

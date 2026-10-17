@@ -664,6 +664,14 @@ class Package extends QUI\QDOM
      */
     public function setup(array $params = []): void
     {
+        QUI\System\MaintenanceLock::run(function () use ($params): void {
+            $this->executeSetup($params);
+        });
+    }
+
+    /** @param array<string, mixed> $params */
+    private function executeSetup(array $params): void
+    {
         $this->readPackageData();
 
         $pkgName = $this->getName();

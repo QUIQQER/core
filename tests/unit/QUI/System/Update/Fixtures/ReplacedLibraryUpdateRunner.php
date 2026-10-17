@@ -1,11 +1,9 @@
 <?php
 
-// This worker uses the real runner but never installs packages or touches a QUIQQER database.
-spl_autoload_register(static function (string $class): void {
-    if (str_starts_with($class, 'QUI\\System\\Update\\')) {
-        require dirname(__DIR__, 6) . '/src/' . str_replace('\\', '/', $class) . '.php';
-    }
-});
+// This worker uses the real runner and lock without touching a QUIQQER database.
+require dirname(__DIR__, 8) . '/autoload.php';
+define('CMS_DIR', getenv('QUIQQER_CORE_TEST_RUNTIME') ?: dirname(__DIR__, 9) . '/');
+define('VAR_DIR', CMS_DIR . 'var/');
 
 use QUI\System\Update\Action\PhaseTransitionAction;
 use QUI\System\Update\RunActionInterface;

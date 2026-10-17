@@ -16,6 +16,12 @@ class RunLauncher
      */
     public function create(?int $now = null, array $metadata = []): RunLaunch
     {
+        return \QUI\System\MaintenanceLock::run(fn(): RunLaunch => $this->createLocked($now, $metadata));
+    }
+
+    /** @param array<string, mixed> $metadata */
+    private function createLocked(?int $now, array $metadata): RunLaunch
+    {
         $run = $this->repository->create($now, $metadata);
         $webUrl = $this->createWebUrl($run);
         $webToken = bin2hex(random_bytes(32));

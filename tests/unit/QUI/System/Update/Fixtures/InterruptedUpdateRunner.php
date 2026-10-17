@@ -1,11 +1,9 @@
 <?php
 
-// Keep the worker independent of the installation and PHPUnit's signal handlers.
-spl_autoload_register(static function (string $class): void {
-    if (str_starts_with($class, 'QUI\\System\\Update\\')) {
-        require dirname(__DIR__, 6) . '/src/' . str_replace('\\', '/', $class) . '.php';
-    }
-});
+// Load the runner and its lock dependencies without PHPUnit's signal handlers.
+require dirname(__DIR__, 8) . '/autoload.php';
+define('CMS_DIR', getenv('QUIQQER_CORE_TEST_RUNTIME') ?: dirname(__DIR__, 9) . '/');
+define('VAR_DIR', CMS_DIR . 'var/');
 
 use QUI\System\Update\RunActionInterface;
 use QUI\System\Update\RunActionResult;

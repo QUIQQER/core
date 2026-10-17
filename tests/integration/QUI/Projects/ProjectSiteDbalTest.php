@@ -176,6 +176,133 @@ class ProjectSiteDbalTest extends ProjectIntegrationTestCase
         $this->assertSame($siteId, (int)$ids[0]['id']);
     }
 
+    public function testSiteQueriesShareExplicitActiveFilters(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createActiveFilterSites();
+        $cases = [
+            [1, $fixture['active']],
+            [0, $fixture['inactive']],
+            [-1, $fixture['all']],
+            ['1', $fixture['active']],
+            ['0', $fixture['inactive']],
+            ['-1', $fixture['all']]
+        ];
+
+        foreach ($cases as [$active, $expected]) {
+            $params = [
+                'where' => ['active' => $active],
+                'order' => 'name ASC'
+            ];
+            $siteParams = $params;
+            $siteParams['where']['id'] = $fixture['ids'];
+            $context = 'active=' . var_export($active, true);
+            $sites = $Project->getSitesIds($siteParams);
+            self::assertSame($expected, array_map('intval', array_column($sites, 'id')), $context);
+            self::assertSame($expected, $Project->getChildrenIdsFrom($fixture['parent'], $params), $context);
+
+            $siteCount = $Project->getSitesIds(array_merge($siteParams, ['count' => true]));
+            $childCount = $Project->getChildrenIdsFrom($fixture['parent'], array_merge($params, ['count' => true]));
+            self::assertSame(count($expected), (int)$siteCount[0]['count'], $context);
+            self::assertSame(count($expected), $childCount, $context);
+
+            $sitePage = $Project->getSitesIds(array_merge($siteParams, ['limit' => '1,1']));
+            $childPage = $Project->getChildrenIdsFrom($fixture['parent'], array_merge($params, ['limit' => '1,1']));
+            self::assertSame(array_slice($expected, 1, 1), array_map('intval', array_column($sitePage, 'id')), $context);
+            self::assertSame(array_slice($expected, 1, 1), $childPage, $context);
+        }
+    }
+
+    public function testChildQueriesPreserveLegacyActiveFiltersAndPreferExplicitWhere(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createActiveFilterSites();
+        $cases = [
+            [[], $fixture['active']],
+            [['active' => 0], $fixture['active']],
+            [['active' => -1], $fixture['active']],
+            [['active' => '0'], $fixture['active']],
+            [['active' => '-1'], $fixture['active']],
+            [['active' => '0&1'], $fixture['all']],
+            [['active' => '0&1', 'where' => ['active' => 0]], $fixture['inactive']],
+            [['active' => '0&1', 'where' => ['active' => 1]], $fixture['active']],
+            [['active' => '0&1', 'where' => ['active' => -1]], $fixture['all']],
+            [['active' => 0, 'where' => ['active' => -1]], $fixture['all']],
+            [['active' => -1, 'where' => ['active' => 0]], $fixture['inactive']],
+            [['active' => 1, 'where' => ['active' => 0]], $fixture['inactive']]
+        ];
+
+        foreach ($cases as [$params, $expected]) {
+            $params['order'] = 'name ASC';
+            self::assertSame(
+                $expected,
+                $Project->getChildrenIdsFrom($fixture['parent'], $params),
+                json_encode($params, JSON_THROW_ON_ERROR)
+            );
+        }
+    }
+
+    public function testActiveFilterDefaultsAndAdditionalConditionsStayUnchanged(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createActiveFilterSites();
+        $allIds = array_map('intval', array_column($Project->getSitesIds(), 'id'));
+
+        foreach ($fixture['ids'] as $id) {
+            self::assertContains($id, $allIds);
+        }
+
+        foreach ([[], ['active' => 0], ['active' => -1], ['active' => '0&1']] as $legacyParams) {
+            $params = array_merge($legacyParams, [
+                'where' => ['id' => $fixture['ids']],
+                'order' => 'name ASC'
+            ]);
+            $ids = $Project->getSitesIds($params);
+            self::assertSame($fixture['active'], array_map('intval', array_column($ids, 'id')));
+        }
+
+        $params = ['where' => ['active' => -1, 'id' => $fixture['inactive']]];
+        self::assertSame($fixture['inactive'], $Project->getChildrenIdsFrom($fixture['parent'], $params));
+        self::assertSame(
+            [],
+            $Project->getChildrenIdsFrom($fixture['parent'], ['where' => ['id' => $fixture['inactive']]])
+        );
+
+        $Parent = new Site\Edit($Project, $fixture['parent']);
+        self::assertSame($fixture['inactive'], $Parent->getChildrenIds(['where' => ['active' => 0]]));
+    }
+
+    /** @return array{parent: int, ids: list<int>, active: list<int>, inactive: list<int>, all: list<int>} */
+    private function createActiveFilterSites(): array
+    {
+        $Project = self::getTestProject();
+        $Root = $Project->firstChild()->getEdit();
+        $prefix = 'phpunit-active-filter-' . uniqid();
+        $parentId = $Root->createChild(['name' => $prefix, 'title' => 'Active filter parent']);
+        $Parent = new Site\Edit($Project, $parentId);
+        $ids = [];
+
+        foreach (['a-active', 'b-inactive', 'c-active', 'd-deleted'] as $name) {
+            $ids[] = $Parent->createChild(['name' => $prefix . '-' . $name, 'title' => $name]);
+        }
+
+        (new Site\Edit($Project, $ids[0]))->activate();
+        (new Site\Edit($Project, $ids[2]))->activate();
+        QUI::getDataBaseConnection()->update(
+            QUI\Utils\Doctrine::quoteIdentifier($Project->table()),
+            ['active' => 1, 'deleted' => 1],
+            ['id' => $ids[3]]
+        );
+
+        return [
+            'parent' => $parentId,
+            'ids' => $ids,
+            'active' => [$ids[0], $ids[2]],
+            'inactive' => [$ids[1]],
+            'all' => [$ids[0], $ids[1], $ids[2]]
+        ];
+    }
+
     public function testProjectSitesIdsSupportsLegacyArrayConditions(): void
     {
         $Project = self::getTestProject();
@@ -221,6 +348,97 @@ class ProjectSiteDbalTest extends ProjectIntegrationTestCase
         ]);
 
         $this->assertIsArray($notArrayValueIds);
+    }
+
+    public function testProjectSitesIdsGroupsSearchConditionsForResultsCountAndPagination(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createSearchSites();
+        $ids = $fixture['ids'];
+        $params = [
+            'where_or' => $fixture['conditions'],
+            'order' => 'name ASC'
+        ];
+
+        $results = $Project->getSitesIds($params);
+        $count = $Project->getSitesIds(array_merge($params, ['count' => true]));
+        $page = $Project->getSitesIds(array_merge($params, ['limit' => '1,1']));
+
+        $this->assertSame(
+            [$ids['title'], $ids['short'], $ids['content']],
+            array_map('intval', array_column($results, 'id'))
+        );
+        $this->assertSame(3, (int)$count[0]['count']);
+        $this->assertSame([$ids['short']], array_map('intval', array_column($page, 'id')));
+
+        $params['where'] = ['id' => $ids['title']];
+        $filtered = $Project->getSitesIds($params);
+        $this->assertSame([$ids['title']], array_map('intval', array_column($filtered, 'id')));
+
+        $params['where'] = ['id' => $ids['unmatched']];
+        $this->assertSame([], $Project->getSitesIds($params));
+    }
+
+    public function testProjectSitesIdsSearchPreservesExplicitVisibilityFilters(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createSearchSites();
+        $ids = $fixture['ids'];
+        $cases = [
+            [
+                'where' => ['active' => -1],
+                'expected' => [$ids['title'], $ids['short'], $ids['content'], $ids['inactive']]
+            ],
+            [
+                'where' => ['active' => 0],
+                'expected' => [$ids['inactive']]
+            ],
+            [
+                'where' => ['active' => -1, 'deleted' => 1],
+                'expected' => [$ids['deleted']]
+            ],
+            [
+                'where' => ['active' => -1, 'deleted' => -1],
+                'expected' => [
+                    $ids['title'],
+                    $ids['short'],
+                    $ids['content'],
+                    $ids['inactive'],
+                    $ids['deleted']
+                ]
+            ]
+        ];
+
+        foreach ($cases as $case) {
+            $results = $Project->getSitesIds([
+                'where' => $case['where'],
+                'where_or' => $fixture['conditions'],
+                'order' => 'name ASC'
+            ]);
+
+            $this->assertSame($case['expected'], array_map('intval', array_column($results, 'id')));
+        }
+    }
+
+    public function testGetSitesByInputListGroupsMixedSelectorsWithVisibilityFilters(): void
+    {
+        $Project = self::getTestProject();
+        $fixture = $this->createSearchSites();
+        $ids = $fixture['ids'];
+        $selectors = [$ids['short'], $fixture['type']];
+        $params = [
+            'order' => 'name ASC',
+            'limit' => 10
+        ];
+
+        $Sites = Site\Utils::getSitesByInputList($Project, $selectors, $params);
+        $count = Site\Utils::getSitesByInputList($Project, $selectors, array_merge($params, ['count' => true]));
+
+        $this->assertSame([$ids['title'], $ids['short']], array_map(
+            static fn(Site $Site): int => $Site->getId(),
+            $Sites
+        ));
+        $this->assertSame(2, (int)$count[0]['count']);
     }
 
     public function testGetSitesByInputListCombinesExplicitIdsWithWhereFilter(): void
@@ -656,6 +874,67 @@ class ProjectSiteDbalTest extends ProjectIntegrationTestCase
             $RestoredSite->refresh();
             $RestoredSite->destroy();
         });
+    }
+
+    /**
+     * @return array{
+     *     ids: array<string, int>,
+     *     conditions: array<string, array{type: string, value: string}>,
+     *     type: string
+     * }
+     */
+    private function createSearchSites(): array
+    {
+        $Project = self::getTestProject();
+        $Root = $Project->firstChild()->getEdit();
+        $prefix = 'phpunit-search-' . bin2hex(random_bytes(6));
+        $search = $prefix . "' OR 1=1 --";
+        $type = 'phpunit/search-' . bin2hex(random_bytes(6));
+        $entries = [
+            'title' => ['title' => $search, 'type' => $type],
+            'short' => ['short' => $search],
+            'content' => ['content' => $search],
+            'inactive' => ['title' => $search, 'type' => $type],
+            'deleted' => ['title' => $search, 'type' => $type],
+            'unmatched' => ['title' => 'Unrelated active page']
+        ];
+        $ids = [];
+        $index = 0;
+
+        foreach ($entries as $key => $attributes) {
+            $attributes['name'] = $prefix . '-' . $index;
+            $siteId = $Root->createChild($attributes);
+            $Site = new Site\Edit($Project, $siteId);
+
+            if (isset($attributes['type'])) {
+                $Site->setAttribute('type', $attributes['type']);
+                $Site->save();
+            }
+
+            if ($key === 'deleted') {
+                $Site->delete();
+            } elseif ($key !== 'inactive') {
+                $Site->activate();
+            }
+
+            $ids[$key] = $siteId;
+            $index++;
+        }
+
+        $conditions = [];
+
+        foreach (['title', 'short', 'content'] as $field) {
+            $conditions[$field] = [
+                'type' => '%LIKE%',
+                'value' => $search
+            ];
+        }
+
+        return [
+            'ids' => $ids,
+            'conditions' => $conditions,
+            'type' => $type
+        ];
     }
 
     /**

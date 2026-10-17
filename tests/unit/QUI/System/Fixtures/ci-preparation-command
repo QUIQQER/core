@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+directory="${QUIQQER_TEST_CI_PREPARATION_DIRECTORY}"
+command="${0##*/}"
+mode="$(cat "$directory/mode")"
+printf '%s %s\n' "$command" "$*" >> "$directory/calls"
+
+case "$command" in
+    sudo)
+        if [[ "$mode" == "stop-fails" ]]; then
+            exit 5
+        fi
+        ;;
+    sleep)
+        attempt="$(cat "$directory/attempt")"
+        attempt=$((attempt + 1))
+        echo "$attempt" > "$directory/attempt"
+
+        if [[ "$mode" == "wait" ]]; then
+            rm "$directory/proc/$((attempt * 100))/comm"
+        fi
+        ;;
+esac

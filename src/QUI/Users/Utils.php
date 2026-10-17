@@ -151,11 +151,13 @@ class Utils
     /**
      * Tab contents of a user Tabs / Buttons
      *
+     * @param string|array<array-key, mixed> $plugin XML file(s) or a legacy project/package identifier.
+     *
      * @throws QUI\Exception
      *
      * @todo kick <tab> as xml in user.xml
      */
-    public static function getTab(int | string $uid, string $plugin, string $tab): string
+    public static function getTab(int | string $uid, string | array $plugin, string $tab): string
     {
         $Users = QUI::getUsers();
         $User = $Users->get($uid);
@@ -181,12 +183,26 @@ class Utils
         QUI::getTemplateManager()->assignGlobalParam('userAuthenticators', $userAuthenticators);
 
         // <category>
-        if (!file_exists($plugin) && file_exists(CMS_DIR . $plugin)) {
-            return PanelSettings::render([CMS_DIR . $plugin], $tab, $User, $userAuthenticators);
+        $files = [];
+
+        foreach (is_array($plugin) ? $plugin : [$plugin] as $file) {
+            if (!is_string($file) || $file === '') {
+                continue;
+            }
+
+            if (file_exists($file)) {
+                $files[] = $file;
+            } elseif (file_exists(CMS_DIR . $file)) {
+                $files[] = CMS_DIR . $file;
+            }
         }
 
-        if (file_exists($plugin)) {
-            return PanelSettings::render([$plugin], $tab, $User, $userAuthenticators);
+        if ($files !== []) {
+            return PanelSettings::render($files, $tab, $User, $userAuthenticators);
+        }
+
+        if (is_array($plugin)) {
+            return '';
         }
 
 

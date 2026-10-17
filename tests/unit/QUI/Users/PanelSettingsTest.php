@@ -82,6 +82,108 @@ class PanelSettingsTest extends TestCase
         }
     }
 
+    /** @return iterable<string, array{string, bool}> */
+    public static function mergedCategories(): iterable
+    {
+        yield 'named, relative files' => ['shared', false];
+        yield 'unnamed, relative files' => ['', false];
+        yield 'named, mixed file paths' => ['shared', true];
+        yield 'unnamed, mixed file paths' => ['', true];
+    }
+
+    #[DataProvider('mergedCategories')]
+    public function testMergedToolbarCategoryLoadsBothXmlFiles(string $name, bool $mixedPaths): void
+    {
+        $OriginalPackages = QUI::$PackageManager;
+        $OriginalUsers = QUI::$Users;
+        $Instance = new ReflectionProperty(Auth\Handler::class, 'Instance');
+        $OriginalHandler = $Instance->getValue();
+
+        try {
+            $fixture = $name === '' ? 'unnamed' : 'merged';
+            $Packages = $this->createMock(QUI\Package\Manager::class);
+            $Packages->method('getInstalled')->willReturn([
+                ['name' => 'quiqqer/core/tests/Fixtures/UserPanel/' . $fixture . '-first'],
+                ['name' => 'quiqqer/core/tests/Fixtures/UserPanel/' . $fixture . '-second']
+            ]);
+            QUI::$PackageManager = $Packages;
+            $User = $this->createMock(UserInterface::class);
+            $User->method('getUUID')->willReturn('merged-user-panel-test');
+            $Users = $this->createMock(Manager::class);
+            $Users->method('get')->with(42)->willReturn($User);
+            QUI::$Users = $Users;
+            $Handler = $this->createMock(Auth\Handler::class);
+            $Handler->method('getAvailableAuthenticators')->willReturn([]);
+            $Instance->setValue(null, $Handler);
+            $categories = Utils::getUserToolbar($User)->toArray();
+            $matches = array_values(array_filter(
+                $categories,
+                static fn(array $category): bool => $category['name'] === $name
+            ));
+            self::assertCount(1, $matches);
+            $files = $matches[0]['plugin'];
+            self::assertIsArray($files);
+            self::assertCount(2, $files);
+
+            if ($mixedPaths) {
+                $files[0] = CMS_DIR . $files[0];
+                $files[] = null;
+                $files[] = [];
+                $files[] = 'missing-user-panel-fixture.xml';
+            }
+
+            $html = Utils::getTab(42, $files, $name);
+            $prefix = $name === '' ? 'unnamed.' : 'merged.';
+            self::assertSame(
+                [$prefix . 'first', $prefix . 'second'],
+                $this->values($this->parse($html), '//input/@name')
+            );
+        } finally {
+            QUI::$PackageManager = $OriginalPackages;
+            QUI::$Users = $OriginalUsers;
+            $Instance->setValue(null, $OriginalHandler);
+        }
+    }
+
+    public function testLegacyPackageTabStillLoads(): void
+    {
+        $OriginalPackages = QUI::$PackageManager;
+        $OriginalUsers = QUI::$Users;
+        $OriginalTemplate = QUI::$Template;
+        $Instance = new ReflectionProperty(Auth\Handler::class, 'Instance');
+        $OriginalHandler = $Instance->getValue();
+
+        try {
+            $Template = $this->createMock(QUI\Template::class);
+            $Engine = $this->createMock(QUI\Interfaces\Template\EngineInterface::class);
+            $Template->method('getEngine')->willReturn($Engine);
+            QUI::$Template = $Template;
+            $package = 'quiqqer/core/tests/Fixtures/UserPanel/legacy';
+            $Package = $this->createMock(QUI\Package\Package::class);
+            $Package->method('getName')->willReturn($package);
+            $Packages = $this->createMock(QUI\Package\Manager::class);
+            $Packages->expects(self::once())
+                ->method('getInstalledPackage')
+                ->with($package)
+                ->willReturn($Package);
+            QUI::$PackageManager = $Packages;
+            $Users = $this->createMock(Manager::class);
+            $Users->method('get')->with(42)->willReturn($this->createMock(UserInterface::class));
+            QUI::$Users = $Users;
+            $Handler = $this->createMock(Auth\Handler::class);
+            $Handler->method('getAvailableAuthenticators')->willReturn([]);
+            $Instance->setValue(null, $Handler);
+
+            $html = Utils::getTab(42, 'plugin.' . $package, 'legacy');
+            self::assertSame(['legacy.setting'], $this->values($this->parse($html), '//input/@name'));
+        } finally {
+            QUI::$PackageManager = $OriginalPackages;
+            QUI::$Users = $OriginalUsers;
+            QUI::$Template = $OriginalTemplate;
+            $Instance->setValue(null, $OriginalHandler);
+        }
+    }
+
     public function testDetailsPreserveFormFieldsAndPopulateAvailableLanguages(): void
     {
         $Path = $this->render('details');

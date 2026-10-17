@@ -65,8 +65,9 @@ class SitesTest extends RestIntegrationTestCase
     {
         $Project = ProjectTestHelper::getProject();
         $path = '/projects/' . $Project->getName() . '/de/sites';
+        $name = 'rest-site-' . bin2hex(random_bytes(4));
         $created = $this->data($this->request('POST', $path, [
-            'parentId' => 1, 'name' => 'rest-site-' . bin2hex(random_bytes(4)), 'title' => 'REST site'
+            'parentId' => 1, 'name' => $name, 'title' => 'REST site'
         ]), 201);
         $id = $created['id'];
         $copyId = null;
@@ -78,8 +79,9 @@ class SitesTest extends RestIntegrationTestCase
             $activated = $this->data($this->request('POST', $path . '/activate', ['siteIds' => [$id]]));
             self::assertSame(200, $activated[0]['status']);
             self::assertTrue($activated[0]['data']['active']);
-            $listed = $this->data($this->request('GET', $path));
-            self::assertContains($id, array_column($listed, 'id'));
+            // The first unfiltered page may already contain 25 sites from earlier tests.
+            $listed = $this->data($this->request('GET', $path . '?search=' . rawurlencode($name)));
+            self::assertSame([$id], array_column($listed, 'id'));
 
             $lock = $this->data($this->request('POST', $path . '/' . $id . '/lock'));
             self::assertNotEmpty($lock['token']);
