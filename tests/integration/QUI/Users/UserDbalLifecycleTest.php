@@ -3,9 +3,11 @@
 namespace QUI\Users;
 
 use Doctrine\DBAL\Connection;
+use DOMDocument;
 use PHPUnit\Framework\TestCase;
 use QUI;
 use QUI\Interfaces\Users\User as UserInterface;
+use ReflectionMethod;
 use ReflectionProperty;
 use Throwable;
 
@@ -93,6 +95,58 @@ class UserDbalLifecycleTest extends TestCase
         $this->assertTrue($Users->deleteUser($ReloadedUser->getUUID()));
         $this->assertFalse($Users->usernameExists($username));
         $this->assertSame(0, self::countAddresses($ReloadedUser->getUUID()));
+    }
+
+    public function testSettingsFromMergedXmlFilesCanBeSavedAndReloaded(): void
+    {
+        $Users = QUI::getUsers();
+        $SystemUser = $Users->getSystemUser();
+        $CreatedUser = $Users->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+        $files = [
+            OPT_DIR . 'quiqqer/core/tests/Fixtures/UserPanel/merged-first/user.xml',
+            OPT_DIR . 'quiqqer/core/tests/Fixtures/UserPanel/merged-second/user.xml'
+        ];
+        $User = $this->getMockBuilder(User::class)
+            ->setConstructorArgs([$CreatedUser->getUUID()])
+            ->onlyMethods(['getListOfExtraAttributes'])
+            ->getMock();
+        $ReadAttributes = new ReflectionMethod(User::class, 'readAttributesFromUserXML');
+        $attributes = [];
+
+        foreach ($files as $file) {
+            $attributes = array_merge($attributes, $ReadAttributes->invoke($User, $file));
+        }
+
+        $User->method('getListOfExtraAttributes')->willReturn($attributes);
+        $html = PanelSettings::render($files, 'shared', $User, []);
+        $Document = new DOMDocument();
+        self::assertTrue($Document->loadHTML($html));
+        $values = [];
+
+        foreach ($Document->getElementsByTagName('input') as $Input) {
+            $name = $Input->getAttribute('name');
+            $values[$name] = 'Saved value for ' . $name;
+        }
+
+        self::assertSame(['merged.first', 'merged.second'], array_keys($values));
+        $User->setAttributes($values);
+        $User->save($SystemUser);
+        $User->refresh();
+
+        $storedExtra = self::getConnection()->createQueryBuilder()
+            ->select('extra')
+            ->from(QUI\Utils\Doctrine::quoteIdentifier(Manager::table()))
+            ->where('uuid = :uuid')
+            ->setParameter('uuid', $User->getUUID())
+            ->executeQuery()
+            ->fetchOne();
+        self::assertIsString($storedExtra);
+        $extra = json_decode($storedExtra, true, flags: JSON_THROW_ON_ERROR);
+
+        foreach ($values as $name => $value) {
+            self::assertSame($value, $extra[$name]);
+            self::assertSame($value, $User->getAttribute($name));
+        }
     }
 
     public function testSavingUnrelatedAttributeDoesNotOverwriteGroupsChangedInDatabase(): void

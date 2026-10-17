@@ -986,6 +986,8 @@ class Project implements \Stringable
 
     /**
      * Return the children ids from a site
+     * Use where.active = 1 (active), 0 (inactive) or -1 (both).
+     * Legacy active = "0&1" is supported unless where.active is set.
      *
      * @param integer $parentid - The parent site ID
      * @param array<string, mixed> $params - extra db statements, like order, where, count, limit
@@ -1015,16 +1017,22 @@ class Project implements \Stringable
             ->setParameter("parent", $parentid)
             ->setParameter("deleted", 0);
 
-        if (!(isset($params["active"]) && $params["active"] === "0&1")) {
+        $where = $params["where"] ?? [];
+
+        if (is_array($where) && isset($where["active"])) {
+            if ($where["active"] === -1 || $where["active"] === "-1") {
+                unset($where["active"]);
+            }
+        } elseif (!(isset($params["active"]) && $params["active"] === "0&1")) {
             $QueryBuilder
                 ->andWhere($siteAlias . "." . $Platform->quoteSingleIdentifier("active") . " = :active")
                 ->setParameter("active", 1);
         }
 
-        if (isset($params["where"]) && is_array($params["where"])) {
+        if (is_array($where)) {
             self::applySiteConditions(
                 $QueryBuilder,
-                $params["where"],
+                $where,
                 "andWhere",
                 $siteAlias,
                 [
@@ -1204,6 +1212,7 @@ class Project implements \Stringable
 
     /**
      * Ids von bestimmten Seiten bekommen
+     * Use where.active = 1 (active), 0 (inactive) or -1 (both).
      *
      * @param array<string, mixed> $params
      *
@@ -1319,6 +1328,7 @@ class Project implements \Stringable
         $Connection = QUI::getDataBaseConnection();
         $Platform = $Connection->getDatabasePlatform();
         $index = 0;
+        $expressions = [];
 
         foreach ($conditions as $field => $data) {
             $parameter = "condition" . $method . $index;
@@ -1360,7 +1370,7 @@ class Project implements \Stringable
 
                     if (!empty($placeholders)) {
                         $operator = $type === "NOT IN" ? " NOT IN " : " IN ";
-                        $QueryBuilder->{$method}($column . $operator . "(" . implode(",", $placeholders) . ")");
+                        $expressions[] = $column . $operator . "(" . implode(",", $placeholders) . ")";
                     }
 
                     $index++;
@@ -1381,49 +1391,49 @@ class Project implements \Stringable
                 }
 
                 if ($type === "NOT" || $type === "!=" || $type === "<>") {
-                    $QueryBuilder->{$method}($column . " <> :" . $parameter);
+                    $expressions[] = $column . " <> :" . $parameter;
                     $QueryBuilder->setParameter($parameter, $value);
                     $index++;
                     continue;
                 }
 
                 if (in_array($type, [">", ">=", "<", "<="], true)) {
-                    $QueryBuilder->{$method}($column . " " . $type . " :" . $parameter);
+                    $expressions[] = $column . " " . $type . " :" . $parameter;
                     $QueryBuilder->setParameter($parameter, $value);
                     $index++;
                     continue;
                 }
 
                 if ($type === "LIKE") {
-                    $QueryBuilder->{$method}($column . " LIKE :" . $parameter);
+                    $expressions[] = $column . " LIKE :" . $parameter;
                     $QueryBuilder->setParameter($parameter, $value);
                     $index++;
                     continue;
                 }
 
                 if ($type === "%LIKE%") {
-                    $QueryBuilder->{$method}($column . " LIKE :" . $parameter);
+                    $expressions[] = $column . " LIKE :" . $parameter;
                     $QueryBuilder->setParameter($parameter, "%" . $value . "%");
                     $index++;
                     continue;
                 }
 
                 if ($type === "LIKE%") {
-                    $QueryBuilder->{$method}($column . " LIKE :" . $parameter);
+                    $expressions[] = $column . " LIKE :" . $parameter;
                     $QueryBuilder->setParameter($parameter, $value . "%");
                     $index++;
                     continue;
                 }
 
                 if ($type === "%LIKE") {
-                    $QueryBuilder->{$method}($column . " LIKE :" . $parameter);
+                    $expressions[] = $column . " LIKE :" . $parameter;
                     $QueryBuilder->setParameter($parameter, "%" . $value);
                     $index++;
                     continue;
                 }
 
                 if (array_key_exists("value", $data)) {
-                    $QueryBuilder->{$method}($column . " = :" . $parameter);
+                    $expressions[] = $column . " = :" . $parameter;
                     $QueryBuilder->setParameter($parameter, $value);
                     $index++;
                     continue;
@@ -1440,10 +1450,21 @@ class Project implements \Stringable
                 continue;
             }
 
-            $QueryBuilder->{$method}($column . " = :" . $parameter);
+            $expressions[] = $column . " = :" . $parameter;
             $QueryBuilder->setParameter($parameter, $data);
             $index++;
         }
+
+        if ($expressions === []) {
+            return;
+        }
+
+        $ExpressionBuilder = $QueryBuilder->expr();
+        $group = $method === 'orWhere'
+            ? $ExpressionBuilder->or(...$expressions)
+            : $ExpressionBuilder->and(...$expressions);
+
+        $QueryBuilder->andWhere($group);
     }
 
     /**

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<quiqqer>
+    <user>
+        <attributes>
+            <attribute>unnamed.first</attribute>
+        </attributes>
+        <window>
+            <categories>
+                <category>
+                    <title>Unnamed category</title>
+                    <icon>fa fa-user</icon>
+                    <settings name="unnamed-first">
+                        <title>First unnamed settings</title>
+                        <input conf="unnamed.first" type="text">
+                            <text>First unnamed value</text>
+                        </input>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+    </user>
+</quiqqer>

@@ -4,7 +4,7 @@
  * Tab einer Benutzereinstellung bekommen
  *
  * @param integer $uid
- * @param string $plugin
+ * @param string|string[] $plugin
  * @param string $tab
  *
  * @return string

@@ -30,6 +30,21 @@ class Locker
     private static ?EditingLocks $EditingLocks = null;
 
     /**
+     * Installation changes must remain locked while configuration, caches and database schemas change.
+     * This filesystem lock has no lease to expire while a child process is blocked.
+     */
+    public static function createFilesystemLock(string $key, string $directory): LockInterface
+    {
+        if ($key === '') {
+            throw new \InvalidArgumentException('A process lock key is required.');
+        }
+
+        $Factory = new LockFactory(new FlockStore($directory));
+
+        return $Factory->createLock('quiqqer-process-' . hash('sha256', $key), null);
+    }
+
+    /**
      * Override the process lock backend during application bootstrap.
      * Passing null restores the backend configured in conf.ini.php [locks].
      * Configure the same shared store on all workers before acquiring locks.

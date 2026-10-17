@@ -4,6 +4,12 @@
         <tab name="legacy">
             <text>Legacy tab</text>
             <image>fa fa-user</image>
+            <settings name="legacy-settings">
+                <title>Legacy settings</title>
+                <input conf="legacy.setting" type="text">
+                    <text>Legacy value</text>
+                </input>
+            </settings>
         </tab>
         <tab name="legacy-second">
             <text>Second legacy tab</text>

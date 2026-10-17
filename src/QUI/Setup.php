@@ -35,6 +35,13 @@ class Setup
      */
     public static function all(?QUI\Interfaces\System\SystemOutput $Output = null): void
     {
+        System\MaintenanceLock::run(static function () use ($Output): void {
+            self::executeAll($Output);
+        });
+    }
+
+    private static function executeAll(?QUI\Interfaces\System\SystemOutput $Output): void
+    {
         if (!$Output) {
             $Output = new QUI\System\Output\VoidOutput();
         }

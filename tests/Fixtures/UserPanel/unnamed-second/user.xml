@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<quiqqer>
+    <user>
+        <attributes>
+            <attribute>unnamed.second</attribute>
+        </attributes>
+        <window>
+            <categories>
+                <category>
+                    <title>Unnamed category</title>
+                    <icon>fa fa-user</icon>
+                    <settings name="unnamed-second">
+                        <title>Second unnamed settings</title>
+                        <input conf="unnamed.second" type="text">
+                            <text>Second unnamed value</text>
+                        </input>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+    </user>
+</quiqqer>

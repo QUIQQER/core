@@ -161,6 +161,11 @@ class Update extends QUI\System\Console\Tool
 
     public function executeSystemUpdate(bool $deferCompletion = false): bool
     {
+        return QUI\System\MaintenanceLock::run(fn(): bool => $this->runSystemUpdate($deferCompletion));
+    }
+
+    private function runSystemUpdate(bool $deferCompletion): bool
+    {
         $this->pendingCompletion = null;
         $Output = $this->getUpdateOutput();
 
@@ -450,6 +455,13 @@ class Update extends QUI\System\Console\Tool
     }
 
     public function completeSystemUpdate(string $etcBackupFolder, bool $finalizePackages): bool
+    {
+        return QUI\System\MaintenanceLock::run(
+            fn(): bool => $this->finishSystemUpdate($etcBackupFolder, $finalizePackages)
+        );
+    }
+
+    private function finishSystemUpdate(string $etcBackupFolder, bool $finalizePackages): bool
     {
         $Output = $this->getUpdateOutput();
         $Maintenance = new Maintenance();
