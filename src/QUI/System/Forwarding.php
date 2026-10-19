@@ -113,7 +113,7 @@ class Forwarding
             $Config = self::getConfig();
 
             if ($strict) {
-                $Config = new Config($Config->getFilename());
+                $Config = self::readConfig($Config->getFilename());
             }
 
             return new Collection($Config->toArray());
@@ -143,6 +143,35 @@ class Forwarding
         }
     }
 
+    private static function readConfig(string $filename): Config
+    {
+        $contents = file_get_contents($filename);
+
+        if ($contents === false) {
+            throw new QUI\Exception('Could not read the forwarding configuration.');
+        }
+
+        // PHP 8.2 accepts malformed headers that newer INI parsers reject or interpret differently.
+        foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $contents)) as $line) {
+            $line = trim($line);
+
+            if (
+                str_starts_with($line, '[')
+                && !preg_match('/^\[[^\[\]\x00-\x1f\x7f]+\][ \t]*(?:;.*)?$/D', $line)
+            ) {
+                throw new QUI\Exception('Invalid forwarding configuration section header.');
+            }
+        }
+
+        $Config = new Config($filename);
+
+        foreach ($Config->toArray() as $source => $data) {
+            self::validateSource((string)$source);
+        }
+
+        return $Config;
+    }
+
     /** @param callable(Config): void $Change */
     private static function changeConfig(callable $Change): void
     {
@@ -150,7 +179,7 @@ class Forwarding
 
         Locker::synchronized('forwarding-config:' . $filename, static function () use ($filename, $Change): void {
             // Reload under the lock so a cached request cannot overwrite another writer's rules.
-            $Config = new Config($filename);
+            $Config = self::readConfig($filename);
             $Change($Config);
             self::saveConfig($Config);
             QUI::$Configs[self::CONFIG_KEY] = $Config;

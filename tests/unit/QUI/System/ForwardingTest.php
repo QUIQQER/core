@@ -242,19 +242,49 @@ class ForwardingTest extends TestCase
         ], json_decode($Process->getOutput(), true, flags: JSON_THROW_ON_ERROR));
     }
 
-    public function testStrictListingReportsCorruptFileEvenWhenRulesWereCached(): void
+    /** @return iterable<string, array{string}> */
+    public static function corruptConfigurations(): iterable
+    {
+        yield 'reported pattern' => ["[https://example.test/film-production[?]*]\ntarget=\"/target\"\n"];
+        yield 'trailing section text ignored by PHP 8.2' => ["[https://example.test/old]suffix]\ntarget=\"/target\"\n"];
+        yield 'unterminated section' => ["[broken\ntarget=\"/target\"\n"];
+    }
+
+    public function testStrictReaderAcceptsQuotedSectionsCommentsAndWindowsLineEndings(): void
+    {
+        $contents = ";<?php exit; ?>\r\n"
+            . "; Existing manually configured rule\r\n"
+            . "[\"https://example.test/old?language=en\"] ; section comment\r\n"
+            . "target=\"https://example.net/new#section\"\r\ncode=\"302\"\r\n";
+        file_put_contents($this->configFile, $contents);
+        $expected = [
+            'https://example.test/old?language=en' => [
+                'target' => 'https://example.net/new#section',
+                'code' => '302'
+            ]
+        ];
+
+        self::assertSame($expected, Forwarding::getList(true)->toArray());
+        Forwarding::create('/another', '/target');
+        self::assertSame($expected + [
+            '/another' => ['target' => '/target', 'code' => '301']
+        ], Forwarding::getList(true)->toArray());
+    }
+
+    #[DataProvider('corruptConfigurations')]
+    public function testStrictListingReportsCorruptFileEvenWhenRulesWereCached(string $broken): void
     {
         Forwarding::create('/existing', '/original');
-        file_put_contents($this->configFile, "[broken[?]*]\ntarget=\"/target\"\n");
+        file_put_contents($this->configFile, $broken);
 
         $this->expectException(QUI\Exception::class);
         Forwarding::getList(true);
     }
 
-    public function testMutationDoesNotOverwriteCorruptFileWithCachedRules(): void
+    #[DataProvider('corruptConfigurations')]
+    public function testMutationDoesNotOverwriteCorruptFileWithCachedRules(string $broken): void
     {
         Forwarding::create('/existing', '/original');
-        $broken = "[broken[?]*]\ntarget=\"/target\"\n";
         file_put_contents($this->configFile, $broken);
 
         foreach (['create', 'update', 'delete'] as $method) {
