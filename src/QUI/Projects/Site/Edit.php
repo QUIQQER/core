@@ -1072,8 +1072,8 @@ class Edit extends Site
 
         // on save event
         try {
-            $this->Events->fireEvent('save', [$this]);
-            QUI::getEvents()->fireEvent('siteSave', [$this]);
+            $this->Events->fireEvent('save', [$this, $SaveUser]);
+            QUI::getEvents()->fireEvent('siteSave', [$this, $SaveUser]);
         } catch (QUI\ExceptionStack $Exception) {
             $list = $Exception->getExceptionList();
 
