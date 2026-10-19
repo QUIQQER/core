@@ -90,7 +90,7 @@ if ($isComposerMode) {
     require_once $packagesDir . '/autoload.php';
 
     try {
-        $exitCode = QUI\System\MaintenanceLock::run(static function () use ($composerPhar, $composerPackageBin): int {
+        $exitCode = QUI\System\MaintenanceLock::runWhenAvailable(static function () use ($composerPhar, $composerPackageBin): int {
             if (file_exists($composerPhar)) {
                 $arguments = array_slice($_SERVER['argv'], 1);
                 $commands = [

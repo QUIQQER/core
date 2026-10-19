@@ -2,8 +2,10 @@
 
 namespace QUI\System;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use QUI\Lock\Locker;
 use QUI\System\Update\RunExecutor;
 use QUI\System\Update\RunRepository;
 use QUI\System\Update\RunState;
@@ -12,11 +14,49 @@ use QUI\System\Update\RunActionResult;
 use RuntimeException;
 use Symfony\Component\Process\InputStream;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 
 require_once __DIR__ . '/Update/Fixtures/RecordingUpdateRunAction.php';
 
 class MaintenanceLockTest extends TestCase
 {
+    #[DataProvider('invalidTimeouts')]
+    public function testInvalidTimeoutCannotRunTheCallback(float $timeout): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        MaintenanceLock::runWhenAvailable(static function (): void {
+            self::fail('Invalid timeouts must be rejected before entering the callback.');
+        }, timeout: $timeout);
+    }
+
+    /** @return array<string, array{float}> */
+    public static function invalidTimeouts(): array
+    {
+        return [
+            'negative' => [-1.0],
+            'infinite' => [INF],
+            'not a number' => [NAN]
+        ];
+    }
+
+    public function testWaitingForAdmissionTimesOutWithoutHoldingTheOwnerLock(): void
+    {
+        $Admission = Locker::createFilesystemLock('system-maintenance-admission', VAR_DIR . 'locks/');
+        self::assertTrue($Admission->acquire());
+
+        try {
+            $Waiter = $this->worker('wait', mode: '0.1');
+            $Waiter->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+            $Waiter->mustRun();
+            self::assertSame('busy', $Waiter->getOutput());
+            self::assertTrue(MaintenanceLock::isBusy());
+        } finally {
+            $Admission->release();
+        }
+
+        self::assertSame('entered', $this->probe('probe', false));
+    }
+
     public function testNestedCallsAndChildrenJoinWhileUnrelatedProcessesAreBlocked(): void
     {
         $previous = getenv('QUIQQER_MAINTENANCE_TOKEN');
@@ -25,23 +65,118 @@ class MaintenanceLockTest extends TestCase
             self::assertSame('nested', MaintenanceLock::run(static fn(): string => 'nested'));
             self::assertSame('entered', $this->probe());
 
-            $operations = [
-                'probe',
-                'setup',
-                'security',
-                'update',
-                'package-setup',
-                'package-install',
-                'local-install',
-                'composer-json'
-            ];
-
-            foreach ($operations as $operation) {
-                self::assertSame('busy', $this->probe($operation, false));
-            }
+            self::assertSame('busy', $this->probe('probe', false));
         });
 
         self::assertSame($previous, getenv('QUIQQER_MAINTENANCE_TOKEN'));
+        self::assertSame('entered', $this->probe('probe', false));
+    }
+
+    #[DataProvider('maintenanceOperations')]
+    public function testMaintenanceEntryPointsWaitForAnUnrelatedOwner(string $operation): void
+    {
+        MaintenanceLock::run(function () use ($operation): void {
+            $Process = $this->worker($operation);
+            $Process->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+            $Process->setTimeout(0.3);
+
+            try {
+                $Process->run();
+                self::fail('Maintenance must wait instead of failing or entering while the owner is active.');
+            } catch (ProcessTimedOutException) {
+                self::assertSame('', $Process->getOutput());
+                self::assertSame('', $Process->getErrorOutput());
+            } finally {
+                $Process->stop();
+            }
+        });
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function maintenanceOperations(): iterable
+    {
+        $operations = [
+            'setup',
+            'security',
+            'update',
+            'package-setup',
+            'package-install',
+            'local-install',
+            'composer-json'
+        ];
+
+        foreach ($operations as $operation) {
+            yield $operation => [$operation];
+        }
+    }
+
+    public function testWaitingMaintenanceStopsNewJobsAndLetsTheOwnersChildFinish(): void
+    {
+        $OwnerInput = new InputStream();
+        $WaiterInput = new InputStream();
+        $Owner = $this->worker('hold');
+        $Owner->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+        $Owner->setInput($OwnerInput);
+        $Waiter = $this->worker('wait-hold', mode: '5');
+        $Waiter->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+        $Waiter->setInput($WaiterInput);
+        $Admission = Locker::createFilesystemLock('system-maintenance-admission', VAR_DIR . 'locks/');
+
+        try {
+            $Owner->start();
+            self::assertTrue($Owner->waitUntil(static fn(string $type, string $output): bool =>
+                str_contains($output, 'ready')));
+            $Waiter->start();
+            $deadline = microtime(true) + 5;
+
+            while ($Admission->acquire()) {
+                $Admission->release();
+                self::assertLessThan($deadline, microtime(true), 'Maintenance did not reserve admission.');
+                usleep(10000);
+            }
+
+            self::assertSame('', $Waiter->getOutput());
+            self::assertSame('busy', $this->probe('probe', false));
+            $OwnerInput->write('child' . PHP_EOL);
+            $OwnerInput->close();
+            $Owner->wait();
+            self::assertSame(0, $Owner->getExitCode(), $Owner->getErrorOutput());
+            self::assertSame('ready' . PHP_EOL . 'entered', $Owner->getOutput());
+            self::assertTrue($Waiter->waitUntil(static fn(string $type, string $output): bool =>
+                str_contains($output, 'ready')));
+            self::assertSame('busy', $this->probe('probe', false));
+            $WaiterInput->close();
+            $Waiter->wait();
+            self::assertSame(0, $Waiter->getExitCode(), $Waiter->getErrorOutput());
+            self::assertSame('entered', $this->probe('probe', false));
+        } finally {
+            $OwnerInput->close();
+            $WaiterInput->close();
+            $Owner->stop();
+            $Waiter->stop();
+            $Admission->release();
+        }
+    }
+
+    public function testWaitingMaintenanceTimesOutAndReleasesAdmission(): void
+    {
+        MaintenanceLock::run(function (): void {
+            $Waiter = $this->worker('wait', mode: '0.1');
+            $Waiter->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
+            $started = microtime(true);
+            $Waiter->mustRun();
+
+            self::assertSame('busy', $Waiter->getOutput());
+            self::assertGreaterThanOrEqual(0.1, microtime(true) - $started);
+            $Admission = Locker::createFilesystemLock('system-maintenance-admission', VAR_DIR . 'locks/');
+
+            try {
+                self::assertTrue($Admission->acquire());
+            } finally {
+                $Admission->release();
+            }
+        });
+
         self::assertSame('entered', $this->probe('probe', false));
     }
 
@@ -66,6 +201,8 @@ class MaintenanceLockTest extends TestCase
     {
         $Input = new InputStream();
         $Child = null;
+        $Waiter = $this->worker('wait', mode: '5');
+        $Waiter->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
 
         try {
             MaintenanceLock::run(function () use ($Input, &$Child): void {
@@ -78,14 +215,29 @@ class MaintenanceLockTest extends TestCase
 
             self::assertTrue(MaintenanceLock::isBusy());
             self::assertSame('busy', $this->probe('probe', false));
+            $Waiter->start();
+            $Admission = Locker::createFilesystemLock('system-maintenance-admission', VAR_DIR . 'locks/');
+            $deadline = microtime(true) + 5;
+
+            while ($Admission->acquire()) {
+                $Admission->release();
+                self::assertLessThan($deadline, microtime(true));
+                usleep(10000);
+            }
+
+            self::assertSame('', $Waiter->getOutput());
             $Input->write(PHP_EOL);
             $Input->close();
             $Child->wait();
             self::assertSame(0, $Child->getExitCode(), $Child->getErrorOutput());
+            $Waiter->wait();
+            self::assertSame('entered', $Waiter->getOutput());
+            self::assertSame(0, $Waiter->getExitCode(), $Waiter->getErrorOutput());
             self::assertFalse(MaintenanceLock::isBusy());
         } finally {
             $Input->close();
             $Child?->stop();
+            $Waiter->stop();
         }
     }
 

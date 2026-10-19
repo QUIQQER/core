@@ -51,21 +51,40 @@ class ComposerMaintenanceTest extends TestCase
         ], json_decode($Process->getOutput(), true, flags: JSON_THROW_ON_ERROR));
     }
 
-    public function testComposerJoinsItsOwningUpdateButRejectsAnUnrelatedCaller(): void
+    public function testComposerJoinsItsOwningUpdateAndWaitsForAnUnrelatedOwner(): void
     {
-        MaintenanceLock::run(function (): void {
-            $Child = $this->command(['--version']);
-            $Child->mustRun();
-            self::assertStringContainsString('--version', $Child->getOutput());
+        $Other = $this->command(['--version']);
+        $Other->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
 
-            $Other = $this->command(['--version']);
-            $Other->setEnv(['QUIQQER_MAINTENANCE_TOKEN' => false]);
-            $Other->run();
+        try {
+            MaintenanceLock::run(function () use ($Other): void {
+                $Child = $this->command(['--version']);
+                $Child->mustRun();
+                self::assertStringContainsString('--version', $Child->getOutput());
 
-            self::assertSame(1, $Other->getExitCode());
-            self::assertSame('', $Other->getOutput());
-            self::assertStringContainsString('already active', $Other->getErrorOutput());
-        });
+                $Other->start();
+                $Admission = \QUI\Lock\Locker::createFilesystemLock(
+                    'system-maintenance-admission',
+                    VAR_DIR . 'locks/'
+                );
+                $deadline = microtime(true) + 5;
+
+                while ($Admission->acquire()) {
+                    $Admission->release();
+                    self::assertLessThan($deadline, microtime(true));
+                    usleep(10000);
+                }
+
+                self::assertSame('', $Other->getOutput());
+                self::assertTrue($Other->isRunning());
+            });
+
+            $Other->wait();
+            self::assertSame(0, $Other->getExitCode(), $Other->getErrorOutput());
+            self::assertStringContainsString('--version', $Other->getOutput());
+        } finally {
+            $Other->stop();
+        }
     }
 
     public function testLegacyComposerEntryPointCanInferTheInstallationDirectory(): void
