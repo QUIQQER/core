@@ -718,6 +718,9 @@
         <locale name="packages.panel.update.history.type.cli">
             <it><![CDATA[CLI]]></it>
         </locale>
+        <locale name="packages.panel.update.history.type.mcp">
+            <it><![CDATA[MCP]]></it>
+        </locale>
         <locale name="packages.panel.update.history.type.runner">
             <it><![CDATA[Runner]]></it>
         </locale>
