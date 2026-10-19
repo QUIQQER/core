@@ -23,13 +23,9 @@ abstract class AbstractForwardingTool extends AbstractTool
 
     protected static function normalizeSource(string $source): string
     {
-        $source = trim($source);
+        Forwarding::validateSource($source);
 
-        if ($source === '') {
-            throw new QUI\Exception('A forwarding source must not be empty.');
-        }
-
-        return $source;
+        return trim($source);
     }
 
     protected static function normalizeTarget(string $target): string
@@ -70,7 +66,7 @@ abstract class AbstractForwardingTool extends AbstractTool
      */
     protected static function getForwardingOrFail(string $source): array
     {
-        $forwardings = Forwarding::getList()->toArray();
+        $forwardings = Forwarding::getList(true)->toArray();
 
         if (!isset($forwardings[$source]) || !is_array($forwardings[$source])) {
             throw new QUI\Exception('Forwarding not found: ' . $source, 404);
@@ -112,7 +108,8 @@ abstract class AbstractForwardingTool extends AbstractTool
             'source' => [
                 'type' => 'string',
                 'minLength' => 1,
-                'description' => 'Exact URL or QUIQQER StringHelper match pattern to redirect.'
+                'description' => 'URL or QUIQQER StringHelper pattern with * or ? wildcards. '
+                    . 'Square brackets, control characters and invalid INI section names are not supported.'
             ],
             'target' => [
                 'type' => 'string',

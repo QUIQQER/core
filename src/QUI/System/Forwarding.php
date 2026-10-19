@@ -4,12 +4,13 @@ namespace QUI\System;
 
 use DusanKasan\Knapsack\Collection;
 use QUI;
+use QUI\Config;
+use QUI\Lock\Locker;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use function debug_backtrace;
 use function file_exists;
-use function file_put_contents;
 use function is_array;
 use function trim;
 
@@ -20,6 +21,8 @@ use const DEBUG_BACKTRACE_IGNORE_ARGS;
  */
 class Forwarding
 {
+    private const CONFIG_KEY = 'etc/forwarding.ini.php';
+
     /**
      * Create a forwarding entry
      *
@@ -27,20 +30,20 @@ class Forwarding
      */
     public static function create(string $from, string $target, int|string $httpCode = 301): void
     {
-        $config = self::getConfig()->toArray();
-
-        if (isset($config[$from])) {
-            throw new QUI\Exception([
-                'quiqqer/core',
-                'exception.forwarding.already.exists'
-            ]);
-        }
-
+        self::validateSource($from);
         $httpCode = self::normalizeHttpCode($httpCode);
 
-        self::getConfig()->setValue($from, 'target', $target);
-        self::getConfig()->setValue($from, 'code', $httpCode);
-        self::getConfig()->save();
+        self::changeConfig(static function (Config $Config) use ($from, $target, $httpCode): void {
+            if ($Config->existValue($from)) {
+                throw new QUI\Exception([
+                    'quiqqer/core',
+                    'exception.forwarding.already.exists'
+                ]);
+            }
+
+            $Config->setValue($from, 'target', $target);
+            $Config->setValue($from, 'code', $httpCode);
+        });
     }
 
     /**
@@ -50,11 +53,13 @@ class Forwarding
      */
     public static function getConfig(): QUI\Config
     {
-        if (!file_exists(CMS_DIR . 'etc/forwarding.ini.php')) {
-            file_put_contents(CMS_DIR . 'etc/forwarding.ini.php', '');
+        $filename = CMS_DIR . self::CONFIG_KEY;
+
+        if (!isset(QUI::$Configs[self::CONFIG_KEY]) && !file_exists($filename) && !@touch($filename)) {
+            throw new QUI\Exception('Could not create the forwarding configuration.');
         }
 
-        return QUI::getConfig('etc/forwarding.ini.php');
+        return QUI::getConfig(self::CONFIG_KEY);
     }
 
     /**
@@ -64,23 +69,23 @@ class Forwarding
      */
     public static function update(string $from, string $target, int|string $httpCode = 301): void
     {
-        $config = self::getConfig()->toArray();
-
-        if (!isset($config[$from])) {
-            throw new QUI\Exception(
-                [
-                    'quiqqer/core',
-                    'exception.forwarding.not.found'
-                ],
-                404
-            );
-        }
-
+        self::validateSource($from);
         $httpCode = self::normalizeHttpCode($httpCode);
 
-        self::getConfig()->setValue($from, 'target', $target);
-        self::getConfig()->setValue($from, 'code', $httpCode);
-        self::getConfig()->save();
+        self::changeConfig(static function (Config $Config) use ($from, $target, $httpCode): void {
+            if (!$Config->existValue($from)) {
+                throw new QUI\Exception(
+                    [
+                        'quiqqer/core',
+                        'exception.forwarding.not.found'
+                    ],
+                    404
+                );
+            }
+
+            $Config->setValue($from, 'target', $target);
+            $Config->setValue($from, 'code', $httpCode);
+        });
     }
 
     /**
@@ -92,29 +97,126 @@ class Forwarding
      */
     public static function delete(array|string $from): void
     {
-        if (is_array($from)) {
-            foreach ($from as $f) {
-                self::getConfig()->del($f);
+        self::changeConfig(static function (Config $Config) use ($from): void {
+            foreach (is_array($from) ? $from : [$from] as $source) {
+                $Config->del($source);
             }
-        } else {
-            self::getConfig()->del($from);
-        }
-
-        self::getConfig()->save();
+        });
     }
 
     /**
      * Return the list
      */
-    public static function getList(): Collection
+    public static function getList(bool $strict = false): Collection
     {
         try {
-            return new Collection(self::getConfig()->toArray());
+            $Config = self::getConfig();
+
+            if ($strict) {
+                $Config = new Config($Config->getFilename());
+            }
+
+            return new Collection($Config->toArray());
         } catch (QUI\Exception $Exception) {
+            if ($strict) {
+                throw $Exception;
+            }
+
             Log::writeException($Exception);
         }
 
         return new Collection([]);
+    }
+
+    /** Reject sources that cannot round-trip as an INI section name. */
+    public static function validateSource(string $source): void
+    {
+        $valid = trim($source) !== '' && !preg_match('/[\x00-\x1f\x7f\[\]]/', $source);
+        $parsed = $valid ? @parse_ini_string('[' . $source . "]\nvalue=\"test\"\n", true) : false;
+
+        if ($parsed !== [$source => ['value' => 'test']]) {
+            throw new QUI\Exception(
+                'The forwarding source cannot be stored safely. '
+                . 'Square brackets, control characters and invalid INI section names are not supported.',
+                400
+            );
+        }
+    }
+
+    /** @param callable(Config): void $Change */
+    private static function changeConfig(callable $Change): void
+    {
+        $filename = self::getConfig()->getFilename();
+
+        Locker::synchronized('forwarding-config:' . $filename, static function () use ($filename, $Change): void {
+            // Reload under the lock so a cached request cannot overwrite another writer's rules.
+            $Config = new Config($filename);
+            $Change($Config);
+            self::saveConfig($Config);
+            QUI::$Configs[self::CONFIG_KEY] = $Config;
+        });
+    }
+
+    /** Serialize and verify off-file before publishing the complete configuration. */
+    private static function saveConfig(Config $Config): void
+    {
+        $filename = realpath($Config->getFilename());
+
+        if ($filename === false || !is_writable($filename) || !is_writable(dirname($filename))) {
+            throw new QUI\Exception('The forwarding configuration is not writable.');
+        }
+
+        $expected = [];
+
+        foreach ($Config->toArray() as $source => $data) {
+            if (!is_array($data)) {
+                throw new QUI\Exception('Invalid forwarding configuration section.');
+            }
+
+            $expected[$source] = [];
+
+            foreach ($data as $key => $value) {
+                if (!is_scalar($value)) {
+                    throw new QUI\Exception('Invalid forwarding configuration value.');
+                }
+
+                $expected[$source][$key] = (string)$value;
+            }
+        }
+
+        $temporary = @tempnam(dirname($filename), '.forwarding-');
+
+        if ($temporary === false) {
+            throw new QUI\Exception('Could not create a temporary forwarding configuration.');
+        }
+
+        try {
+            if (dirname($temporary) !== dirname($filename)) {
+                throw new QUI\Exception('The temporary forwarding configuration must be on the same filesystem.');
+            }
+
+            $Config->save($temporary);
+            $contents = file_get_contents($temporary);
+            $Persisted = new Config($temporary);
+
+            if (
+                $contents === false
+                || !str_starts_with($contents, ";<?php exit; ?>\n")
+                || $Persisted->toArray() !== $expected
+            ) {
+                throw new QUI\Exception('The forwarding configuration could not be serialized without data loss.');
+            }
+
+            $permissions = fileperms($filename);
+
+            if ($permissions === false || !@chmod($temporary, $permissions & 0777) || !@rename($temporary, $filename)) {
+                throw new QUI\Exception('Could not replace the forwarding configuration.');
+            }
+        } finally {
+            if (is_file($temporary)) {
+                unlink($temporary);
+            }
+        }
     }
 
     /**
