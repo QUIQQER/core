@@ -8,6 +8,7 @@ namespace QUI\MCP\Project\Sites;
 
 use Mcp\Schema\Result\CallToolResult;
 use Mcp\Server\Builder;
+use QUI\AI\MCP\Server;
 use QUI\AI\MCP\ToolHelper;
 use QUI\MCP\AbstractTool;
 use Throwable;
@@ -27,7 +28,7 @@ class MoveSite extends AbstractTool
                     self::checkCorePermission();
 
                     $Site = self::getEditSite($project, $id, $lang);
-                    $Site->move($newParentId);
+                    $Site->move($newParentId, Server::getRequestUser());
 
                     return [
                         'moved' => true,

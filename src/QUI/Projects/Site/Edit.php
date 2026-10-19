@@ -654,18 +654,23 @@ class Edit extends Site
      * Move the site to another parent
      *
      * @param integer $pid - Parent ID
+     * @param QUI\Interfaces\Users\User|null $User - Defaults to the session user
      *
      * @throws QUI\Exception
      * @throws QUI\Permissions\Exception
      */
-    public function move(int $pid): void
+    public function move(int $pid, ?QUI\Interfaces\Users\User $User = null): void
     {
-        $this->checkPermission('quiqqer.projects.site.edit');
+        if ($User === null) {
+            $User = QUI::getUserBySession();
+        }
+
+        $this->checkPermission('quiqqer.projects.site.edit', $User);
         $this->assertNotDeleted();
 
         $Project = $this->getProject();
         $Parent = new self($Project, $pid);
-        $Parent->checkPermission('quiqqer.projects.site.new');
+        $Parent->checkPermission('quiqqer.projects.site.new', $User);
         $Parent->assertNotDeleted();
         $children = $this->getChildrenIds(['active' => '0&1']);
 
@@ -678,51 +683,60 @@ class Edit extends Site
         }
 
 
-        QUI::getEvents()->fireEvent('siteMoveBefore', [$this, $this->getParentId()]);
+        Locker::editing()->run(
+            'site:' . $this->getLockKey(),
+            (string)$User->getUUID(),
+            null,
+            function () use ($Parent, $pid, $User): void {
+                QUI::getEvents()->fireEvent('siteMoveBefore', [$this, $this->getParentId()]);
 
-        // get new order_field if manually sorting
-        if (
-            $Parent->getAttribute('order_type') === ''
-            || $Parent->getAttribute('order_type') === 'manuell'
-            || $Parent->getAttribute('order_type') === 'manual'
-            || !$Parent->getAttribute('order_type')
-        ) {
-            $LastChild = $Parent->lastChild(['active' => '0&1']);
+                // Only manually sorted destinations need a new position.
+                if (
+                    $Parent->getAttribute('order_type') === ''
+                    || $Parent->getAttribute('order_type') === 'manuell'
+                    || $Parent->getAttribute('order_type') === 'manual'
+                    || !$Parent->getAttribute('order_type')
+                ) {
+                    $children = $Parent->getChildren([
+                        'active' => '0&1',
+                        'order' => 'order_field DESC',
+                        'limit' => 1
+                    ]);
+                    $LastChild = is_array($children) ? ($children[0] ?? null) : null;
 
-            if (!$LastChild) {
-                $this->setAttribute('order_field', 1);
-            } else {
-                $this->setAttribute(
-                    'order_field',
-                    (int)$LastChild->getAttribute('order_field') + 1
-                );
+                    if (!$LastChild) {
+                        $this->setAttribute('order_field', 1);
+                    } else {
+                        $this->setAttribute(
+                            'order_field',
+                            (int)$LastChild->getAttribute('order_field') + 1
+                        );
+                    }
+                }
+
+                $this->save($User);
+
+                $Connection = QUI::getDataBaseConnection();
+                $Platform = $Connection->getDatabasePlatform();
+                $Connection->createQueryBuilder()
+                    ->update($Platform->quoteSingleIdentifier($this->RELTABLE))
+                    ->set($Platform->quoteSingleIdentifier('parent'), ':parent')
+                    ->where($Platform->quoteSingleIdentifier('child') . ' = :child')
+                    ->andWhere($Platform->quoteSingleIdentifier('oparent') . ' IS NULL')
+                    ->setParameter('parent', $Parent->getId())
+                    ->setParameter('child', $this->getId())
+                    ->executeStatement();
+
+                $this->deleteCache();
+
+                // Remove internal parent IDs after changing the relation.
+                $this->parents_id = null;
+                $this->parent_id = null;
+
+                $this->Events->fireEvent('move', [$this, $pid]);
+                QUI::getEvents()->fireEvent('siteMove', [$this, $pid]);
             }
-
-            $this->save();
-        }
-
-
-        $Connection = QUI::getDataBaseConnection();
-        $Platform = $Connection->getDatabasePlatform();
-        $Connection->createQueryBuilder()
-            ->update($Platform->quoteSingleIdentifier($this->RELTABLE))
-            ->set($Platform->quoteSingleIdentifier("parent"), ":parent")
-            ->where($Platform->quoteSingleIdentifier("child") . " = :child")
-            ->andWhere($Platform->quoteSingleIdentifier("oparent") . " IS NULL")
-            ->setParameter("parent", $Parent->getId())
-            ->setParameter("child", $this->getId())
-            ->executeStatement();
-
-        //$this->deleteTemp();
-        $this->deleteCache();
-
-        // remove internal parent ids
-        $this->parents_id = null;
-        $this->parent_id = null;
-
-
-        $this->Events->fireEvent('move', [$this, $pid]);
-        QUI::getEvents()->fireEvent('siteMove', [$this, $pid]);
+        );
     }
 
     /**

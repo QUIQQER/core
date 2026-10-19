@@ -13,6 +13,17 @@ use Symfony\Component\Process\Process;
 
 try {
     switch ($argv[1]) {
+        case 'wait':
+        case 'wait-hold':
+            MaintenanceLock::runWhenAvailable(static function () use ($argv): void {
+                if ($argv[1] === 'wait-hold') {
+                    echo 'ready' . PHP_EOL;
+                    fgets(STDIN);
+                } else {
+                    echo 'entered';
+                }
+            }, timeout: (float)$argv[4]);
+            break;
         case 'legacy-runner':
             // An updater loaded before the upgrade owns only run.lock, without a maintenance token.
             $Repository = new RunRepository(VAR_DIR . 'update/runs/');
@@ -71,7 +82,15 @@ try {
         case 'hold':
             MaintenanceLock::run(static function (): void {
                 echo 'ready' . PHP_EOL;
-                fgets(STDIN);
+
+                if (trim((string)fgets(STDIN)) === 'child') {
+                    $Child = new Process(
+                        [PHP_BINARY, __FILE__, 'probe', CMS_DIR, VAR_DIR],
+                        timeout: 30
+                    );
+                    $Child->mustRun();
+                    echo $Child->getOutput();
+                }
             });
             break;
         case 'setup':
