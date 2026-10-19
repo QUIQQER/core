@@ -142,6 +142,42 @@ class ProjectSiteDbalTest extends ProjectIntegrationTestCase
         $this->assertGreaterThan(strtotime($historicDate), strtotime($editDate));
     }
 
+    public function testSaveEventsReceiveExplicitUserInsteadOfAnonymousSessionUser(): void
+    {
+        $Project = self::getTestProject();
+        $Root = $Project->firstChild()->getEdit();
+        $siteId = $Root->createChild(['name' => 'phpunit-save-user-' . uniqid()]);
+        $Site = new Site\Edit($Project, $siteId);
+        $SaveUser = QUI::getUsers()->getSystemUser();
+        $Nobody = QUI::getUsers()->getNobody();
+        $localUsers = [];
+        $globalUsers = [];
+        $localListener = static function ($SavedSite, $User = null) use (&$localUsers): void {
+            $localUsers[] = $User;
+        };
+        $globalListener = static function ($SavedSite, $User = null) use ($siteId, &$globalUsers): void {
+            if ($SavedSite->getId() === $siteId) {
+                $globalUsers[] = $User;
+            }
+        };
+        $Site->Events->addEvent('onSave', $localListener);
+        QUI::getEvents()->addEvent('onSiteSave', $globalListener);
+
+        try {
+            QUI::getUsers()->withSessionUser($Nobody, static function () use ($Site, $SaveUser): void {
+                $Site->setAttribute('title', 'Saved with an explicit user');
+                $Site->save($SaveUser);
+            });
+
+            self::assertSame([$SaveUser], $localUsers);
+            self::assertSame([$SaveUser], $globalUsers);
+        } finally {
+            $Site->Events->removeEvent('onSave', $localListener);
+            QUI::getEvents()->removeEvent('onSiteSave', $globalListener);
+            $Site->delete($SaveUser);
+        }
+    }
+
     public function testProjectSitesIdsCanFilterCountAndLimitCreatedSite(): void
     {
         $Project = self::getTestProject();
