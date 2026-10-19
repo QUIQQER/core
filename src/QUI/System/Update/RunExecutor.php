@@ -17,7 +17,7 @@ class RunExecutor
 
     public function execute(string $id, string $token, ?int $now = null): RunState
     {
-        return \QUI\System\MaintenanceLock::run(
+        return \QUI\System\MaintenanceLock::runWhenAvailable(
             fn(): RunState => $this->executeLocked($id, $token, $now),
             $id
         );

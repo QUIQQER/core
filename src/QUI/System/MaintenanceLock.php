@@ -2,6 +2,7 @@
 
 namespace QUI\System;
 
+use InvalidArgumentException;
 use QUI\Lock\Locker;
 use QUI\System\Update\RunRepository;
 use QUI\System\Update\RunState;
@@ -30,13 +31,18 @@ final class MaintenanceLock
     /**
      * $runId allows an authorized update runner to continue its own reserved run.
      * Other callers must also respect runs paused between runner processes.
+     * Background work uses the default non-blocking timeout; maintenance uses runWhenAvailable().
      *
      * @template T
      * @param callable(): T $callback
      * @return T
      */
-    public static function run(callable $callback, ?string $runId = null): mixed
+    public static function run(callable $callback, ?string $runId = null, float $timeout = 0.0): mixed
     {
+        if (!is_finite($timeout) || $timeout < 0) {
+            throw new InvalidArgumentException('Maintenance lock timeout must be finite and non-negative.');
+        }
+
         if (self::$current !== null) {
             return $callback();
         }
@@ -47,7 +53,7 @@ final class MaintenanceLock
         $previousEnvironment = $_ENV[self::CONTEXT] ?? null;
 
         try {
-            $Guard->acquire($previous, $runId);
+            $Guard->acquire($previous, $runId, $timeout);
             self::$current = $Guard;
 
             return $callback();
@@ -68,6 +74,20 @@ final class MaintenanceLock
         }
     }
 
+    /**
+     * Let a running cron job finish while preventing new jobs from overtaking maintenance.
+     * Timeout bounds contention across all guards; reserved update runs still reject unrelated callers.
+     * Nested calls and authorized children join immediately, including while another caller is waiting.
+     *
+     * @template T
+     * @param callable(): T $callback
+     * @return T
+     */
+    public static function runWhenAvailable(callable $callback, ?string $runId = null, float $timeout = 60.0): mixed
+    {
+        return self::run($callback, $runId, $timeout);
+    }
+
     public static function isBusy(): bool
     {
         try {
@@ -77,7 +97,7 @@ final class MaintenanceLock
         }
     }
 
-    private function acquire(string|false $token, ?string $runId): void
+    private function acquire(string|false $token, ?string $runId, float $timeout): void
     {
         $lockDirectory = $this->directory . 'locks/';
 
@@ -88,7 +108,7 @@ final class MaintenanceLock
         $path = $lockDirectory . 'maintenance-children.lock';
 
         if (is_string($token) && $token !== '') {
-            $handle = @fopen($path, 'r');
+            $handle = @fopen($path, 're');
 
             if ($handle === false) {
                 throw new MaintenanceBusyException();
@@ -106,18 +126,31 @@ final class MaintenanceLock
             return;
         }
 
-        $this->Lock = Locker::createFilesystemLock('system-maintenance', $lockDirectory);
+        // Hold admission only until acquisition completes. A waiting maintenance caller can
+        // reserve admission while the current job finishes, so subsequent cron jobs must skip.
+        $Admission = Locker::createFilesystemLock('system-maintenance-admission', $lockDirectory);
+        $deadline = hrtime(true) / 1e9 + $timeout;
 
-        if (!$this->Lock->acquire()) {
-            throw new MaintenanceBusyException();
+        try {
+            self::acquireUntil(static fn(): bool => $Admission->acquire(), $deadline);
+            $this->acquireOwner($path, $lockDirectory, $runId, $deadline);
+        } finally {
+            $Admission->release();
         }
+    }
 
-        $handle = @fopen($path, 'x+');
+    private function acquireOwner(string $path, string $lockDirectory, ?string $runId, float $deadline): void
+    {
+        $this->Lock = Locker::createFilesystemLock('system-maintenance', $lockDirectory);
+        self::acquireUntil(fn(): bool => $this->Lock->acquire(), $deadline);
+
+        // Only token-authorized children may retain their own guard across process launches.
+        $handle = @fopen($path, 'x+e');
 
         if ($handle !== false) {
             chmod($path, 0666);
         } else {
-            $handle = @fopen($path, 'r+');
+            $handle = @fopen($path, 'r+e');
         }
 
         if ($handle === false) {
@@ -126,9 +159,7 @@ final class MaintenanceLock
 
         $this->handle = $handle;
 
-        if (!flock($handle, LOCK_EX | LOCK_NB)) {
-            throw new MaintenanceBusyException();
-        }
+        self::acquireUntil(static fn(): bool => flock($handle, LOCK_EX | LOCK_NB), $deadline);
 
         $Repository = new RunRepository($this->directory . 'update/runs/');
         $runs = $Repository->cleanupAndFindActive(time(), 86400);
@@ -157,6 +188,24 @@ final class MaintenanceLock
         // Symfony Process reads PHP's environment snapshots as well as getenv().
         $_SERVER[self::CONTEXT] = $token;
         $_ENV[self::CONTEXT] = $token;
+    }
+
+    /** @param callable(): bool $acquire */
+    private static function acquireUntil(callable $acquire, float $deadline): void
+    {
+        while (!$acquire()) {
+            $remaining = $deadline - hrtime(true) / 1e9;
+
+            if ($remaining <= 0) {
+                throw new MaintenanceBusyException();
+            }
+
+            usleep((int)min(50000, ceil($remaining * 1e6)));
+
+            if (hrtime(true) / 1e9 >= $deadline) {
+                throw new MaintenanceBusyException();
+            }
+        }
     }
 
     /**

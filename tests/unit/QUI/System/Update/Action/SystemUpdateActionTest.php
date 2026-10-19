@@ -9,6 +9,58 @@ use RuntimeException;
 
 class SystemUpdateActionTest extends TestCase
 {
+    private string|false $composerHome;
+
+    /** @var array<string, mixed> */
+    private array $server;
+
+    /** @var array<string, mixed> */
+    private array $env;
+
+    protected function setUp(): void
+    {
+        $this->composerHome = getenv('COMPOSER_HOME');
+        $this->server = $_SERVER;
+        $this->env = $_ENV;
+    }
+
+    protected function tearDown(): void
+    {
+        putenv($this->composerHome === false ? 'COMPOSER_HOME' : 'COMPOSER_HOME=' . $this->composerHome);
+        $_SERVER = $this->server;
+        $_ENV = $this->env;
+    }
+
+    public function testComposerEnvironmentIsPreparedBeforeUpdateAndCompletion(): void
+    {
+        foreach ([false, true] as $complete) {
+            putenv('COMPOSER_HOME');
+            unset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME']);
+            $Update = $this->createMock(Update::class);
+            $Update->method('executeSystemUpdate')->willReturn(true);
+            $Update->method('completeSystemUpdate')->willReturn(true);
+            $state = $this->state();
+            $state->setMetadataValue('systemUpdateCompletion', [
+                'backupFolder' => '/tmp/quiqqer-etc-backup',
+                'finalizePackages' => true
+            ]);
+            $Action = $this->getMockBuilder(SystemUpdateAction::class)
+                ->setConstructorArgs([$complete])
+                ->onlyMethods(['createUpdate'])
+                ->getMock();
+            $Action->expects($this->once())->method('createUpdate')->willReturnCallback(function () use ($Update): Update {
+                $directory = VAR_DIR . 'composer/';
+                $this->assertFalse(getenv('COMPOSER_HOME'));
+                $this->assertSame($directory, $_SERVER['COMPOSER_HOME']);
+                $this->assertSame($directory, $_ENV['COMPOSER_HOME']);
+
+                return $Update;
+            });
+
+            $this->assertTrue($Action->execute($state)->isFinished());
+        }
+    }
+
     public function testPackageUpdateDefersCompletionAndPersistsItsArguments(): void
     {
         $completion = ['backupFolder' => '/tmp/quiqqer-etc-backup', 'finalizePackages' => true];

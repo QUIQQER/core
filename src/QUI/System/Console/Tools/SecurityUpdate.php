@@ -40,7 +40,7 @@ class SecurityUpdate extends QUI\System\Console\Tool
      */
     public function executeSecurityUpdate(): bool
     {
-        return QUI\System\MaintenanceLock::run(fn(): bool => $this->runSecurityUpdate());
+        return QUI\System\MaintenanceLock::runWhenAvailable(fn(): bool => $this->runSecurityUpdate());
     }
 
     private function runSecurityUpdate(): bool

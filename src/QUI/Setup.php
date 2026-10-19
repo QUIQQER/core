@@ -35,7 +35,7 @@ class Setup
      */
     public static function all(?QUI\Interfaces\System\SystemOutput $Output = null): void
     {
-        System\MaintenanceLock::run(static function () use ($Output): void {
+        System\MaintenanceLock::runWhenAvailable(static function () use ($Output): void {
             self::executeAll($Output);
         });
     }

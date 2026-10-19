@@ -9,6 +9,7 @@ use QUI\System\Update\RunState;
 use RuntimeException;
 
 use const PHP_EOL;
+use const VAR_DIR;
 
 class SystemUpdateAction implements RunActionInterface
 {
@@ -18,6 +19,23 @@ class SystemUpdateAction implements RunActionInterface
 
     public function execute(RunState $state): RunActionResult
     {
+        $composerHome = VAR_DIR . 'composer/';
+
+        if (
+            !is_dir($composerHome)
+            || !is_writable($composerHome)
+        ) {
+            throw new RuntimeException(
+                'Cannot prepare COMPOSER_HOME for the update: '
+                . $composerHome
+                . ' must be an existing directory writable by the update process.'
+            );
+        }
+
+        // Composer reads these directly; Symfony Process passes $_ENV to subprocesses.
+        $_SERVER['COMPOSER_HOME'] = $composerHome;
+        $_ENV['COMPOSER_HOME'] = $composerHome;
+
         $Update = $this->createUpdate();
         $Update->setUpdateOutputSectionOffset($this->complete ? 4 : 2);
         $Output = $this->createCliOutput();

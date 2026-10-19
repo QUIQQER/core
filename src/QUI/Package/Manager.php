@@ -419,7 +419,7 @@ class Manager extends QUI\QDOM
      */
     protected function createComposerJSON(array $packages = []): void
     {
-        QUI\System\MaintenanceLock::run(function () use ($packages): void {
+        QUI\System\MaintenanceLock::runWhenAvailable(function () use ($packages): void {
             $this->writeComposerJSON($packages);
         });
     }
@@ -1233,7 +1233,7 @@ class Manager extends QUI\QDOM
      */
     public function install(array | string $packages, bool | string $version = false): void
     {
-        QUI\System\MaintenanceLock::run(function () use ($packages, $version): void {
+        QUI\System\MaintenanceLock::runWhenAvailable(function () use ($packages, $version): void {
             $this->installPackages($packages, $version);
         });
     }
@@ -1356,7 +1356,7 @@ class Manager extends QUI\QDOM
         array | string $packages,
         int | float | bool $version = false
     ): void {
-        QUI\System\MaintenanceLock::run(function () use ($packages, $version): void {
+        QUI\System\MaintenanceLock::runWhenAvailable(function () use ($packages, $version): void {
             $this->installLocalPackages($packages, $version);
         });
     }
@@ -2001,7 +2001,7 @@ class Manager extends QUI\QDOM
         ?QUI\Interfaces\System\SystemOutput $Output = null,
         bool $finalize = true
     ): void {
-        QUI\System\MaintenanceLock::run(function () use ($package, $mute, $Output, $finalize): void {
+        QUI\System\MaintenanceLock::runWhenAvailable(function () use ($package, $mute, $Output, $finalize): void {
             $this->updatePackages($package, $mute, $Output, $finalize);
         });
     }

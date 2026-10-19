@@ -25,7 +25,7 @@ final class MoveSite extends SiteEndpoint
         $Site = self::site($arguments, 'edit');
         $body = Input::body($Request, ['parentId' => 'integer'], ['parentId']);
         $Parent = self::site($arguments, 'new', self::siteId($body['parentId']));
-        $Site->move($Parent->getId());
+        $Site->move($Parent->getId(), $User);
         return JsonResponse::write($Response, ['data' => self::siteData($Site)]);
     }
 }
