@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace QUI\Projects;
 
+use Mcp\Schema\Result\CallToolResult;
+use Mcp\Server\Builder;
+use PHPUnit\Framework\Attributes\DataProvider;
 use QUI;
+use QUI\AI\MCP\Server;
 use QUI\Ajax;
 use QUI\Interfaces\Users\User as UserInterface;
+use QUI\Lock\Locker;
+use QUI\MCP\Project\Sites\MoveSite;
 use QUI\Permissions\Manager as PermissionManager;
 use QUI\Permissions\Permission;
 use QUI\Projects\Site\Edit;
@@ -112,8 +118,18 @@ final class SiteMoveAuthorizationTest extends ProjectAuthorizationTestCase
         self::assertSame($this->originalParentId, $this->getSourceParentId());
     }
 
-    public function testMoveAllowsAuthorizedDestination(): void
+    public static function sortingModes(): array
     {
+        return [
+            'manual sorting' => ['manual'],
+            'automatic sorting' => ['name ASC']
+        ];
+    }
+
+    #[DataProvider('sortingModes')]
+    public function testMoveAllowsAuthorizedDestination(string $sorting): void
+    {
+        $this->setTargetSorting($sorting);
         $this->setMovePermissions(true, true);
         $this->setActor($this->User);
 
@@ -121,6 +137,134 @@ final class SiteMoveAuthorizationTest extends ProjectAuthorizationTestCase
 
         self::assertArrayNotHasKey('Exception', $response, json_encode($response) ?: '');
         self::assertSame($this->targetId, $this->getSourceParentId());
+        self::assertSame($this->User->getUUID(), $this->sourceRecord()['e_user']);
+    }
+
+    #[DataProvider('sortingModes')]
+    public function testMcpMovePreservesContentsAndUsesRequestUser(string $sorting): void
+    {
+        $this->setTargetSorting($sorting);
+        $this->setMovePermissions(true, true);
+        $before = $this->sourceRecord();
+        $languageLinks = (new Edit($this->Project, $this->sourceId))->getLangIds();
+        self::assertSame($this->sourceId, $languageLinks[$this->Project->getLang()]);
+        $this->setActor(new QUI\Users\Nobody());
+
+        $result = $this->requestMcpMove();
+
+        self::assertIsArray($result);
+        self::assertTrue($result['moved']);
+        self::assertSame($this->sourceId, $result['site']['id']);
+        self::assertSame($this->targetId, $this->getSourceParentId());
+        $after = $this->sourceRecord();
+
+        foreach (['id', 'name', 'title', 'short', 'content', 'type', 'layout', 'extra', 'c_user'] as $attribute) {
+            self::assertSame($before[$attribute], $after[$attribute], $attribute);
+        }
+
+        self::assertSame($this->User->getUUID(), $after['e_user']);
+        self::assertSame($sorting === 'manual' ? 8 : (int)$before['order_field'], (int)$after['order_field']);
+        self::assertSame($languageLinks, (new Edit($this->Project, $this->sourceId))->getLangIds());
+        self::assertInstanceOf(QUI\Users\Nobody::class, QUI::getUserBySession());
+    }
+
+    public static function deniedMovePermissions(): array
+    {
+        return [
+            'manual source denied' => ['manual', false, true],
+            'manual target denied' => ['manual', true, false],
+            'automatic source denied' => ['name ASC', false, true],
+            'automatic target denied' => ['name ASC', true, false]
+        ];
+    }
+
+    #[DataProvider('deniedMovePermissions')]
+    public function testMcpMoveRejectsMissingRequestUserPermissions(
+        string $sorting,
+        bool $allowSource,
+        bool $allowTarget
+    ): void {
+        $this->setTargetSorting($sorting);
+        $this->setMovePermissions($allowSource, $allowTarget);
+        $before = $this->sourceRecord();
+        $this->setActor($this->Root);
+
+        $result = $this->requestMcpMove();
+
+        self::assertInstanceOf(CallToolResult::class, $result);
+        self::assertSame($this->originalParentId, $this->getSourceParentId());
+        self::assertSame($before, $this->sourceRecord());
+    }
+
+    #[DataProvider('deniedMovePermissions')]
+    public function testExplicitMoveUserOverridesPrivilegedPermissionContext(
+        string $sorting,
+        bool $allowSource,
+        bool $allowTarget
+    ): void {
+        $this->setTargetSorting($sorting);
+        $this->setMovePermissions($allowSource, $allowTarget);
+        $this->setActor($this->Root);
+        $before = $this->sourceRecord();
+
+        try {
+            (new Edit($this->Project, $this->sourceId))->move($this->targetId, $this->User);
+            self::fail('The explicit move user must have both source and target permissions.');
+        } catch (QUI\Permissions\Exception) {
+        }
+
+        self::assertSame($this->originalParentId, $this->getSourceParentId());
+        self::assertSame($before, $this->sourceRecord());
+    }
+
+    #[DataProvider('sortingModes')]
+    public function testMcpMoveRespectsAnotherUsersEditingLock(string $sorting): void
+    {
+        $this->setTargetSorting($sorting);
+        $this->setMovePermissions(true, true);
+        $this->setActor($this->Root);
+        $resource = 'site:' . $this->Project->getName() . '_de_' . $this->sourceId;
+        $owner = (string)$this->Root->getUUID();
+        $token = bin2hex(random_bytes(32));
+        $Locks = Locker::editing();
+        self::assertTrue($Locks->acquire($resource, $owner, $token));
+        $before = $this->sourceRecord();
+
+        try {
+            $result = $this->requestMcpMove();
+
+            self::assertInstanceOf(CallToolResult::class, $result);
+            self::assertSame($this->originalParentId, $this->getSourceParentId());
+            self::assertSame($before, $this->sourceRecord());
+            self::assertTrue($Locks->refresh($resource, $owner, $token));
+        } finally {
+            $Locks->release($resource, $owner, $token);
+        }
+    }
+
+    #[DataProvider('sortingModes')]
+    public function testMcpMoveAcceptsRequestUsersEditingLock(string $sorting): void
+    {
+        $this->setTargetSorting($sorting);
+        $this->setMovePermissions(true, true);
+        $this->setActor(new QUI\Users\Nobody());
+        $resource = 'site:' . $this->Project->getName() . '_de_' . $this->sourceId;
+        $owner = (string)$this->User->getUUID();
+        $token = bin2hex(random_bytes(32));
+        $Locks = Locker::editing();
+        self::assertTrue($Locks->acquire($resource, $owner, $token));
+
+        try {
+            $result = $this->requestMcpMove();
+
+            self::assertIsArray($result);
+            self::assertTrue($result['moved']);
+            self::assertSame($this->targetId, $this->getSourceParentId());
+            self::assertSame($owner, $this->sourceRecord()['e_user']);
+            self::assertTrue($Locks->refresh($resource, $owner, $token));
+        } finally {
+            $Locks->release($resource, $owner, $token);
+        }
     }
 
     public function testUrlRefreshRejectsMissingViewPermission(): void
@@ -159,6 +303,44 @@ final class SiteMoveAuthorizationTest extends ProjectAuthorizationTestCase
         ]);
     }
 
+    private function requestMcpMove(): array|CallToolResult
+    {
+        (new ReflectionProperty(Server::class, 'RequestUser'))->setValue(null, $this->User);
+        $Builder = new Builder();
+        (new MoveSite())->register($Builder);
+        $tools = (new ReflectionProperty(Builder::class, 'tools'))->getValue($Builder);
+        $Handler = $tools[0]['handler'] ?? $tools[0]['callback'] ?? null;
+        self::assertIsCallable($Handler);
+
+        return $Handler(
+            $this->Project->getName(),
+            $this->sourceId,
+            $this->targetId,
+            $this->Project->getLang()
+        );
+    }
+
+    private function setTargetSorting(string $sorting): void
+    {
+        ProjectTestHelper::runAsSystemUser(function () use ($sorting): void {
+            $Target = new Edit($this->Project, $this->targetId);
+            $Target->setAttribute('order_type', $sorting);
+            $Target->save();
+        });
+    }
+
+    /** @return array<string, mixed> */
+    private function sourceRecord(): array
+    {
+        return QUI::getDataBaseConnection()->createQueryBuilder()
+            ->select('*')
+            ->from(QUI\Utils\Doctrine::quoteIdentifier($this->Project->table()))
+            ->where('id = :id')
+            ->setParameter('id', $this->sourceId)
+            ->executeQuery()
+            ->fetchAssociative();
+    }
+
     private function createBackendUser(): User
     {
         $username = self::TEST_PREFIX . bin2hex(random_bytes(5));
@@ -172,6 +354,7 @@ final class SiteMoveAuthorizationTest extends ProjectAuthorizationTestCase
 
         QUI::getPermissionManager()->setPermissions($User, [
             'quiqqer.admin' => true,
+            'quiqqer.core.mcp.canUse' => true,
             'quiqqer.projects.sites.view' => true,
             'quiqqer.projects.sites.edit' => true,
             'quiqqer.projects.sites.new' => true
@@ -189,12 +372,28 @@ final class SiteMoveAuthorizationTest extends ProjectAuthorizationTestCase
             $this->originalParentId = $RootSite->getId();
             $this->sourceId = $RootSite->createChild([
                 'name' => self::TEST_PREFIX . 'source-' . bin2hex(random_bytes(5)),
-                'title' => 'Site move authorization source'
+                'title' => 'Site move authorization source',
+                'short' => 'Site move short text',
+                'content' => '<p>Site move content</p>'
             ]);
+            $Source = new Edit($this->Project, $this->sourceId);
+            $Source->setAttribute('type', 'standard');
+            $Source->save();
+            QUI::getDataBaseConnection()->insert(
+                QUI\Utils\Doctrine::quoteIdentifier(QUI::getDBTableName($this->Project->getName() . '_multilingual')),
+                [$this->Project->getLang() => $this->sourceId]
+            );
             $this->targetId = $RootSite->createChild([
                 'name' => self::TEST_PREFIX . 'target-' . bin2hex(random_bytes(5)),
                 'title' => 'Site move authorization target'
             ]);
+            $Target = new Edit($this->Project, $this->targetId);
+            $lastChildId = $Target->createChild([
+                'name' => self::TEST_PREFIX . 'last-child-' . bin2hex(random_bytes(5))
+            ]);
+            $LastChild = new Edit($this->Project, $lastChildId);
+            $LastChild->setAttribute('order_field', 7);
+            $LastChild->save();
         });
     }
 
@@ -229,6 +428,13 @@ final class SiteMoveAuthorizationTest extends ProjectAuthorizationTestCase
         }
 
         ProjectTestHelper::runAsSystemUser(function (): void {
+            if (isset($this->sourceId)) {
+                QUI::getDataBaseConnection()->delete(
+                    QUI\Utils\Doctrine::quoteIdentifier(QUI::getDBTableName($this->Project->getName() . '_multilingual')),
+                    [$this->Project->getLang() => $this->sourceId]
+                );
+            }
+
             foreach ([$this->sourceId ?? null, $this->targetId ?? null] as $siteId) {
                 if ($siteId === null) {
                     continue;
