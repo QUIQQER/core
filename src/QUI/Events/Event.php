@@ -276,7 +276,8 @@ class Event implements QUI\Interfaces\Events
                         'line' => $Exception->getLine(),
                         'event' => $event,
                         'fn' => is_string($fn) ? $fn : ''
-                    ]
+                    ],
+                    $Exception
                 );
 
                 $Stack->addException($Clone);

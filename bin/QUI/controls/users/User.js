@@ -1391,43 +1391,20 @@ define('controls/users/User', [
         /**
          * Edit an address
          *
-         * @param {Number} addressId - ID of the address
+         * @param {Number|String} addressId - ID of the address
          */
         editAddress: function (addressId) {
-            const self = this,
-                Sheet = this.createSheet({
-                    title: QUILocale.get(lg, 'users.user.address.edit'),
-                    icon: 'fa fa-edit'
-                });
-
-            Sheet.addEvents({
-                onOpen: function (Sheet) {
-                    require(['controls/users/Address'], function (Address) {
-                        const UserAddress = new Address({
-                            addressId: addressId,
-                            uid: self.getUser().getId(),
-                            events: {
-                                onSaved: function () {
-                                    Sheet.hide();
-                                    self.$AddressGrid.refresh();
-                                }
-                            }
-                        }).inject(Sheet.getContent());
-
-                        Sheet.addButton({
-                            textimage: 'fa fa-save',
-                            text: QUILocale.get(lg, 'save'),
-                            events: {
-                                onClick: function () {
-                                    UserAddress.save();
-                                }
-                            }
-                        });
-                    });
-                }
+            require(['controls/users/address/EditWindow'], (EditWindow) => {
+                new EditWindow({
+                    addressId: addressId,
+                    uid: this.getUser().getId(),
+                    events: {
+                        onSaved: () => {
+                            this.$AddressGrid.refresh();
+                        }
+                    }
+                }).open();
             });
-
-            Sheet.show();
         },
 
         /**

@@ -65,6 +65,8 @@ class Bundler
             }
         }
 
+        QUI::getEvents()->fireEvent('ajaxResult', [&$result]);
+
         try {
             return json_encode($result, JSON_THROW_ON_ERROR);
         } catch (Exception $Exception) {

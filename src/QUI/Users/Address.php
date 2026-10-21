@@ -572,6 +572,7 @@ class Address extends QUI\QDOM
             'street_no' => $cleanupAttributes($this->getAttribute('street_no')),
             'zip' => $cleanupAttributes($this->getAttribute('zip')),
             'city' => $cleanupAttributes($this->getAttribute('city')),
+            'state' => $cleanupAttributes($this->getAttribute('state')),
             'country' => $cleanupAttributes($this->getAttribute('country')),
             'mail' => $mail,
             'phone' => $phone,
@@ -721,6 +722,7 @@ class Address extends QUI\QDOM
         $street_no = $this->getAttribute('street_no');
         $zip = $this->getAttribute('zip');
         $city = $this->getAttribute('city');
+        $state = $this->getAttribute('state');
         $country = $this->getAttribute('country');
 
         // build parts
@@ -748,6 +750,10 @@ class Address extends QUI\QDOM
 
         if (!empty($city)) {
             $part[2][] = $city;
+        }
+
+        if (!empty($state)) {
+            $part[2][] = $state;
         }
 
         if (!empty($country)) {

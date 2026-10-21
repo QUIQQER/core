@@ -40,6 +40,7 @@ abstract class AbstractUserTool extends AbstractTool
         'street_no',
         'zip',
         'city',
+        'state',
         'country',
         'suffix'
     ];

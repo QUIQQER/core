@@ -5,6 +5,7 @@
 {assign var=street_no value=$Address->getAttribute('street_no')}
 {assign var=zip value=$Address->getAttribute('zip')}
 {assign var=city value=$Address->getAttribute('city')}
+{assign var=state value=$Address->getAttribute('state')}
 {assign var=country value=$Address->getAttribute('country')}
 
 {if empty($firstname) && isset($User)}
@@ -64,6 +65,10 @@
             <span class="postal-code">{$zip}</span>
             <span class="postal-city">{$city}</span>
         </div>
+        {/if}
+
+        {if $state}
+        <div class="region">{$state|escape:'html'}</div>
         {/if}
 
         {if $Address->getAttribute('company') && $Countries->existsCountryCode($Address->getAttribute('company'))}

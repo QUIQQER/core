@@ -279,6 +279,39 @@ class Ajax extends QUI\QDOM
     }
 
     /**
+     * Encode header authentication failures without executing calls or issuing tokens.
+     * Other bootstrap failures retain the normal exception handler.
+     */
+    public function getHeaderExceptionResponse(Exception $Exception, bool $bundled = false): ?string
+    {
+        if ($Exception instanceof ExceptionStack) {
+            foreach ($Exception->getExceptionList() as $Entry) {
+                if ($Entry instanceof Exception && $Entry->getCode() === 401) {
+                    return $this->getHeaderExceptionResponse($Entry, $bundled);
+                }
+            }
+
+            return null;
+        }
+
+        if ($Exception->getCode() !== 401) {
+            return null;
+        }
+
+        while (
+            $Exception->getPrevious() instanceof Exception
+            && $Exception->getPrevious()->getCode() === 401
+        ) {
+            $Exception = $Exception->getPrevious();
+        }
+
+        $result = $this->writeException($Exception);
+        $encoded = json_encode($result, JSON_THROW_ON_ERROR);
+
+        return $bundled ? $encoded : '<quiqqer>' . $encoded . '</quiqqer>';
+    }
+
+    /**
      * Exceptions xml / json return
      *
      * @return array<string, mixed>

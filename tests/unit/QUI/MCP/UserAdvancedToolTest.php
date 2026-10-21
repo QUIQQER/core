@@ -19,6 +19,7 @@ class UserAdvancedToolTest extends TestCase
             'firstname' => 'Ada',
             'street_no' => 'Main Street 1',
             'country' => 'DE',
+            'state' => 'Baden-Württemberg',
             'unknown' => 'ignored',
             'city' => ['invalid']
         ]);
@@ -26,9 +27,22 @@ class UserAdvancedToolTest extends TestCase
         self::assertSame([
             'firstname' => 'Ada',
             'street_no' => 'Main Street 1',
-            'country' => 'DE'
+            'country' => 'DE',
+            'state' => 'Baden-Württemberg'
         ], $result['attributes']);
         self::assertSame(['unknown', 'city'], $result['ignored']);
+    }
+
+    public function testAddressSchemaAndRepresentationIncludeState(): void
+    {
+        $schema = (new ReflectionMethod(AbstractUserTool::class, 'getAddressAttributesSchema'))->invoke(null);
+        self::assertArrayHasKey('state', $schema['properties']);
+        $Address = $this->createMock(QUI\Users\Address::class);
+        $Address->method('getAttribute')->willReturnCallback(static fn (string $name) => $name === 'state' ? 'CA' : '');
+        $User = $this->createMock(QUI\Users\User::class);
+        $User->method('getStandardAddress')->willReturn($Address);
+        $result = (new ReflectionMethod(AbstractUserTool::class, 'parseAddress'))->invoke(null, $User, $Address);
+        self::assertSame('CA', $result['attributes']['state']);
     }
 
     public function testAddressCollectionsAreNormalizedAndDeduplicated(): void

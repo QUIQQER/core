@@ -1550,7 +1550,8 @@ define('controls/projects/project/media/Panel', [
 
             Title.className = 'title';
             Title.setAttribute('data-name', 'title');
-            Title.textContent = Child.name;
+            const extension = Child.type !== 'folder' && Child.extension ? '.' + Child.extension : '';
+            Title.textContent = Child.name + extension;
 
             Elm.appendChild(Title);
         },
@@ -2817,7 +2818,7 @@ define('controls/projects/project/media/Panel', [
             const Title = Node.querySelector('[data-name="title"]');
 
             if (Title) {
-                Title.textContent = itemName;
+                Title.textContent = filename;
             }
 
             const itemId = parseInt(Item.getId()),

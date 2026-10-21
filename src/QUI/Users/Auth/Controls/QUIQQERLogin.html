@@ -2,13 +2,13 @@
 
 <div class="quiqqer-auth-login-container">
     <label>
-        <span>{$usernameText}</span>
-        <input type="text" value="" name="username" autocomplete="username" required/>
+        <span>{$usernameText|escape:'html'}</span>
+        <input type="text" value="" name="username" data-name="username" autocomplete="username" required/>
     </label>
 
     <label>
-        <span>{$passwordText}</span>
-        <input type="password" value="" name="password" autocomplete="current-password" required/>
+        <span>{$passwordText|escape:'html'}</span>
+        <input type="password" value="" name="password" data-name="password" autocomplete="current-password" required/>
     </label>
 
     <input type="hidden" value="1" name="login"/>
@@ -18,7 +18,7 @@
 
     {if $showPasswordReset}
         <div class="quiqqer-auth-login__password-reset">
-            <button class="btn password-reset-btn" data-name="password-reset-link">
+            <button type="button" class="btn password-reset-btn" data-name="password-reset-link">
                 {locale group="quiqqer/core" var="quiqqer.auth.login.password_reset"}
             </button>
         </div>

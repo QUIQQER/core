@@ -88,14 +88,23 @@ class UsersTest extends RestIntegrationTestCase
         $address = $this->data($this->request('POST', $path, [
             'firstName' => 'Delivery',
             'city' => 'Berlin',
+            'state' => 'Berlin',
             'mails' => ['rest@example.invalid'],
             'phones' => [['type' => 'tel', 'no' => '0123456']]
         ]), 201);
         $id = $address['uuid'];
         self::assertSame('Berlin', $address['city']);
+        self::assertSame('Berlin', $address['state']);
         self::assertSame(404, $this->request('GET', '/users/' . $other['uuid'] . '/addresses/' . $id)->getStatusCode());
         $updated = $this->data($this->request('PATCH', $path . '/' . $id, ['city' => 'Cologne']));
         self::assertSame('Cologne', $updated['city']);
+        self::assertSame('Berlin', $updated['state']);
+        $updated = $this->data($this->request('PATCH', $path . '/' . $id, ['state' => 'Nordrhein-Westfalen']));
+        self::assertSame('Nordrhein-Westfalen', $updated['state']);
+        $loaded = $this->data($this->request('GET', $path . '/' . $id));
+        self::assertSame('Nordrhein-Westfalen', $loaded['state']);
+        $cleared = $this->data($this->request('PATCH', $path . '/' . $id, ['state' => '']));
+        self::assertSame('', $cleared['state']);
         self::assertSame(['rest@example.invalid'], $updated['mails']);
         $default = $this->data($this->request('PUT', '/users/' . $owner['uuid'] . '/default-address', ['addressId' => $id]));
         self::assertTrue($default['default']);
