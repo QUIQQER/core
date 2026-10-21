@@ -9,16 +9,6 @@ const QUIQQER_AJAX = true;
 
 require_once $dir . 'header.php';
 
-try {
-    QUI\Permissions\Permission::checkAdminUser(QUI::getUserBySession());
-} catch (QUI\Exception $Exception) {
-    QUI::getGlobalResponse()->setStatusCode($Exception->getCode());
-    QUI::getGlobalResponse()->setContent((string)json_encode($Exception->toArray()));
-    QUI::getGlobalResponse()->send();
-    exit;
-}
-
-
 $body = file_get_contents('php://input');
 $body = json_decode((string)$body, true);
 

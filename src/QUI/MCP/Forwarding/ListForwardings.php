@@ -16,7 +16,7 @@ class ListForwardings extends AbstractForwardingTool
             function (): CallToolResult | array {
                 try {
                     self::checkForwardingPermission();
-                    $config = Forwarding::getList()->toArray();
+                    $config = Forwarding::getList(true)->toArray();
                     $forwardings = [];
                     ksort($config);
 

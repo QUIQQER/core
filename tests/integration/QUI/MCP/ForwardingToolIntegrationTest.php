@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace QUI\MCP;
 
 use Mcp\Server\Builder;
+use Mcp\Schema\Result\CallToolResult;
 use PHPUnit\Framework\TestCase;
 use QUI;
 use QUI\AI\MCP\Server;
@@ -98,11 +99,95 @@ class ForwardingToolIntegrationTest extends TestCase
         });
     }
 
+    public function testUnsafeCreateAndUpdateReturnErrorsWithoutChangingExistingRules(): void
+    {
+        self::skipIfSuperUserIsUnavailable();
+
+        self::runAsRootUser(function (): void {
+            self::invokeTool(new CreateForwarding(), ['/existing', '/original', 302]);
+            $before = file_get_contents($this->configFile);
+
+            foreach ([new CreateForwarding(), new UpdateForwarding()] as $Tool) {
+                $result = self::invokeToolResult($Tool, [
+                    'https://example.test/film-production[?]*',
+                    'https://example.net/film-production-company-names',
+                    301
+                ]);
+                self::assertInstanceOf(CallToolResult::class, $result);
+                self::assertSame($before, file_get_contents($this->configFile));
+            }
+
+            $result = self::invokeToolResult(new UpdateForwarding(), [
+                '/existing',
+                "/target\nwith-line-break",
+                301
+            ]);
+            self::assertInstanceOf(CallToolResult::class, $result);
+            self::assertSame($before, file_get_contents($this->configFile));
+
+            QUI::$Configs[self::CONFIG_KEY] = new Config($this->configFile);
+            $list = self::invokeTool(new ListForwardings(), []);
+            self::assertSame([
+                ['source' => '/existing', 'target' => '/original', 'httpCode' => 302]
+            ], $list['forwardings']);
+        });
+    }
+
+    public function testTargetFragmentSurvivesPersistingAndReloading(): void
+    {
+        self::skipIfSuperUserIsUnavailable();
+
+        self::runAsRootUser(function (): void {
+            $target = 'https://example.net/names?language=en#film';
+            $created = self::invokeTool(new CreateForwarding(), ['https://example.test/film', $target, 301]);
+            self::assertSame($target, $created['forwarding']['target']);
+            QUI::$Configs[self::CONFIG_KEY] = new Config($this->configFile);
+            $stored = self::invokeTool(new GetForwarding(), ['https://example.test/film']);
+            self::assertSame($target, $stored['forwarding']['target']);
+        });
+    }
+
+    public function testCorruptFileIsAnErrorForListingLookupAndMutations(): void
+    {
+        self::skipIfSuperUserIsUnavailable();
+
+        self::runAsRootUser(function (): void {
+            self::invokeTool(new CreateForwarding(), ['/existing', '/original']);
+            $broken = "[broken[?]*]\ntarget=\"/target\"\n";
+            file_put_contents($this->configFile, $broken);
+
+            $calls = [
+                [new ListForwardings(), []],
+                [new GetForwarding(), ['/existing']],
+                [new CreateForwarding(), ['/new', '/target']],
+                [new UpdateForwarding(), ['/existing', '/target']],
+                [new DeleteForwardings(), [['/existing']]]
+            ];
+
+            foreach ($calls as [$Tool, $arguments]) {
+                self::assertInstanceOf(CallToolResult::class, self::invokeToolResult($Tool, $arguments));
+                self::assertSame($broken, file_get_contents($this->configFile));
+            }
+        });
+    }
+
     /**
      * @param array<int, mixed> $arguments
      * @return array<string, mixed>
      */
     private static function invokeTool(ToolInterface $Tool, array $arguments): array
+    {
+        $result = self::invokeToolResult($Tool, $arguments);
+        self::assertIsArray($result);
+
+        return $result;
+    }
+
+    /**
+     * @param array<int, mixed> $arguments
+     * @return array<string, mixed>|CallToolResult
+     */
+    private static function invokeToolResult(ToolInterface $Tool, array $arguments): array|CallToolResult
     {
         $Builder = new Builder();
         $Tool->register($Builder);
@@ -110,11 +195,7 @@ class ForwardingToolIntegrationTest extends TestCase
         $Handler = $tools[0]['handler'] ?? $tools[0]['callback'] ?? null;
 
         self::assertIsCallable($Handler);
-        $result = $Handler(...$arguments);
-
-        self::assertIsArray($result);
-
-        return $result;
+        return $Handler(...$arguments);
     }
 
     private static function skipIfSuperUserIsUnavailable(): void

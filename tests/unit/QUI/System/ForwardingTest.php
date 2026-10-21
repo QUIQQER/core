@@ -14,6 +14,7 @@ use QUI\Config;
 use QUI\Log\Logger;
 use QUI\System\Forwarding;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Process\Process;
 
 class ForwardingTest extends TestCase
 {
@@ -166,6 +167,224 @@ class ForwardingTest extends TestCase
             'target' => '/target',
             'code' => 308
         ], Forwarding::resolve(Request::create('https://example.test/legacy/article')));
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function unsafeSources(): iterable
+    {
+        yield 'reported pattern' => ['https://example.test/film-production[?]*'];
+        yield 'opening bracket' => ['/old['];
+        yield 'closing bracket' => ['/old]'];
+        yield 'semicolon' => ['/old;comment'];
+        yield 'quote' => ['/old"'];
+        yield 'newline injection' => ["/old]\n[injected"];
+        yield 'trailing newline' => ["/old\n"];
+        yield 'carriage return' => ["/old\r"];
+        yield 'null byte' => ["/old\0suffix"];
+        yield 'empty' => [''];
+    }
+
+    #[DataProvider('unsafeSources')]
+    public function testUnsafeCreateAndUpdateLeaveFileAndCachedRulesUnchanged(string $source): void
+    {
+        Forwarding::create('https://example.test/existing', '/original', 302);
+        $before = file_get_contents($this->configFile);
+        $rules = Forwarding::getList()->toArray();
+
+        foreach (['create', 'update'] as $method) {
+            try {
+                Forwarding::$method($source, '/changed');
+                self::fail('An unsafe forwarding source was accepted.');
+            } catch (QUI\Exception $Exception) {
+                self::assertStringContainsString('source', $Exception->getMessage());
+            }
+
+            self::assertSame($before, file_get_contents($this->configFile));
+            self::assertSame($rules, Forwarding::getList()->toArray());
+        }
+    }
+
+    public function testSerializationLossDoesNotChangeFileOrCachedRules(): void
+    {
+        Forwarding::create('https://example.test/existing', '/original', 302);
+        $before = file_get_contents($this->configFile);
+        $rules = Forwarding::getList()->toArray();
+
+        foreach (['create', 'update'] as $method) {
+            $source = $method === 'create' ? '/new' : 'https://example.test/existing';
+
+            try {
+                Forwarding::$method($source, "/target\nwith-line-break");
+                self::fail('A lossy forwarding target was accepted.');
+            } catch (QUI\Exception) {
+                self::assertSame($before, file_get_contents($this->configFile));
+                self::assertSame($rules, Forwarding::getList()->toArray());
+            }
+        }
+    }
+
+    public function testPersistedUrlsIncludingQueryAndFragmentCanBeReadInAnotherProcess(): void
+    {
+        $source = 'https://example.test/old?language=en&mode=1';
+        $target = 'https://example.net/new?value=1&other=2#section';
+        Forwarding::create($source, $target, 308);
+        $Process = new Process([
+            PHP_BINARY,
+            '-r',
+            'require $argv[1]; echo json_encode((new QUI\Config($argv[2]))->toArray(), JSON_THROW_ON_ERROR);',
+            CMS_DIR . 'packages/autoload.php',
+            $this->configFile
+        ]);
+        $Process->mustRun();
+
+        self::assertSame([
+            $source => ['target' => $target, 'code' => '308']
+        ], json_decode($Process->getOutput(), true, flags: JSON_THROW_ON_ERROR));
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function corruptConfigurations(): iterable
+    {
+        yield 'reported pattern' => ["[https://example.test/film-production[?]*]\ntarget=\"/target\"\n"];
+        yield 'trailing section text ignored by PHP 8.2' => ["[https://example.test/old]suffix]\ntarget=\"/target\"\n"];
+        yield 'unterminated section' => ["[broken\ntarget=\"/target\"\n"];
+    }
+
+    public function testStrictReaderAcceptsQuotedSectionsCommentsAndWindowsLineEndings(): void
+    {
+        $contents = ";<?php exit; ?>\r\n"
+            . "; Existing manually configured rule\r\n"
+            . "[\"https://example.test/old?language=en\"] ; section comment\r\n"
+            . "target=\"https://example.net/new#section\"\r\ncode=\"302\"\r\n";
+        file_put_contents($this->configFile, $contents);
+        $expected = [
+            'https://example.test/old?language=en' => [
+                'target' => 'https://example.net/new#section',
+                'code' => '302'
+            ]
+        ];
+
+        self::assertSame($expected, Forwarding::getList(true)->toArray());
+        Forwarding::create('/another', '/target');
+        self::assertSame($expected + [
+            '/another' => ['target' => '/target', 'code' => '301']
+        ], Forwarding::getList(true)->toArray());
+    }
+
+    #[DataProvider('corruptConfigurations')]
+    public function testStrictListingReportsCorruptFileEvenWhenRulesWereCached(string $broken): void
+    {
+        Forwarding::create('/existing', '/original');
+        file_put_contents($this->configFile, $broken);
+
+        $this->expectException(QUI\Exception::class);
+        Forwarding::getList(true);
+    }
+
+    #[DataProvider('corruptConfigurations')]
+    public function testMutationDoesNotOverwriteCorruptFileWithCachedRules(string $broken): void
+    {
+        Forwarding::create('/existing', '/original');
+        file_put_contents($this->configFile, $broken);
+
+        foreach (['create', 'update', 'delete'] as $method) {
+            try {
+                if ($method === 'delete') {
+                    Forwarding::delete('/existing');
+                } else {
+                    Forwarding::$method('/existing', '/changed');
+                }
+
+                self::fail('A corrupt forwarding file was overwritten.');
+            } catch (QUI\Exception) {
+                self::assertSame($broken, file_get_contents($this->configFile));
+            }
+        }
+    }
+
+    public function testMutationKeepsRulesAddedOutsideTheCachedConfig(): void
+    {
+        Forwarding::create('/cached', '/first');
+        $OtherConfig = new Config($this->configFile);
+        $OtherConfig->setSection('/other-request', ['target' => '/second', 'code' => 302]);
+        $OtherConfig->save();
+
+        Forwarding::create('/new', '/third');
+        $persisted = (new Config($this->configFile))->toArray();
+
+        self::assertSame(['/cached', '/other-request', '/new'], array_keys($persisted));
+        self::assertSame('/second', $persisted['/other-request']['target']);
+    }
+
+    public function testUnwritableDirectoryPreservesFileAndCachedRules(): void
+    {
+        $directory = sys_get_temp_dir() . '/quiqqer-forwarding-write-' . bin2hex(random_bytes(8));
+        self::assertTrue(mkdir($directory));
+        $filename = $directory . '/forwarding.ini.php';
+        touch($filename);
+        QUI::$Configs[self::CONFIG_KEY] = new Config($filename);
+
+        try {
+            Forwarding::create('/existing', '/original', 302);
+            $before = file_get_contents($filename);
+            $rules = Forwarding::getList()->toArray();
+            chmod($directory, 0555);
+            clearstatcache(true, $directory);
+
+            if (is_writable($directory)) {
+                self::markTestSkipped('The current user bypasses directory write permissions.');
+            }
+
+            foreach (['create', 'update', 'delete'] as $method) {
+                try {
+                    if ($method === 'delete') {
+                        Forwarding::delete('/existing');
+                    } else {
+                        $source = $method === 'create' ? '/new' : '/existing';
+                        Forwarding::$method($source, '/changed');
+                    }
+
+                    self::fail('A write into a read-only directory was reported as successful.');
+                } catch (QUI\Exception) {
+                    self::assertSame($before, file_get_contents($filename));
+                    self::assertSame($rules, Forwarding::getList()->toArray());
+                    self::assertSame([$filename], glob($directory . '/*'));
+                    self::assertSame([], glob($directory . '/.forwarding-*'));
+                }
+            }
+        } finally {
+            chmod($directory, 0755);
+            unlink($filename);
+            rmdir($directory);
+        }
+    }
+
+    public function testAtomicSavePreservesPermissionsAndCleansUpFailedSerialization(): void
+    {
+        $directory = sys_get_temp_dir() . '/quiqqer-forwarding-atomic-' . bin2hex(random_bytes(8));
+        self::assertTrue(mkdir($directory));
+        $filename = $directory . '/forwarding.ini.php';
+        touch($filename);
+        chmod($filename, 0640);
+        QUI::$Configs[self::CONFIG_KEY] = new Config($filename);
+
+        try {
+            Forwarding::create('/existing', '/original');
+            clearstatcache(true, $filename);
+            self::assertSame(0640, fileperms($filename) & 0777);
+            $before = file_get_contents($filename);
+
+            try {
+                Forwarding::update('/existing', "/invalid\nvalue");
+                self::fail('A lossy configuration was published.');
+            } catch (QUI\Exception) {
+                self::assertSame($before, file_get_contents($filename));
+                self::assertSame([], glob($directory . '/.forwarding-*'));
+            }
+        } finally {
+            unlink($filename);
+            rmdir($directory);
+        }
     }
 
     public function testRedirectResponseUsesConfiguredTargetAndCode(): void
