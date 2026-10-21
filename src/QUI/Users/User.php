@@ -730,6 +730,7 @@ class User implements QUIUserInterface
             'street_no',
             'zip',
             'city',
+            'state',
             'country'
         ];
 

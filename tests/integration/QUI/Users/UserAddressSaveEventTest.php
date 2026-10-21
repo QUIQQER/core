@@ -83,6 +83,52 @@ class UserAddressSaveEventTest extends TestCase
         }
     }
 
+    public function testAddressStateCanBeCreatedLoadedUpdatedAndCleared(): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = QUI::getUsers()->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+        $Address = $User->addAddress([
+            'city' => 'Montréal',
+            'state' => 'Québec',
+            'country' => 'CA'
+        ], $SystemUser);
+        $id = $Address->getUUID();
+        self::assertNotNull($id);
+        $Reloaded = new Address($User, $id);
+        self::assertSame('Québec', $Reloaded->getAttribute('state'));
+
+        $Reloaded->setAttribute('city', 'Québec City');
+        $Reloaded->save($SystemUser);
+        self::assertSame('Québec', (new Address($User, $id))->getAttribute('state'));
+
+        $Reloaded->setAttribute('state', 'Ontario');
+        $Reloaded->save($SystemUser);
+        self::assertSame('Ontario', (new Address($User, $id))->getAttribute('state'));
+
+        $Reloaded->setAttribute('state', '');
+        $Reloaded->save($SystemUser);
+        self::assertSame('', (new Address($User, $id))->getAttribute('state'));
+        self::assertSame('', $User->addAddress(['city' => 'Berlin'], $SystemUser)->getAttribute('state'));
+    }
+
+    public function testAddressStateIsIncludedInTextAndEscapedInHtml(): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = QUI::getUsers()->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+        $Address = $User->addAddress(['city' => 'Montréal', 'state' => 'Québec'], $SystemUser);
+        self::assertStringContainsString('Montréal Québec', $Address->getText());
+        self::assertStringContainsString('<div class="region">Québec</div>', $Address->getDisplay());
+
+        $Address->setAttribute('state', '<img src=x onerror=alert(1)> & Québec');
+        $html = $Address->getDisplay();
+        self::assertStringContainsString('&lt;img', $html);
+        self::assertStringContainsString('&amp; Québec', $html);
+        self::assertStringNotContainsString('<img', $html);
+
+        $Address->setAttribute('state', '');
+        self::assertStringNotContainsString('class="region"', $Address->getDisplay());
+    }
+
     private static function skipIfDatabaseIsUnavailable(): void
     {
         try {

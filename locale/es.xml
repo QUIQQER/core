@@ -487,6 +487,9 @@
         <locale name="login.check.title">
             <es><![CDATA[Comprueba el inicio de sesión]]></es>
         </locale>
+        <locale name="users.address.state">
+            <es><![CDATA[Estado / Provincia]]></es>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 

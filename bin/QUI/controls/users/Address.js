@@ -51,6 +51,7 @@ define('controls/users/Address', [
             this.$StreetNo = null;
             this.$Zip = null;
             this.$City = null;
+            this.$State = null;
             this.$Country = null;
 
             this.addEvents({
@@ -97,6 +98,7 @@ define('controls/users/Address', [
                 self.$StreetNo = Elm.getElement('[name="address-street_no"]');
                 self.$Zip = Elm.getElement('[name="address-zip"]');
                 self.$City = Elm.getElement('[name="address-city"]');
+                self.$State = Elm.querySelector('[data-name="state"]');
                 self.$Country = Elm.getElement('[name="address-country"]');
                 self.$Standard = Elm.getElement('[name="address-standard"]');
 
@@ -107,6 +109,7 @@ define('controls/users/Address', [
                 self.$StreetNo.value = data.street_no;
                 self.$Zip.value = data.zip;
                 self.$City.value = data.city;
+                self.$State.value = data.state ?? '';
                 self.$Country.value = data.country;
                 self.$Standard.checked = !!data.default;
 
@@ -308,6 +311,7 @@ define('controls/users/Address', [
                 street_no: this.$StreetNo.value,
                 zip: this.$Zip.value,
                 city: this.$City.value,
+                state: this.$State.value,
                 country: this.$Country.value,
                 mails: emails,
                 phone: this.$PhoneGrid.getData(),
