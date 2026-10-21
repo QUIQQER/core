@@ -19,6 +19,7 @@ use function is_array;
 use function is_numeric;
 use function json_decode;
 use function sprintf;
+use function str_contains;
 use function trim;
 
 use const OPT_DIR;
@@ -428,6 +429,10 @@ class MigrationV2 extends QUI\System\Console\Tool
                     ],
                     ['id' => $file['id']]
                 );
+
+                if (str_contains((string)$file['name'], ' ')) {
+                    $Media->get((int)$file['id'])->save();
+                }
             }
         }
     }
