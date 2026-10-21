@@ -144,6 +144,7 @@ define('Ajax', [
         $onprogress: {},
         $url: apiPoint,
         $on401: false,
+        $loginPromise: null,
 
         /**
          * Send a Request async
@@ -305,8 +306,12 @@ define('Ajax', [
                             }
                         }
 
+                        // Modules can request login through a generic exception attribute.
                         if (Exception.getCode() === 401 &&
-                            Exception.getAttribute('type') === 'QUI\\Users\\Exception' &&
+                            (
+                                Exception.getAttribute('type') === 'QUI\\Users\\Exception'
+                                || Exception.getAttribute('authenticationRequired') === true
+                            ) &&
                             Request.getAttribute('showLogin')
                         ) {
                             Request.setAttribute('logout', true);
@@ -505,14 +510,29 @@ define('Ajax', [
                 }
             }
 
-            require(['controls/users/LoginWindow'], function(Login) {
-                new Login({
-                    events: {
-                        onSuccess: function() {
-                            self.request(call, method, callback, params);
-                        }
-                    }
-                }).open();
+            if (!this.$loginPromise) {
+                this.$loginPromise = new Promise((resolve) => {
+                    require(['controls/users/LoginWindow'], function(Login) {
+                        new Login({
+                            events: {
+                                onSuccess: () => resolve(true),
+                                onClose: () => resolve(false)
+                            }
+                        }).open();
+                    }, () => resolve(false));
+                });
+            }
+
+            const pending = this.$loginPromise;
+
+            return pending.then((authenticated) => {
+                if (this.$loginPromise === pending) {
+                    this.$loginPromise = null;
+                }
+
+                if (authenticated) {
+                    self.request(call, method, callback, params);
+                }
             });
         },
 
