@@ -214,6 +214,10 @@ echo $User->getLang(); ?>"> <!--<![endif]-->
         ]); ?>;
 
         var QUIQQER = {
+            loginBranding: <?php echo json_encode(
+                QUI\Users\Controls\Login::getBranding($Project),
+                JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+            ); ?>,
             csrfToken: <?php echo json_encode(QUI\Security\CsrfToken::get()); ?>,
             Rewrite: {
                 URL_PARAM_SEPARATOR: "<?php echo QUI\Rewrite::URL_PARAM_SEPARATOR; ?>",

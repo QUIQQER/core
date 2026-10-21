@@ -24,6 +24,38 @@ class Login extends Control
     protected bool $isGlobalAuth = false;
 
     /**
+     * Provide the login logo before a backend session can expire.
+     *
+     * @return array{logo: string, alt: string}
+     */
+    public static function getBranding(?QUI\Projects\Project $Project): array
+    {
+        $branding = [
+            'logo' => URL_BIN_DIR . 'quiqqer_logo.svg',
+            'alt' => 'QUIQQER'
+        ];
+
+        if (!$Project || !$Project->getConfig('logo')) {
+            return $branding;
+        }
+
+        try {
+            $Image = $Project->getMedia()->getLogoImage();
+
+            if ($Image !== null) {
+                return [
+                    'logo' => $Image->getSizeCacheUrl(),
+                    'alt' => $Project->getName()
+                ];
+            }
+        } catch (QUI\Exception) {
+            // Keep the login usable when the configured project logo is unavailable.
+        }
+
+        return $branding;
+    }
+
+    /**
      * @param array<string, mixed> $options
      */
     public function __construct(array $options = [])
