@@ -122,6 +122,7 @@ function loginFixture(check) {
         setAttribute(name, value) { this.attributes[name] = value; }
         removeAttribute(name) { delete this.attributes[name]; }
         append(...children) { children.forEach(child => { child.parentNode = this; this.children.push(child); }); }
+        appendChild(child) { this.append(child); return child; }
         prepend(child) { child.parentNode = this; this.children.unshift(child); }
         remove() { this.parentNode.children = this.parentNode.children.filter(child => child !== this); }
         querySelector(selector) {
@@ -176,6 +177,7 @@ test('failed preflight never sends credentials and keeps a visible retry outside
     await assert.rejects(login.auth(form));
     assert.equal(calls.length, 0);
     assert.equal(container.inert, true);
+    assert.equal(root.dataset.loginCheck, 'failed');
     assert.equal(login.Loader.visible, false);
     const notice = root.querySelector('[data-name="login-check-notice"]');
     const message = notice.querySelector('[data-name="login-check-message"]');
@@ -188,6 +190,8 @@ test('failed preflight never sends credentials and keeps a visible retry outside
     await new Promise(resolve => setImmediate(resolve));
     assert.equal(root.querySelector('[data-name="login-check-notice"]'), null);
     assert.equal(container.inert, false);
+    assert.equal(root.dataset.loginCheck, undefined);
+    assert.equal(fixture.events.includes('loginCheckSuccess'), true);
     assert.equal(calls.length, 0, 'retry must not automatically submit credentials');
     await login.auth(form);
     assert.equal(calls.length, 1);

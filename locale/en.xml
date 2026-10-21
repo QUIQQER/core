@@ -483,6 +483,9 @@
         <locale name="paste">
             <en><![CDATA[Paste]]></en>
         </locale>
+        <locale name="login.check.title">
+            <en><![CDATA[Check your sign-in]]></en>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 

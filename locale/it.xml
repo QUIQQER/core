@@ -484,6 +484,9 @@
         <locale name="paste">
             <it><![CDATA[Incolla]]></it>
         </locale>
+        <locale name="login.check.title">
+            <it><![CDATA[Verifica l’accesso]]></it>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 

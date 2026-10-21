@@ -138,6 +138,9 @@ foreach ($packages as $package) {
     echo '</script>';
     ?>
 
+    <link href="<?php echo URL_BIN_DIR; ?>css/variables.css" rel="stylesheet"/>
+    <link href="<?php echo URL_BIN_DIR; ?>css/buttons.css" rel="stylesheet"/>
+
     <style type="text/css">
         :root {
             --color-primary: #2f8fc6;

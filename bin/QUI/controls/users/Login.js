@@ -5,6 +5,8 @@
  * @event onSuccess [this]
  * @event onUserLoginError [error, this]
  * @event onBuildAuthenticator [this]
+ * @event onLoginCheckError [this]
+ * @event onLoginCheckSuccess [this]
  *
  * @event onQuiqqerUserAuthLoginLoad [this]
  * @event onQuiqqerUserAuthLoginUserLoginError [error, this]
@@ -209,6 +211,9 @@ define('controls/users/Login', [
                 if (container) {
                     container.inert = false;
                 }
+
+                delete this.getElm().dataset.loginCheck;
+                this.fireEvent('loginCheckSuccess', [this]);
             }).catch((error) => {
                 if (this.$loginCheckDestroyed) {
                     throw error;
@@ -237,21 +242,40 @@ define('controls/users/Login', [
 
         $showLoginCheckError: function (reason) {
             const root = this.getElm();
+            root.dataset.loginCheck = 'failed';
             let notice = root.querySelector('[data-name="login-check-notice"]');
 
             if (!notice) {
-                notice = document.createElement('div');
+                notice = document.createElement('section');
                 notice.dataset.name = 'login-check-notice';
-                notice.className = 'messages-message message-attention quiqqer-login-check';
+                notice.className = 'quiqqer-login-check';
+
+                const symbol = document.createElement('div');
+                symbol.dataset.name = 'login-check-symbol';
+                symbol.className = 'quiqqer-login-check-symbol';
+                symbol.setAttribute('aria-hidden', 'true');
+                const icon = document.createElement('span');
+                icon.className = 'fa fa-exclamation-circle';
+                symbol.appendChild(icon);
+
+                const title = document.createElement('strong');
+                title.dataset.name = 'login-check-title';
+                title.className = 'quiqqer-login-check-title';
+                title.textContent = QUILocale.get('quiqqer/core', 'login.check.title');
 
                 const message = document.createElement('p');
                 message.dataset.name = 'login-check-message';
+                message.className = 'quiqqer-login-check-message';
                 message.setAttribute('role', 'alert');
+
+                const actions = document.createElement('div');
+                actions.dataset.name = 'login-check-actions';
+                actions.className = 'quiqqer-login-check-actions';
 
                 const retry = document.createElement('button');
                 retry.type = 'button';
                 retry.dataset.name = 'login-check-retry';
-                retry.className = 'btn btn-secondary';
+                retry.className = 'btn btn-primary';
                 retry.textContent = QUILocale.get('quiqqer/core', 'login.check.retry');
                 retry.addEventListener('click', () => {
                     if (root.querySelector('[data-name="quiqqer-users-login-container"]')) {
@@ -261,13 +285,15 @@ define('controls/users/Login', [
                     }
                 });
 
-                notice.append(message, retry);
+                actions.append(retry);
+                notice.append(symbol, title, message, actions);
                 root.prepend(notice);
             }
 
             notice.querySelector('[data-name="login-check-message"]').textContent = QUILocale.get(
                 'quiqqer/core', 'login.check.' + reason
             );
+            this.fireEvent('loginCheckError', [this]);
         },
 
         /**
