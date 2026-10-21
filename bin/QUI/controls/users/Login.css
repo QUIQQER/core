@@ -1,4 +1,12 @@
 .quiqqer-login {
+    --_check-gap: var(--quiqqer-core-login-check-gap, 1rem);
+    --_check-padding: var(--quiqqer-core-login-check-padding, 1.5rem);
+    --_check-border: var(--quiqqer-core-login-check-border, var(--qui-colors-gray-100));
+    --_check-background: var(--quiqqer-core-login-check-background, var(--qui-colors-gray-25));
+    --_check-accent: var(--quiqqer-core-login-check-accent, var(--qui-colors-primary));
+    --_check-accent-background: var(--quiqqer-core-login-check-accent-background, var(--qui-colors-primary-50));
+    --_check-muted: var(--quiqqer-core-login-check-muted, var(--qui-colors-gray-700));
+
     display: flex;
     flex-direction: column;
     min-height: 180px;
@@ -10,15 +18,51 @@
     width: 100%;
 }
 
+.quiqqer-login[data-login-check="failed"] [data-name="quiqqer-users-login-container"] {
+    display: none;
+}
+
 .quiqqer-login-check {
-    float: none;
-    margin-block: 0 1rem;
-    opacity: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--_check-gap);
+    padding: var(--_check-padding);
+    border: 1px solid var(--_check-border);
+    border-radius: 0.75rem;
+    background: var(--_check-background);
+    margin-bottom: var(--_check-gap);
+    text-align: center;
     width: 100%;
 }
 
-.quiqqer-login-check p {
-    margin-block: 0 0.75rem;
+.quiqqer-login-check-symbol {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    color: var(--_check-accent);
+    background: var(--_check-accent-background);
+    font-size: 1.75rem;
+}
+
+.quiqqer-login-check-title {
+    font-size: 1.125rem;
+    line-height: 1.3;
+}
+
+.quiqqer-login-check-message {
+    margin: 0;
+    color: var(--_check-muted);
+    line-height: 1.6;
+}
+
+.quiqqer-login-check-actions {
+    width: 100%;
+    padding-top: 0.25rem;
 }
 
 .quiqqer-login-check button:focus-visible {

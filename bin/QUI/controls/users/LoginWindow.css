@@ -1,21 +1,138 @@
-.quiqqer-loginWindow-content button {
+.qui-window-popup.quiqqer-loginWindow {
+    --_login-padding: var(--quiqqer-core-login-window-padding, 2.5rem);
+    --_login-gap: var(--quiqqer-core-login-window-gap, 0.75rem);
+    --_login-muted: var(--quiqqer-core-login-window-muted, var(--qui-colors-gray-700));
+    --_login-logo-height: var(--quiqqer-core-login-window-logo-height, 3.5rem);
+    --_login-radius: var(--quiqqer-core-login-window-radius, 1.5rem);
+    --_login-surface: var(--quiqqer-core-login-window-surface, var(--qui-colors-white));
+    --_login-header-background: var(--quiqqer-core-login-window-header-background, var(--qui-colors-gray-25));
+    --_login-border: var(--quiqqer-core-login-window-border, var(--qui-colors-gray-100));
+    --_login-title-color: var(--quiqqer-core-login-window-title-color, var(--qui-colors-gray-900));
+    --_login-shadow: var(--quiqqer-core-login-window-shadow, 0 1.5rem 5rem color-mix(in srgb, var(--qui-colors-gray-900) 25%, transparent));
+
+    border-radius: var(--_login-radius);
+    background: var(--_login-surface);
+    box-shadow: var(--_login-shadow);
+    font-size: max(1rem, 15px);
     line-height: 1.5;
-    font-size: 16px;
-    border: none;
-    padding: 0.5rem 1.5rem;
-    cursor: pointer;
-    border-radius: var(--radius-sm);
 }
 
-.quiqqer-loginWindow-content [type="submit"] {
-    color: var(--qui-btn-primary-color, #fff);
-    background-color: var(--qui-btn-primary-bg, #2f8fc6);
-    width: 100%;
+.qui-window-popup.quiqqer-loginWindow:focus {
+    box-shadow: var(--_login-shadow);
 }
 
-.quiqqer-loginWindow-content button[type="reset"],
-.quiqqer-loginWindow-content button[name="cancel"] {
-    background-color: var(--color-secondary, #eee);
-    color: var(--color-secondary-accent, #333);
-    width: 100%;
+.quiqqer-loginWindow-backdrop {
+    --_login-backdrop-blur: var(--quiqqer-core-login-window-backdrop-blur, 8px);
+    --_login-backdrop-color: var(--quiqqer-core-login-window-backdrop-color, color-mix(in srgb, var(--qui-colors-gray-900) 50%, transparent));
+
+    background-color: var(--_login-backdrop-color);
+    -webkit-backdrop-filter: blur(var(--_login-backdrop-blur));
+    backdrop-filter: blur(var(--_login-backdrop-blur));
+}
+
+.quiqqer-loginWindow > .qui-window-simpleWindow__closeBtn {
+    display: none;
+}
+
+.quiqqer-loginWindow-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+}
+
+.quiqqer-loginWindow-close {
+    --qui-btn-close-radius: 50%;
+    --qui-btn-bgColor--hover: var(--_login-border);
+
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+}
+
+.quiqqer-loginWindow-header {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--_login-gap);
+    padding: var(--_login-padding) var(--_login-padding) 1.75rem;
+    border-bottom: 1px solid var(--_login-border);
+    background: linear-gradient(var(--_login-header-background), var(--_login-surface));
+    text-align: center;
+}
+
+.quiqqer-loginWindow-header h2 {
+    margin: 0;
+    color: var(--_login-title-color);
+    font-size: 1.75em;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+}
+
+.quiqqer-loginWindow-logo {
+    display: block;
+    max-width: min(100%, 13rem);
+    max-height: var(--_login-logo-height);
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+}
+
+.quiqqer-loginWindow-intro {
+    max-width: 32ch;
+    margin: 0;
+    color: var(--_login-muted);
+    font-size: 0.9375em;
+    line-height: 1.6;
+}
+
+.quiqqer-loginWindow-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--_login-padding);
+}
+
+.quiqqer-loginWindow-message {
+    margin: var(--_login-gap) var(--_login-padding) 0;
+    line-height: 1.5;
+}
+
+.quiqqer-loginWindow .btn-primary {
+    --padding-block: 0.875em;
+
+    font-weight: 600;
+}
+
+.quiqqer-loginWindow .quiqqer-login-check {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    margin: 0;
+}
+
+.quiqqer-loginWindow .quiqqer-login-check-symbol,
+.quiqqer-loginWindow .quiqqer-login-check-title {
+    display: none;
+}
+
+.quiqqer-loginWindow button:focus-visible,
+.quiqqer-loginWindow a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    .qui-window-popup.quiqqer-loginWindow {
+        --_login-padding: 1.5rem;
+        --_login-radius: var(--quiqqer-core-login-window-radius, 1.25rem);
+    }
+}
+
+@media (max-width: 767px) {
+    .qui-window-popup.quiqqer-loginWindow.qui-window-simpleWindow--mobileFullScreen {
+        --_login-radius: 0;
+    }
 }

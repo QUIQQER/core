@@ -730,6 +730,7 @@ class User implements QUIUserInterface
             'street_no',
             'zip',
             'city',
+            'state',
             'country'
         ];
 
@@ -2293,6 +2294,7 @@ class User implements QUIUserInterface
         if ($SessUser->getUUID() === $this->getUUID()) {
             $Session = QUI::getSession();
             $Session->destroy();
+            $Users->resetSessionUser();
         }
 
         QUI::getEvents()->fireEvent('userLogout', [$this]);

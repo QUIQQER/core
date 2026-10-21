@@ -13,9 +13,20 @@ use QUI\Users\User;
 abstract class AddressEndpoint extends UserEndpoint
 {
     protected const ADDRESS_FIELDS = [
-        'title' => 'string', 'salutation' => 'string', 'firstName' => 'string', 'lastName' => 'string',
-        'company' => 'string', 'delivery' => 'string', 'streetNo' => 'string', 'zip' => 'string',
-        'city' => 'string', 'country' => 'string', 'suffix' => 'string', 'mails' => 'array', 'phones' => 'array'
+        'title' => 'string',
+        'salutation' => 'string',
+        'firstName' => 'string',
+        'lastName' => 'string',
+        'company' => 'string',
+        'delivery' => 'string',
+        'streetNo' => 'string',
+        'zip' => 'string',
+        'city' => 'string',
+        'state' => 'string',
+        'country' => 'string',
+        'suffix' => 'string',
+        'mails' => 'array',
+        'phones' => 'array'
     ];
     private const ATTRIBUTE_MAP = ['firstName' => 'firstname', 'lastName' => 'lastname', 'streetNo' => 'street_no'];
 

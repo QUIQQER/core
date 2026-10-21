@@ -1168,30 +1168,8 @@ abstract class Item extends QUI\QDOM
         $newName = preg_replace('#(_){2,}#', "$1", $newName);
 
         $original = $this->getFullPath();
-        $extension = QUI\Utils\StringHelper::pathinfo($original, PATHINFO_EXTENSION);
+        $extension = mb_strtolower(QUI\Utils\StringHelper::pathinfo($original, PATHINFO_EXTENSION));
         $Parent = $this->getParent();
-
-        if (mb_strtolower($extension) !== $extension) {
-            $fileToUpper = $Parent->getFullPath() . $newName . '.' . $extension;
-            $fileToLower = $Parent->getFullPath() . $newName . '.' . mb_strtolower($extension);
-
-            if (!file_exists($fileToUpper) && file_exists($original)) {
-                $fileToUpper = $original;
-            }
-
-            rename($fileToUpper, $fileToLower);
-
-            QUI::getDataBaseConnection()->update(
-                $this->Media->getTable(),
-                ['file' => $Parent->getPath() . $newName . '.' . mb_strtolower($extension)],
-                ['id' => $this->getId()]
-            );
-
-            $this->setAttribute('file', $Parent->getPath() . $newName . '.' . mb_strtolower($extension));
-
-            $extension = mb_strtolower($extension);
-            $original = $this->getFullPath();
-        }
 
         $new_full_file = $Parent->getFullPath() . $newName . '.' . $extension;
         $new_file = $Parent->getPath() . $newName . '.' . $extension;
@@ -1212,7 +1190,8 @@ abstract class Item extends QUI\QDOM
         }
 
 
-        if ($Parent->childWithNameExists($newName)) {
+        // Different extensions may share a basename; only the full target path conflicts.
+        if (file_exists($new_full_file)) {
             throw new Exception(
                 QUI::getLocale()->get('quiqqer/core', 'exception.media.file.with.same.name.exists', [
                     'name' => $newName

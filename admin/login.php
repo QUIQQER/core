@@ -128,14 +128,18 @@ foreach ($packages as $package) {
     echo 'var QUIQQER_LANGUAGES = ' . json_encode($languages) . ';';
     echo 'var QUIQQER_IS_ADMIN_LOGIN = true;';
     echo 'var QUIQQER = ' . json_encode([
+        'loginBranding' => QUI\Users\Controls\Login::getBranding($Standard ?? null),
         'csrfToken' => QUI\Security\CsrfToken::get(),
         'inAdministration' => true,
         'vMd5' => md5(QUI::version())
-    ]) . ';';
+    ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . ';';
     echo 'var QUIQQER_CONFIG = {globals: {no_ajax_bundler: 1}}';
     echo '/* ]]> */';
     echo '</script>';
     ?>
+
+    <link href="<?php echo URL_BIN_DIR; ?>css/variables.css" rel="stylesheet"/>
+    <link href="<?php echo URL_BIN_DIR; ?>css/buttons.css" rel="stylesheet"/>
 
     <style type="text/css">
         :root {

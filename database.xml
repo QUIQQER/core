@@ -244,6 +244,7 @@
             <field type="TEXT NULL">street_no</field>
             <field type="TEXT NULL">zip</field>
             <field type="TEXT NULL">city</field>
+            <field type="VARCHAR(255) NOT NULL DEFAULT ''">state</field>
             <field type="TEXT NULL">country</field>
             <field type="TEXT NULL">custom_data</field>
             <field type="DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP">c_date</field>

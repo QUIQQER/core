@@ -3,6 +3,15 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="package.licenseRequired.title">
+            <pt><![CDATA[Desbloqueie mais possibilidades]]></pt>
+        </locale>
+        <locale name="package.licenseRequired.store">
+            <pt><![CDATA[Ver opções de licença]]></pt>
+        </locale>
+        <locale name="package.licenseRequired.later">
+            <pt><![CDATA[Talvez mais tarde]]></pt>
+        </locale>
         <locale name="message.packages.server.add.successfully">
             <pt><![CDATA[O servidor [server] foi adicionado com sucesso.]]></pt>
         </locale>

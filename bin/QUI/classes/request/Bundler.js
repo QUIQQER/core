@@ -210,9 +210,7 @@ define('classes/request/Bundler', [
                 }.bind(this),
 
                 onFailure: function (xhr) {
-                    if (xhr.responseText !== '') {
-                        this.$parseResponse(xhr.responseText, Params, requestData);
-                    }
+                    this.$parseResponse(xhr.responseText, Params, requestData, xhr);
 
                     this.fireEvent('requestFailure', [this]);
                     this.fireEvent('requestCancel', [this]);
@@ -281,41 +279,35 @@ define('classes/request/Bundler', [
          * @param {Object} Params
          * @param {Object} requestData
          */
-        $parseResponse: function (responseText, Params, requestData) {
-            var k, data, result, entryData, entryResult;
+        $parseResponse: function (responseText, Params, requestData, failure) {
+            let result;
 
             try {
-                result = JSON.decode(responseText);
+                result = JSON.parse(responseText);
             } catch (e) {
-                console.error(e);
-                return;
+                result = null;
             }
 
-            var getDataByRID = function (data, id) {
-                for (var i = 0, len = data.length; i < len; i++) {
-                    if (data[i].rid === id) {
-                        return data[i];
-                    }
+            const fallback = {
+                Exception: result?.Exception || {
+                    message: failure?.statusText || 'Invalid AJAX bundle response',
+                    code: failure?.status || 502
                 }
-
-                return false;
             };
+            let maintenance = false;
 
-            var maintenance = false;
+            // Only queued request IDs have callbacks. Metadata and global errors
+            // must not be treated as individual calls or leave promises pending.
+            for (const entry of Params) {
+                const entryResult = result && Object.hasOwn(result, entry.rid)
+                    ? result[entry.rid]
+                    : fallback;
 
-            for (k in result) {
-                if (!result.hasOwnProperty(k)) {
-                    continue;
-                }
+                entry.resolve(entryResult);
 
-                data        = getDataByRID(requestData, k);
-                entryData   = getDataByRID(Params, k);
-                entryResult = result[k];
-
-                entryData.resolve(entryResult);
-
-                if (typeof entryResult.Exception !== 'undefined' &&
-                    typeof entryResult.Exception.code === 'undefined'
+                if (
+                    entryResult?.Exception
+                    && typeof entryResult.Exception.code === 'undefined'
                 ) {
                     maintenance = true;
                 }

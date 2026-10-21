@@ -484,6 +484,12 @@
         <locale name="paste">
             <fr><![CDATA[Coller]]></fr>
         </locale>
+        <locale name="login.check.title">
+            <fr><![CDATA[Vérifiez la connexion]]></fr>
+        </locale>
+        <locale name="users.address.state">
+            <fr><![CDATA[État / Province]]></fr>
+        </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">
 

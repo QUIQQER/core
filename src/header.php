@@ -76,7 +76,20 @@ try {
         $list = $Exception->getExceptionList();
 
         if (count($list) === 1) {
-            throw $list[0];
+            $Exception = $list[0];
+        }
+    }
+
+    if (defined('QUIQQER_AJAX') && QUIQQER_AJAX) {
+        $response = QUI::getAjax()->getHeaderExceptionResponse($Exception, isset($_REQUEST['quiqqerBundle']));
+
+        if ($response !== null) {
+            // AJAX authentication errors use the normal result protocol so request
+            // callbacks can open login, including when the header rejected a bundle.
+            http_response_code(200);
+            header('Cache-Control: no-store');
+            echo $response;
+            exit;
         }
     }
 

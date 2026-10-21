@@ -7,6 +7,7 @@ const vm = require('node:vm');
 function fixture() {
     let definition;
     let response;
+    const windows = [];
     const footer = {children: [], prepend(node) { this.children.unshift(node); }};
     const form = {clientHeight: 600, clientWidth: 800, classList: {add() {}}};
     const container = {
@@ -20,13 +21,21 @@ function fixture() {
         'controls/grid/Grid': function (element, options) {
             this.container = element;
             this.options = options;
-            this.addEvents = () => {};
+            this.addEvents = events => { this.events = events; };
+            this.getSelectedData = () => [{id: 'address-uuid'}];
             this.refresh = () => options.onrefresh();
             this.setData = data => { this.data = data; };
         }
     };
     vm.runInNewContext(readFileSync(resolve(__dirname, '../../bin/QUI/controls/users/User.js'), 'utf8'), {
         console,
+        require(names, callback) {
+            assert.deepEqual(Array.from(names), ['controls/users/address/EditWindow']);
+            callback(class {
+                constructor(options) { this.options = options; windows.push(this); }
+                open() { this.opened = true; }
+            });
+        },
         document: {createElement: () => ({dataset: {}, setAttribute() {}})},
         Element: function () {},
         Class: function (value) { definition = value; return value; },
@@ -38,7 +47,7 @@ function fixture() {
         getUser: () => ({getId: () => 'test-user'})
     };
     panel.$createAddressTable();
-    return {panel, footer, respond: rows => response(rows)};
+    return {panel, footer, windows, respond: rows => response(rows)};
 }
 
 test('address toolbar matches user manager and enables the native export', () => {
@@ -55,6 +64,24 @@ test('address toolbar matches user manager and enables the native export', () =>
     assert.equal(remove.disabled, true);
     assert.equal(remove.title, 'users.user.address.table.btn.delete');
     assert.equal(options.columnModel.find(column => column.dataIndex === 'default').export, false);
+});
+
+test('double-click and Edit open the reusable address window and refresh after saving', () => {
+    const {panel, windows} = fixture();
+    const grid = panel.$AddressGrid;
+    let refreshes = 0;
+    grid.refresh = () => { refreshes++; };
+    grid.events.onDblClick();
+    grid.options.buttons[1].events.onClick();
+    assert.equal(windows.length, 2);
+    for (const dialog of windows) {
+        assert.equal(dialog.opened, true);
+        assert.equal(dialog.options.uid, 'test-user');
+        assert.equal(dialog.options.addressId, 'address-uuid');
+    }
+    assert.equal(refreshes, 0);
+    windows[0].options.events.onSaved();
+    assert.equal(refreshes, 1);
 });
 
 test('address count stays at the start of the footer and updates without duplicates', () => {
