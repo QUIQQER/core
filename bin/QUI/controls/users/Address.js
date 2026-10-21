@@ -3,6 +3,9 @@
  * Edit and saves an user address
  *
  * @event onSaved [self]
+ * @event onLoaded [self]
+ * @event onLoadError [self, error]
+ * @event onSaveError [self, error]
  */
 define('controls/users/Address', [
 
@@ -55,7 +58,10 @@ define('controls/users/Address', [
             this.$Country = null;
 
             this.addEvents({
-                onInject: this.$onInject
+                onInject: this.$onInject,
+                onDestroy: () => {
+                    this.$addressDestroyed = true;
+                }
             });
         },
 
@@ -86,6 +92,10 @@ define('controls/users/Address', [
                 'ajax_users_address_template',
                 'ajax_users_address_get'
             ], function (template, data) {
+                if (self.$addressDestroyed) {
+                    return;
+                }
+
                 const Elm = self.getElm();
 
                 Elm.set('html', template);
@@ -287,9 +297,16 @@ define('controls/users/Address', [
                 });
 
                 self.Loader.hide();
+                self.fireEvent('loaded', [self]);
             }, {
                 uid: this.getAttribute('uid'),
-                aid: this.getAttribute('addressId')
+                aid: this.getAttribute('addressId'),
+                onError: (error) => {
+                    if (!this.$addressDestroyed) {
+                        this.Loader.hide();
+                        this.fireEvent('loadError', [this, error]);
+                    }
+                }
             });
         },
 
@@ -323,6 +340,8 @@ define('controls/users/Address', [
                 if (self.$Standard.checked) {
                     Users.get(self.getAttribute('uid')).load().then(function () {
                         self.fireEvent('saved', [self]);
+                    }).catch((error) => {
+                        self.fireEvent('saveError', [self, error]);
                     });
 
                     return;
@@ -332,7 +351,10 @@ define('controls/users/Address', [
             }, {
                 uid: this.getAttribute('uid'),
                 aid: this.getAttribute('addressId'),
-                data: JSON.encode(data)
+                data: JSON.encode(data),
+                onError: (error) => {
+                    this.fireEvent('saveError', [this, error]);
+                }
             });
         },
 
