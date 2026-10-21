@@ -430,8 +430,29 @@ class MigrationV2 extends QUI\System\Console\Tool
                     ['id' => $file['id']]
                 );
 
-                if (str_contains((string)$file['name'], ' ')) {
+                if (
+                    (int)$file['id'] <= 1
+                    || $file['type'] === 'folder'
+                    || !empty($file['deleted'])
+                    || !str_contains((string)$file['name'], ' ')
+                ) {
+                    continue;
+                }
+
+                try {
                     $Media->get((int)$file['id'])->save();
+                } catch (\Exception $Exception) {
+                    $this->writeLn(
+                        sprintf(
+                            '-> Could not normalize media file #%d in project "%s": %s',
+                            (int)$file['id'],
+                            $Project->getName(),
+                            $Exception->getMessage()
+                        ),
+                        'red'
+                    );
+                    $this->resetColor();
+                    QUI\System\Log::writeException($Exception);
                 }
             }
         }
