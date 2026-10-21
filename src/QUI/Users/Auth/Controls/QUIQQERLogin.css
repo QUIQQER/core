@@ -1,4 +1,14 @@
 .quiqqer-login-auth {
+    --_field-gap: var(--quiqqer-core-login-field-gap, 1rem);
+    --_field-padding: var(--quiqqer-core-login-field-padding, 0.875rem 1rem);
+    --_field-radius: var(--quiqqer-core-login-field-radius, 0.75rem);
+    --_field-border: var(--quiqqer-core-login-field-border, var(--qui-colors-gray-200));
+    --_field-background: var(--quiqqer-core-login-field-background, var(--qui-colors-gray-25));
+    --_field-border-hover: var(--quiqqer-core-login-field-border-hover, var(--qui-colors-gray-400));
+    --_field-background-focus: var(--quiqqer-core-login-field-background-focus, var(--qui-colors-white));
+    --_field-focus: var(--quiqqer-core-login-field-focus, var(--qui-colors-primary));
+    --_label-color: var(--quiqqer-core-login-label-color, var(--qui-colors-gray-700));
+
     position: relative;
 }
 
@@ -8,24 +18,46 @@
 
 .quiqqer-login-auth label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: var(--_field-gap);
     position: relative;
     width: 100%;
 }
 
 .quiqqer-login-auth label span {
     display: block;
-    padding-bottom: 5px;
-    width: 100%;
+    margin-bottom: 0.5rem;
+    color: var(--_label-color);
+    font-size: 0.875rem;
+    font-weight: 600;
 }
 
 .quiqqer-login-auth label input {
+    box-sizing: border-box;
     display: block;
     width: 100%;
+    padding: var(--_field-padding);
+    border: 1px solid var(--_field-border);
+    border-radius: var(--_field-radius);
+    background: var(--_field-background);
+    color: inherit;
+    font: inherit;
+    line-height: 1.5;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.quiqqer-login-auth label input:hover {
+    border-color: var(--_field-border-hover);
+}
+
+.quiqqer-login-auth label input:focus-visible {
+    border-color: var(--_field-focus);
+    background: var(--_field-background-focus);
+    outline: 2px solid var(--_field-focus);
+    outline-offset: 2px;
 }
 
 .quiqqer-login-auth button {
-    margin-top: 1rem;
+    margin-top: var(--_field-gap);
 }
 
 .quiqqer-login-auth [type="submit"],
@@ -34,18 +66,15 @@
 }
 
 .quiqqer-auth-login__password-reset {
-    text-align: right;
+    text-align: center;
 }
 
 .quiqqer-auth-login__password-reset .btn {
-    background-color: transparent;
-    color: inherit;
-    border-color: transparent;
-    padding-inline: 0;
-
+    --qui-btn-bgColor: transparent;
+    --qui-btn-borderColor: transparent;
+    --padding-inline: 0;
 }
 
-/* reset overlay */
 .quiqqer-auth-login-passwordreset__info {
-    margin-bottom: 1rem;
+    margin-bottom: var(--_field-gap);
 }
