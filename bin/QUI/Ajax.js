@@ -105,6 +105,24 @@ define('Ajax', [
         AdministrationWindow.QUIQQER.csrfToken = result.csrfToken;
     };
 
+    const showLicenseRequired = function(Exception, Request) {
+        if (Number(Exception.getCode()) !== 1599 || getAdministrationWindow() === null) {
+            return false;
+        }
+
+        if (Request.getAttribute('showError') !== false) {
+            require(['controls/licenseKey/RequiredWindow'], function(openWindow) {
+                openWindow(Exception);
+            }, function() {
+                QUI.getMessageHandler().then(function(MessageHandler) {
+                    MessageHandler.addException(Exception);
+                });
+            });
+        }
+
+        return true;
+    };
+
     if (typeof QUIQQER_CONFIG !== 'undefined' &&
         typeof QUIQQER_CONFIG.globals !== 'undefined' &&
         (QUIQQER_CONFIG.globals.debug_mode || QUIQQER_CONFIG.globals.development)) {
@@ -263,6 +281,15 @@ define('Ajax', [
                         }
 
                         Request.setAttribute('hasError', true);
+
+                        if (showLicenseRequired(Exception, Request)) {
+                            if (Request.getAttribute('onError')) {
+                                return Request.getAttribute('onError')(Exception, Request);
+                            }
+
+                            QUI.triggerError(Exception, Request);
+                            return;
+                        }
 
                         if (Exception.getMessage() === '') {
                             Exception.setAttribute('message', Locale.get('quiqqer/core', 'exception.network.error'));
@@ -573,9 +600,11 @@ define('Ajax', [
                         },
 
                         onError: function(Exception, Request) {
-                            QUI.getMessageHandler(function(MessageHandler) {
-                                MessageHandler.addException(Exception);
-                            });
+                            if (!showLicenseRequired(Exception, Request)) {
+                                QUI.getMessageHandler(function(MessageHandler) {
+                                    MessageHandler.addException(Exception);
+                                });
+                            }
 
 
                             if (Request.getAttribute('onError')) {

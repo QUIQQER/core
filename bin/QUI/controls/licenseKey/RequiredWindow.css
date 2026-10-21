@@ -1,0 +1,103 @@
+.quiqqer-license-required-dialog > .qui-window-simpleWindow__closeBtn {
+    display: none;
+}
+
+.quiqqer-license-required-dialog .qui-window-simpleWindow-content {
+    display: flex;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.quiqqer-license-required {
+    --_gap: var(--quiqqer-core-license-required-gap, 1.25rem);
+    --_padding: var(--quiqqer-core-license-required-padding, 2rem);
+    --_actions-gap: var(--quiqqer-core-license-required-actions-gap, 0.75rem);
+    --_actions-padding: var(--quiqqer-core-license-required-actions-padding, 1.25rem);
+    --_actions-background: var(--quiqqer-core-license-required-actions-background, var(--qui-colors-gray-25));
+    --_border: var(--quiqqer-core-license-required-border, var(--qui-colors-gray-100));
+    --_muted: var(--quiqqer-core-license-required-muted, var(--qui-colors-gray-700));
+    --_accent: var(--quiqqer-core-license-required-accent, var(--qui-colors-primary));
+    --_accent-background: var(--quiqqer-core-license-required-accent-background, var(--qui-colors-primary-50));
+    --_symbol-size: var(--quiqqer-core-license-required-symbol-size, 5rem);
+    --_icon-size: var(--quiqqer-core-license-required-icon-size, 2.25rem);
+    --_heading-size: var(--quiqqer-core-license-required-heading-size, 1.75rem);
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow-wrap: anywhere;
+}
+
+.quiqqer-license-required-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: safe center;
+    gap: var(--_gap);
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--_padding);
+    text-align: center;
+}
+
+.quiqqer-license-required-symbol {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: var(--_symbol-size);
+    height: var(--_symbol-size);
+    border-radius: 50%;
+    background: var(--_accent-background);
+    color: var(--_accent);
+    font-size: var(--_icon-size);
+}
+
+.quiqqer-license-required-body > h2 {
+    margin: 0;
+    font-size: var(--_heading-size);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.quiqqer-license-required-body > p {
+    margin: 0;
+}
+
+.quiqqer-license-required-message {
+    max-width: 38ch;
+    white-space: pre-line;
+    line-height: 1.6;
+}
+
+.quiqqer-license-required-package {
+    color: var(--_muted);
+    font-size: 0.85em;
+}
+
+.quiqqer-license-required-actions {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--_actions-gap);
+    margin-top: auto;
+    padding: var(--_actions-padding);
+    border-top: 1px solid var(--_border);
+    background: var(--_actions-background);
+}
+
+.quiqqer-license-required a:focus-visible,
+.quiqqer-license-required button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    .quiqqer-license-required {
+        --_padding: 1.5rem;
+    }
+}
