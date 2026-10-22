@@ -179,8 +179,10 @@ Maintainer verwalten geschützte Branches, Versionierung, Tags und Veröffentlic
 
 Beschreibe sichtbare Änderungen, Deprecations und nötige Migrationen im MR/PR. Ergänze Dokumentations- oder Changelog-Hinweise, wenn das betroffene Repository sie verlangt. Prüfe dessen README und CI-Konfiguration, bevor du die Core-Werkzeuge auf ein anderes Paket überträgst.
 
-- [QUIQQER Developer Workflow](../skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [QUIQQER-Dokumentation](https://www.quiqqer.com/docs/)
+- [Entwicklungsablauf](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Coding-Standards](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Tests und Qualität](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](../composer.json)
 - [phpcs.xml.dist](../phpcs.xml.dist)
 - [locale.xml](../locale.xml)

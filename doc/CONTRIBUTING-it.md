@@ -179,8 +179,10 @@ I maintainer gestiscono branch protetti, versioni, tag e pubblicazioni. Chi cont
 
 Descrivi nel MR/PR le modifiche visibili, le deprecazioni e le migrazioni necessarie. Aggiungi documentazione o note al changelog se richiesto dal repository. Consulta il suo README e la configurazione CI prima di supporre che un altro pacchetto usi esattamente gli strumenti del Core.
 
-- [QUIQQER Developer Workflow](../skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [Documentazione QUIQQER](https://www.quiqqer.com/docs/)
+- [Flusso di sviluppo](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Standard del codice](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Test e qualità](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](../composer.json)
 - [phpcs.xml.dist](../phpcs.xml.dist)
 - [locale.xml](../locale.xml)

@@ -179,8 +179,10 @@ Les mainteneurs gèrent les branches protégées, les versions, les tags et les 
 
 Décrivez les changements visibles, les dépréciations et les migrations nécessaires dans la MR/PR. Ajoutez documentation ou notes de changelog selon les exigences du dépôt. Consultez son README et sa CI avant de supposer qu’un autre paquet utilise exactement les outils du Core.
 
-- [QUIQQER Developer Workflow](../skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [Documentation QUIQQER](https://www.quiqqer.com/docs/)
+- [Processus de développement](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Standards de code](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Tests et qualité](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](../composer.json)
 - [phpcs.xml.dist](../phpcs.xml.dist)
 - [locale.xml](../locale.xml)

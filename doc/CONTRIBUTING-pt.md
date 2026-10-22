@@ -179,8 +179,10 @@ Os responsáveis pela manutenção gerem branches protegidos, versões, tags e p
 
 Descreva no MR/PR as alterações visíveis, descontinuações e migrações necessárias. Acrescente documentação ou notas ao changelog quando o repositório o exigir. Consulte o README e a configuração de CI antes de assumir que outro pacote usa exatamente as ferramentas do Core.
 
-- [QUIQQER Developer Workflow](../skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [Documentação do QUIQQER](https://www.quiqqer.com/docs/)
+- [Fluxo de desenvolvimento](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Padrões de código](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Testes e qualidade](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](../composer.json)
 - [phpcs.xml.dist](../phpcs.xml.dist)
 - [locale.xml](../locale.xml)

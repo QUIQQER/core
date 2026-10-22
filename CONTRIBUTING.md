@@ -179,8 +179,10 @@ Maintainers manage protected branches, versioning, tags and publication. Contrib
 
 Describe user-visible changes, deprecations and migration needs in the MR/PR. Add documentation or changelog notes where the affected repository requires them. Check its README and CI configuration before assuming another package uses Core’s exact tooling.
 
-- [QUIQQER Developer Workflow](skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [QUIQQER documentation](https://www.quiqqer.com/docs/)
+- [Development workflow](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Coding standards](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Testing and quality](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](composer.json)
 - [phpcs.xml.dist](phpcs.xml.dist)
 - [locale.xml](locale.xml)

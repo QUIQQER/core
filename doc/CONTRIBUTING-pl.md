@@ -179,8 +179,10 @@ Opiekunowie zarządzają chronionymi gałęziami, wersjami, tagami i publikacją
 
 W MR/PR opisz zmiany widoczne dla użytkownika, wycofywane funkcje i wymagane migracje. Dodaj dokumentację lub wpisy changelogu, jeśli wymaga tego repozytorium. Sprawdź jego README i CI, zanim założysz, że inny pakiet stosuje dokładnie narzędzia Core.
 
-- [QUIQQER Developer Workflow](../skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [Dokumentacja QUIQQER](https://www.quiqqer.com/docs/)
+- [Proces rozwoju](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Standardy kodowania](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Testy i jakość](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](../composer.json)
 - [phpcs.xml.dist](../phpcs.xml.dist)
 - [locale.xml](../locale.xml)

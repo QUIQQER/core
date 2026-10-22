@@ -179,8 +179,10 @@ Los mantenedores gestionan las ramas protegidas, las versiones, las etiquetas y 
 
 Describe en el MR/PR los cambios visibles, las obsolescencias y las migraciones necesarias. Añade documentación o notas al changelog cuando lo exija el repositorio. Consulta su README y su configuración de CI antes de asumir que otro paquete usa exactamente las herramientas del Core.
 
-- [QUIQQER Developer Workflow](../skills/developer/quiqqer_developer_workflow.md)
-- [Anleitung für Entwickler (Deutsch)](https://dev.quiqqer.com/quiqqer/stabilization/documentation/-/wikis/Anleitung-f%C3%BCr-Entwickler)
+- [Documentación de QUIQQER](https://www.quiqqer.com/docs/)
+- [Flujo de desarrollo](https://www.quiqqer.com/docs/developer/development-workflow)
+- [Estándares de código](https://www.quiqqer.com/docs/developer/coding-standards)
+- [Pruebas y calidad](https://www.quiqqer.com/docs/developer/testing-and-quality)
 - [composer.json](../composer.json)
 - [phpcs.xml.dist](../phpcs.xml.dist)
 - [locale.xml](../locale.xml)
