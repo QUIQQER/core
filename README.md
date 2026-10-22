@@ -144,11 +144,17 @@ all the steps in how and where you can help us. We are looking forward to you.
 
 To the Contribution Guide:
 
-- [English](CONTRIBUTING.md)
-- [German](CONTRIBUTING-de.md)
+- [🇬🇧 English](CONTRIBUTING.md)
+- [🇩🇪 Deutsch](doc/CONTRIBUTING-de.md)
+- [🇪🇸 Español](doc/CONTRIBUTING-es.md)
+- [🇫🇷 Français](doc/CONTRIBUTING-fr.md)
+- [🇮🇹 Italiano](doc/CONTRIBUTING-it.md)
+- [🇵🇱 Polski](doc/CONTRIBUTING-pl.md)
+- [🇵🇹 Português](doc/CONTRIBUTING-pt.md)
 
-We use our own Gitlab instance, if you find bugs or miss features, please write us there. Github serves as a mirror and
-backup.
+GitLab is our primary development platform and the preferred place for contributions. Please report bugs and feature
+requests there. You can also submit pull requests through the GitHub mirror; maintainers transfer accepted changes
+to GitLab. The same contribution guidelines apply on both platforms.
 
 - [Issues](https://dev.quiqqer.com/quiqqer/core/-/issues)
 - [Milestones](https://dev.quiqqer.com/quiqqer/core/-/milestones)
