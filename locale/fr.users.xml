@@ -555,6 +555,9 @@
         <locale name="exception.lib.qui.group.user.not.found">
             <fr><![CDATA[Utilisateur introuvable.]]></fr>
         </locale>
+        <locale name="exception.lib.qui.group.not.found">
+            <fr><![CDATA[Le groupe portant l’identifiant « [groupId] » est introuvable.]]></fr>
+        </locale>
         <locale name="exception.lib.qui.manager.no.groupid">
             <fr><![CDATA[Aucun ID de groupe n’a été transmis.]]></fr>
         </locale>

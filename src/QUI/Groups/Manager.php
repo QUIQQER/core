@@ -349,6 +349,19 @@ class Manager extends QUI\QDOM
     }
 
     /**
+     * Discard group objects and lookup data after deleting a group hierarchy.
+     */
+    public function clearCache(): void
+    {
+        $this->groups = [];
+        $this->groupIdsToHashes = [];
+        $this->data = [];
+
+        QUI\Cache\Manager::clearGroupsCache();
+        QUI\Cache\Manager::clear('qui/groups/group/');
+    }
+
+    /**
      * @param boolean $objects - as objects=true, as array=false
      *
      * @return ($objects is true
