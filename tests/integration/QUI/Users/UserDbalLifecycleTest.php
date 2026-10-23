@@ -162,10 +162,9 @@ class UserDbalLifecycleTest extends TestCase
             'lastname' => 'Groups'
         ], $SystemUser);
 
-        // Simulate another request assigning a group after this User instance
-        // was loaded. The UUID does not need a group fixture because this test
-        // verifies that an unrelated save leaves the database column untouched.
-        $groupsChangedByAnotherRequest = ',1,concurrent-group,';
+        // Simulate another request assigning an existing group after this User was loaded.
+        $rootGroupUuid = QUI::getGroups()->get(QUI::conf('globals', 'root'))->getUUID();
+        $groupsChangedByAnotherRequest = ',1,' . $rootGroupUuid . ',';
         self::getConnection()->update(
             QUI\Utils\Doctrine::quoteIdentifier(Manager::table()),
             ['usergroup' => $groupsChangedByAnotherRequest],
@@ -185,6 +184,98 @@ class UserDbalLifecycleTest extends TestCase
             ->fetchOne();
 
         $this->assertSame($groupsChangedByAnotherRequest, $groupsAfterSave);
+    }
+
+    public function testSavingUnrelatedAttributeRemovesOrphanedUuidAndNumericMemberships(): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = QUI::getUsers()->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+        $RootGroup = QUI::getGroups()->get(QUI::conf('globals', 'root'));
+        $orphanedUuid = QUI\Utils\Uuid::get();
+        $memberships = ',0,1,' . $orphanedUuid . ',-1573,'
+            . $RootGroup->getId() . ',' . $RootGroup->getUUID() . ',';
+        $expected = ',0,1,' . $RootGroup->getId() . ',' . $RootGroup->getUUID() . ',';
+
+        $User->getGroups();
+        $this->setStoredGroups($User, $memberships);
+        $User->setAttribute('firstname', 'Saved with valid groups');
+        $User->save($SystemUser);
+
+        self::assertSame($expected, $this->getStoredGroups($User));
+        self::assertSame(explode(',', trim($expected, ',')), $User->getGroups(false));
+        self::assertCount(4, $User->getGroups());
+    }
+
+    public function testSavingStaleUserPreservesCurrentGroupsWhenItsOldGroupsAreOrphaned(): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = QUI::getUsers()->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+        $rootGroupUuid = QUI::getGroups()->get(QUI::conf('globals', 'root'))->getUUID();
+        $orphanedUuid = QUI\Utils\Uuid::get();
+
+        $this->setStoredGroups($User, ',1,' . $orphanedUuid . ',');
+        $StaleUser = new User($User->getUUID());
+        $this->setStoredGroups($User, ',1,' . $rootGroupUuid . ',' . $orphanedUuid . ',');
+
+        $StaleUser->setAttribute('firstname', 'Saved without losing current groups');
+        $StaleUser->save($SystemUser);
+
+        self::assertSame(',1,' . $rootGroupUuid . ',', $this->getStoredGroups($StaleUser));
+        self::assertSame(['1', $rootGroupUuid], $StaleUser->getGroups(false));
+    }
+
+    public function testSavingRemovesGroupsDeletedAfterExplicitAssignmentDespiteCachedGroup(): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = QUI::getUsers()->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+        $Group = QUI::getGroups()->get(QUI::conf('globals', 'root'))->createChild(
+            self::TEST_PREFIX . 'group-' . uniqid(),
+            $SystemUser
+        );
+
+        $User->setGroups([$Group->getUUID()]);
+
+        // Simulate a historical deletion that left both memberships and manager caches behind.
+        self::getConnection()->delete(
+            QUI\Utils\Doctrine::quoteIdentifier(QUI\Groups\Manager::table()),
+            ['uuid' => $Group->getUUID()]
+        );
+
+        $User->save($SystemUser);
+
+        self::assertSame(',1,', $this->getStoredGroups($User));
+        self::assertSame(['1'], $User->getGroups(false));
+        self::assertSame('1', $User->getGroups()[0]->getUUID());
+    }
+
+    public function testSavingAddsEveryoneWhenOnlyOrphanedMembershipsRemain(): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = QUI::getUsers()->createChild(self::TEST_PREFIX . uniqid(), $SystemUser);
+
+        $this->setStoredGroups($User, ',' . QUI\Utils\Uuid::get() . ',-1573,');
+        $User->save($SystemUser);
+
+        self::assertSame(',1,', $this->getStoredGroups($User));
+        self::assertSame(['1'], $User->getGroups(false));
+    }
+
+    private function getStoredGroups(User $User): string
+    {
+        return (string)self::getConnection()->fetchOne(
+            'SELECT usergroup FROM ' . QUI\Utils\Doctrine::quoteIdentifier(Manager::table())
+                . ' WHERE uuid = ?',
+            [$User->getUUID()]
+        );
+    }
+
+    private function setStoredGroups(User $User, string $groups): void
+    {
+        self::getConnection()->update(
+            QUI\Utils\Doctrine::quoteIdentifier(Manager::table()),
+            ['usergroup' => $groups],
+            ['uuid' => $User->getUUID()]
+        );
     }
 
     public function testUploadDevicesSurviveStaleUserSaveAndCannotBeForgedOrExported(): void
@@ -299,6 +390,14 @@ class UserDbalLifecycleTest extends TestCase
                 ->where($Platform->quoteSingleIdentifier('username') . ' LIKE :username')
                 ->setParameter('username', self::TEST_PREFIX . '%')
                 ->executeStatement();
+
+            $Connection->createQueryBuilder()
+                ->delete(QUI\Utils\Doctrine::quoteIdentifier(QUI\Groups\Manager::table()))
+                ->where($Platform->quoteSingleIdentifier('name') . ' LIKE :name')
+                ->setParameter('name', self::TEST_PREFIX . '%')
+                ->executeStatement();
+
+            QUI::getGroups()->clearCache();
         } catch (Throwable) {
             // The availability check reports DB problems. Cleanup should not hide the test result.
         }
