@@ -725,19 +725,15 @@ class Update extends QUI\System\Console\Tool
             if ($Instance instanceof self) {
                 $Instance->setupPackageCount++;
             }
-
-            if ($verbosity < 1) {
-                return;
-            }
         }
 
         if ($verbosity >= 3) {
-            $Instance->writeLn($trimmedMessage);
+            $Instance->writeLn('    ' . $trimmedMessage);
             return;
         }
 
         if (str_contains($message, '<warning>')) {
-            $Instance->writeLn(strip_tags($message), 'cyan');
+            $Instance->writeLn('    ' . strip_tags($message), 'cyan');
 
             // reset color
             if (method_exists($Instance, 'resetColor')) {
@@ -881,7 +877,7 @@ class Update extends QUI\System\Console\Tool
             return;
         }
 
-        $Instance->writeLn($trimmedMessage);
+        $Instance->writeLn('    ' . $trimmedMessage);
     }
 
     protected function checkFileSystemChanges(): bool

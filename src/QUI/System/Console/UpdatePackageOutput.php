@@ -56,6 +56,11 @@ class UpdatePackageOutput implements SystemOutput
             return;
         }
 
+        if (str_contains($message, 'run setup for package')) {
+            $this->Output->listItem($message);
+            return;
+        }
+
         if (str_contains($message, 'Your quiqqer system is missing some requirements')) {
             if (!$this->requirementsHeadlineWritten) {
                 $this->Output->warning('Your quiqqer system is missing some requirements');
