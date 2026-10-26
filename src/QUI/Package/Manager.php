@@ -421,7 +421,7 @@ class Manager extends QUI\QDOM
     {
         QUI\System\MaintenanceLock::runWhenAvailable(function () use ($packages): void {
             $this->writeComposerJSON($packages);
-        });
+        }, operation: 'Refreshing Composer configuration');
     }
 
     /** @param array<array-key, mixed> $packages */
@@ -1235,7 +1235,7 @@ class Manager extends QUI\QDOM
     {
         QUI\System\MaintenanceLock::runWhenAvailable(function () use ($packages, $version): void {
             $this->installPackages($packages, $version);
-        });
+        }, operation: 'Package installation');
     }
 
     /** @param array<int, string>|string $packages */
@@ -1358,7 +1358,7 @@ class Manager extends QUI\QDOM
     ): void {
         QUI\System\MaintenanceLock::runWhenAvailable(function () use ($packages, $version): void {
             $this->installLocalPackages($packages, $version);
-        });
+        }, operation: 'Local package installation');
     }
 
     /** @param array<int, string>|string $packages */
@@ -2003,7 +2003,7 @@ class Manager extends QUI\QDOM
     ): void {
         QUI\System\MaintenanceLock::runWhenAvailable(function () use ($package, $mute, $Output, $finalize): void {
             $this->updatePackages($package, $mute, $Output, $finalize);
-        });
+        }, operation: 'Package update');
     }
 
     private function updatePackages(

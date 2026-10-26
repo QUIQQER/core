@@ -161,7 +161,10 @@ class Update extends QUI\System\Console\Tool
 
     public function executeSystemUpdate(bool $deferCompletion = false): bool
     {
-        return QUI\System\MaintenanceLock::runWhenAvailable(fn(): bool => $this->runSystemUpdate($deferCompletion));
+        return QUI\System\MaintenanceLock::runWhenAvailable(
+            fn(): bool => $this->runSystemUpdate($deferCompletion),
+            operation: 'System update'
+        );
     }
 
     private function runSystemUpdate(bool $deferCompletion): bool
@@ -457,7 +460,8 @@ class Update extends QUI\System\Console\Tool
     public function completeSystemUpdate(string $etcBackupFolder, bool $finalizePackages): bool
     {
         return QUI\System\MaintenanceLock::runWhenAvailable(
-            fn(): bool => $this->finishSystemUpdate($etcBackupFolder, $finalizePackages)
+            fn(): bool => $this->finishSystemUpdate($etcBackupFolder, $finalizePackages),
+            operation: 'Completing system update'
         );
     }
 
@@ -581,6 +585,7 @@ class Update extends QUI\System\Console\Tool
 
                 $lines[] = 'Run ID:  ' . $State->getId();
                 $lines[] = 'Status:  ' . $State->getStatus();
+                $lines[] = 'Phase:   ' . $State->getPhase();
                 $lines[] = 'Started: ' . date('Y-m-d H:i:s', $State->getCreatedAt());
                 $lines[] = 'PID:     ' . ($pid > 0 ? (string)$pid : 'not available');
                 $lines[] = 'Cancel:  ./console update --cancel=' . $State->getId();

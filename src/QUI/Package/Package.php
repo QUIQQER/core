@@ -666,7 +666,7 @@ class Package extends QUI\QDOM
     {
         QUI\System\MaintenanceLock::runWhenAvailable(function () use ($params): void {
             $this->executeSetup($params);
-        });
+        }, operation: 'Package setup');
     }
 
     /** @param array<string, mixed> $params */

@@ -19,7 +19,8 @@ class RunExecutor
     {
         return \QUI\System\MaintenanceLock::runWhenAvailable(
             fn(): RunState => $this->executeLocked($id, $token, $now),
-            $id
+            $id,
+            operation: 'System update'
         );
     }
 
