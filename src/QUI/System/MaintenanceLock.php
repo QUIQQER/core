@@ -24,6 +24,8 @@ final class MaintenanceLock
 
     private ?LockInterface $Lock = null;
 
+    private ?MaintenanceOperation $Operation = null;
+
     private function __construct(private readonly string $directory)
     {
     }
@@ -37,8 +39,12 @@ final class MaintenanceLock
      * @param callable(): T $callback
      * @return T
      */
-    public static function run(callable $callback, ?string $runId = null, float $timeout = 0.0): mixed
-    {
+    public static function run(
+        callable $callback,
+        ?string $runId = null,
+        float $timeout = 0.0,
+        ?string $operation = null
+    ): mixed {
         if (!is_finite($timeout) || $timeout < 0) {
             throw new InvalidArgumentException('Maintenance lock timeout must be finite and non-negative.');
         }
@@ -53,7 +59,21 @@ final class MaintenanceLock
         $previousEnvironment = $_ENV[self::CONTEXT] ?? null;
 
         try {
-            $Guard->acquire($previous, $runId, $timeout);
+            try {
+                $Guard->acquire($previous, $runId, $timeout);
+            } catch (MaintenanceBusyException $Exception) {
+                if ($Exception->getOperations() !== []) {
+                    throw $Exception;
+                }
+
+                throw new MaintenanceBusyException($Guard->getActiveOperations());
+            }
+
+            $Guard->Operation = MaintenanceOperation::start(
+                $Guard->directory,
+                $operation ?? self::defaultOperation(),
+                $runId
+            );
             self::$current = $Guard;
 
             return $callback();
@@ -83,9 +103,13 @@ final class MaintenanceLock
      * @param callable(): T $callback
      * @return T
      */
-    public static function runWhenAvailable(callable $callback, ?string $runId = null, float $timeout = 60.0): mixed
-    {
-        return self::run($callback, $runId, $timeout);
+    public static function runWhenAvailable(
+        callable $callback,
+        ?string $runId = null,
+        float $timeout = 60.0,
+        ?string $operation = null
+    ): mixed {
+        return self::run($callback, $runId, $timeout, $operation);
     }
 
     public static function isBusy(): bool
@@ -169,7 +193,7 @@ final class MaintenanceLock
                 $State->getId() !== $runId
                 && !$this->isLegacyRunnerChild($State, $Repository)
             ) {
-                throw new MaintenanceBusyException();
+                throw new MaintenanceBusyException([self::describeRun($State)]);
             }
         }
 
@@ -269,12 +293,68 @@ final class MaintenanceLock
 
     private function release(): void
     {
+        $this->Operation?->close();
+        $this->Operation = null;
+
         if ($this->handle !== null) {
             fclose($this->handle);
             $this->handle = null;
         }
 
         $this->Lock?->release();
+    }
+
+    /**
+     * @return list<array{operation: string, pid?: int, startedAt?: int, runId?: string,
+     *     status?: string, phase?: string}>
+     */
+    private function getActiveOperations(): array
+    {
+        $operations = MaintenanceOperation::active($this->directory);
+        $Repository = new RunRepository($this->directory . 'update/runs/');
+
+        foreach ($operations as &$operation) {
+            if (!isset($operation['runId'])) {
+                continue;
+            }
+
+            try {
+                $State = $Repository->load($operation['runId']);
+                $operation['status'] = $State->getStatus();
+                $operation['phase'] = $State->getPhase();
+            } catch (\Throwable) {
+                // Metadata is optional and must not replace the original busy response.
+            }
+        }
+
+        return $operations;
+    }
+
+    /** @return array{operation: string, pid: int, startedAt: int, runId: string, status: string, phase: string} */
+    private static function describeRun(RunState $State): array
+    {
+        return [
+            'operation' => 'System update',
+            'pid' => (int)($State->getProcess()['pid'] ?? 0),
+            'startedAt' => $State->getCreatedAt(),
+            'runId' => $State->getId(),
+            'status' => $State->getStatus(),
+            'phase' => $State->getPhase()
+        ];
+    }
+
+    private static function defaultOperation(): string
+    {
+        // Use only known command names; arguments may contain credentials or runner tokens.
+        if (PHP_SAPI === 'cli' && basename((string)($_SERVER['argv'][0] ?? '')) === 'console') {
+            return match ($_SERVER['argv'][1] ?? null) {
+                'cron', 'quiqqer:cron' => 'Cron execution',
+                'composer' => 'Composer command',
+                default => 'Console maintenance operation'
+            };
+        }
+
+        return PHP_SAPI === 'cli' ? 'CLI maintenance operation' : 'Web maintenance operation';
     }
 
     private static function getVarDirectory(): string

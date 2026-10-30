@@ -37,7 +37,7 @@ class Setup
     {
         System\MaintenanceLock::runWhenAvailable(static function () use ($Output): void {
             self::executeAll($Output);
-        });
+        }, operation: 'System setup');
     }
 
     private static function executeAll(?QUI\Interfaces\System\SystemOutput $Output): void

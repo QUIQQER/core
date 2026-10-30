@@ -990,7 +990,13 @@ class Console
     {
         $Progress = new Console\TerminalProgress();
 
-        return $Progress->run($callback);
+        try {
+            return $Progress->run($callback);
+        } catch (MaintenanceBusyException $Exception) {
+            $this->writeLn($Exception->getMessage(), 'yellow');
+            $this->clearMsg();
+            exit(75);
+        }
     }
 
     /**

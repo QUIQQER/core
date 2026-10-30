@@ -6,6 +6,8 @@
 
 namespace QUI\Groups;
 
+use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\Connection;
 use QUI;
 use QUI\Database\Exception;
 use Throwable;
@@ -16,7 +18,6 @@ use function count;
 use function explode;
 use function in_array;
 use function is_array;
-use function is_int;
 use function is_numeric;
 use function json_decode;
 use function json_encode;
@@ -71,6 +72,13 @@ class Group extends QUI\QDOM
      */
     public function __construct(int | string $id)
     {
+        if ($id === '') {
+            throw new QUI\Exception([
+                'quiqqer/core',
+                'exception.lib.qui.manager.no.groupid'
+            ]);
+        }
+
         $this->rootId = QUI::conf('globals', 'root');
 
         if (is_numeric($id)) {
@@ -122,8 +130,11 @@ class Group extends QUI\QDOM
             throw new QUI\Exception(
                 QUI::getLocale()->get(
                     'quiqqer/core',
-                    'exception.lib.qui.manager.no.groupid'
-                )
+                    'exception.lib.qui.group.not.found',
+                    ['groupId' => $id]
+                ),
+                404,
+                ['groupId' => $id]
             );
         }
 
@@ -404,51 +415,49 @@ class Group extends QUI\QDOM
 
         QUI::getEvents()->fireEvent('groupDelete', [$this]);
 
-        /**
-         * Delete the group id in all users
-         *
-         * @param int|string $groupId
-         *
-         * @throws \Doctrine\DBAL\Exception
-         */
-        $deleteGidInUsers = static function (int | string $groupId): void {
-            if (!is_int($groupId)) {
-                return;
-            }
-
-            $Connection = QUI::getDataBaseConnection();
-            $table = QUI\Utils\Doctrine::quoteIdentifier(QUI\Users\Manager::table());
-
-            $Statement = $Connection->prepare(
-                "UPDATE {$table}
-                SET usergroup = replace(usergroup, :search, :replace)
-                WHERE usergroup LIKE :where"
-            );
-
-            $Statement->bindValue('where', '%,' . $groupId . ',%');
-            $Statement->bindValue('search', ',' . $groupId . ',');
-            $Statement->bindValue('replace', ',');
-            $Statement->executeStatement();
-        };
-
         try {
-            $children = $this->getChildrenIds(true) ?? [];
+            $Connection = QUI::getDataBaseConnection();
+            $groupsTable = QUI\Utils\Doctrine::quoteIdentifier(Manager::table());
+            $usersTable = QUI\Utils\Doctrine::quoteIdentifier(QUI\Users\Manager::table());
 
-            foreach ($children as $child) {
-                QUI::getDataBaseConnection()->delete(
-                    QUI\Utils\Doctrine::quoteIdentifier(Manager::table()),
-                    ['uuid' => $child]
+            // A cached nonrecursive traversal may not contain all descendants.
+            $this->childrenIds = null;
+            $children = $this->getChildrenIds(true) ?? [];
+            $groupUuids = array_merge($children, [$this->getUUID()]);
+            $groups = $Connection->createQueryBuilder()
+                ->select('id', 'uuid')
+                ->from($groupsTable)
+                ->where('uuid IN (:uuids)')
+                ->setParameter('uuids', $groupUuids, ArrayParameterType::STRING)
+                ->executeQuery()
+                ->fetchAllAssociative();
+
+            $Connection->transactional(static function (Connection $Connection) use (
+                $groups,
+                $groupsTable,
+                $usersTable
+            ): void {
+                $Statement = $Connection->prepare(
+                    "UPDATE {$usersTable}
+                    SET usergroup = CASE WHEN usergroup = :singleGroup THEN ''
+                        ELSE replace(usergroup, :search, :replace) END
+                    WHERE usergroup LIKE :memberships OR usergroup = :groupId"
                 );
 
-                $deleteGidInUsers($child);
-            }
+                foreach ($groups as $group) {
+                    // Numeric memberships remain supported until Core v3.
+                    foreach ([$group['uuid'], (string)$group['id']] as $groupId) {
+                        $Statement->bindValue('singleGroup', $groupId);
+                        $Statement->bindValue('search', ',' . $groupId . ',');
+                        $Statement->bindValue('replace', ',');
+                        $Statement->bindValue('memberships', '%,' . $groupId . ',%');
+                        $Statement->bindValue('groupId', $groupId);
+                        $Statement->executeStatement();
+                    }
 
-            $deleteGidInUsers($this->getUUID());
-
-            QUI::getDataBaseConnection()->delete(
-                QUI\Utils\Doctrine::quoteIdentifier(Manager::table()),
-                ['uuid' => $this->getUUID()]
-            );
+                    $Connection->delete($groupsTable, ['uuid' => $group['uuid']]);
+                }
+            });
         } catch (\Doctrine\DBAL\Exception $DBALException) {
             throw new Exception(
                 $DBALException->getMessage(),
@@ -456,7 +465,7 @@ class Group extends QUI\QDOM
             );
         }
 
-        QUI\Cache\Manager::clear('qui/groups/group/' . $this->getUUID());
+        QUI::getGroups()->clearCache();
     }
 
     /**

@@ -18,12 +18,37 @@ html, body {
 }
 
 ::-webkit-scrollbar {
-    height: 6px;
-    width: 6px;
+    height: 10px;
+    width: 10px;
+    background-color: var(--qui-colors-gray-50);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--qui-colors-gray-50);
+    border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, .26);
+    background-color: var(--qui-colors-gray-200);
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    min-width: 36px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    min-height: 36px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--qui-colors-gray-300);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: var(--qui-colors-gray-400);
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
