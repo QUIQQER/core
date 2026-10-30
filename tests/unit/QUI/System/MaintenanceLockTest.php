@@ -20,6 +20,110 @@ require_once __DIR__ . '/Update/Fixtures/RecordingUpdateRunAction.php';
 
 class MaintenanceLockTest extends TestCase
 {
+    public function testBusyResponseIdentifiesTheActualOwnerWithoutExposingItsToken(): void
+    {
+        MaintenanceLock::run(function (): void {
+            $details = json_decode($this->probe('details', false), true, 512, JSON_THROW_ON_ERROR);
+
+            self::assertStringContainsString('Operation: System setup', $details['message']);
+            self::assertStringContainsString('PID:       ' . getmypid(), $details['message']);
+            self::assertSame('System setup', $details['operations'][0]['operation']);
+            self::assertSame(getmypid(), $details['operations'][0]['pid']);
+            self::assertGreaterThan(0, $details['operations'][0]['startedAt']);
+            self::assertStringNotContainsString((string)getenv('QUIQQER_MAINTENANCE_TOKEN'), $details['message']);
+
+            foreach (glob(VAR_DIR . 'locks/maintenance-operation-*.json') ?: [] as $path) {
+                self::assertStringNotContainsString(
+                    (string)getenv('QUIQQER_MAINTENANCE_TOKEN'),
+                    (string)file_get_contents($path)
+                );
+            }
+        }, operation: 'System setup');
+
+        self::assertSame([], MaintenanceOperation::active(VAR_DIR));
+    }
+
+    public function testReservedUpdateReportsItsRunIdStatusAndPhase(): void
+    {
+        $Repository = new RunRepository(VAR_DIR . 'update/runs/');
+        $Run = $Repository->create();
+        $State = $Run->getState();
+
+        try {
+            $details = json_decode($this->probe('details', false), true, 512, JSON_THROW_ON_ERROR);
+
+            self::assertSame($State->getId(), $details['operations'][0]['runId']);
+            self::assertSame(RunState::STATUS_CREATED, $details['operations'][0]['status']);
+            self::assertSame(RunState::PHASE_CREATED, $details['operations'][0]['phase']);
+            self::assertStringContainsString('System update', $details['message']);
+            self::assertStringNotContainsString($Run->getToken(), $details['message']);
+        } finally {
+            $Repository->delete($State->getId());
+        }
+    }
+
+    public function testRunningUpdateDiagnosticsUseTheCurrentRunPhase(): void
+    {
+        $Repository = new RunRepository(VAR_DIR . 'update/runs/');
+        $Run = $Repository->create();
+        $State = $Run->getState();
+        $State->transitionTo(RunState::PHASE_PREPARED);
+        $State->transitionTo(RunState::PHASE_COMPOSER_UPDATE);
+        $State->markRunning(time());
+        $State->setProcess((int)getmypid(), '', time());
+        $Repository->save($State);
+
+        try {
+            MaintenanceLock::run(function () use ($State): void {
+                $details = json_decode($this->probe('details', false), true, 512, JSON_THROW_ON_ERROR);
+
+                self::assertSame($State->getId(), $details['operations'][0]['runId']);
+                self::assertSame(RunState::STATUS_RUNNING, $details['operations'][0]['status']);
+                self::assertSame(RunState::PHASE_COMPOSER_UPDATE, $details['operations'][0]['phase']);
+            }, $State->getId(), operation: 'System update');
+        } finally {
+            $Repository->delete($State->getId());
+        }
+    }
+
+    public function testOlderOwnersWithoutMetadataKeepTheHelpfulFallbackMessage(): void
+    {
+        $Lock = Locker::createFilesystemLock('system-maintenance', VAR_DIR . 'locks/');
+        self::assertTrue($Lock->acquire());
+
+        try {
+            $details = json_decode($this->probe('details', false), true, 512, JSON_THROW_ON_ERROR);
+
+            self::assertSame([], $details['operations']);
+            self::assertStringContainsString('Details about the blocking process are not available.', $details['message']);
+        } finally {
+            $Lock->release();
+        }
+    }
+
+    public function testDefaultCronLabelDoesNotPersistCommandArguments(): void
+    {
+        $argv = $_SERVER['argv'] ?? null;
+        $_SERVER['argv'] = ['/example/console', 'cron', '--password=do-not-persist'];
+
+        try {
+            MaintenanceLock::run(static function (): void {
+                $operations = MaintenanceOperation::active(VAR_DIR);
+                self::assertSame('Cron execution', $operations[0]['operation']);
+
+                foreach (glob(VAR_DIR . 'locks/maintenance-operation-*.json') ?: [] as $path) {
+                    self::assertStringNotContainsString('do-not-persist', (string)file_get_contents($path));
+                }
+            });
+        } finally {
+            unset($_SERVER['argv']);
+
+            if ($argv !== null) {
+                $_SERVER['argv'] = $argv;
+            }
+        }
+    }
+
     #[DataProvider('invalidTimeouts')]
     public function testInvalidTimeoutCannotRunTheCallback(float $timeout): void
     {
@@ -215,6 +319,7 @@ class MaintenanceLockTest extends TestCase
 
             self::assertTrue(MaintenanceLock::isBusy());
             self::assertSame('busy', $this->probe('probe', false));
+            self::assertSame($Child->getPid(), MaintenanceOperation::active(VAR_DIR)[0]['pid']);
             $Waiter->start();
             $Admission = Locker::createFilesystemLock('system-maintenance-admission', VAR_DIR . 'locks/');
             $deadline = microtime(true) + 5;

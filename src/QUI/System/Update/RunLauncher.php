@@ -16,7 +16,10 @@ class RunLauncher
      */
     public function create(?int $now = null, array $metadata = []): RunLaunch
     {
-        return \QUI\System\MaintenanceLock::runWhenAvailable(fn(): RunLaunch => $this->createLocked($now, $metadata));
+        return \QUI\System\MaintenanceLock::runWhenAvailable(
+            fn(): RunLaunch => $this->createLocked($now, $metadata),
+            operation: 'Preparing system update'
+        );
     }
 
     /** @param array<string, mixed> $metadata */

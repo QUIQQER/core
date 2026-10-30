@@ -13,6 +13,18 @@ use Symfony\Component\Process\Process;
 
 try {
     switch ($argv[1]) {
+        case 'details':
+            try {
+                MaintenanceLock::run(static function (): void {
+                    echo 'entered';
+                });
+            } catch (MaintenanceBusyException $Exception) {
+                echo json_encode([
+                    'message' => $Exception->getMessage(),
+                    'operations' => $Exception->getOperations()
+                ], JSON_THROW_ON_ERROR);
+            }
+            break;
         case 'wait':
         case 'wait-hold':
             MaintenanceLock::runWhenAvailable(static function () use ($argv): void {
@@ -91,7 +103,7 @@ try {
                     $Child->mustRun();
                     echo $Child->getOutput();
                 }
-            });
+            }, operation: 'System setup');
             break;
         case 'setup':
             QUI\Setup::all();

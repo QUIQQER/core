@@ -6,6 +6,7 @@
 
 namespace QUI\Users;
 
+use Doctrine\DBAL\ArrayParameterType;
 use DOMElement;
 use QUI;
 use QUI\Database\Exception;
@@ -927,10 +928,6 @@ class User implements QUIUserInterface
 
         QUI::getEvents()->fireEvent('userSave', [$this]);
 
-        // add to everyone
-        $Everyone = new QUI\Groups\Everyone();
-        $this->addToGroup($Everyone->getUUID());
-
         // check assigned toolbars
         $assignedToolbars = '';
         $toolbar = '';
@@ -1005,11 +1002,6 @@ class User implements QUIUserInterface
 
 
         // saving
-        $groupIds = array_values(array_filter(
-            $this->getGroups(false),
-            static fn ($group): bool => $group !== ''
-        ));
-
         $query = QUI::getQueryBuilder()->update(QUI\Utils\Doctrine::quoteIdentifier(Manager::table()));
 
         $update = [
@@ -1035,10 +1027,6 @@ class User implements QUIUserInterface
             'verifiableAttributes' => json_encode($this->parseVerifiedAttributesToArray())
         ];
 
-        if ($this->groupsChanged) {
-            $update['usergroup'] = ',' . implode(',', $groupIds) . ',';
-        }
-
         QUI\Utils\Doctrine::parseDbArrayToQueryBuilder($query, [
             'update' => $update,
             'where' => [
@@ -1047,16 +1035,43 @@ class User implements QUIUserInterface
         ]);
 
         $saved = false;
+        $savedGroups = '';
 
         try {
             (new QUI\Upload\MobileUpload\Devices())->preserveOnSave(
                 (string)$this->getUUID(),
                 $extra,
-                static function (array $protectedExtra) use ($query): void {
+                function (array $protectedExtra) use ($query, &$savedGroups): void {
+                    // preserveOnSave holds the user row lock, so current memberships cannot be overwritten
+                    // by a concurrent profile save while we validate and persist them.
+                    if ($this->groupsChanged) {
+                        $groupIds = $this->getGroups(false);
+                    } else {
+                        $storedGroups = QUI::getDataBaseConnection()->fetchOne(
+                            'SELECT usergroup FROM ' . QUI\Utils\Doctrine::quoteIdentifier(Manager::table())
+                                . ' WHERE uuid = ?',
+                            [$this->getUUID()]
+                        );
+                        $groupIds = explode(',', trim((string)$storedGroups, ','));
+                    }
+
+                    $everyoneId = (string)QUI\Groups\Manager::EVERYONE_ID;
+
+                    if (!in_array($everyoneId, $groupIds, true)) {
+                        $groupIds[] = $everyoneId;
+                    }
+
+                    $groupIds = $this->filterExistingGroupIds($groupIds);
+                    $memberships = ',' . implode(',', $groupIds) . ',';
                     $json = json_encode($protectedExtra, JSON_THROW_ON_ERROR);
+
+                    $query->set('usergroup', ':savedGroups');
+                    $query->setParameter('savedGroups', $memberships);
                     $query->set('extra', ':mobileUploadExtra');
                     $query->setParameter('mobileUploadExtra', $json);
                     $query->executeStatement();
+
+                    $savedGroups = $memberships;
                 }
             );
             $saved = true;
@@ -1065,6 +1080,8 @@ class User implements QUIUserInterface
         }
 
         if ($saved) {
+            $this->groups = $savedGroups;
+            $this->Group = null;
             $this->groupsChanged = false;
         }
 
@@ -1076,6 +1093,66 @@ class User implements QUIUserInterface
         if ($this->canUseBackend()) {
             QUI\Workspace\Menu::clearMenuCache($this);
         }
+    }
+
+    /**
+     * Validate against the database because the group manager may still cache deleted groups.
+     *
+     * @param array<int, string> $groupIds
+     * @return array<int, string>
+     */
+    private function filterExistingGroupIds(array $groupIds): array
+    {
+        $groupIds = array_map('trim', $groupIds);
+        $groupIds = array_values(array_filter($groupIds, static fn (string $id): bool => $id !== ''));
+
+        if ($groupIds === []) {
+            return [];
+        }
+
+        $numericIds = [];
+        $uuids = [];
+
+        foreach ($groupIds as $id) {
+            if (is_numeric($id)) {
+                $numericIds[] = (int)$id;
+            } else {
+                $uuids[] = $id;
+            }
+        }
+
+        $Query = QUI::getQueryBuilder()
+            ->select('id', 'uuid')
+            ->from(QUI\Utils\Doctrine::quoteIdentifier(QUI\Groups\Manager::table()));
+
+        if ($numericIds !== []) {
+            $Query->orWhere('id IN (:ids)');
+            $Query->setParameter('ids', $numericIds, ArrayParameterType::INTEGER);
+        }
+
+        if ($uuids !== []) {
+            $Query->orWhere('uuid IN (:uuids)');
+            $Query->setParameter('uuids', $uuids, ArrayParameterType::STRING);
+        }
+
+        $rows = $Query->executeQuery()->fetchAllAssociative();
+        $existingIds = [
+            QUI\Groups\Manager::GUEST_ID => true,
+            QUI\Groups\Manager::EVERYONE_ID => true
+        ];
+        $existingUuids = [];
+
+        foreach ($rows as $row) {
+            $existingIds[(int)$row['id']] = true;
+            $existingUuids[(string)$row['uuid']] = true;
+        }
+
+        return array_values(array_filter(
+            $groupIds,
+            static fn (string $id): bool => is_numeric($id)
+                ? isset($existingIds[(int)$id])
+                : isset($existingUuids[$id])
+        ));
     }
 
     /**

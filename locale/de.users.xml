@@ -588,6 +588,9 @@
         <locale name="exception.lib.qui.group.user.not.found">
             <de><![CDATA[Benutzer wurde nicht gefunden.]]></de>
         </locale>
+        <locale name="exception.lib.qui.group.not.found">
+            <de><![CDATA[Gruppe mit Kennung „[groupId]“ wurde nicht gefunden.]]></de>
+        </locale>
         <locale name="exception.lib.qui.manager.no.groupid">
             <de><![CDATA[Es wurde keine Gruppen ID übergeben.]]></de>
         </locale>
