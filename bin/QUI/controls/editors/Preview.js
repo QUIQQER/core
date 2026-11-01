@@ -32,6 +32,8 @@ define('controls/editors/Preview', [
 
             this.$loaded = false;
             this.$cssFileCount = {};
+            this.$projectCSSFiles = [];
+            this.$projectCSSLinks = [];
 
             this.addEvents({
                 onImport: this.$onImport
@@ -66,6 +68,7 @@ define('controls/editors/Preview', [
          */
         $onLoad: function () {
             this.$loaded = true;
+            this.setCSSFiles(this.$projectCSSFiles);
             this.fireEvent('load', [this]);
         },
 
@@ -78,6 +81,30 @@ define('controls/editors/Preview', [
             }
 
             this.$Elm.contentWindow.document.body.set('html', value);
+        },
+
+        /**
+         * Replace the project's styles, including its palette, without affecting other preview assets.
+         * Calls before the frame loads are applied to its final document in $onLoad().
+         *
+         * @param {String[]} files
+         */
+        setCSSFiles: function (files) {
+            this.$projectCSSFiles = [...new Set(files)];
+
+            if (!this.$loaded) {
+                return;
+            }
+
+            this.$projectCSSLinks.forEach((link) => link.remove());
+            const previewDocument = this.$Elm.contentWindow.document;
+            this.$projectCSSLinks = this.$projectCSSFiles.map((file) => {
+                const link = previewDocument.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = file;
+                previewDocument.head.appendChild(link);
+                return link;
+            });
         },
 
         /**

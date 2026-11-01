@@ -51,6 +51,9 @@ final class ProjectColorsIntegrationTest extends ProjectIntegrationTestCase
         self::save($Project, $palette);
         self::assertSame($palette, self::reload($Project));
         self::assertSame('#abcdef80', Colors::resolve($Project, '{"type":"palette","id":"primary"}', 'dark'));
+        $variables = Colors::getCssVariables($Project);
+        self::assertSame('light-dark(#123456, #abcdef80)', $variables['--qui-project-color-primary']);
+        self::assertSame('#1234', $variables['--qui-project-color-custom-name']);
 
         foreach ([$projectCache, $templateCache] as $cache) {
             try {
@@ -141,6 +144,65 @@ final class ProjectColorsIntegrationTest extends ProjectIntegrationTestCase
         self::assertSame('#abcdef80', Colors::resolve($Project, $reference, 'dark'));
     }
 
+    public function testArchivedCssDefinitionsKeepTheirStableNames(): void
+    {
+        $Project = self::getTestProject();
+        $palette = Colors::get($Project);
+        $id = 'template:vendor/example:accent';
+        $palette['colors'][$id] = ['name' => 'Accent', 'light' => '#1234', 'dark' => '#abcdef80'];
+        self::save($Project, $palette);
+        $before = Colors::getCssVariables($Project);
+
+        unset($palette['colors'][$id]);
+        self::save($Project, $palette);
+        self::assertTrue(self::reload($Project)['colors'][$id]['archived']);
+        self::assertSame($before, Colors::getCssVariables($Project));
+        self::assertSame(
+            'light-dark(#1234, #abcdef80)',
+            $before['--qui-project-color-template-vendor__example__accent']
+        );
+    }
+
+    public function testEditorAndPreviewSettingsRefreshColorsWithoutCachingThem(): void
+    {
+        $Project = self::getTestProject();
+        $palette = Colors::get($Project);
+
+        foreach (['#123456', '#abcdef'] as $color) {
+            // Update only storage: the warmed editor-settings cache deliberately remains intact.
+            $palette['colors']['primary'] = ['value' => $color];
+            Manager::getConfig()->setValue($Project->getName(), Colors::CONFIG_KEY, Colors::encode($palette));
+
+            $fresh = QUI\Editor\Manager::getSettings($Project);
+            self::assertSame($fresh, QUI\Editor\Manager::getSettings($Project));
+            self::assertStringStartsWith('data:text/css;base64,', $fresh['cssFiles'][0]);
+            $css = base64_decode(substr($fresh['cssFiles'][0], strlen('data:text/css;base64,')));
+            self::assertStringContainsString('--qui-project-color-primary:' . $color . ';', $css);
+
+            $cached = CacheManager::get($Project->getCachePath() . '/wysiwyg-settings');
+            self::assertNotContains($fresh['cssFiles'][0], $cached['cssFiles']);
+        }
+
+        Manager::getConfig()->setValue($Project->getName(), Colors::CONFIG_KEY, 'broken');
+        $settings = QUI\Editor\Manager::getSettings($Project);
+        self::assertSame($cached['cssFiles'], $settings['cssFiles']);
+    }
+
+    public function testProjectCssDefinitionsRemainIsolated(): void
+    {
+        $Project = self::getTestProject();
+        $OtherProject = $this->createMock(Project::class);
+        $OtherProject->method('getName')->willReturn($Project->getName() . '-other');
+
+        self::assertSame(Colors::defaults()['primary']['value'], Colors::getCssVariables($OtherProject)['--qui-project-color-primary']);
+        $palette = Colors::get($Project);
+        $palette['colors']['primary'] = ['value' => '#123456'];
+        self::save($Project, $palette);
+
+        self::assertSame('#123456', Colors::getCssVariables($Project)['--qui-project-color-primary']);
+        self::assertSame(Colors::defaults()['primary']['value'], Colors::getCssVariables($OtherProject)['--qui-project-color-primary']);
+    }
+
     public function testLaterSaveReplacesAnEarlierPaletteDraft(): void
     {
         $Project = self::getTestProject();
@@ -162,6 +224,8 @@ final class ProjectColorsIntegrationTest extends ProjectIntegrationTestCase
         $Config->save();
         $before = file_get_contents(ETC_DIR . 'projects.ini.php');
         self::assertSame('#abc', Colors::resolve($Project, '{"type":"palette","id":"primary"}', 'light', '#abc'));
+        self::assertSame([], Colors::getCssVariables($Project));
+        self::assertSame('#1234', Colors::toCss('#1234'));
 
         try {
             self::save($Project, Colors::parse(''));

@@ -32,6 +32,7 @@ define('controls/editors/Input', [
             this.$Preview = null;
             this.$Click = null;
             this.$opened = false;
+            this.$projectFilesRequest = 0;
 
             this.addEvents({
                 onImport: this.$onImport
@@ -180,19 +181,26 @@ define('controls/editors/Input', [
          * event : on set project to editor
          */
         $setProjectToEditor: function () {
+            const Project = this.$Project;
+            const request = ++this.$projectFilesRequest;
+
             if (this.$Editor) {
-                this.$Editor.setProject(this.$Project);
+                this.$Editor.setProject(Project);
             }
 
-            require(['Editors'], function (Editors) {
-                Editors.getProjectFiles(this.$Project).then(function (files) {
+            this.$Preview?.setCSSFiles([]);
 
-                    files.cssFiles.each(function (file) {
-                        this.$Preview.addCSSFile(file);
-                    }.bind(this));
+            if (!Project) {
+                return;
+            }
 
-                }.bind(this));
-            }.bind(this));
+            require(['Editors'], (Editors) => {
+                Editors.getProjectFiles(Project).then((files) => {
+                    if (request === this.$projectFilesRequest) {
+                        this.$Preview?.setCSSFiles(files.cssFiles);
+                    }
+                });
+            });
         }
     });
 });

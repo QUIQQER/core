@@ -355,7 +355,83 @@ final class Colors
     }
 
     /**
-     * Resolve at render time; invalid or missing references use the explicit safe fallback.
+     * Translate a stored field value to CSS without loading a project or choosing a mode.
+     * References use the project variables supplied by the document. Invalid values stay empty.
+     * CSS keywords are accepted for rendering only; parseValue() retains the storage contract.
+     */
+    public static function toCss(mixed $value): string
+    {
+        if ($value === 'inherit' || $value === 'currentColor') {
+            return $value;
+        }
+
+        try {
+            $color = self::parseValue($value);
+        } catch (QUI\Exception) {
+            return '';
+        }
+
+        if (is_string($color)) {
+            return $color;
+        }
+
+        if ($color['type'] === 'palette') {
+            return 'var(' . self::getCssVariableName($color['id']) . ')';
+        }
+
+        return self::pairToCss($color['light'], $color['dark']);
+    }
+
+    /**
+     * Stable CSS names use IDs, never display names. Package components cannot contain underscores.
+     *
+     * @throws QUI\Exception Invalid color ID.
+     */
+    public static function getCssVariableName(string $id): string
+    {
+        if (!self::isId($id)) {
+            throw new QUI\Exception('Invalid project color ID.', 400);
+        }
+
+        if (str_starts_with($id, 'template:')) {
+            $id = 'template-' . str_replace(['/', ':'], '__', substr($id, strlen('template:')));
+        }
+
+        return '--qui-project-color-' . $id;
+    }
+
+    /**
+     * Document-level definitions, including archived colors still used by existing references.
+     * Damaged palettes produce no definitions and are never repaired while rendering.
+     *
+     * @return array<string, string>
+     */
+    public static function getCssVariables(Project $Project): array
+    {
+        try {
+            $palette = self::get($Project);
+        } catch (QUI\Exception) {
+            return [];
+        }
+
+        $variables = [];
+
+        foreach ($palette['colors'] as $id => $color) {
+            $variables[self::getCssVariableName($id)] = $color['value']
+                ?? self::pairToCss($color['light'], $color['dark']);
+        }
+
+        return $variables;
+    }
+
+    private static function pairToCss(string $light, string $dark): string
+    {
+        return 'light-dark(' . $light . ', ' . $dark . ')';
+    }
+
+    /**
+     * Resolve a concrete color for non-CSS consumers. Use toCss() for browser output.
+     * Invalid or missing references use the explicit safe fallback.
      *
      * @param array{colors: array<string, array<string, mixed>>} $palette
      */
