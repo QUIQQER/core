@@ -3,6 +3,9 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="system.phpVersion.outdated">
+            <en><![CDATA[Your PHP version [version] is outdated. Please upgrade to PHP 8.3 or higher. Future QUIQQER updates require at least PHP 8.3.]]></en>
+        </locale>
         <locale name="exception.console.execute.user">
             <en><![CDATA[
 The QUIQQER console is executed with the [user] user. This user is not the owner ([owner]) of the QUIQQER system.

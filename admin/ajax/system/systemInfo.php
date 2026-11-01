@@ -13,6 +13,7 @@ QUI::getAjax()->registerFunction(
             'hash' => QUI::getPackageManager()->getHash(),
             'lock' => $package->getLock(),
             'php_version' => phpversion(),
+            'php_update_warning' => QUI\System\PhpVersionSupport::getUpdateWarning(),
             'database' => [
                 'type' => $dbType,
                 'version' => $dbVersion

@@ -173,7 +173,7 @@ define('controls/packages/System', [
                     const hashRow = container.querySelector('.qui-update-ref-row');
 
                     container.querySelector('.qui-update-version-value').set('html', data.version);
-                    container.querySelector('.qui-phpversion-value').set('html', data.php_version);
+                    this.$renderPhpVersion(data.php_version, data.php_update_warning);
                     container.querySelector('.qui-database-value').set(
                         'html',
                         `${data.database.version} (${data.database.type})`
@@ -197,6 +197,21 @@ define('controls/packages/System', [
                     this.fireEvent('load', [this]);
                 });
             });
+        },
+
+        /**
+         * Show the PHP version and explain the requirement for future updates.
+         *
+         * @param {String} version
+         * @param {String|null} warning
+         */
+        $renderPhpVersion: function (version, warning) {
+            const container = this.getElm();
+            const Notice = container.querySelector('[data-name="phpVersionNotice"]');
+            const NoticeText = container.querySelector('[data-name="phpVersionNoticeText"]');
+            container.querySelector('[data-name="phpVersion"]').textContent = version;
+            NoticeText.textContent = warning ?? '';
+            Notice.hidden = !warning;
         },
 
         /**

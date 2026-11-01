@@ -54,6 +54,21 @@
     background: #2d7a39;
 }
 
+.qui-update-php-notice {
+    --_background: var(--quiqqer-core-update-php-notice-background, var(--qui-colors-danger-100));
+    --_border: var(--quiqqer-core-update-php-notice-border, var(--qui-colors-danger-300));
+    --_color: var(--quiqqer-core-update-php-notice-color, var(--qui-colors-danger-900));
+
+    background: var(--_background);
+    border: 1px solid var(--_border);
+    border-radius: 4px;
+    color: var(--_color);
+    line-height: 1.5;
+    margin-top: 12px;
+    max-width: 60ch;
+    padding: 10px 12px;
+}
+
 .qui-update-meta-tableData {
     display: grid;
     gap: 6px;

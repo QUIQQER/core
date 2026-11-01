@@ -27,7 +27,7 @@ class ConsoleHeaderIntegrationTest extends TestCase
 
         if ($compact) {
             self::assertStringContainsString('Last update:', $header);
-            self::assertSame(1, substr_count($header, PHP_EOL));
+            self::assertSame(PHP_VERSION_ID < 80300 ? 2 : 1, substr_count($header, PHP_EOL));
         } else {
             self::assertStringContainsString('Welcome to QUIQQER', $header);
             self::assertStringContainsString('ABSOLUTELY NO WARRANTY', $header);

@@ -7,6 +7,7 @@
 namespace QUI\System\Console;
 
 use QUI\Interfaces\System\SystemOutput;
+use QUI\System\PhpVersionSupport;
 
 use function max;
 use function method_exists;
@@ -14,6 +15,7 @@ use function str_pad;
 use function strlen;
 
 use const PHP_EOL;
+use const PHP_VERSION;
 
 /**
  * Small CLI output helper for the update command.
@@ -59,6 +61,18 @@ class UpdateConsoleOutput
     {
         $this->Output->writeLn();
         $this->Output->writeLn('  [!!] ' . $message, 'yellow');
+        $this->resetColor();
+    }
+
+    public function phpVersionNotice(string $version = PHP_VERSION): void
+    {
+        $warning = PhpVersionSupport::getUpdateWarning($version);
+
+        if ($warning === null) {
+            return;
+        }
+
+        $this->Output->writeLn('  [!!] ' . $warning, 'red');
         $this->resetColor();
     }
 

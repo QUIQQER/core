@@ -529,6 +529,8 @@ class Update extends QUI\System\Console\Tool
         $Maintenance->setArgument('status', 'off');
         $Maintenance->execute();
 
+        $Output->phpVersionNotice();
+
         return true;
     }
 

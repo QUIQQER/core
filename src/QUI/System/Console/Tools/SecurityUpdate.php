@@ -8,6 +8,7 @@ namespace QUI\System\Console\Tools;
 
 use QUI;
 use QUI\Composer\Composer;
+use QUI\System\Console\UpdateConsoleOutput;
 use RuntimeException;
 use Throwable;
 
@@ -108,6 +109,7 @@ class SecurityUpdate extends QUI\System\Console\Tool
 
             $this->writeUpdateLog($phase, 'Automatic patch update completed successfully');
             $this->writeLn(QUI::getLocale()->get('quiqqer/core', 'update.message.execute'));
+            (new UpdateConsoleOutput($this))->phpVersionNotice();
         } catch (Throwable $Exception) {
             $message = $Exception::class . ': ' . $Exception->getMessage();
             $this->writeUpdateLog($phase, 'FAILED: ' . $message);

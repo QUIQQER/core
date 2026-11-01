@@ -56,6 +56,7 @@ use function time;
 use function trim;
 
 use const PHP_EOL;
+use const PHP_VERSION;
 
 /**
  * The QUIQQER Console
@@ -393,6 +394,8 @@ class Console
                 . ' | PHP ' . phpversion()
                 . ' | Last update: ' . $lastUpdate . PHP_EOL;
 
+            $this->writePhpVersionWarning();
+
             return;
         }
 
@@ -428,6 +431,19 @@ class Console
                                ';
 
         $this->message($licenceText, 'cyan', 'white');
+        $this->clearMsg();
+        $this->writePhpVersionWarning();
+    }
+
+    public function writePhpVersionWarning(string $version = PHP_VERSION): void
+    {
+        $warning = PhpVersionSupport::getUpdateWarning($version);
+
+        if ($warning === null) {
+            return;
+        }
+
+        $this->message('[!!] ' . $warning . PHP_EOL, 'red');
         $this->clearMsg();
     }
 
@@ -981,6 +997,14 @@ class Console
         $this->writeLn('Everything is done. Thank you for using QUIQQER', 'green');
         $this->resetMsg();
         $this->writeLn();
+
+        if (
+            $Tool instanceof Console\Tools\Setup
+            || $Tool instanceof Console\Tools\Update
+            || $Tool instanceof Console\Tools\SecurityUpdate
+        ) {
+            $this->writePhpVersionWarning();
+        }
     }
 
     /**
@@ -1595,6 +1619,14 @@ class Console
                 $this->executeWithTerminalProgress(static function () use ($Tool): void {
                     $Tool->execute();
                 });
+
+                if (
+                    $Tool instanceof Console\Tools\Setup
+                    || $Tool instanceof Console\Tools\Update
+                    || $Tool instanceof Console\Tools\SecurityUpdate
+                ) {
+                    $this->writePhpVersionWarning();
+                }
             } catch (QUI\Exception $Exception) {
                 $this->writeLn($Exception->getMessage(), 'red');
                 $this->writeLn();
