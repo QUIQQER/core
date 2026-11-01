@@ -3,6 +3,198 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="projects.colors.color">
+            <de>Farbe</de>
+        </locale>
+        <locale name="projects.colors.name">
+            <de>Name</de>
+        </locale>
+        <locale name="projects.colors.builtin">
+            <de>Projektfarben</de>
+        </locale>
+        <locale name="projects.colors.custom">
+            <de>Eigene Projektfarben</de>
+        </locale>
+        <locale name="projects.colors.archived">
+            <de>Entfernte Farben – Verknüpfungen bleiben erhalten</de>
+        </locale>
+        <locale name="projects.colors.removeHelp">
+            <de>Aus der Auswahl entfernen? Bestehende Verknüpfungen behalten diese Farbe.</de>
+        </locale>
+        <locale name="projects.colors.confirmRemove">
+            <de>Entfernen bestätigen</de>
+        </locale>
+        <locale name="projects.colors.restore">
+            <de>Wiederherstellen</de>
+        </locale>
+        <locale name="projects.colors.apply">
+            <de>Übernehmen</de>
+        </locale>
+        <locale name="projects.colors.cancel">
+            <de>Abbrechen</de>
+        </locale>
+        <locale name="projects.colors.back">
+            <de>Zurück zur Palette</de>
+        </locale>
+        <locale name="projects.colors.unlink">
+            <de>Verknüpfung lösen und individuell bearbeiten</de>
+        </locale>
+        <locale name="projects.colors.chooseVariant">
+            <de>Zu kopierenden Wert wählen</de>
+        </locale>
+        <locale name="projects.colors.merge">
+            <de><![CDATA[Eine Farbe für beide Modi]]></de>
+        </locale>
+        <locale name="projects.colors.hue">
+            <de>Farbton</de>
+        </locale>
+        <locale name="projects.colors.saturation">
+            <de>Sättigung</de>
+        </locale>
+        <locale name="projects.colors.brightness">
+            <de>Helligkeit</de>
+        </locale>
+        <locale name="projects.colors.alpha">
+            <de>Deckkraft</de>
+        </locale>
+        <locale name="projects.colors.surfaceHelp">
+            <de>Pfeiltasten: Sättigung und Helligkeit. Umschalt: größere Schritte.</de>
+        </locale>
+        <locale name="projects.colors.addHelp">
+            <de>Die benannte Farbe wird beim Übernehmen zum Palettenentwurf hinzugefügt. Danach das umgebende Formular speichern.</de>
+        </locale>
+        <locale name="projects.colors.editPalette">
+            <de>Palette bearbeiten</de>
+        </locale>
+        <locale name="projects.colors.showNames">
+            <de>Namen anzeigen</de>
+        </locale>
+        <locale name="projects.colors.title">
+            <de>Projektfarben</de>
+        </locale>
+        <locale name="projects.colors.source">
+            <de>Herkunft</de>
+        </locale>
+        <locale name="projects.colors.source.core">
+            <de>QUIQQER – Standardpalette</de>
+        </locale>
+        <locale name="projects.colors.description">
+            <de>Gemeinsame Palette für alle Projektsprachen. Änderungen werden mit „Speichern“ übernommen.</de>
+        </locale>
+        <locale name="projects.colors.more">
+            <de><![CDATA[Weitere Aktionen]]></de>
+        </locale>
+        <locale name="projects.colors.preview">
+            <de>Farbfelder ausprobieren</de>
+        </locale>
+        <locale name="projects.colors.preview.description">
+            <de>Diese beiden Feldwerte werden nicht gespeichert. Änderungen an benannten Projektfarben gehören zum Palettenentwurf und werden mit „Speichern“ übernommen.</de>
+        </locale>
+        <locale name="projects.colors.preview.enhanced">
+            <de>Erweitertes Feld: Verknüpfung und Varianten</de>
+        </locale>
+        <locale name="projects.colors.preview.legacy">
+            <de>Bisheriges Farbfeld: nur konkrete Farbwerte</de>
+        </locale>
+        <locale name="projects.colors.own">
+            <de>Individuelle Farbe</de>
+        </locale>
+        <locale name="projects.colors.linked">
+            <de>Verwendet die Projektfarbe</de>
+        </locale>
+        <locale name="projects.colors.copy">
+            <de>Kopie ohne Verknüpfung</de>
+        </locale>
+        <locale name="projects.colors.light">
+            <de>Hell</de>
+        </locale>
+        <locale name="projects.colors.dark">
+            <de>Dunkel</de>
+        </locale>
+        <locale name="projects.colors.different">
+            <de><![CDATA[Hell & Dunkel getrennt]]></de>
+        </locale>
+        <locale name="projects.colors.clear">
+            <de>Farbe entfernen</de>
+        </locale>
+        <locale name="projects.colors.reset">
+            <de>Zurücksetzen</de>
+        </locale>
+        <locale name="projects.colors.add">
+            <de>Als benannte Projektfarbe hinzufügen</de>
+        </locale>
+        <locale name="projects.colors.remove">
+            <de>Farbe entfernen</de>
+        </locale>
+        <locale name="projects.colors.invalid">
+            <de>Ungültiger oder unvollständiger Farbwert. Bitte korrigieren oder abbrechen.</de>
+        </locale>
+        <locale name="projects.colors.error">
+            <de>Die Farbpalette konnte nicht geladen oder gespeichert werden.</de>
+        </locale>
+        <locale name="projects.colors.empty">
+            <de>Keine Farbe ausgewählt</de>
+        </locale>
+        <locale name="projects.colors.loading">
+            <de>Farbpalette wird geladen …</de>
+        </locale>
+        <locale name="projects.colors.name.primary">
+            <de>Primär</de>
+        </locale>
+        <locale name="projects.colors.name.secondary">
+            <de>Sekundär</de>
+        </locale>
+        <locale name="projects.colors.name.tertiary">
+            <de>Tertiär</de>
+        </locale>
+        <locale name="projects.colors.name.success">
+            <de>Erfolg</de>
+        </locale>
+        <locale name="projects.colors.name.danger">
+            <de>Gefahr</de>
+        </locale>
+        <locale name="projects.colors.name.warning">
+            <de>Warnung</de>
+        </locale>
+        <locale name="projects.colors.name.info">
+            <de>Information</de>
+        </locale>
+        <locale name="projects.colors.name.background">
+            <de>Seitenhintergrund</de>
+        </locale>
+        <locale name="projects.colors.name.surface">
+            <de>Oberfläche</de>
+        </locale>
+        <locale name="projects.colors.name.text">
+            <de>Text</de>
+        </locale>
+        <locale name="projects.colors.name.text-muted">
+            <de>Dezenter Text</de>
+        </locale>
+        <locale name="projects.colors.name.border">
+            <de>Rahmen</de>
+        </locale>
+        <locale name="projects.colors.name.on-primary">
+            <de>Text auf Primär</de>
+        </locale>
+        <locale name="projects.colors.name.on-secondary">
+            <de>Text auf Sekundär</de>
+        </locale>
+        <locale name="projects.colors.name.on-tertiary">
+            <de>Text auf Tertiär</de>
+        </locale>
+        <locale name="projects.colors.name.on-success">
+            <de>Text auf Erfolg</de>
+        </locale>
+        <locale name="projects.colors.name.on-danger">
+            <de>Text auf Gefahr</de>
+        </locale>
+        <locale name="projects.colors.name.on-warning">
+            <de>Text auf Warnung</de>
+        </locale>
+        <locale name="projects.colors.name.on-info">
+            <de>Text auf Information</de>
+        </locale>
         <locale name="projects.media.qrUpload.allow">
             <de>QR-Code-Upload erlauben</de>
         </locale>
@@ -760,6 +952,201 @@
         </locale>
         <locale name="projects.frontend.loader.unavailable">
             <de><![CDATA[Der gespeicherte Ladetyp ist nicht verfügbar. Die Website verwendet den QUI-Standard.]]></de>
+        </locale>
+        <locale name="projects.colors.brand">
+            <de><![CDATA[Markenfarben]]></de>
+        </locale>
+        <locale name="projects.colors.status">
+            <de><![CDATA[Statusfarben]]></de>
+        </locale>
+        <locale name="projects.colors.neutral">
+            <de><![CDATA[Neutrale Farben]]></de>
+        </locale>
+        <locale name="projects.colors.content">
+            <de><![CDATA[Inhalt]]></de>
+        </locale>
+        <locale name="projects.colors.other">
+            <de><![CDATA[Sonstige]]></de>
+        </locale>
+        <locale name="projects.colors.advanced">
+            <de>Feinabstimmung</de>
+        </locale>
+        <locale name="projects.colors.format">
+            <de><![CDATA[Format]]></de>
+        </locale>
+        <locale name="projects.colors.name.light">
+            <de><![CDATA[Helle Farbe]]></de>
+        </locale>
+        <locale name="projects.colors.name.dark">
+            <de><![CDATA[Dunkle Farbe]]></de>
+        </locale>
+        <locale name="projects.colors.name.heading">
+            <de><![CDATA[Überschriften]]></de>
+        </locale>
+        <locale name="projects.colors.name.link">
+            <de><![CDATA[Link]]></de>
+        </locale>
+        <locale name="projects.colors.name.link-hover">
+            <de><![CDATA[Link-Hover]]></de>
+        </locale>
+        <locale name="projects.colors.damaged">
+            <de><![CDATA[Die gespeicherte Palette ist beschädigt. Du kannst einen Reparaturentwurf mit den Standardfarben erstellen. Erst Speichern ersetzt die beschädigten Daten.]]></de>
+        </locale>
+        <locale name="projects.colors.repair">
+            <de><![CDATA[Reparatur mit Standardfarben vorbereiten]]></de>
+        </locale>
+        <locale name="projects.colors.limit">
+            <de><![CDATA[Maximal 512 Farben einschließlich archivierter Farben.]]></de>
+        </locale>
+        <locale name="projects.colors.backOverview">
+            <de>Zurück zur Übersicht</de>
+        </locale>
+        <locale name="projects.colors.editHelp">
+            <de>Farbe anklicken, um sie zu ändern. Dauerhaft übernehmen mit „Speichern“ in der Werkzeugleiste.</de>
+        </locale>
+        <locale name="projects.colors.both">
+            <de>Beide</de>
+        </locale>
+        <locale name="projects.colors.addOwn">
+            <de>Eigene Farbe hinzufügen</de>
+        </locale>
+        <locale name="projects.colors.sample.title">
+            <de>Vorschau</de>
+        </locale>
+        <locale name="projects.colors.sample.mode">
+            <de>Darstellung der Vorschau</de>
+        </locale>
+        <locale name="projects.colors.sample.help">
+            <de>Farbbeispiel zur Orientierung. Das Template kann eigene Farben für Texte, Bedienelemente und deren Zustände verwenden. Das tatsächliche Aussehen kann daher abweichen.</de>
+        </locale>
+        <locale name="projects.colors.sample.heading">
+            <de>Überschrift der Seite</de>
+        </locale>
+        <locale name="projects.colors.sample.text">
+            <de>So wirkt Fließtext auf dem Seitenhintergrund.</de>
+        </locale>
+        <locale name="projects.colors.sample.link">
+            <de>Ein Link</de>
+        </locale>
+        <locale name="projects.colors.sample.link-hover">
+            <de>Link beim Überfahren</de>
+        </locale>
+        <locale name="projects.colors.sample.custom">
+            <de>Beispieltext in eigener Farbe</de>
+        </locale>
+        <locale name="projects.colors.usage.brand">
+            <de>Logo, Buttons und Akzente</de>
+        </locale>
+        <locale name="projects.colors.usage.status">
+            <de>Meldungen und Hinweise</de>
+        </locale>
+        <locale name="projects.colors.usage.neutral">
+            <de>Flächen und Trennlinien</de>
+        </locale>
+        <locale name="projects.colors.usage.content">
+            <de>Texte, Hintergrund und Links</de>
+        </locale>
+        <locale name="projects.colors.usage.other">
+            <de>Weitere Projektfarben</de>
+        </locale>
+        <locale name="projects.colors.usage.custom">
+            <de>Zusätzliche Farben für dieses Projekt</de>
+        </locale>
+        <locale name="projects.colors.use.primary">
+            <de>Buttons, Links, Akzente</de>
+        </locale>
+        <locale name="projects.colors.use.secondary">
+            <de>Sekundäre Buttons, Flächen</de>
+        </locale>
+        <locale name="projects.colors.use.tertiary">
+            <de>Hervorhebungen</de>
+        </locale>
+        <locale name="projects.colors.use.success">
+            <de>Bestätigungen</de>
+        </locale>
+        <locale name="projects.colors.use.danger">
+            <de>Fehler, Löschen</de>
+        </locale>
+        <locale name="projects.colors.use.warning">
+            <de>Warnhinweise</de>
+        </locale>
+        <locale name="projects.colors.use.info">
+            <de>Infoboxen, Tipps</de>
+        </locale>
+        <locale name="projects.colors.use.light">
+            <de>Helle Flächen, Linien</de>
+        </locale>
+        <locale name="projects.colors.use.dark">
+            <de>Dunkle Flächen</de>
+        </locale>
+        <locale name="projects.colors.use.text">
+            <de>Fließtext</de>
+        </locale>
+        <locale name="projects.colors.use.background">
+            <de>Hintergrund der Seite</de>
+        </locale>
+        <locale name="projects.colors.use.heading">
+            <de>Überschriften H1–H6</de>
+        </locale>
+        <locale name="projects.colors.use.link">
+            <de>Links im Text</de>
+        </locale>
+        <locale name="projects.colors.use.link-hover">
+            <de>Links beim Überfahren</de>
+        </locale>
+        <locale name="projects.colors.use.custom">
+            <de>Eigene Verwendung</de>
+        </locale>
+        <locale name="projects.colors.single">
+            <de>Eine Farbe</de>
+        </locale>
+        <locale name="projects.colors.pair">
+            <de>Hell &amp; Dunkel</de>
+        </locale>
+        <locale name="projects.colors.projectColor">
+            <de>Projektfarbe</de>
+        </locale>
+        <locale name="projects.colors.individual">
+            <de>Individuell</de>
+        </locale>
+        <locale name="projects.colors.resetHelp">
+            <de>Konfigurierten Standardwert wiederherstellen</de>
+        </locale>
+        <locale name="projects.colors.clearHelp">
+            <de>Feld ohne Farbe lassen</de>
+        </locale>
+        <locale name="projects.colors.copyValue">
+            <de>Farbwert kopieren</de>
+        </locale>
+        <locale name="projects.colors.copyLight">
+            <de>Hell kopieren</de>
+        </locale>
+        <locale name="projects.colors.copyDark">
+            <de>Dunkel kopieren</de>
+        </locale>
+        <locale name="projects.colors.copied">
+            <de>Farbwert kopiert.</de>
+        </locale>
+        <locale name="projects.colors.copyError">
+            <de>Der Farbwert konnte nicht kopiert werden.</de>
+        </locale>
+        <locale name="projects.colors.linkedHelp">
+            <de>ist verknüpft. Ändert sich die Palette, ändert sich dieses Feld mit.</de>
+        </locale>
+        <locale name="projects.colors.mergeTitle">
+            <de>Nur noch eine Farbe verwenden?</de>
+        </locale>
+        <locale name="projects.colors.mergeHelp">
+            <de>Welche Farbe soll für Hell und Dunkel gelten?</de>
+        </locale>
+        <locale name="projects.colors.keepLight">
+            <de>Hell behalten</de>
+        </locale>
+        <locale name="projects.colors.keepDark">
+            <de>Dunkel behalten</de>
+        </locale>
+        <locale name="projects.colors.keepPair">
+            <de>Getrennt lassen</de>
         </locale>
     </groups>
     <groups name="quiqqer/core" datatype="php">

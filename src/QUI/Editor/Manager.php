@@ -719,7 +719,9 @@ class Manager
         $cacheName = $Project->getCachePath() . '/wysiwyg-settings';
 
         try {
-            return QUI\Cache\Manager::get($cacheName);
+            $result = QUI\Cache\Manager::get($cacheName);
+            QUI::getEvents()->fireEvent('editorGetSettings', [$Project, &$result]);
+            return $result;
         } catch (QUI\Exception) {
         }
 
@@ -869,6 +871,7 @@ class Manager
             QUI\System\Log::writeException($Exception);
         }
 
+        QUI::getEvents()->fireEvent('editorGetSettings', [$Project, &$result]);
         return $result;
     }
 
