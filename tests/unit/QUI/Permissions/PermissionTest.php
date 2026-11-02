@@ -57,6 +57,39 @@ class PermissionTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
+    public function testCheckAdminUserRequestsAuthenticationForNobody(): void
+    {
+        Permission::setUser($this->createMock(Nobody::class));
+
+        try {
+            Permission::checkAdminUser();
+            self::fail('Expected an authentication failure.');
+        } catch (Exception $Exception) {
+            $response = (new QUI\Ajax())->writeException($Exception);
+
+            self::assertSame(Exception::class, $response['Exception']['type']);
+            self::assertSame(401, $response['Exception']['code']);
+            self::assertTrue($response['Exception']['attributes']['authenticationRequired'] ?? false);
+        }
+    }
+
+    public function testDeniedPermissionDoesNotRequestAuthentication(): void
+    {
+        $Manager = $this->createPermissionManagerMock();
+        $Manager->method('getPermissions')->willReturn([]);
+        QUI::$Rights = $Manager;
+
+        try {
+            Permission::checkPermission('test.permission', $this->createUser(false));
+            self::fail('Expected a permission failure.');
+        } catch (Exception $Exception) {
+            $response = (new QUI\Ajax())->writeException($Exception);
+
+            self::assertSame(403, $response['Exception']['code']);
+            self::assertArrayNotHasKey('authenticationRequired', $response['Exception']['attributes']);
+        }
+    }
+
     public function testCheckSUUsesExplicitUser(): void
     {
         $SessionUser = $this->createUser(false);

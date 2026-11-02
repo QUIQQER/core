@@ -53,6 +53,7 @@ function fixture() {
 
 for (const {type, attributes} of [
     {type: 'QUI\\Users\\Exception', attributes: {}},
+    {type: 'QUI\\Permissions\\Exception', attributes: {authenticationRequired: true}},
     {type: 'Example\\Security\\ExpiredToken', attributes: {authenticationRequired: true}}
 ]) {
     test(`${type} opens login and retries the original call after success`, async () => {
