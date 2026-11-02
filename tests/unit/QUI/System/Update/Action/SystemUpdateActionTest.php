@@ -37,6 +37,7 @@ class SystemUpdateActionTest extends TestCase
             putenv('COMPOSER_HOME');
             unset($_SERVER['COMPOSER_HOME'], $_ENV['COMPOSER_HOME']);
             $Update = $this->createMock(Update::class);
+            $Update->expects($this->once())->method('setUpdateOutputSectionOffset')->with($complete ? 5 : 2);
             $Update->method('executeSystemUpdate')->willReturn(true);
             $Update->method('completeSystemUpdate')->willReturn(true);
             $state = $this->state();

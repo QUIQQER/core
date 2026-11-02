@@ -523,7 +523,7 @@ class RunEntrypoint
 
         if ($status === RunState::STATUS_RESTART_REQUIRED) {
             if ($phase === RunState::PHASE_CLEANUP) {
-                echo '  [..] Continuing update completion in a fresh process' . PHP_EOL;
+                echo '[..] Continuing update completion in a fresh process' . PHP_EOL;
                 return;
             }
 

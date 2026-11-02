@@ -216,7 +216,7 @@ class Update extends QUI\System\Console\Tool
                 return;
             }
 
-            $lines = preg_split('/\r\n|\r|\n/', (string)$output);
+            $lines = preg_split('/\r\n|\r|\n|\x08+/', (string)$output);
 
             if (!is_array($lines)) {
                 self::onCliOutput((string)$output, $this);
@@ -322,9 +322,10 @@ class Update extends QUI\System\Console\Tool
             $executeFileSystemCheck = false;
         }
 
+        $Output->section('Filesystem check');
+
         if ($executeFileSystemCheck) {
             try {
-                $Output->section('Filesystem check');
                 $Output->info('Checking package working trees');
                 $changes = $this->checkFileSystemChanges();
 
@@ -352,6 +353,8 @@ class Update extends QUI\System\Console\Tool
                     return false;
                 }
             }
+        } else {
+            $Output->info('Skipped (--skip-filesystem-check)');
         }
 
         // init backup
@@ -468,6 +471,7 @@ class Update extends QUI\System\Console\Tool
     private function finishSystemUpdate(string $etcBackupFolder, bool $finalizePackages): bool
     {
         $Output = $this->getUpdateOutput();
+        $Output->startUnindentedOutput();
         $Maintenance = new Maintenance();
 
         try {
@@ -732,6 +736,10 @@ class Update extends QUI\System\Console\Tool
             if ($Instance instanceof self) {
                 $Instance->setupPackageCount++;
             }
+        }
+
+        if ($Instance instanceof self && $Instance->getUpdateOutput()->writeComposerLine($message)) {
+            return;
         }
 
         if ($verbosity >= 3) {
