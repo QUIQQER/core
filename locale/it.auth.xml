@@ -71,6 +71,21 @@
             <it><![CDATA[Non ora]]></it>
         </locale>
 
+        <locale name="quiqqer.mail2fa.settings.verify.title">
+            <it><![CDATA[1. Verifica il tuo indirizzo e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.description">
+            <it><![CDATA[Conferma prima il tuo indirizzo e-mail. Questo passaggio non attiva l’autenticazione a due fattori.]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.button">
+            <it><![CDATA[Verifica indirizzo e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.title">
+            <it><![CDATA[2. Attiva la 2FA via e-mail]]></it>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.description">
+            <it><![CDATA[Il tuo indirizzo e-mail è verificato. Ora puoi attivare l’autenticazione a due fattori.]]></it>
+        </locale>
         <locale name="quiqqer.mail2fa.title">
             <it><![CDATA[Autenticazione OTP tramite e-mail]]></it>
         </locale>
@@ -546,6 +561,9 @@
         </locale>
         <locale name="exception.webauthn.credential_already_exists">
             <it><![CDATA[Questa passkey è già registrata.]]></it>
+        </locale>
+        <locale name="exception.webauthn.enrollment_expired">
+            <it><![CDATA[L’autorizzazione per configurare la passkey è assente o scaduta. Accedi di nuovo e riavvia la configurazione.]]></it>
         </locale>
         <locale name="exception.webauthn.challenge_missing">
             <it><![CDATA[La richiesta della passkey è scaduta. Riprova.]]></it>

@@ -481,7 +481,19 @@ class Server
 
         if (
             !is_array($authorization)
-            || !is_string($authorization['id'] ?? null)
+            || (is_int($authorization['expires'] ?? null) && $authorization['expires'] <= time())
+        ) {
+            $this->clearEnrollmentAuthorization();
+            QUI::getSession()->remove(self::SESSION_CREATE);
+
+            throw new QUI\Permissions\Exception(
+                ['quiqqer/core', 'exception.webauthn.enrollment_expired'],
+                401
+            );
+        }
+
+        if (
+            !is_string($authorization['id'] ?? null)
             || $authorization['id'] === ''
             || ($authorization['purpose'] ?? null) !== self::ENROLLMENT_PURPOSE
             || !in_array($authorization['flow'] ?? null, [

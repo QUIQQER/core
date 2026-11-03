@@ -31,10 +31,10 @@
             <it><![CDATA[<p>Ciao,</p><p>il tuo codice di conferma per accedere a <strong>[host]</strong> è:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Inserisci questo codice per continuare. Il codice è valido solo per un breve periodo.</p><p>Se non hai effettuato tu questa richiesta, puoi ignorare questa e-mail.</p><p>Un saluto<br>Il team di [host]</p>]]></it>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <it><![CDATA[[host]: il tuo codice per attivare l'autenticazione con codice monouso via e-mail]]></it>
+            <it><![CDATA[[host]: verifica il tuo indirizzo e-mail]]></it>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
-            <it><![CDATA[<p>Ciao,</p><p>il tuo codice per attivare l'autenticazione con codice monouso via e-mail su <strong>[host]</strong> è:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Inserisci questo codice per continuare. Il codice è valido solo per un breve periodo.</p><p>Se non hai effettuato tu questa richiesta, puoi ignorare questa e-mail.</p><p>Un saluto<br>Il team di [host]</p>]]></it>
+            <it><![CDATA[<p>Ciao,</p><p>Il codice per verificare il tuo indirizzo e-mail su <strong>[host]</strong> è:</p><p>Questa conferma non attiva l’autenticazione a due fattori. Potrai configurarla separatamente in seguito.</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Inserisci questo codice per continuare. Il codice è valido solo per un breve periodo.</p><p>Se non hai effettuato tu questa richiesta, puoi ignorare questa e-mail.</p><p>Un saluto<br>Il team di [host]</p>]]></it>
         </locale>
         <locale name="message.contact.successful">
             <it><![CDATA[<p>Grazie per la tua e-mail. Ti risponderemo al più presto.</p>]]></it>

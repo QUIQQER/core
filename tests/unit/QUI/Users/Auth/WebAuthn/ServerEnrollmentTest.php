@@ -221,6 +221,7 @@ class ServerEnrollmentTest extends TestCase
         QUI::getSession()->set(Server::SESSION_ENROLLMENT, $authorization);
 
         $this->expectException(PermissionException::class);
+        $this->expectExceptionCode(401);
         $Server->getAuthorizedEnrollmentUser();
     }
 

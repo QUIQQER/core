@@ -54,6 +54,7 @@ class VerifiedMail2FA extends Control
         $Engine->assign([
             'mailIsVerified' => $mailIsVerified,
             'hasAlreadyAuthenticated' => $hasAlreadyAuthenticated,
+            'activationMode' => (bool)$this->getAttribute('activationMode'),
             'isBackend' => QUI::isBackend(),
             'isAdminUser' => $isAdminUser
         ]);

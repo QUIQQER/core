@@ -1491,6 +1491,19 @@ class User implements QUIUserInterface
             );
         }
 
+        if (
+            $authenticator === Auth\VerifiedMail2FA::class
+            && !$this->isAttributeVerified(
+                $this->getAttribute('email'),
+                Attribute\Verifiable\MailAttribute::class
+            )
+        ) {
+            throw new QUI\Users\Exception(
+                ['quiqqer/core', 'exception.user.mail.not.verified'],
+                403
+            );
+        }
+
         if (in_array($authenticator, $this->authenticator)) {
             return;
         }

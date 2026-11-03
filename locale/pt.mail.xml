@@ -31,10 +31,10 @@
             <pt><![CDATA[<p>Olá,</p><p>O seu código de confirmação para iniciar sessão em <strong>[host]</strong> é:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Introduza este código para continuar. O código só é válido durante um breve período.</p><p>Se não efetuou este pedido, pode ignorar este e-mail.</p><p>Com os melhores cumprimentos,<br>A sua equipa [host]</p>]]></pt>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <pt><![CDATA[[host]: o seu código para ativar a autenticação com código de utilização única por e-mail]]></pt>
+            <pt><![CDATA[[host]: verifique o seu endereço de e-mail]]></pt>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
-            <pt><![CDATA[<p>Olá,</p><p>O seu código para ativar a autenticação com código de utilização única por e-mail em <strong>[host]</strong> é:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Introduza este código para continuar. O código só é válido durante um breve período.</p><p>Se não efetuou este pedido, pode ignorar este e-mail.</p><p>Com os melhores cumprimentos,<br>A sua equipa [host]</p>]]></pt>
+            <pt><![CDATA[<p>Olá,</p><p>O seu código para verificar o endereço de e-mail em <strong>[host]</strong> é:</p><p>Esta confirmação não ativa a autenticação de dois fatores. Pode configurá-la separadamente depois.</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Introduza este código para continuar. O código só é válido durante um breve período.</p><p>Se não efetuou este pedido, pode ignorar este e-mail.</p><p>Com os melhores cumprimentos,<br>A sua equipa [host]</p>]]></pt>
         </locale>
         <locale name="message.contact.successful">
             <pt><![CDATA[<p>Obrigado pelo seu e-mail. Entraremos em contacto consigo assim que possível.</p>]]></pt>

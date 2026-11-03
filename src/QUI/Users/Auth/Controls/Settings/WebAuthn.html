@@ -4,6 +4,7 @@
      data-activated-existing-credentials="{if $activatedExistingCredentials}1{else}0{/if}"
      data-has-credentials="{if !empty($credentials)}1{else}0{/if}"
      data-is-enabled="{if $isEnabled}1{else}0{/if}"
+     data-user-uuid="{$userUuid|escape:'html'}"
 >
     <header class="quiqqer-webauthn-settings-header">
         <div class="quiqqer-webauthn-settings-icon">
@@ -19,19 +20,20 @@
                 <span>{locale group="quiqqer/core" var="quiqqer.webauthn.settings.name.label"}</span>
                 <input type="text"
                        name="credential-name"
+                       data-name="credential-name"
                        value=""
                        placeholder="{locale group='quiqqer/core' var='quiqqer.webauthn.settings.name.placeholder'}"
                 />
             </label>
 
-            <button type="button" name="create-passkey" class="btn btn-primary">
+            <button type="button" name="create-passkey" data-name="create-passkey" class="btn btn-primary">
                 <span class="fa fa-fingerprint"></span>
                 <span>{locale group="quiqqer/core" var="quiqqer.webauthn.settings.create.button"}</span>
             </button>
         </div>
     {/if}
 
-    <div data-name="message" class="quiqqer-webauthn-settings-message"></div>
+    <div data-name="message" class="quiqqer-webauthn-settings-message" role="status" aria-live="polite"></div>
 
     <section class="quiqqer-webauthn-settings-list">
         <h2>{locale group="quiqqer/core" var="quiqqer.webauthn.settings.list.title"}</h2>

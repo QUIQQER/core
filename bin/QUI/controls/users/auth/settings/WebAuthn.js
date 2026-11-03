@@ -39,7 +39,7 @@ define('controls/users/auth/settings/WebAuthn', [
         },
 
         $onImport: function () {
-            const button = this.getElm().querySelector('[name="create-passkey"]');
+            const button = this.getElm().querySelector('[data-name="create-passkey"]');
             const message = this.getElm().querySelector('[data-name="message"]');
 
             if (!WebAuthnUtils.isSupported()) {
@@ -83,8 +83,8 @@ define('controls/users/auth/settings/WebAuthn', [
             event.stopPropagation();
 
             const userUuid = this.$getUserUuid();
-            const button = this.getElm().querySelector('[name="create-passkey"]');
-            const name = this.getElm().querySelector('[name="credential-name"]');
+            const button = this.getElm().querySelector('[data-name="create-passkey"]');
+            const name = this.getElm().querySelector('[data-name="credential-name"]');
             const message = this.getElm().querySelector('[data-name="message"]');
             const credentialName = name ? name.value : '';
 
@@ -125,9 +125,26 @@ define('controls/users/auth/settings/WebAuthn', [
                 this.$setLoading(false);
 
                 if (message) {
-                    message.innerHTML = typeof err.getMessage === 'function'
+                    message.textContent = typeof err.getMessage === 'function'
                         ? err.getMessage()
                         : QUILocale.get(lg, WebAuthnUtils.getErrorLocaleKey(err));
+
+                    if (err.getCode?.() === 401) {
+                        const retry = document.createElement('button');
+                        retry.type = 'button';
+                        retry.dataset.name = 'restart-login';
+                        retry.className = 'btn btn-secondary';
+                        retry.textContent = QUILocale.get(lg, 'login.title');
+                        retry.addEventListener('click', () => {
+                            retry.disabled = true;
+                            QUIAjax.post('ajax_session_destroy', () => window.location.reload(), {
+                                onError: () => {
+                                    retry.disabled = false;
+                                }
+                            });
+                        });
+                        message.appendChild(retry);
+                    }
                 }
 
                 if (window.console) {
@@ -236,8 +253,8 @@ define('controls/users/auth/settings/WebAuthn', [
                     QUI.parse(container).then(() => {
                         let refreshedControl = null;
 
-                        QUI.Controls.getControlsInElement(container).each((Control) => {
-                            Control.setAttribute('uid', User.getId());
+                        Array.from(QUI.Controls.getControlsInElement(container)).forEach((Control) => {
+                            Control.setAttribute('uid', userUuid);
                             Control.setAttribute('authenticator', authenticator);
                             Control.setAttribute('User', User);
                             Control.setAttribute('Panel', this.getAttribute('Panel'));
@@ -286,11 +303,9 @@ define('controls/users/auth/settings/WebAuthn', [
         $getUserUuid: function () {
             const User = this.getAttribute('User');
 
-            if (!User || typeof User.getAttribute !== 'function') {
-                return '';
-            }
-
-            return User.getAttribute('uuid') || '';
+            return User?.getAttribute?.('uuid')
+                || this.getElm().querySelector('[data-name="quiqqer-webauthn-settings"]')?.dataset.userUuid
+                || '';
         },
 
         $showActivationHint: function () {

@@ -71,6 +71,21 @@
             <pt><![CDATA[Agora não]]></pt>
         </locale>
 
+        <locale name="quiqqer.mail2fa.settings.verify.title">
+            <pt><![CDATA[1. Verificar o endereço de e-mail]]></pt>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.description">
+            <pt><![CDATA[Confirme primeiro o seu endereço de e-mail. Este passo não ativa a autenticação de dois fatores.]]></pt>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.button">
+            <pt><![CDATA[Verificar endereço de e-mail]]></pt>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.title">
+            <pt><![CDATA[2. Ativar a 2FA por e-mail]]></pt>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.description">
+            <pt><![CDATA[O seu endereço de e-mail está verificado. Pode agora ativar a autenticação de dois fatores.]]></pt>
+        </locale>
         <locale name="quiqqer.mail2fa.title">
             <pt><![CDATA[Autenticação OTP por e-mail]]></pt>
         </locale>
@@ -546,6 +561,9 @@
         </locale>
         <locale name="exception.webauthn.credential_already_exists">
             <pt><![CDATA[Esta chave de acesso já está registada.]]></pt>
+        </locale>
+        <locale name="exception.webauthn.enrollment_expired">
+            <pt><![CDATA[A autorização para configurar a chave de acesso está ausente ou expirou. Inicie sessão novamente e reinicie a configuração.]]></pt>
         </locale>
         <locale name="exception.webauthn.challenge_missing">
             <pt><![CDATA[O pedido de chave de acesso expirou. Tente novamente.]]></pt>

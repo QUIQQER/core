@@ -20,13 +20,15 @@
     text-align: center;
 }
 
-[data-name="quiqqer-mail2fa-auth-settings-code"] label {
+[data-name="quiqqer-mail2fa-auth-settings-code"] fieldset {
     display: block;
     margin: 1rem auto;
     max-width: 500px;
+    padding: 0;
+    border: 0;
 }
 
-[data-name="quiqqer-mail2fa-auth-settings-code"] label span:first-child {
+[data-name="quiqqer-mail2fa-auth-settings-code"] legend {
     font-size: 12px;
     text-transform: uppercase;
     display: block;
@@ -45,4 +47,9 @@
     height: 50px;
     text-align: center;
     width: 10px;
+}
+
+[data-name="quiqqer-mail2fa-auth-settings-code"] input:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
 }

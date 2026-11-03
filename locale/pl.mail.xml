@@ -31,10 +31,10 @@
             <pl><![CDATA[<p>Cześć,</p><p>Twój kod potwierdzający logowanie do <strong>[host]</strong> to:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Wpisz ten kod, aby kontynuować. Kod jest ważny tylko przez krótki czas.</p><p>Jeśli nie wysłano tej prośby z Twojej inicjatywy, możesz zignorować tę wiadomość.</p><p>Pozdrawiamy<br>Twój zespół [host]</p>]]></pl>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <pl><![CDATA[[host]: Twój kod aktywacji uwierzytelniania jednorazowym kodem e-mail]]></pl>
+            <pl><![CDATA[[host]: zweryfikuj adres e-mail]]></pl>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
-            <pl><![CDATA[<p>Cześć,</p><p>Twój kod aktywacji uwierzytelniania jednorazowym kodem e-mail w <strong>[host]</strong> to:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Wpisz ten kod, aby kontynuować. Kod jest ważny tylko przez krótki czas.</p><p>Jeśli nie wysłano tej prośby z Twojej inicjatywy, możesz zignorować tę wiadomość.</p><p>Pozdrawiamy<br>Twój zespół [host]</p>]]></pl>
+            <pl><![CDATA[<p>Cześć,</p><p>Twój kod weryfikacji adresu e-mail w <strong>[host]</strong> to:</p><p>To potwierdzenie nie włącza uwierzytelniania dwuskładnikowego. Możesz je skonfigurować osobno później.</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Wpisz ten kod, aby kontynuować. Kod jest ważny tylko przez krótki czas.</p><p>Jeśli nie wysłano tej prośby z Twojej inicjatywy, możesz zignorować tę wiadomość.</p><p>Pozdrawiamy<br>Twój zespół [host]</p>]]></pl>
         </locale>
         <locale name="message.contact.successful">
             <pl><![CDATA[<p>Dziękujemy za wiadomość e-mail. Odpowiemy tak szybko, jak to możliwe.</p>]]></pl>

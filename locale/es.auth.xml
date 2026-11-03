@@ -71,6 +71,21 @@
             <es><![CDATA[Ahora no]]></es>
         </locale>
 
+        <locale name="quiqqer.mail2fa.settings.verify.title">
+            <es><![CDATA[1. Verificar tu dirección de correo]]></es>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.description">
+            <es><![CDATA[Primero confirma tu dirección de correo. Este paso no activa la autenticación de dos factores.]]></es>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.button">
+            <es><![CDATA[Verificar dirección de correo]]></es>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.title">
+            <es><![CDATA[2. Activar 2FA por correo]]></es>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.description">
+            <es><![CDATA[Tu dirección de correo está verificada. Ahora puedes activar la autenticación de dos factores.]]></es>
+        </locale>
         <locale name="quiqqer.mail2fa.title">
             <es><![CDATA[Autenticación OTP por correo electrónico]]></es>
         </locale>
@@ -546,6 +561,9 @@
         </locale>
         <locale name="exception.webauthn.credential_already_exists">
             <es><![CDATA[Esta clave de acceso ya está registrada.]]></es>
+        </locale>
+        <locale name="exception.webauthn.enrollment_expired">
+            <es><![CDATA[La autorización para configurar la clave de acceso no existe o ha caducado. Vuelve a iniciar sesión y reinicia la configuración.]]></es>
         </locale>
         <locale name="exception.webauthn.challenge_missing">
             <es><![CDATA[La solicitud de clave de acceso ha caducado. Inténtalo de nuevo.]]></es>

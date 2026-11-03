@@ -211,9 +211,17 @@ class Login extends Control
                 $user = QUI::getUsers()->get($uid);
                 $userAuthenticators = $user->getAuthenticators();
 
-                $authenticators = array_filter($authenticators, function ($authenticator) use ($userAuthenticators) {
+                $authenticators = array_filter($authenticators, function ($authenticator) use ($userAuthenticators, $user) {
                     foreach ($userAuthenticators as $userAuthenticator) {
                         if (get_class($userAuthenticator) === $authenticator) {
+                            if (
+                                $authenticator === QUI\Users\Auth\WebAuthn::class
+                                && (new QUI\Users\Auth\WebAuthn\CredentialRepository())
+                                    ->findByUserUuid((string)$user->getUUID()) === []
+                            ) {
+                                return false;
+                            }
+
                             return true;
                         }
                     }

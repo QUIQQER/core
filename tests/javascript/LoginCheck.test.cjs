@@ -109,7 +109,7 @@ test('concurrent controls share the running check, but later submissions get a f
     assert.equal(calls.length, 4);
 });
 
-function loginFixture(check) {
+function loginFixture(check, response = {loggedIn: true, user: {}}) {
     class Element extends EventTarget {
         constructor(tagName) {
             super();
@@ -145,6 +145,7 @@ function loginFixture(check) {
     let succeeded = 0;
     vm.runInNewContext(readFileSync(resolve(__dirname, '../../bin/QUI/controls/users/Login.js'), 'utf8'), {
         document: {createElement: name => new Element(name)}, window: {}, JSON: {...JSON, encode: JSON.stringify},
+        moofx: () => ({animate: (styles, options) => options.callback()}),
         Class: function (value) { definition = value; return value; },
         define(name, dependencies, factory) {
             factory(...dependencies.map(dependency => ({
@@ -152,7 +153,7 @@ function loginFixture(check) {
                 'qui/utils/Form': {getFormData: () => ({password: 'secret'})},
                 'utils/LoginCheck': {check},
                 'Locale': {get: (group, key) => key},
-                'Ajax': {post(call, callback, params) { calls.push({call, params}); callback({loggedIn: true, user: {}}); }}
+                'Ajax': {post(call, callback, params) { calls.push({call, params}); callback(response); }}
             })[dependency] || {}));
         }
     });
@@ -232,4 +233,18 @@ test('browser diagnostics are not forwarded as credential errors to frontend con
     await new Promise(resolve => setImmediate(resolve));
     assert.equal(events.includes('userLoginError'), false);
     assert.equal(events.includes('quiqqerUserAuthLoginUserLoginError'), false);
+});
+
+test('an incomplete setup response without authenticators cannot signal login success', async () => {
+    const fixture = loginFixture(() => Promise.resolve(), {
+        loggedIn: false,
+        authenticator: null,
+        control: '',
+        authStep: 'secondary'
+    });
+    fixture.login.$buildAuthenticator = async () => {};
+    await fixture.login.auth(fixture.form);
+    assert.equal(fixture.succeeded(), 0);
+    assert.equal(fixture.events.includes('success'), false);
+    assert.equal(fixture.events.includes('quiqqerUserAuthLoginSuccess'), false);
 });
