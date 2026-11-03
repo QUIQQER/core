@@ -49,6 +49,22 @@ class IncompleteWebAuthnSetupTest extends TestCase
         self::assertFalse((new Server())->authorizeRequiredMfaBootstrap($User));
     }
 
+    public function testEmptyPasskeyCannotBeUsedToMakeMfaMandatory(): void
+    {
+        $User = $this->configureEnvironment(false);
+        QUI::getSession()->set('auth', 1);
+        QUI::getSession()->set('auth-secondary', 1);
+        QUI::getSession()->set('auth-' . WebAuthn::class, 1);
+
+        $this->expectException(Exception::class);
+        Settings::checkRequiredSecondFactors($User, [
+            'secondary_backend' => 1,
+            'secondary' => [
+                'backend' => [WebAuthn::class]
+            ]
+        ]);
+    }
+
     public function testAnotherExistingFactorStillPreventsEnrollment(): void
     {
         $User = $this->configureEnvironment(false, true);

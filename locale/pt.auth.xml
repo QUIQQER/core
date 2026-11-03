@@ -562,6 +562,9 @@
         <locale name="exception.webauthn.credential_already_exists">
             <pt><![CDATA[Esta chave de acesso já está registada.]]></pt>
         </locale>
+        <locale name="exception.auth.require_own_second_factor">
+            <pt><![CDATA[Antes de tornar a 2FA obrigatória, configure um dos métodos selecionados na sua conta e inicie sessão novamente com esse método. Até lá, mantenha a definição opcional.]]></pt>
+        </locale>
         <locale name="exception.webauthn.enrollment_expired">
             <pt><![CDATA[A autorização para configurar a chave de acesso está ausente ou expirou. Inicie sessão novamente e reinicie a configuração.]]></pt>
         </locale>

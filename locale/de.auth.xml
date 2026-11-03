@@ -659,6 +659,9 @@
         <locale name="exception.webauthn.credential_already_exists">
             <de><![CDATA[Dieser Passkey ist bereits registriert.]]></de>
         </locale>
+        <locale name="exception.auth.require_own_second_factor">
+            <de><![CDATA[Bevor du 2FA verpflichtend machst, richte für dein Konto eine der ausgewählten Methoden ein und melde dich damit erneut an. Speichere die Einstellung bis dahin als optional.]]></de>
+        </locale>
         <locale name="exception.webauthn.enrollment_expired">
             <de><![CDATA[Die Freigabe zur Passkey-Einrichtung fehlt oder ist abgelaufen. Bitte melde dich erneut an und starte die Einrichtung noch einmal.]]></de>
         </locale>

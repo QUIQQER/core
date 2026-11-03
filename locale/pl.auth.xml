@@ -562,6 +562,9 @@
         <locale name="exception.webauthn.credential_already_exists">
             <pl><![CDATA[Ten klucz dostępu jest już zarejestrowany.]]></pl>
         </locale>
+        <locale name="exception.auth.require_own_second_factor">
+            <pl><![CDATA[Zanim włączysz obowiązkowe 2FA, skonfiguruj jedną z wybranych metod na swoim koncie i zaloguj się ponownie z jej użyciem. Do tego czasu pozostaw ustawienie opcjonalne.]]></pl>
+        </locale>
         <locale name="exception.webauthn.enrollment_expired">
             <pl><![CDATA[Brak autoryzacji do konfiguracji klucza dostępu lub autoryzacja wygasła. Zaloguj się ponownie i rozpocznij konfigurację od nowa.]]></pl>
         </locale>
