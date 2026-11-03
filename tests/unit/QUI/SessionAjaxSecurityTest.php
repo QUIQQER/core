@@ -42,7 +42,11 @@ final class SessionAjaxSecurityTest extends TestCase
         foreach (
             [
                 'login code' => VerifiedMail2FA::USER_CODE_ATTRIBUTE,
-                'verification code' => VerifiedMail2FA::USER_CODE_VERIFYING_ATTRIBUTE
+                'verification code' => VerifiedMail2FA::USER_CODE_VERIFYING_ATTRIBUTE,
+                'verification context' => 'quiqqer.security.mail2fa.setup',
+                'passkey enrollment' => 'quiqqer.webauthn.enrollment',
+                'passkey registration challenge' => 'quiqqer.webauthn.create',
+                'passkey login challenge' => 'quiqqer.webauthn.get'
             ] as $keyName => $key
         ) {
             yield 'get rejects ' . $keyName => ['ajax_session_get', $key];
