@@ -180,11 +180,6 @@ h4 {
     margin: 0 0 14px;
 }
 
-button:focus {
-    box-shadow: 0 0 3px 1px #cd201f;
-    outline: 0;
-}
-
 .description {
     clear: both;
     font-style: italic;

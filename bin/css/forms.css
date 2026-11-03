@@ -1,0 +1,38 @@
+/* Backend form styling: login appearance and shared focus indicators for the administration and its sign-in page. */
+.quiqqer-login-auth {
+    --_field-padding: var(--quiqqer-core-login-field-padding, 0.75rem 0.75rem);
+    --_field-radius: var(--quiqqer-core-login-field-radius, 0.5rem);
+    --_field-background: var(--quiqqer-core-login-field-background, var(--qui-colors-gray-25));
+    --_label-color: var(--quiqqer-core-login-label-color, var(--qui-colors-gray-700));
+}
+
+.quiqqer-login-auth label span {
+    color: var(--_label-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+:where(.quiqqer-login-auth label) input {
+    padding: var(--_field-padding);
+    border-radius: var(--_field-radius);
+    background: var(--_field-background);
+}
+
+.quiqqer-auth-login__password-reset .btn {
+    width: 100%;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+    outline: 2px solid var(--qui-colors-primary);
+    outline-offset: 2px;
+}
+
+input:where(:not([type="submit"], [type="button"], [type="reset"])):focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    border-color: var(--qui-colors-primary);
+}

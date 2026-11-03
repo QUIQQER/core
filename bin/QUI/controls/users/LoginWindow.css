@@ -34,11 +34,12 @@
     display: none;
 }
 
-.quiqqer-loginWindow-content {
+.qui-window-simpleWindow-content.quiqqer-loginWindow-content {
     display: flex;
     flex-direction: column;
     min-height: 0;
     position: relative;
+    overflow: hidden;
 }
 
 .quiqqer-loginWindow-close {
@@ -91,8 +92,12 @@
 .quiqqer-loginWindow-body {
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding: var(--_login-padding);
+}
+
+.quiqqer-loginWindow-body--ready {
+    overflow-y: auto;
 }
 
 .quiqqer-loginWindow-message {
