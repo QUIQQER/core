@@ -82,6 +82,16 @@ class Server
 
     public function getAuthorizedEnrollmentUser(): QUI\Interfaces\Users\User
     {
+        $Session = QUI::getSession();
+
+        if (
+            $this->getSecondaryLoginType() === 1
+            && $Session->get('auth') === 1
+            && $Session->get('auth-secondary') !== 1
+        ) {
+            $this->denyExpiredEnrollment();
+        }
+
         $authorization = $this->getEnrollmentAuthorization();
 
         try {
@@ -483,13 +493,7 @@ class Server
             !is_array($authorization)
             || (is_int($authorization['expires'] ?? null) && $authorization['expires'] <= time())
         ) {
-            $this->clearEnrollmentAuthorization();
-            QUI::getSession()->remove(self::SESSION_CREATE);
-
-            throw new QUI\Permissions\Exception(
-                ['quiqqer/core', 'exception.webauthn.enrollment_expired'],
-                401
-            );
+            $this->denyExpiredEnrollment();
         }
 
         if (
@@ -729,6 +733,17 @@ class Server
         throw new QUI\Permissions\Exception(
             ['quiqqer/core', 'exception.no.permission'],
             403
+        );
+    }
+
+    private function denyExpiredEnrollment(): never
+    {
+        $this->clearEnrollmentAuthorization();
+        QUI::getSession()->remove(self::SESSION_CREATE);
+
+        throw new QUI\Permissions\Exception(
+            ['quiqqer/core', 'exception.webauthn.enrollment_expired'],
+            401
         );
     }
 

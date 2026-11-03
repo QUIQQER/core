@@ -59,14 +59,18 @@ function mailFixture(result = true, error = null) {
         '[data-name="message"]': message
     };
     let completed = 0;
+    let reloads = 0;
     const calls = [];
     const definition = loadControl('bin/QUI/controls/users/auth/settings/VerifiedMail2FA.js', {
         Locale: {get: (group, key) => key},
         Ajax: {post(call, callback, params) {
             calls.push(call);
-            if (error) params.onError(error);
+            if (error && call !== 'ajax_session_destroy') params.onError(error);
             else callback(result);
         }}
+    }, {
+        document: {createElement: () => element()},
+        window: {location: {reload: () => reloads++}}
     });
     const control = {
         ...definition,
@@ -74,7 +78,8 @@ function mailFixture(result = true, error = null) {
         fireEvent: () => completed++
     };
     control.$onImport();
-    return {form, send, enable, verify, verification, activation, message, control, calls, completed: () => completed};
+    return {form, send, enable, verify, verification, activation, message, control, calls,
+        completed: () => completed, reloads: () => reloads};
 }
 
 const event = {preventDefault() {}, stopPropagation() {}};
@@ -114,6 +119,28 @@ test('failed mail requests leave setup retryable and render errors as text', asy
     assert.equal(fixture.message.textContent, '<script>untrusted</script>');
     fixture.control.$sendCode(event);
     assert.equal(fixture.send.disabled, false);
+});
+
+test('mail setup offers a fresh sign-in after the authentication policy changes', async () => {
+    const fixture = mailFixture(null, {getMessage: () => 'Sign in again', getCode: () => 401});
+    fixture.enable.events.click();
+    await settle();
+    assert.equal(fixture.completed(), 0);
+    assert.equal(fixture.message.textContent, 'Sign in again');
+    const retry = fixture.message.children[0];
+    assert.equal(retry.type, 'button');
+    retry.events.click();
+    assert.equal(fixture.calls.at(-1), 'ajax_session_destroy');
+    assert.equal(fixture.reloads(), 1);
+});
+
+test('a real permission denial cannot be used to restart mail setup automatically', async () => {
+    const fixture = mailFixture(null, {getMessage: () => 'Denied', getCode: () => 403});
+    fixture.enable.events.click();
+    await settle();
+    assert.equal(fixture.completed(), 0);
+    assert.equal(fixture.message.children.length, 0);
+    assert.equal(fixture.calls.length, 1);
 });
 
 function passkeyFixture(error = null) {

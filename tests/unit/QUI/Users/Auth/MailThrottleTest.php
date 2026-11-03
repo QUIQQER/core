@@ -313,6 +313,17 @@ class MailThrottleTest extends TestCase
         self::assertSame(0, QUI::getSession()->get('auth-secondary'));
     }
 
+    public function testSessionFromBeforeMandatoryMfaRequestsFreshLoginInsteadOfPermissionDenial(): void
+    {
+        $User = $this->prepareMailSetup(0);
+        $User->expects(self::never())->method('enableAuthenticator');
+        QUI::getSession()->set('auth', 1);
+
+        $this->expectException(QUI\Users\Exception::class);
+        $this->expectExceptionCode(401);
+        VerifiedMail2FA::enableByUser();
+    }
+
     public function testUnverifiedAccountMustCompleteVerificationBeforeExplicitActivation(): void
     {
         $verified = false;

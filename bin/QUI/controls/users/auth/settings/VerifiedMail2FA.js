@@ -61,7 +61,7 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
                             this.$showError(QUILocale.get('quiqqer/core', 'exception.login.fail'));
                         }
                     }).catch((error) => {
-                        this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'));
+                        this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'), error);
                     }).finally(() => {
                         enableButton.disabled = false;
                     });
@@ -94,7 +94,7 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
                         content.querySelector('[data-name="message"]').textContent = '';
                         enableButton?.focus();
                     }).catch((error) => {
-                        this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'));
+                        this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'), error);
                     }).finally(() => {
                         if (verifyButton) verifyButton.disabled = false;
                         if (codeSendButton) codeSendButton.disabled = false;
@@ -121,11 +121,12 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
                 icon.classList.add(envelopeIcon);
                 button.disabled = false;
             }, {
+                showLogin: false,
                 onError: (error) => {
                     icon.classList.remove('fa-circle-o-notch', 'fa-spin');
                     icon.classList.add(envelopeIcon);
                     button.disabled = false;
-                    this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'));
+                    this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'), error);
                 }
             });
         },
@@ -133,6 +134,7 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
         $verifyMail: function (code) {
             return new Promise((resolve, reject) => {
                 QUIAjax.post('ajax_users_authenticator_mail2fa_verifyMail', resolve, {
+                    showLogin: false,
                     code: code,
                     onError: reject
                 });
@@ -142,13 +144,34 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
         $enable: function () {
             return new Promise((resolve, reject) => {
                 QUIAjax.post('ajax_users_authenticator_mail2fa_enableByUser', resolve, {
+                    showLogin: false,
                     onError: reject
                 });
             });
         },
 
-        $showError: function (message) {
-            this.getElm().querySelector('[data-name="message"]').textContent = message;
+        $showError: function (message, error = null) {
+            const messageNode = this.getElm().querySelector('[data-name="message"]');
+            messageNode.textContent = message;
+
+            if (error?.getCode?.() !== 401) {
+                return;
+            }
+
+            const retry = document.createElement('button');
+            retry.type = 'button';
+            retry.dataset.name = 'restart-login';
+            retry.className = 'btn btn-secondary';
+            retry.textContent = QUILocale.get('quiqqer/core', 'login.title');
+            retry.addEventListener('click', () => {
+                retry.disabled = true;
+                QUIAjax.post('ajax_session_destroy', () => window.location.reload(), {
+                    onError: () => {
+                        retry.disabled = false;
+                    }
+                });
+            });
+            messageNode.appendChild(retry);
         },
 
         $initInputEvents: function (inputs) {

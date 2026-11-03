@@ -455,6 +455,18 @@ class VerifiedMail2FA extends AbstractAuthenticator
             throw new Exception(['quiqqer/core', 'exception.2fa.mail.enable.not.authenticated'], 401);
         }
 
+        $secondaryLoginType = QUI::isFrontend()
+            ? (int)QUI::conf('auth_settings', 'secondary_frontend')
+            : (int)QUI::conf('auth_settings', 'secondary_backend');
+
+        if (
+            $secondaryLoginType === 1
+            && $Session->get('auth') === 1
+            && $Session->get('auth-secondary') !== 1
+        ) {
+            throw new QUI\Users\Exception(['quiqqer/core', 'exception.permission.session.expired'], 401);
+        }
+
         $User = QUI::getUsers()->get($uid);
         $Handler = Handler::getInstance();
         $configured = QUI::isFrontend()
@@ -473,10 +485,6 @@ class VerifiedMail2FA extends AbstractAuthenticator
         if ((new WebAuthn\Server())->isFullyAuthenticatedUser($User)) {
             return $User;
         }
-
-        $secondaryLoginType = QUI::isFrontend()
-            ? (int)QUI::conf('auth_settings', 'secondary_frontend')
-            : (int)QUI::conf('auth_settings', 'secondary_backend');
 
         if ($secondaryLoginType !== 1 || $Session->get('auth') || $Session->get('auth-secondary')) {
             throw new QUI\Permissions\Exception(['quiqqer/core', 'exception.no.permission'], 403);

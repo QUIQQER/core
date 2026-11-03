@@ -136,6 +136,24 @@ class ServerEnrollmentTest extends TestCase
         self::assertSame(Server::ENROLLMENT_FLOW_BOOTSTRAP, $authorization['flow']);
     }
 
+    public function testSessionWithoutCurrentMandatorySecondFactorMustAuthenticateAgain(): void
+    {
+        $User = $this->createUser('user-uuid');
+        $Server = new Server($this->createRepository());
+        $this->configureEnvironment($User, 1, [WebAuthnAuthenticator::class], true);
+        self::assertTrue($Server->authorizeAuthenticatedEnrollment($User));
+        QUI::getSession()->set('auth-secondary', 0);
+
+        try {
+            $Server->getAuthorizedEnrollmentUser();
+            self::fail('The old session must not authorize passkey enrollment.');
+        } catch (PermissionException $Exception) {
+            self::assertSame(401, $Exception->getCode());
+        }
+
+        self::assertFalse(QUI::getSession()->get(Server::SESSION_ENROLLMENT));
+    }
+
     public function testBootstrapRequiresSuccessfulPrimaryAuthentication(): void
     {
         $User = $this->createUser('user-uuid');
