@@ -68,9 +68,9 @@ test('a complete long login grows beyond the former fixed height when the viewpo
     control.getAttribute = () => false;
     control.getContent = () => ({children: [
         {dataset: {name: 'login-close'}, computedStyle: {position: 'absolute'}, offsetHeight: 40},
-        {dataset: {name: 'login-header'}, offsetHeight: 200},
+        {dataset: {name: 'login-header'}, offsetHeight: 200, getBoundingClientRect: () => ({height: 200})},
         {
-            dataset: {name: 'login-body'}, firstElementChild: {scrollHeight: 500},
+            dataset: {name: 'login-body'}, firstElementChild: {scrollHeight: 500, getBoundingClientRect: () => ({height: 500})},
             computedStyle: {paddingTop: '40', paddingBottom: '40'}
         }
     ]});
@@ -82,8 +82,8 @@ test('a login taller than the viewport keeps room around the window', () => {
     const {control} = create();
     control.getAttribute = () => false;
     control.getContent = () => ({children: [
-        {dataset: {name: 'login-header'}, offsetHeight: 200},
-        {dataset: {name: 'login-body'}, firstElementChild: {scrollHeight: 600}}
+        {dataset: {name: 'login-header'}, offsetHeight: 200, getBoundingClientRect: () => ({height: 200})},
+        {dataset: {name: 'login-body'}, firstElementChild: {scrollHeight: 600, getBoundingClientRect: () => ({height: 600})}}
     ]});
     assert.equal(control.getOpeningHeight(), 676);
 });
@@ -134,8 +134,11 @@ function sizingFixture({height = 1000, loaded = true, dialogHeight = 320, conten
     let frameId = 0;
     const classes = new Set();
     const listeners = new Map();
-    const Login = {scrollHeight: contentHeight};
-    const Header = {dataset: {name: 'login-header'}, offsetHeight: 200};
+    const Login = {
+        scrollHeight: contentHeight,
+        getBoundingClientRect() { return {height: this.scrollHeight}; }
+    };
+    const Header = {dataset: {name: 'login-header'}, offsetHeight: 200, getBoundingClientRect: () => ({height: 200})};
     const Body = {
         dataset: {name: 'login-body'}, firstElementChild: Login,
         computedStyle: {paddingTop: '40', paddingBottom: '40'},
@@ -194,6 +197,36 @@ function sizingFixture({height = 1000, loaded = true, dialogHeight = 320, conten
         }
     };
 }
+
+test('fractional header and form heights are rounded up only after summing the complete layout', () => {
+    const state = sizingFixture({dialogHeight: 551, contentHeight: 277});
+    state.Header.offsetHeight = 209;
+    state.Header.getBoundingClientRect = () => ({height: 208.8125});
+    state.Login.getBoundingClientRect = () => ({height: 277.375});
+    state.Body.computedStyle = {paddingTop: '32.5', paddingBottom: '32.5'};
+
+    assert.equal(state.control.getOpeningHeight(), 552);
+});
+
+test('one-pixel height corrections finish before scrolling is restored', async () => {
+    const state = sizingFixture({dialogHeight: 579});
+    state.flushFrame();
+    assert.equal(state.animations.length, 1);
+    assert.equal(state.animations[0].target, 580);
+    assert.equal(state.scrolling(), false);
+    await state.finishResize();
+    state.flushFrame();
+    assert.equal(state.scrolling(), true);
+    state.observers[0].callback();
+    state.flushFrame();
+    assert.equal(state.animations.length, 1);
+});
+
+test('form overflow remains part of the required height when its box is smaller', () => {
+    const state = sizingFixture({contentHeight: 400});
+    state.Login.getBoundingClientRect = () => ({height: 300.25});
+    assert.equal(state.control.getOpeningHeight(), 680);
+});
 
 test('initial content stays non-scrollable until loading and resizing have finished', async () => {
     const state = sizingFixture({loaded: false});

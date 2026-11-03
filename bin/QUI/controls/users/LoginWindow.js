@@ -284,7 +284,7 @@ define('controls/users/LoginWindow', [
 
             if (
                 this.$contentResizing
-                || Math.abs(this.getElm().getBoundingClientRect().height - this.getOpeningHeight()) > 1
+                || Math.abs(this.getElm().getBoundingClientRect().height - this.getOpeningHeight()) >= 1
             ) {
                 this.$Body.classList.remove('quiqqer-loginWindow-body--ready');
             }
@@ -303,7 +303,7 @@ define('controls/users/LoginWindow', [
                     return;
                 }
 
-                if (Math.abs(this.getElm().getBoundingClientRect().height - this.getOpeningHeight()) > 1) {
+                if (Math.abs(this.getElm().getBoundingClientRect().height - this.getOpeningHeight()) >= 1) {
                     this.resize();
                     return;
                 }
@@ -376,10 +376,13 @@ define('controls/users/LoginWindow', [
                 }
 
                 if (Child.dataset.name === 'login-body' && Child.firstElementChild) {
-                    height += Child.firstElementChild.scrollHeight
-                        + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+                    // scrollHeight rounds to whole pixels and can hide fractional overflow.
+                    height += Math.max(
+                        Child.firstElementChild.scrollHeight,
+                        Child.firstElementChild.getBoundingClientRect().height
+                    ) + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
                 } else {
-                    height += Child.offsetHeight;
+                    height += Child.getBoundingClientRect().height;
                 }
 
                 height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
