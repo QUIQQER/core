@@ -58,7 +58,7 @@ class Server
     {
         if (
             !$this->isFullyAuthenticatedUser($User)
-            || !$this->isWebAuthnConfigured()
+            || (!$this->isWebAuthnConfigured() && !$User->isSU())
             || !$this->isWebAuthnAllowedForUser($User)
         ) {
             $this->clearEnrollmentAuthorization();
@@ -105,7 +105,7 @@ class Server
         }
 
         if (
-            !$this->isWebAuthnConfigured()
+            (!$this->isWebAuthnConfigured() && !$User->isSU())
             || !$this->isWebAuthnAllowedForUser($User)
         ) {
             $this->denyEnrollment();

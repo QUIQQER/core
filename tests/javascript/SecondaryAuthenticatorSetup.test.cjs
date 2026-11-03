@@ -84,6 +84,65 @@ function mailFixture(result = true, error = null) {
 
 const event = {preventDefault() {}, stopPropagation() {}};
 
+for (const message of [false, '', 'Bitte zuerst 2FA einrichten. <img src=x onerror=alert(1)>']) {
+    test(`setup popup renders an optional warning as plain text: ${JSON.stringify(message)}`, () => {
+        const root = {...element(), prepend(node) { this.children.unshift(node); }};
+        const definition = loadControl('bin/QUI/controls/users/auth/EnableSecondaryAuthenticatorWindow.js', {
+            Ajax: {get: (call, callback) => callback([])},
+            Locale: {get: () => ''}
+        }, {
+            document: {createElement: () => ({dataset: {}, attributes: {},
+                setAttribute(name, value) { this.attributes[name] = value; }})}
+        });
+        definition.$onOpen.call({
+            Loader: {show() {}, hide() {}},
+            getContent: () => root,
+            getAttribute: name => name === 'message' ? message : false
+        });
+        assert.equal(root.children.length, message ? 1 : 0);
+        if (message) {
+            const warning = root.children[0];
+            assert.equal(warning.textContent, message);
+            assert.equal(warning.attributes.role, 'alert');
+            assert.equal(warning.className, 'quiqqer-message quiqqer-message-attention');
+        }
+    });
+}
+
+for (const useSelectedMethods of [true, false]) {
+    test(`setup popup uses ${useSelectedMethods ? 'unsaved selected' : 'saved global'} methods`, () => {
+        const button = element();
+        button.setAttribute = (name, value) => { button[name] = value; };
+        const list = element();
+        const root = {...element(), querySelector: () => list};
+        const method = {
+            authenticator: 'QUI\\Users\\Auth\\VerifiedMail2FA',
+            frontend: {title: 'Mail', description: 'Mail setup'},
+            hasSettings: true
+        };
+        const calls = [];
+        const definition = loadControl('bin/QUI/controls/users/auth/EnableSecondaryAuthenticatorWindow.js', {
+            Ajax: {get(call, callback) { calls.push(call); callback([method]); }},
+            Locale: {get: () => ''}
+        }, {
+            document: {createElement: () => ({
+                ...element(),
+                setAttribute() {},
+                querySelector: () => button
+            })}
+        });
+        definition.$onOpen.call({
+            Loader: {show() {}, hide() {}},
+            getContent: () => root,
+            getAttribute: name => name === 'authenticators' && useSelectedMethods ? [method] : false
+        });
+        assert.equal(list.children.length, 1);
+        assert.equal(button['data-authenticator'], method.authenticator);
+        assert.equal(typeof button.events.click, 'function');
+        assert.deepEqual(calls, useSelectedMethods ? [] : ['ajax_users_authenticator_getSecondaryAuthenticators']);
+    });
+}
+
 test('incorrect mail codes keep setup open and restore both buttons', async () => {
     const fixture = mailFixture(false);
     fixture.form.events.submit(event);

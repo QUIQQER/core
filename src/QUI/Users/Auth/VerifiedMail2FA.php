@@ -472,17 +472,21 @@ class VerifiedMail2FA extends AbstractAuthenticator
         $configured = QUI::isFrontend()
             ? $Handler->getGlobalFrontendSecondaryAuthenticators()
             : $Handler->getGlobalBackendSecondaryAuthenticators();
+        $fullyAuthenticated = (new WebAuthn\Server())->isFullyAuthenticatedUser($User);
 
         if (
             !$User instanceof QUI\Users\User
             || (string)$User->getUUID() !== $uid
-            || !in_array(self::class, $configured, true)
+            || (
+                !in_array(self::class, $configured, true)
+                && (!$User->isSU() || !$fullyAuthenticated)
+            )
             || !Helper::hasUserPermissionToUseAuthenticator($User, self::class)
         ) {
             throw new QUI\Permissions\Exception(['quiqqer/core', 'exception.no.permission'], 403);
         }
 
-        if ((new WebAuthn\Server())->isFullyAuthenticatedUser($User)) {
+        if ($fullyAuthenticated) {
             return $User;
         }
 

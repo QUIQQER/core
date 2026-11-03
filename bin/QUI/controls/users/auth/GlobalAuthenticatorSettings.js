@@ -28,6 +28,9 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
 
             this.$primaryTable = null;
             this.$secondaryTable = null;
+            this.$availableAuthenticators = [];
+            this.$secondaryModes = {};
+            this.$setupPromise = null;
 
             this.addEvents({
                 onImport: this.$onImport
@@ -41,6 +44,8 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
             QUIAjax.get('ajax_users_authenticator_globalAuthenticators', (result) => {
                 const available = result.available,
                     globals = result.global;
+
+                this.$availableAuthenticators = available;
 
                 new Element('div', {
                     html: QUILocale.get(lg, 'quiqqer.settings.auth.global.desc')
@@ -127,7 +132,7 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
                                 <div class="field-container-item">
                                     ${QUILocale.get(lg, 'quiqqer.settings.auth.frontend')}
                                 </div>  
-                                <select class="field-container-field" name="secondary_frontend">
+                                <select class="field-container-field" name="secondary_frontend" data-name="secondary_frontend">
                                     <option value="0">
                                         ${QUILocale.get(lg, 'quiqqer.settings.auth.secondary.type.0')}
                                     </option>
@@ -157,7 +162,7 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
                                 <div class="field-container-item">
                                     ${QUILocale.get(lg, 'quiqqer.settings.auth.backend')}
                                 </div>  
-                                <select class="field-container-field" name="secondary_backend">
+                                <select class="field-container-field" name="secondary_backend" data-name="secondary_backend">
                                     <option value="0">
                                         ${QUILocale.get(lg, 'quiqqer.settings.auth.secondary.type.0')} 
                                     </option>
@@ -233,14 +238,19 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
                 this.$checkCheckboxes(globals.primary.frontend, primaryTable, 'frontend');
                 this.$checkCheckboxes(globals.primary.backend, primaryTable, 'backend');
 
-                const secondaryFrontend = this.$secondaryTable.querySelector('select[name="secondary_frontend"]');
-                const secondaryBackend = this.$secondaryTable.querySelector('select[name="secondary_backend"]');
+                const secondaryFrontend = this.$secondaryTable.querySelector('[data-name="secondary_frontend"]');
+                const secondaryBackend = this.$secondaryTable.querySelector('[data-name="secondary_backend"]');
 
                 secondaryFrontend.addEventListener('change', this.$onChange);
                 secondaryFrontend.value = globals.secondary_settings.frontend;
 
                 secondaryBackend.addEventListener('change', this.$onChange);
                 secondaryBackend.value = globals.secondary_settings.backend;
+
+                this.$secondaryModes = {
+                    frontend: Number(secondaryFrontend.value),
+                    backend: Number(secondaryBackend.value)
+                };
 
                 this.$onChange();
             });
@@ -289,11 +299,11 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
             collect(this.$primaryTable, result.primary);
 
             result.secondary_frontend = parseInt(
-                this.$secondaryTable.querySelector('select[name="secondary_frontend"]').value
+                this.$secondaryTable.querySelector('[data-name="secondary_frontend"]').value
             );
 
             result.secondary_backend = parseInt(
-                this.$secondaryTable.querySelector('select[name="secondary_backend"]').value
+                this.$secondaryTable.querySelector('[data-name="secondary_backend"]').value
             );
 
             // show 2fa auths
@@ -325,15 +335,95 @@ define('controls/users/auth/GlobalAuthenticatorSettings', [
             }
         },
 
+        $openSecondFactorSetup: function (authenticators, requiredAreas) {
+            return new Promise((resolve, reject) => {
+                let finished = false;
+                const cancel = () => {
+                    if (finished) return;
+                    finished = true;
+
+                    requiredAreas.forEach((area) => {
+                        this.$secondaryTable.querySelector('[data-name="secondary_' + area + '"]').value =
+                            String(this.$secondaryModes[area]);
+                    });
+                    this.$onChange();
+                    reject(new Error('2FA setup cancelled'));
+                };
+
+                require(['controls/users/auth/EnableSecondaryAuthenticatorWindow'], (SetupWindow) => {
+                    const Setup = new SetupWindow({
+                        authenticators: authenticators,
+                        message: QUILocale.get(lg, 'exception.auth.require_own_second_factor'),
+                        events: {
+                            onCompleted: () => {
+                                if (finished) return;
+                                finished = true;
+                                this.$saveAuthenticators().then(resolve, reject);
+                            },
+                            onCancel: cancel,
+                            onClose: () => setTimeout(cancel, 0)
+                        }
+                    });
+                    Setup.setAttribute('backgroundClosable', true);
+                    Setup.open();
+                }, cancel);
+            });
+        },
+
         /**
          * Save the authenticator settings
          *
          * @returns {Promise}
          */
         save: function () {
+            if (this.$setupPromise) {
+                return this.$setupPromise;
+            }
+
+            this.$setupPromise = this.$saveAuthenticators().catch((error) => {
+                if (Number(error.getCode?.()) !== 409) {
+                    throw error;
+                }
+
+                const settings = JSON.parse(this.getElm().value);
+                const requiredAreas = ['frontend', 'backend'].filter((area) => {
+                    return settings['secondary_' + area] === 1;
+                });
+
+                if (requiredAreas.some((area) => settings.secondary[area].length === 0)) {
+                    throw error;
+                }
+
+                const selected = requiredAreas.flatMap((area) => settings.secondary[area]);
+                const authenticators = this.$availableAuthenticators.filter((authenticator) => {
+                    return authenticator.isSecondaryAuthentication && selected.includes(authenticator.authenticator);
+                });
+
+                if (authenticators.length === 0) {
+                    throw error;
+                }
+
+                return this.$openSecondFactorSetup(authenticators, requiredAreas);
+            }).finally(() => {
+                this.$setupPromise = null;
+            });
+
+            return this.$setupPromise;
+        },
+
+        $saveAuthenticators: function () {
+            const authenticators = this.getElm().value;
+
             return new Promise((resolve, reject) => {
-                QUIAjax.post('ajax_users_authenticator_save', resolve, {
-                    authenticators: this.getElm().value,
+                QUIAjax.post('ajax_users_authenticator_save', (result) => {
+                    const settings = JSON.parse(authenticators);
+                    this.$secondaryModes = {
+                        frontend: settings.secondary_frontend,
+                        backend: settings.secondary_backend
+                    };
+                    resolve(result);
+                }, {
+                    authenticators: authenticators,
                     onError: reject
                 });
             });

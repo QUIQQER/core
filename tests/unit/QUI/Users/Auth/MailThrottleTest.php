@@ -291,6 +291,51 @@ class MailThrottleTest extends TestCase
         VerifiedMail2FA::sendEnableMailToSessionUser();
     }
 
+    public static function unconfiguredMailSetupContexts(): array
+    {
+        return [
+            'authenticated superuser' => [true, true],
+            'partial superuser session' => [true, false],
+            'authenticated regular user' => [false, true]
+        ];
+    }
+
+    #[DataProvider('unconfiguredMailSetupContexts')]
+    public function testOnlyFullyAuthenticatedSuperusersCanPrepareUnconfiguredMail2FA(
+        bool $superuser,
+        bool $fullyAuthenticated
+    ): void {
+        $allowed = $superuser && $fullyAuthenticated;
+        $User = $this->createConcreteUser('setup-user', false);
+        $User->method('isSU')->willReturn($superuser);
+        $User->expects(self::never())->method('enableAuthenticator');
+        $this->configureVerifiedMailDependencies($User, $allowed ? 1 : 0, $fullyAuthenticated);
+
+        $Config = $this->createMock(Config::class);
+        $Config->method('get')->willReturn(0);
+        QUI::$Conf = $Config;
+        QUI::$Session = $this->createSession('setup-user');
+        QUI::getSession()->set('auth', $fullyAuthenticated ? 1 : 0);
+        QUI::getSession()->set('auth-secondary', 0);
+
+        $Handler = $this->createMock(Handler::class);
+        $Handler->method('getGlobalFrontendSecondaryAuthenticators')->willReturn([]);
+        $Handler->method('getGlobalBackendSecondaryAuthenticators')->willReturn([]);
+        (new ReflectionProperty(Handler::class, 'Instance'))->setValue(null, $Handler);
+
+        if (!$allowed) {
+            $this->expectException(QUI\Permissions\Exception::class);
+        }
+
+        VerifiedMail2FA::sendEnableMailToSessionUser();
+
+        self::assertNotEmpty(QUI::getSession()->get(VerifiedMail2FA::USER_CODE_VERIFYING_ATTRIBUTE));
+        self::assertSame(0, QUI::getSession()->get('auth-secondary'));
+        $this->expectException(QUI\Users\Exception::class);
+        $this->expectExceptionCode(403);
+        VerifiedMail2FA::enableByUser();
+    }
+
     public function testMailActivationRequiresPreviouslyVerifiedAddress(): void
     {
         $User = $this->createConcreteUser('setup-user', false);

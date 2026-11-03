@@ -29,6 +29,12 @@ QUI::getAjax()->registerFunction(
                     'title' => $Authenticator->getTitle(),
                     'description' => $Authenticator->getDescription(),
                     'authenticator' => $authenticator,
+                    'frontend' => [
+                        'title' => $Authenticator->getFrontendTitle(),
+                        'description' => $Authenticator->getFrontendDescription()
+                    ],
+                    'hasSettings' => $Authenticator->isSecondaryAuthentication()
+                        && $Authenticator->getSettingsControl() !== null,
                     'isPrimaryAuthentication' => $Authenticator->isPrimaryAuthentication(),
                     'isSecondaryAuthentication' => $Authenticator->isSecondaryAuthentication()
                 ];
