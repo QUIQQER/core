@@ -27,7 +27,6 @@
   "quiqqer.editors.ckeditor.plugins.upload": false,
   "quiqqer.editors.ckeditor.plugins.toggle": false,
   "quiqqer.packages.quiqqercalendarcontrols.canUse": true,
-  "quiqqer.packages.quiqqercolorpicker.canUse": true,
   "quiqqer.packages.quiqqerdashboard.canUse": true,
   "quiqqer.packages.quiqqerfontawesome.canUse": true,
   "quiqqer.packages.quiqqerloginlogger.canUse": true,
