@@ -166,8 +166,7 @@ class Queue
             ->where($QueryBuilder->expr()->in('status', [':statusAdded', ':statusError']))
             ->setParameter('statusAdded', self::STATUS_ADDED)
             ->setParameter('statusError', self::STATUS_ERROR)
-            ->orderBy('c_date', 'ASC')
-            ->addOrderBy('id', 'ASC')
+            ->orderBy('id', 'ASC')
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchAssociative();
