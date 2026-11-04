@@ -10,6 +10,7 @@ use Exception;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Table;
+use Doctrine\DBAL\Schema\TableDiff;
 use QUI;
 use QUI\Utils\System\File;
 
@@ -83,10 +84,6 @@ class Queue
         $SchemaManager = QUI::getSchemaManager();
         $tableName = self::table();
 
-        if ($SchemaManager->tablesExist([$tableName])) {
-            return;
-        }
-
         $Table = new Table($tableName);
         $Table->addOption('charset', 'utf8mb4');
         $Table->addOption('collation', 'utf8mb4_general_ci');
@@ -108,7 +105,24 @@ class Queue
         $Table->addColumn('errors', 'text', ['notnull' => false]);
         $Table->setPrimaryKey(['id']);
 
-        $SchemaManager->createTable($Table);
+        if (!$SchemaManager->tablesExist([$tableName])) {
+            $SchemaManager->createTable($Table);
+
+            return;
+        }
+
+        $CurrentTable = $SchemaManager->introspectTable($tableName);
+        $missingColumns = [];
+
+        foreach ($Table->getColumns() as $Column) {
+            if (!$CurrentTable->hasColumn($Column->getName())) {
+                $missingColumns[] = $Column;
+            }
+        }
+
+        if ($missingColumns !== []) {
+            $SchemaManager->alterTable(new TableDiff($CurrentTable, addedColumns: $missingColumns));
+        }
     }
 
     public static function table(): string
