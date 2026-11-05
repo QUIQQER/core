@@ -4,6 +4,12 @@
     <project>
         <settings>
             <config>
+                <section name="quiqqer.colors">
+                    <conf name="palette">
+                        <type>string</type>
+                        <defaultvalue></defaultvalue>
+                    </conf>
+                </section>
                 <section name="quiqqer.frontend.loader">
                     <conf name="type">
                         <type>string</type>
@@ -21,6 +27,18 @@
             </config>
             <window>
                 <categories>
+                    <category name="quiqqer.colors">
+                        <text><locale group="quiqqer/core" var="projects.colors.title"/></text>
+                        <icon>fa fa-palette</icon>
+                        <settings name="quiqqer.colors">
+                            <title><locale group="quiqqer/core" var="projects.colors.title"/></title>
+                            <description><locale group="quiqqer/core" var="projects.colors.description"/></description>
+                            <input conf="quiqqer.colors.palette" type="hidden"
+                                   data-qui="controls/projects/project/settings/Colors">
+                                <text><locale group="quiqqer/core" var="projects.colors.title"/></text>
+                            </input>
+                        </settings>
+                    </category>
                     <category name="quiqqer.frontend">
                         <text>
                             <locale group="quiqqer/core" var="projects.frontend.title"/>

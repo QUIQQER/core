@@ -13,17 +13,19 @@ QUI::getAjax()->registerFunction(
         $Project = QUI\Projects\Manager::getProject($project);
         $params = json_decode($params, true);
 
-        if (isset($params['project-custom-css'])) {
-            $Project->setCustomCSS($params['project-custom-css']);
-            unset($params['project-custom-css']);
-        }
-
-        if (isset($params['project-custom-javascript'])) {
-            $Project->setCustomJavaScript($params['project-custom-javascript']);
-            unset($params['project-custom-javascript']);
-        }
+        $customCss = $params['project-custom-css'] ?? null;
+        $customJavaScript = $params['project-custom-javascript'] ?? null;
+        unset($params['project-custom-css'], $params['project-custom-javascript']);
 
         QUI\Projects\Manager::setConfigForProject($project, $params);
+
+        if ($customCss !== null) {
+            $Project->setCustomCSS($customCss);
+        }
+
+        if ($customJavaScript !== null) {
+            $Project->setCustomJavaScript($customJavaScript);
+        }
 
         QUI::getMessagesHandler()->addSuccess(
             QUI::getLocale()->get(

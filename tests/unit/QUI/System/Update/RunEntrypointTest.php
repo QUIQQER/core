@@ -142,6 +142,36 @@ class RunEntrypointTest extends TestCase
         );
     }
 
+    public function testCompletionRestartMessageStaysUnindented(): void
+    {
+        $repository = new RunRepository($this->root, 600);
+        $run = $repository->create(1000);
+        $entrypoint = new RunEntrypoint();
+
+        ob_start();
+        $exitCode = $entrypoint->execute(
+            $run->getState()->getId(),
+            $this->root,
+            [
+                RunState::PHASE_CREATED => new RecordingUpdateRunAction(RunActionResult::next(RunState::PHASE_PREPARED)),
+                RunState::PHASE_PREPARED => new RecordingUpdateRunAction(
+                    RunActionResult::next(RunState::PHASE_SYSTEM_UPDATE)
+                ),
+                RunState::PHASE_SYSTEM_UPDATE => new RecordingUpdateRunAction(
+                    RunActionResult::restartAt(RunState::PHASE_CLEANUP)
+                )
+            ],
+            [],
+            ['execute.php', $run->getToken()],
+            'cli',
+            1001
+        );
+        $output = (string)ob_get_clean();
+
+        $this->assertSame(0, $exitCode);
+        $this->assertSame('[..] Continuing update completion in a fresh process' . PHP_EOL, $output);
+    }
+
     public function testExecuteReturnsCliFailureMessage(): void
     {
         $repository = new RunRepository($this->root, 600);

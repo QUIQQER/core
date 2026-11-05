@@ -160,17 +160,13 @@ define('utils/Controls', [
          */
         parseColor: function (Elm) {
             return new Promise(function (resolve, reject) {
-                require(['qui/controls/elements/ColorPicker'], function (QUIColorPicker) {
-
-                    var i, len;
-                    var elements = Elm.getElements('input[type="color"]');
-
-                    for (i = 0, len = elements.length; i < len; i++) {
-                        if (elements[i].get('data-quiid')) {
+                require(['qui/controls/elements/ColorField'], function (QUIColorField) {
+                    for (const Input of Elm.querySelectorAll('input[type="color"]')) {
+                        if (Input.getAttribute('data-quiid')) {
                             continue;
                         }
 
-                        new QUIColorPicker().imports(elements[i]);
+                        new QUIColorField().imports(Input);
                     }
 
                     resolve();

@@ -690,11 +690,7 @@ define('controls/users/Login', [
                 return this.$handleLoginResponse(responseData)
             }).then((responseData) => {
                 // authentication was successful
-                if (
-                    !responseData.authenticator
-                    || !responseData.authenticator.length
-                    || responseData.loggedIn
-                ) {
+                if (responseData.loggedIn === true) {
                     window.QUIQQER_USER = responseData.user;
 
                     this.fireEvent('success', [this]);

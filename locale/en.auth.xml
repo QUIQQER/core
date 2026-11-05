@@ -85,6 +85,21 @@
             <en><![CDATA[Not now]]></en>
         </locale>
 
+        <locale name="quiqqer.mail2fa.settings.verify.title">
+            <en><![CDATA[1. Verify your email address]]></en>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.description">
+            <en><![CDATA[Confirm your email address first. This does not activate two-factor authentication.]]></en>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.button">
+            <en><![CDATA[Verify email address]]></en>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.title">
+            <en><![CDATA[2. Activate email 2FA]]></en>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.description">
+            <en><![CDATA[Your email address is verified. You can now activate two-factor authentication.]]></en>
+        </locale>
         <locale name="quiqqer.mail2fa.title">
             <en><![CDATA[OTP Mail Authentication]]></en>
         </locale>
@@ -614,6 +629,12 @@
         </locale>
         <locale name="exception.webauthn.credential_already_exists">
             <en><![CDATA[This passkey is already registered.]]></en>
+        </locale>
+        <locale name="exception.auth.require_own_second_factor">
+            <en><![CDATA[Before making 2FA mandatory, set up one of the selected methods for your own account and sign in with it again. Keep the setting optional until then.]]></en>
+        </locale>
+        <locale name="exception.webauthn.enrollment_expired">
+            <en><![CDATA[Passkey setup authorization is missing or has expired. Please sign in again and restart setup.]]></en>
         </locale>
         <locale name="exception.webauthn.challenge_missing">
             <en><![CDATA[The passkey request has expired. Please try again.]]></en>

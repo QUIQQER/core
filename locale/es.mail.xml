@@ -31,10 +31,10 @@
             <es><![CDATA[<p>Hola:</p><p>Tu código de confirmación para iniciar sesión en <strong>[host]</strong> es:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Introduce este código para continuar. El código solo es válido durante un breve periodo.</p><p>Si no has realizado esta solicitud, puedes ignorar este correo electrónico.</p><p>Un saludo,<br>Tu equipo de [host]</p>]]></es>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <es><![CDATA[[host]: tu código para activar la autenticación con código de un solo uso por correo electrónico]]></es>
+            <es><![CDATA[[host]: verifica tu dirección de correo]]></es>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
-            <es><![CDATA[<p>Hola:</p><p>Tu código para activar la autenticación con código de un solo uso por correo electrónico en <strong>[host]</strong> es:</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Introduce este código para continuar. El código solo es válido durante un breve periodo.</p><p>Si no has realizado esta solicitud, puedes ignorar este correo electrónico.</p><p>Un saludo,<br>Tu equipo de [host]</p>]]></es>
+            <es><![CDATA[<p>Hola:</p><p>Tu código para verificar tu dirección de correo en <strong>[host]</strong> es:</p><p>Esta confirmación no activa la autenticación de dos factores. Puedes configurarla por separado después.</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Introduce este código para continuar. El código solo es válido durante un breve periodo.</p><p>Si no has realizado esta solicitud, puedes ignorar este correo electrónico.</p><p>Un saludo,<br>Tu equipo de [host]</p>]]></es>
         </locale>
         <locale name="message.contact.successful">
             <es><![CDATA[<p>Gracias por tu correo electrónico. Nos pondremos en contacto contigo lo antes posible.</p>]]></es>

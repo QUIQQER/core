@@ -53,16 +53,12 @@
             ]]></en>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <en><![CDATA[
-            [host]: Your code for activating one-time email code authentication
-            ]]></en>
+            <en><![CDATA[[host]: Verify your email address]]></en>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
             <en><![CDATA[
             <p>Hello,</p>
-            <p>
-              Your code for activating one-time email authentication at <strong>[host]</strong> is:
-            </p>
+            <p>Your code to verify your email address at <strong>[host]</strong> is:</p><p>This confirmation does not activate two-factor authentication. You can set it up separately afterwards.</p>
             <p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">
               [code]
             </p>

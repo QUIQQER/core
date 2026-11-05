@@ -1525,6 +1525,15 @@ define('controls/users/User', [
             const auth = Entry.dataset.authenticator;
             const wasEnabled = Entry.classList.contains('authenticator-enabled');
 
+            if (
+                !wasEnabled
+                && auth === 'QUI\\Users\\Auth\\VerifiedMail2FA'
+                && (user.getAttribute('uuid') || user.getId()) === Users.getUserBySession().getId()
+            ) {
+                this.$openAuthSettings(Entry.querySelector('[data-name="authenticator-settings"]'));
+                return Promise.resolve();
+            }
+
             button.style.width = button.offsetWidth + 'px';
             button.disabled = true;
             button.setAttribute('aria-busy', 'true');
@@ -1596,6 +1605,14 @@ define('controls/users/User', [
                                     Control.setAttribute('authenticator', auth);
                                     Control.setAttribute('User', user);
                                     Control.setAttribute('Panel', Panel);
+
+                                    if (auth === 'QUI\\Users\\Auth\\VerifiedMail2FA') {
+                                        Control.addEvents({
+                                            completed: () => {
+                                                Panel.$refreshAuthenticator(auth).then(() => win.close());
+                                            }
+                                        });
+                                    }
                                 });
 
                                 win.Loader.hide();

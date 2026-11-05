@@ -46,6 +46,24 @@ define('controls/users/LoginWindow', [
             this.$opened = false;
             this.$Login = null;
             this.$ReturnFocus = null;
+            this.$Body = null;
+            this.$contentResizeObserver = null;
+            this.$contentResizeFrame = null;
+            this.$contentSizingActive = false;
+            this.$contentLoaded = false;
+            this.$contentResizing = false;
+            this.$contentTransitions = 0;
+            this.$resizeSequence = 0;
+            this.$onContentViewChange = (event) => {
+                if (!this.$contentSizingActive) {
+                    return;
+                }
+
+                this.$contentTransitions = event.detail.pending
+                    ? this.$contentTransitions + 1
+                    : Math.max(this.$contentTransitions - 1, 0);
+                this.$queueContentResize();
+            };
 
             this.addEvents({
                 onOpen: () => {
@@ -59,6 +77,8 @@ define('controls/users/LoginWindow', [
                         window.location = window.URL_SYS_DIR;
                     }
                 },
+                onCloseBegin: () => this.$stopContentSizing(),
+                onDestroy: () => this.$stopContentSizing(),
                 onClose: () => {
                     if (this.$ReturnFocus?.isConnected) {
                         this.$ReturnFocus.focus();
@@ -159,6 +179,8 @@ define('controls/users/LoginWindow', [
             const Body = element('div', 'login-body');
             Body.className = 'quiqqer-loginWindow-body';
             Content.appendChild(Body);
+            this.$Body = Body;
+            this.$contentSizingActive = true;
 
             this.$Login = new Login({
                 showLoader: false,
@@ -168,24 +190,40 @@ define('controls/users/LoginWindow', [
                 },
                 events: {
                     onLoad: () => {
-                        this.resize();
+                        if (!this.$contentSizingActive) {
+                            return;
+                        }
+
+                        this.$contentLoaded = true;
+                        this.$queueContentResize();
                         this.$focusForm();
                     },
                     onLoginCheckSuccess: () => {
+                        if (!this.$contentSizingActive) {
+                            return;
+                        }
+
                         Heading.textContent = this.getAttribute('title');
                         Intro.hidden = !this.getAttribute('description');
-                        this.resize();
+                        this.$queueContentResize();
                     },
                     onLoginCheckError: () => {
+                        if (!this.$contentSizingActive) {
+                            return;
+                        }
+
+                        this.$contentLoaded = true;
                         Heading.textContent = Locale.get(lg, 'login.check.title');
                         Intro.hidden = true;
-                        this.resize();
+                        this.$queueContentResize();
                         requestAnimationFrame(() => this.$focusForm());
                     },
                     onAuthBegin: () => this.Loader.show(),
                     onAuthNext: () => this.Loader.hide()
                 }
             }).inject(Body);
+
+            this.$startContentSizing();
 
             Dialog.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
@@ -214,6 +252,99 @@ define('controls/users/LoginWindow', [
                     First.focus();
                 }
             });
+        },
+
+        $startContentSizing: function () {
+            this.$Body.addEventListener('quiqqer-login-view-change', this.$onContentViewChange);
+
+            if (typeof window.ResizeObserver === 'function') {
+                this.$contentResizeObserver = new window.ResizeObserver(() => this.$queueContentResize());
+
+                for (const Child of this.getContent().children) {
+                    if (Child !== this.$Body) {
+                        this.$contentResizeObserver.observe(Child);
+                    }
+                }
+
+                this.$contentResizeObserver.observe(this.$Login.getElm());
+            }
+
+            this.$queueContentResize();
+        },
+
+        $queueContentResize: function () {
+            if (!this.$contentSizingActive || !this.$opened) {
+                return;
+            }
+
+            if (!this.$contentLoaded || this.$contentTransitions > 0) {
+                this.$Body.classList.remove('quiqqer-loginWindow-body--ready');
+                return;
+            }
+
+            if (
+                this.$contentResizing
+                || Math.abs(this.getElm().getBoundingClientRect().height - this.getOpeningHeight()) >= 1
+            ) {
+                this.$Body.classList.remove('quiqqer-loginWindow-body--ready');
+            }
+
+            if (this.$contentResizing || this.$contentResizeFrame !== null) {
+                return;
+            }
+
+            this.$contentResizeFrame = window.requestAnimationFrame(() => {
+                this.$contentResizeFrame = null;
+
+                if (
+                    !this.$contentSizingActive || !this.$opened
+                    || !this.$contentLoaded || this.$contentResizing || this.$contentTransitions > 0
+                ) {
+                    return;
+                }
+
+                if (Math.abs(this.getElm().getBoundingClientRect().height - this.getOpeningHeight()) >= 1) {
+                    this.resize();
+                    return;
+                }
+
+                if (this.$contentLoaded) {
+                    this.$Body.classList.add('quiqqer-loginWindow-body--ready');
+                }
+            });
+        },
+
+        resize: function (withfx, callback) {
+            const sequence = ++this.$resizeSequence;
+            this.$contentResizing = true;
+            this.$Body?.classList.remove('quiqqer-loginWindow-body--ready');
+
+            return Promise.resolve(this.parent(withfx, callback)).finally(() => {
+                if (sequence !== this.$resizeSequence) {
+                    return;
+                }
+
+                this.$contentResizing = false;
+                this.$queueContentResize();
+            });
+        },
+
+        $stopContentSizing: function () {
+            this.$contentSizingActive = false;
+            this.$contentLoaded = false;
+            this.$contentResizing = false;
+            this.$contentTransitions = 0;
+            this.$Body?.removeEventListener('quiqqer-login-view-change', this.$onContentViewChange);
+            this.$resizeSequence++;
+            this.$contentResizeObserver?.disconnect();
+            this.$contentResizeObserver = null;
+
+            if (this.$contentResizeFrame !== null) {
+                window.cancelAnimationFrame(this.$contentResizeFrame);
+                this.$contentResizeFrame = null;
+            }
+
+            this.$Body?.classList.remove('quiqqer-loginWindow-body--ready');
         },
 
         getOpeningHeight: function () {
@@ -245,10 +376,13 @@ define('controls/users/LoginWindow', [
                 }
 
                 if (Child.dataset.name === 'login-body' && Child.firstElementChild) {
-                    height += Child.firstElementChild.scrollHeight
-                        + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+                    // scrollHeight rounds to whole pixels and can hide fractional overflow.
+                    height += Math.max(
+                        Child.firstElementChild.scrollHeight,
+                        Child.firstElementChild.getBoundingClientRect().height
+                    ) + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
                 } else {
-                    height += Child.offsetHeight;
+                    height += Child.getBoundingClientRect().height;
                 }
 
                 height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
@@ -291,6 +425,7 @@ define('controls/users/LoginWindow', [
 
         close: function () {
             this.$opened = false;
+            this.$stopContentSizing();
 
             if (this.$Login) {
                 this.$Login.destroy();

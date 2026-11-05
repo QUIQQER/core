@@ -63,6 +63,21 @@ define('classes/projects/Project', [
         },
 
         /**
+         * Supply project colors and backend labels to generic QUI color controls.
+         * Resolving this provider does not load palette data; the control's explicit
+         * capabilities decide whether to call load(). This uses the protected admin API.
+         *
+         * @return {Promise<Object>}
+         */
+        getColorProvider: function () {
+            return new Promise((resolve, reject) => {
+                require(['controls/projects/project/ColorProvider'], (ColorProvider) => {
+                    resolve(ColorProvider.create(this));
+                }, reject);
+            });
+        },
+
+        /**
          * Decode the project
          * eq for ajax request
          *

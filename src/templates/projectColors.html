@@ -1,0 +1,10 @@
+{if !empty($projectColorVariables)}
+<style>
+    :root {
+        {* Names and values are generated and validated by QUI\Projects\Colors. *}
+        {foreach $projectColorVariables as $name => $value}
+        {$name nofilter}: {$value nofilter};
+        {/foreach}
+    }
+</style>
+{/if}

@@ -176,49 +176,118 @@ define('controls/packages/Search', [
                     return;
                 }
 
-                if (!window.$Store.getFrame()) {
+                const Frame = window.$Store.getFrame();
+
+                if (!Frame || !Frame.isConnected) {
                     return;
                 }
 
-                var Data = event.data,
-                    frameWindow = window.$Store.getFrame().contentWindow;
+                const frameWindow = Frame.contentWindow;
 
-                if (!frameWindow) {
+                if (!frameWindow || event.source !== frameWindow) {
                     return;
                 }
 
-                var params = Data.params || [];
-                var identifier = Data.func + params.join('-'); // request identifier
+                let storeUrl;
+
+                try {
+                    storeUrl = new URL(Frame.src, window.location.href);
+                } catch (e) {
+                    return;
+                }
+
+                if (
+                    !['https:', 'http:'].includes(storeUrl.protocol) ||
+                    event.origin !== storeUrl.origin
+                ) {
+                    return;
+                }
+
+                const Data = event.data;
+
+                if (
+                    !Data ||
+                    typeof Data !== 'object' ||
+                    Array.isArray(Data) ||
+                    typeof Data.func !== 'string'
+                ) {
+                    return;
+                }
+
+                const methods = {
+                    init: 0,
+                    getInstalledPackages: 0,
+                    installPackage: 2,
+                    getLicenseAuthData: 0,
+                    getMaxExecutionTime: 0,
+                    getQuiqqerVersion: 0
+                };
+
+                if (!Object.prototype.hasOwnProperty.call(methods, Data.func)) {
+                    return;
+                }
+
+                const params = Data.params === undefined ? [] : Data.params;
+
+                if (!Array.isArray(params) || params.length !== methods[Data.func]) {
+                    return;
+                }
+
+                if (
+                    Data.func === 'installPackage' &&
+                    (
+                        typeof params[0] !== 'string' ||
+                        params[0].trim() === '' ||
+                        typeof params[1] !== 'string' ||
+                        params[1].trim() === ''
+                    )
+                ) {
+                    return;
+                }
+
+                const identifier = Data.func + params.join('-');
+                const reply = (data) => {
+                    if (
+                        window.$Store &&
+                        window.$Store.getFrame() === Frame &&
+                        Frame.isConnected &&
+                        Frame.contentWindow === frameWindow
+                    ) {
+                        frameWindow.postMessage(data, storeUrl.origin);
+                    }
+                };
 
                 // init request
                 if (Data.func === 'init') {
-                    frameWindow.postMessage({
+                    reply({
                         result: true,
                         identifier: identifier
-                    }, '*');
+                    });
                     return;
                 }
 
-                if (typeof this.$StoreApi[Data.func] === 'undefined') {
-                    frameWindow.postMessage({
+                if (!window.$StoreApi || typeof window.$StoreApi[Data.func] !== 'function') {
+                    reply({
                         result: null,
                         identifier: identifier
-                    }, '*');
+                    });
                     return;
                 }
 
                 // regular request
-                window.$StoreApi[Data.func].apply(window.$StoreApi, params).then(function (result) {
-                    frameWindow.postMessage({
+                Promise.resolve().then(() => window.$StoreApi[Data.func](...params)).then((result) => {
+                    reply({
                         result: result,
                         identifier: identifier
-                    }, '*');
-                }, function (e) {
-                    frameWindow.postMessage({
+                    });
+                }, (e) => {
+                    const errorMessage = typeof e?.getMessage === 'function' ? e.getMessage() : e?.message;
+
+                    reply({
                         result: null,
                         identifier: identifier,
-                        errorMessage: e.getMessage()
-                    }, '*');
+                        errorMessage: typeof errorMessage === 'string' ? errorMessage : ''
+                    });
                 });
             };
 

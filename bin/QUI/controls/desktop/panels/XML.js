@@ -512,6 +512,8 @@ define('controls/desktop/panels/XML', [
                     params: JSON.encode(this.$config)
                 });
 
+            }).catch(() => {
+                this.Loader.hide();
             });
         }
     });

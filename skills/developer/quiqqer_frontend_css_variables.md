@@ -1,22 +1,54 @@
 ---
 name: quiqqer_frontend_css_variables
-description: Use when writing or changing CSS for QUIQQER controls or modules, when binding control or project settings into styling, or when working with theming, colors, or CSS custom properties. Covers the three-layer pattern for configurable CSS variables and the rules against hardcoded colors.
+description: Use for CSS and styling decisions in QUIQQER controls, bricks, modules, and templates, including backend and shared backend/frontend controls. Determine styling ownership, reuse the environment's components, and apply the three-layer variable pattern to justified component-specific styling.
 category: developer
 ---
 
 # QUIQQER Frontend CSS Variables
 
-Use this skill when styling QUIQQER controls and similar modules where part of the presentation comes from
-settings (project config, control attributes) and must stay overridable through theming at the same time.
+Use this skill for frontend, backend, and shared controls, including bricks. Determine which styling belongs
+to the component before introducing CSS declarations, settings, or theming variables.
 
 Goal: PHP only sets the config values, the CSS defines fallbacks and theming hooks in exactly one place.
 No inline `style` with long variable names, no scattered fallbacks in the CSS body.
 
 Load `quiqqer_frontend_accessibility` as well when the change also touches markup.
 
+## Styling Ownership And Reuse
+
+Determine the intended usage from callers, asset loading, package dependencies, and the task: backend-only,
+reusable frontend control or brick, shared backend/frontend control, or template-specific component.
+Make this decision independently when the evidence is sufficient. Ask only when an unresolved ambiguity
+would change the implementation. The environment currently used for testing does not define every supported
+usage context.
+
+- Let the surrounding template or backend supply its typography, standard element styling, and component
+  design. Do not redeclare font sizes, colors, borders, radii, field padding, or interaction states merely
+  to make a reusable control look right in the current installation.
+- Inspect the relevant template's actual CSS and loaded assets to discover its available components,
+  variants, and variables. Buttons, inputs, badges, cards, and typography are examples, not an exhaustive
+  list. For backend usage, inspect the backend's component styles and shared UI-library defaults as well.
+  See "Existing Components First" below before writing a replacement.
+- Keep necessary component layout and behavior in control CSS, such as arrangement, spacing between
+  component sections, and sizing constraints. Preserve semantic markup and accessible interaction.
+- A concrete component requirement, requested design variant, or intentional editor setting can justify
+  additional styling. Prefer existing variants or hooks, keep the exception scoped, and briefly explain
+  why the environment's existing styling does not meet the requirement. Do not add settings just to
+  recreate a template's default design.
+- For controls shared by backend and frontend, place backend-specific appearance in an appropriate
+  stylesheet loaded only by backend entrypoints, with selectors scoped to the intended control. Reuse
+  an existing backend stylesheet where suitable; do not require one new file per control. Do not load
+  backend appearance from the shared control or force its dependencies into frontend templates.
+- A CSS variable makes a value configurable, not automatically compatible with other templates. Likewise,
+  `:where()` can make justified defaults easier to override, but does not fix misplaced design ownership
+  or missing variable definitions. Do not compensate with increasingly specific selectors or `!important`.
+
+Apply this distinction to new work and the requested change; do not turn a focused task into a general
+restyling or migration of existing controls and templates.
+
 ## The Three-Layer Pattern
 
-Every configurable CSS property passes through three layers:
+For properties the component intentionally owns, every setting-backed CSS property passes through three layers:
 
 1. Theming layer: a long, collision-safe variable, overridable from outside (theme or project CSS):
    `--<vendor>-<control>-<name>` (fully written out).
@@ -85,7 +117,6 @@ logic lives here:
 .<vendor>-<control> {
     /* config layer: long themeable variable > control config > fallback */
     --_sectionGap: var(--<vendor>-<control>-sectionGap, var(--_q-controlConf-sectionGap, 4rem));
-    --_title-size: var(--<vendor>-<control>-title-size, var(--_q-controlConf-title-size, 2rem));
 
     /* theming layer: pure theming variables (without PHP config) */
     --_fields-gap: var(--<vendor>-<control>-fields-gap, 2rem);
@@ -100,8 +131,8 @@ The rest of the CSS uses exclusively `var(--_NAME)`, without inline fallbacks (t
 root definition):
 
 ```css
-.<vendor>-<control>-title {
-    font-size: var(--_title-size);
+.<vendor>-<control>-fields {
+    gap: var(--_fields-gap);
 }
 ```
 
@@ -129,9 +160,14 @@ For breakpoints, override the short variable locally instead of setting the valu
 
 ## Existing Components First
 
-Before writing new CSS, check what already exists: the active template usually ships component classes and
-utility classes (buttons, cards, badges, …) with their own CSS variable hooks. Use those in the markup and
-adjust variants through their hooks instead of rewriting properties like padding, border, or transition.
+Before writing new CSS, inspect the relevant template or backend stylesheets and component documentation.
+Find the existing selectors, variants, and public variable hooks for the requested UI, including hover,
+focus, disabled, and supported theme states. Use those components in the markup; adjust variants through
+their hooks only when the task requires a deviation from the environment's defaults.
+
+For reusable packages, distinguish a component contract supported by their target environments from a class
+or token specific to one installed template. Do not assume the latter exists elsewhere; keep template-specific
+adaptations in the template or an explicit integration.
 
 Writing custom button or chip CSS (reset, padding, radius, hover) parallel to an existing component
 duplicates the design system and drifts apart on theme changes.
@@ -143,9 +179,10 @@ CSS). Instead, in this order:
 
 1. Use the cascade: when the context (body, card container, …) already provides the correct color, do not
    set `color` or `background` at all. Often removing a hardcoded color is the correct fix.
-2. Use the design system variables of the active template when a color must be set explicitly. Look up the
-   canonical token schema of the active template instead of blindly copying variable names from existing
-   code, which often carries a legacy schema.
+2. When the component must explicitly set a color, use a verified design-system contract for its intended
+   contexts. Inspect the canonical token definitions and their loading paths. Template-specific code may
+   use that template's tokens; shared controls must not assume backend or single-template tokens exist
+   everywhere. Prefer semantic roles that follow the theme over a palette shade chosen for one appearance.
 3. Use a theming variable following the three-layer pattern when the color must be configurable per project
    or control, with a design system variable (not a hex value) as the fallback.
 
@@ -154,12 +191,15 @@ effects (for example skeleton shimmer or overlays with `rgba(0,0,0,…)`).
 
 ## Checklist
 
+- [ ] Inferred the supported usage contexts and separated component layout from environment-owned design.
+- [ ] Inspected actual template/backend components; any custom design has a concrete reason.
+- [ ] Backend-specific appearance stays out of shared frontend assets; referenced classes and tokens are
+  available in their intended contexts.
 - [ ] PHP: a private `setCustomVariable()` writes `--_q-controlConf-<name>` and skips empty values.
 - [ ] CSS root: every configurable property as `--_NAME: var(long, var(--_q-controlConf-NAME, fallback))`.
 - [ ] CSS body: only `var(--_NAME)`, no scattered fallbacks.
 - [ ] Recurring spacings as pure theming `--_NAME` variables on the root.
 - [ ] No hardcoded colors in module CSS: cascade > design system variable > theming variable.
-- [ ] Checked whether the template already ships a component class before writing new CSS.
 - [ ] Default values (fallbacks) match the previous behavior exactly (no unintended visual change).
 
 ## Reference Implementation

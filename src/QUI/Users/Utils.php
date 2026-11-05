@@ -256,10 +256,18 @@ class Utils
 
         foreach ($authenticators as $authenticator) {
             if (isset($secondaryAuthenticators[$authenticator::class])) {
+                if (
+                    $authenticator instanceof QUI\Users\Auth\WebAuthn
+                    && (new QUI\Users\Auth\WebAuthn\CredentialRepository())
+                        ->findByUserUuid((string)$user->getUUID()) === []
+                ) {
+                    continue;
+                }
+
                 return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

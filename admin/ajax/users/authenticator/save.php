@@ -22,6 +22,12 @@ QUI::getAjax()->registerFunction(
             ]);
         }
 
+        if (!is_array($authenticators)) {
+            throw new QUI\Users\Auth\Exception(['quiqqer/core', 'exception.config.save.not.allowed'], 400);
+        }
+
+        QUI\Users\Auth\Settings::checkRequiredSecondFactors($User, $authenticators);
+
         $Config = QUI::getConfig('etc/conf.ini.php');
 
         // cleanup

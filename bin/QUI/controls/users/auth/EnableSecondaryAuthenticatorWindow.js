@@ -18,7 +18,9 @@ define('controls/users/auth/EnableSecondaryAuthenticatorWindow', [
         Type: 'controls/users/auth/EnableSecondaryAuthenticatorWindow',
 
         options: {
-            authenticator: false // enable a specific authenticator
+            authenticator: false, // enable a specific authenticator
+            authenticators: false, // optional list of methods selected in the settings
+            message: false // optional warning text
         },
 
         initialize: function (options) {
@@ -62,6 +64,17 @@ define('controls/users/auth/EnableSecondaryAuthenticatorWindow', [
                 <section data-name="authenticator-settings" style="opacity: 0; display: none;"></section>
             `;
 
+            const message = this.getAttribute('message');
+
+            if (typeof message === 'string' && message !== '') {
+                const Warning = document.createElement('div');
+                Warning.dataset.name = 'setup-message';
+                Warning.className = 'quiqqer-message quiqqer-message-attention';
+                Warning.setAttribute('role', 'alert');
+                Warning.textContent = message;
+                container.prepend(Warning);
+            }
+
             if (this.getAttribute('authenticator')) {
                 this.$showAuthenticatorSettings(this.getAttribute('authenticator')).then((closeWindow) => {
                     if (closeWindow === false) {
@@ -76,7 +89,7 @@ define('controls/users/auth/EnableSecondaryAuthenticatorWindow', [
                 return;
             }
 
-            QUIAjax.get('ajax_users_authenticator_getSecondaryAuthenticators', (list) => {
+            const showAuthenticators = (list) => {
                 list.forEach((authenticator) => {
                     const authNode = document.createElement('div')
 
@@ -128,7 +141,15 @@ define('controls/users/auth/EnableSecondaryAuthenticatorWindow', [
                 });
 
                 this.Loader.hide();
-            });
+            };
+
+            const authenticators = this.getAttribute('authenticators');
+
+            if (Array.isArray(authenticators)) {
+                showAuthenticators(authenticators);
+            } else {
+                QUIAjax.get('ajax_users_authenticator_getSecondaryAuthenticators', showAuthenticators);
+            }
         },
 
         $showAuthenticatorSettings: function (authenticator) {

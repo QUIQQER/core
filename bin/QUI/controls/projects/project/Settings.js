@@ -293,7 +293,15 @@ define('controls/projects/project/Settings', [
             }
 
 
-            const promises = [Project.setConfig(this.$config)];
+            const promises = [Project.setConfig(this.$config).then(() => Project.getConfig()).then((config) => {
+                const palette = config['quiqqer.colors.palette'] ?? '';
+                this.$config['quiqqer.colors.palette'] = palette;
+                const input = this.getContent().querySelector('[name="quiqqer.colors.palette"]');
+                if (input) {
+                    input.value = palette;
+                    input.dispatchEvent(new CustomEvent('palette-saved', {detail: palette}));
+                }
+            })];
             let localeSaving = Promise.resolve();
 
             if (this.$ProjectTitle) {

@@ -71,6 +71,21 @@
             <pl><![CDATA[Nie teraz]]></pl>
         </locale>
 
+        <locale name="quiqqer.mail2fa.settings.verify.title">
+            <pl><![CDATA[1. Zweryfikuj adres e-mail]]></pl>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.description">
+            <pl><![CDATA[Najpierw potwierdź adres e-mail. Ten krok nie włącza uwierzytelniania dwuskładnikowego.]]></pl>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.button">
+            <pl><![CDATA[Zweryfikuj adres e-mail]]></pl>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.title">
+            <pl><![CDATA[2. Włącz 2FA przez e-mail]]></pl>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.description">
+            <pl><![CDATA[Twój adres e-mail jest zweryfikowany. Możesz teraz włączyć uwierzytelnianie dwuskładnikowe.]]></pl>
+        </locale>
         <locale name="quiqqer.mail2fa.title">
             <pl><![CDATA[Uwierzytelnianie przez e-mail z kodem OTP]]></pl>
         </locale>
@@ -546,6 +561,12 @@
         </locale>
         <locale name="exception.webauthn.credential_already_exists">
             <pl><![CDATA[Ten klucz dostępu jest już zarejestrowany.]]></pl>
+        </locale>
+        <locale name="exception.auth.require_own_second_factor">
+            <pl><![CDATA[Zanim włączysz obowiązkowe 2FA, skonfiguruj jedną z wybranych metod na swoim koncie i zaloguj się ponownie z jej użyciem. Do tego czasu pozostaw ustawienie opcjonalne.]]></pl>
+        </locale>
+        <locale name="exception.webauthn.enrollment_expired">
+            <pl><![CDATA[Brak autoryzacji do konfiguracji klucza dostępu lub autoryzacja wygasła. Zaloguj się ponownie i rozpocznij konfigurację od nowa.]]></pl>
         </locale>
         <locale name="exception.webauthn.challenge_missing">
             <pl><![CDATA[Żądanie klucza dostępu wygasło. Spróbuj ponownie.]]></pl>

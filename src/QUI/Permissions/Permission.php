@@ -193,13 +193,16 @@ class Permission
             }
 
             // if no exception throws
-            throw new Exception(
+            $Exception = new Exception(
                 QUI::getLocale()->get(
                     'quiqqer/core',
                     'exception.permission.session.expired'
                 ),
                 401
             );
+            $Exception->setAttribute('authenticationRequired', true);
+
+            throw $Exception;
         }
     }
 
