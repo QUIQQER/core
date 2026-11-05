@@ -482,6 +482,14 @@ class User implements QUIUserInterface
                 break;
 
             case "address":
+                if (
+                    $this->isLoaded
+                    && $value
+                ) {
+                    // Explicit assignments must refer to an existing address owned by this user.
+                    $value = (new Address($this, $value))->getUUID();
+                }
+
                 $this->StandardAddress = null;
                 $this->settings[$key] = $value;
                 break;
@@ -577,13 +585,15 @@ class User implements QUIUserInterface
             return $this->StandardAddress;
         }
 
+        $MissingStandardAddress = null;
+
         if ($this->getAttribute('address')) {
             try {
                 $this->StandardAddress = $this->getAddress($this->getAttribute('address'));
 
                 return $this->StandardAddress;
-            } catch (QUI\Exception $Exception) {
-                QUI\System\Log::addError($Exception->getMessage());
+            } catch (AddressNotFoundException $Exception) {
+                $MissingStandardAddress = $Exception;
             }
         }
 
@@ -593,8 +603,17 @@ class User implements QUIUserInterface
             reset($list);
 
             $this->StandardAddress = current($list);
+            $this->settings['address'] = $this->StandardAddress->getUUID();
 
             return $this->StandardAddress;
+        }
+
+        // Recreate a missing stored address only after User::save() checked edit permissions.
+        if (
+            $MissingStandardAddress !== null
+            && !$this->standardAddressLookupDuringSave
+        ) {
+            throw $MissingStandardAddress;
         }
 
         $this->suppressAddAddressUserSave = true;
@@ -2396,19 +2415,22 @@ class User implements QUIUserInterface
      */
     protected function deleteAddresses(): void
     {
-        $addresses = $this->getAddressList();
-
-        /** @var Address $Address */
-        foreach ($addresses as $Address) {
-            $Address->delete();
+        // Account deletion and wiping remove the entire address book, including its standard address.
+        try {
+            QUI::getDataBaseConnection()->delete(
+                Manager::tableAddress(),
+                ['userUuid' => $this->getUUID()]
+            );
+        } catch (\Doctrine\DBAL\Exception $Exception) {
+            throw new Exception(
+                $Exception->getMessage(),
+                (int)$Exception->getCode()
+            );
         }
 
-        $addresses = $this->getAddressList();
-
-        /** @var Address $Address */
-        foreach ($addresses as $Address) {
-            $Address->delete();
-        }
+        $this->address_list = [];
+        $this->StandardAddress = null;
+        $this->settings['address'] = null;
     }
 
     /**
@@ -2437,6 +2459,7 @@ class User implements QUIUserInterface
                     'usertitle' => '',
                     'birthday' => null,
                     'email' => '',
+                    'address' => null,
                     'su' => 0,
                     'avatar' => '',
                     'extra' => '',

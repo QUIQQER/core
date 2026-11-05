@@ -109,7 +109,7 @@ class Address extends QUI\QDOM
         }
 
         if (!$result) {
-            throw new Exception(
+            throw new AddressNotFoundException(
                 QUI::getLocale()->get(
                     'quiqqer/core',
                     'exception.lib.user.address.not.found',
@@ -652,6 +652,28 @@ class Address extends QUI\QDOM
     public function delete(): void
     {
         try {
+            $storedStandardAddress = QUI::getQueryBuilder()
+                ->select('address')
+                ->from(QUI\Utils\Doctrine::quoteIdentifier(Manager::table()))
+                ->where('uuid = :userUuid')
+                ->setParameter('userUuid', $this->User->getUUID())
+                ->executeQuery()
+                ->fetchOne();
+            $addressIdentifiers = [
+                (string)$this->getId(),
+                $this->getUUID()
+            ];
+
+            if (
+                in_array((string)$storedStandardAddress, $addressIdentifiers, true)
+                || in_array((string)$this->User->getAttribute('address'), $addressIdentifiers, true)
+            ) {
+                throw new Exception([
+                    'quiqqer/core',
+                    'exception.users.address.delete.default'
+                ]);
+            }
+
             QUI::getDataBaseConnection()->delete(
                 Manager::tableAddress(),
                 [
