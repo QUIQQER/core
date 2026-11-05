@@ -37,7 +37,7 @@ class SystemUpdateAction implements RunActionInterface
         $_ENV['COMPOSER_HOME'] = $composerHome;
 
         $Update = $this->createUpdate();
-        $Update->setUpdateOutputSectionOffset($this->complete ? 4 : 2);
+        $Update->setUpdateOutputSectionOffset($this->complete ? 5 : 2);
         $Output = $this->createCliOutput();
         $Update->setAttribute('parent', $Output);
         $arguments = $state->getMetadata()['arguments'] ?? [];

@@ -175,6 +175,8 @@ echo $User->getLang(); ?>"> <!--<![endif]-->
           type="text/css"
     />
 
+    <link href="<?php echo URL_BIN_DIR; ?>css/forms.css" rel="stylesheet" type="text/css"/>
+
     <script type="text/javascript">
         /* <![CDATA[ */
         var USER = {

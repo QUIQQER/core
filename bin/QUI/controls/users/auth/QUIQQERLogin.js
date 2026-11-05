@@ -5,6 +5,7 @@
  *
  * @event showPassword [self]
  * @event showPasswordReset [self]
+ * @fires HTMLElement#quiqqer-login-view-change Bubbling DOM event with detail.pending during view transitions.
  */
 define('controls/users/auth/QUIQQERLogin', [
 
@@ -103,6 +104,11 @@ define('controls/users/auth/QUIQQERLogin', [
             Container.style.height = Container.offsetHeight + 'px';
             Container.style.overflow = 'hidden';
 
+            Container.dispatchEvent(new CustomEvent('quiqqer-login-view-change', {
+                bubbles: true,
+                detail: {pending: true}
+            }));
+
             this.fireEvent('showPasswordReset', [this]);
 
             return new Promise(function (resolve) {
@@ -141,6 +147,11 @@ define('controls/users/auth/QUIQQERLogin', [
                         });
                     }
                 });
+            }).finally(() => {
+                Container.dispatchEvent(new CustomEvent('quiqqer-login-view-change', {
+                    bubbles: true,
+                    detail: {pending: false}
+                }));
             });
         },
 
@@ -158,6 +169,11 @@ define('controls/users/auth/QUIQQERLogin', [
 
             Container.style.height = Container.offsetHeight + 'px';
             Container.style.overflow = 'hidden';
+
+            Container.dispatchEvent(new CustomEvent('quiqqer-login-view-change', {
+                bubbles: true,
+                detail: {pending: true}
+            }));
 
             this.fireEvent('showPassword', [this]);
 
@@ -193,6 +209,11 @@ define('controls/users/auth/QUIQQERLogin', [
                         });
                     }
                 });
+            }).finally(() => {
+                Container.dispatchEvent(new CustomEvent('quiqqer-login-view-change', {
+                    bubbles: true,
+                    detail: {pending: false}
+                }));
             });
         },
 

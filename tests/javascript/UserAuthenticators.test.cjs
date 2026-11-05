@@ -39,7 +39,7 @@ class Element {
     }
 }
 
-function fixture({enabled = false, settings = true, authenticator = 'ExampleAuth'} = {}) {
+function fixture({enabled = false, settings = true, authenticator = 'ExampleAuth', ownAccount = true} = {}) {
     const root = new Element('ul');
     const entry = new Element('li', 'authenticator');
     entry.dataset.authenticator = authenticator;
@@ -50,6 +50,8 @@ function fixture({enabled = false, settings = true, authenticator = 'ExampleAuth
     const calls = [];
     const state = {enabled};
     const user = {
+        getAttribute: () => 'target-uuid',
+        getId: () => 'target-uuid',
         enableAuthenticator: async auth => { calls.push(['enable', auth]); state.enabled = true; },
         disableAuthenticator: async auth => { calls.push(['disable', auth]); state.enabled = false; },
         hasAuthenticator: async auth => { calls.push(['has', auth]); return state.enabled; }
@@ -59,7 +61,10 @@ function fixture({enabled = false, settings = true, authenticator = 'ExampleAuth
         document: {createElement: tag => new Element(tag)}, console,
         Class: function (value) { definition = value; return value; },
         define(name, dependencies, factory) {
-            factory(...dependencies.map(name => name === 'Locale' ? {get: (group, key) => key} : {}));
+            factory(...dependencies.map(name => ({
+                Locale: {get: (group, key) => key},
+                Users: {getUserBySession: () => ({getId: () => ownAccount ? 'target-uuid' : 'another-uuid'})}
+            })[name] || {}));
         }
     });
     const panel = {
@@ -109,6 +114,19 @@ test('WebAuthn opens registration settings after enabling a list entry', async (
     const {panel, calls, status} = fixture({authenticator: 'QUI\\Users\\Auth\\WebAuthn'});
     await panel.$toggleAuthentication(status);
     assert.deepEqual(calls.at(-1), ['settings', 'QUI\\Users\\Auth\\WebAuthn']);
+});
+
+test('own mail 2FA opens verification before attempting to activate the authenticator', async () => {
+    const {panel, calls, status} = fixture({authenticator: 'QUI\\Users\\Auth\\VerifiedMail2FA'});
+    await panel.$toggleAuthentication(status);
+    assert.deepEqual(calls, [['settings', 'QUI\\Users\\Auth\\VerifiedMail2FA']]);
+    assert.equal(status.getAttribute('aria-pressed'), 'false');
+});
+
+test('editing another account cannot use the self-verification shortcut', async () => {
+    const {panel, calls, status} = fixture({authenticator: 'QUI\\Users\\Auth\\VerifiedMail2FA', ownAccount: false});
+    await panel.$toggleAuthentication(status);
+    assert.deepEqual(calls, [['enable', 'QUI\\Users\\Auth\\VerifiedMail2FA'], ['has', 'QUI\\Users\\Auth\\VerifiedMail2FA']]);
 });
 
 test('refresh after closing settings updates a list entry without table selectors', async () => {

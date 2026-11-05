@@ -1,4 +1,4 @@
-{if $isBackend || $isAdminUser}
+{if ($isBackend || $isAdminUser) && !$activationMode}
 
     {if $mailIsVerified === false}
     <div class="quiqqer-message quiqqer-message-attention" style="width: 100%; max-width: 100%">
@@ -17,51 +17,41 @@
 
 {else}
 
-    {if $mailIsVerified === false}
-        <div data-name="quiqqer-mail2fa-auth-settings-description">
-            {locale group="quiqqer/core" var="quiqqer.verified.mail2fa.control.frontend.description"}
-        </div>
+    <section data-name="mail-verification"{if $mailIsVerified} hidden{/if}>
+        <h2>{locale group="quiqqer/core" var="quiqqer.mail2fa.settings.verify.title"}</h2>
+        <p>{locale group="quiqqer/core" var="quiqqer.mail2fa.settings.verify.description"}</p>
 
-        <button name="send-code" class="btn btn-primary">
-            <span class="fa fa-envelope-o"></span>
-            <span>
-                {locale group="quiqqer/core" var="quiqqer.verified.mail2fa.control.frontend.sendCodeButton"}
-            </span>
+        <button type="button" name="send-code" data-name="send-code" class="btn btn-primary">
+            <span class="fa fa-envelope-o" data-name="send-code-icon" aria-hidden="true"></span>
+            <span>{locale group="quiqqer/core" var="quiqqer.verified.mail2fa.control.frontend.sendCodeButton"}</span>
         </button>
 
-        <hr />
-
-        <form
-            method="POST"
-            action=""
-            data-name="quiqqer-mail2fa-auth-settings-code"
-            class="quiqqer-mail2fa-auth-settings-code"
-        >
-            <label>
-                <span>{locale group="quiqqer/core" var="quiqqer.verified.mail2fa.control.codeLabel"}</span>
-                <span class="code">
-                    <input type="text" name="char-1"/>
-                    <input type="text" name="char-2"/>
-                    <input type="text" name="char-3"/>
-                    <input type="text" name="char-4"/>
-                    <input type="text" name="char-5"/>
-                    <input type="text" name="char-6"/>
-                </span>
-            </label>
-
-            <button name="enable" type="submit" value="Login" class="btn btn-secondary">
-                <span>{locale group="quiqqer/core" var="quiqqer.verified.mail2fa.control.code.button"}</span>
+        <form method="POST" action="" data-name="quiqqer-mail2fa-auth-settings-code"
+              class="quiqqer-mail2fa-auth-settings-code">
+            <fieldset>
+                <legend>{locale group="quiqqer/core" var="quiqqer.verified.mail2fa.control.codeLabel"}</legend>
+                <div class="code">
+                    {for $digit=1 to 6}
+                    <input type="text" name="char-{$digit}" inputmode="numeric" maxlength="6"
+                           aria-label="{locale group='quiqqer/core' var='quiqqer.verified.mail2fa.control.codeLabel'} {$digit}"
+                    />
+                    {/for}
+                </div>
+            </fieldset>
+            <button data-name="verify-mail" type="submit" class="btn btn-secondary">
+                {locale group="quiqqer/core" var="quiqqer.mail2fa.settings.verify.button"}
             </button>
         </form>
-    {/if}
+    </section>
 
-    {if $hasAlreadyAuthenticated}
-    <div style="width: 100%; text-align: center">
-        <span class="fa fa-thumbs-up" style="font-size: 4rem; margin: 2rem"></span>
-        <p style="font-size: 2.5rem;">
-            Authentifizierung ist erfolgreich eingerichtet.
-        </p>
-    </div>
-    {/if}
+    <section data-name="mail-activation"{if !$mailIsVerified} hidden{/if}>
+        <h2>{locale group="quiqqer/core" var="quiqqer.mail2fa.settings.activate.title"}</h2>
+        <p>{locale group="quiqqer/core" var="quiqqer.mail2fa.settings.activate.description"}</p>
+        <button data-name="enable" type="button" class="btn btn-primary">
+            {locale group="quiqqer/core" var="activate"}
+        </button>
+    </section>
 
 {/if}
+
+<p data-name="message" role="status" aria-live="polite"></p>

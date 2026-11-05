@@ -3,16 +3,27 @@ form.qui-xml-panel {
     width: 100%;
 }
 
-
 .quiqqer-xml-panel .qui-panel-categories .qui-button {
     display: flex;
 }
 
 .quiqqer-xml-panel .qui-panel-categories .image-container {
+    --_icon-size: 22px;
+
     flex-grow: 0;
     flex-shrink: 0;
+    height: var(--_icon-size);
     margin: 0;
+    overflow: hidden;
     width: 40px;
+}
+
+.quiqqer-xml-panel .qui-panel-categories .image-container img {
+    height: 100%;
+    margin: 0 auto;
+    max-width: 100%;
+    object-fit: contain;
+    width: var(--_icon-size);
 }
 
 .quiqqer-xml-panel .qui-panel-categories .qui-button-text {
@@ -23,50 +34,3 @@ form.qui-xml-panel {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
-/*
-.qui-xml-panel input,
-.qui-xml-panel select {
-    float: left;
-}
-
-.qui-xml-panel select,
-.qui-xml-panel input[type="text"],
-.qui-xml-panel input[type="password"],
-.qui-xml-panel input[type="number"],
-.qui-xml-panel input[type="email"] {
-    width: 240px;
-}
-
-/*.qui-xml-panel select {*/
-/*width: 150px;*/
-/*}*/
-/*
-.qui-xml-panel label {
-    cursor: pointer;
-    margin-top: 5px;
-}
-
-.qui-xml-panel label.checkbox-label {
-    width: 90%;
-}
-
-.qui-xml-panel-row {
-    width: 100%;
-}
-
-.qui-xml-panel-row td {
-    width: 100%;
-}
-
-.qui-xml-panel-row-item {
-    float: left;
-    width: 100%
-}
-
-.qui-xml-panel-row-item.description {
-    clear: none;
-    margin-top: 10px;
-    width: 100%
-}
-*/

@@ -1151,7 +1151,9 @@ define('controls/projects/project/site/Panel', [
 
                         QUIFormUtils.setDataToForm(self.getSite().getAttributes(), Form);
 
-                        return QUI.parse(Form).then(setProject);
+                        return ControlUtils.parse(Form).then(function () {
+                            return QUI.parse(Form);
+                        }).then(setProject);
                     });
                 }
 

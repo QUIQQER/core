@@ -719,7 +719,8 @@ class Manager
         $cacheName = $Project->getCachePath() . '/wysiwyg-settings';
 
         try {
-            return QUI\Cache\Manager::get($cacheName);
+            $result = QUI\Cache\Manager::get($cacheName);
+            return self::prepareProjectSettings($Project, $result);
         } catch (QUI\Exception) {
         }
 
@@ -869,7 +870,32 @@ class Manager
             QUI\System\Log::writeException($Exception);
         }
 
-        return $result;
+        return self::prepareProjectSettings($Project, $result);
+    }
+
+    /**
+     * Add current colors after reading/caching the base settings, for editors and HTML previews.
+     *
+     * @param array<string, mixed> $settings
+     * @return array<string, mixed>
+     */
+    private static function prepareProjectSettings(Project $Project, array $settings): array
+    {
+        $variables = QUI\Projects\Colors::getCssVariables($Project);
+
+        if ($variables !== []) {
+            $css = ':root {';
+
+            foreach ($variables as $name => $value) {
+                $css .= $name . ':' . $value . ';';
+            }
+
+            // Project/template styles may override these defaults later in the cascade.
+            array_unshift($settings['cssFiles'], 'data:text/css;base64,' . base64_encode($css . '}'));
+        }
+
+        QUI::getEvents()->fireEvent('editorGetSettings', [$Project, &$settings]);
+        return $settings;
     }
 
     /**

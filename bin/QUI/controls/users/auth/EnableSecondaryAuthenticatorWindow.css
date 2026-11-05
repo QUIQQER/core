@@ -1,7 +1,20 @@
+[data-name="setup-message"].quiqqer-message {
+    box-sizing: border-box;
+    border-left: 0;
+    border-radius: 0;
+    display: block;
+    margin: -20px -20px 0;
+    max-width: none;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    width: calc(100% + 40px);
+}
+
 [data-name="enable-secondary-authenticators"] {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 [data-name="enable-secondary-authenticators-authenticator"] {

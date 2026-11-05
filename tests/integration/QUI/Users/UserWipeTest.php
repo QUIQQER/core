@@ -63,6 +63,8 @@ final class UserWipeTest extends TestCase
         self::assertSame($id, (int)$row['id']);
         self::assertSame($uuid, $row['uuid']);
         self::assertSame(-1, (int)$row['active']);
+        self::assertNull($row['address']);
+        self::assertSame([], $User->getAddressList());
         foreach (['username', 'email', 'password', 'firstname', 'lastname', 'usergroup', 'extra'] as $field) {
             self::assertSame('', $row[$field], $field);
         }

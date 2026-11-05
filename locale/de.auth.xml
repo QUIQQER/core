@@ -85,6 +85,21 @@
             <de><![CDATA[Jetzt nicht]]></de>
         </locale>
 
+        <locale name="quiqqer.mail2fa.settings.verify.title">
+            <de><![CDATA[1. E-Mail-Adresse verifizieren]]></de>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.description">
+            <de><![CDATA[Bestätige zuerst deine E-Mail-Adresse. Dadurch wird 2FA noch nicht aktiviert.]]></de>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.verify.button">
+            <de><![CDATA[E-Mail-Adresse bestätigen]]></de>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.title">
+            <de><![CDATA[2. E-Mail-2FA aktivieren]]></de>
+        </locale>
+        <locale name="quiqqer.mail2fa.settings.activate.description">
+            <de><![CDATA[Deine E-Mail-Adresse ist verifiziert. Du kannst jetzt die Zwei-Faktor-Authentifizierung aktivieren.]]></de>
+        </locale>
         <locale name="quiqqer.mail2fa.title">
             <de><![CDATA[OTP Mail Authentifizierung]]></de>
         </locale>
@@ -643,6 +658,12 @@
         </locale>
         <locale name="exception.webauthn.credential_already_exists">
             <de><![CDATA[Dieser Passkey ist bereits registriert.]]></de>
+        </locale>
+        <locale name="exception.auth.require_own_second_factor">
+            <de><![CDATA[Bevor du 2FA verpflichtend machst, richte für dein Konto eine der ausgewählten Methoden ein und melde dich damit erneut an. Speichere die Einstellung bis dahin als optional.]]></de>
+        </locale>
+        <locale name="exception.webauthn.enrollment_expired">
+            <de><![CDATA[Die Freigabe zur Passkey-Einrichtung fehlt oder ist abgelaufen. Bitte melde dich erneut an und starte die Einrichtung noch einmal.]]></de>
         </locale>
         <locale name="exception.webauthn.challenge_missing">
             <de><![CDATA[Die Passkey-Anfrage ist abgelaufen. Bitte erneut versuchen.]]></de>

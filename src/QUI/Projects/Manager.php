@@ -184,8 +184,19 @@ class Manager
             $Project
         );
 
+        QUI::getEvents()->fireEvent('projectConfigSaveBefore', [$Project, $params]);
+
         $Config = self::getConfig();
         $projects = $Config->toArray();
+
+        if (array_key_exists(Colors::CONFIG_KEY, $params)) {
+            $storedPalette = $projects[$projectName][Colors::CONFIG_KEY] ?? '';
+
+            if ($params[Colors::CONFIG_KEY] !== $storedPalette) {
+                $palette = Colors::prepareSaveRequest($params[Colors::CONFIG_KEY], $storedPalette);
+                $params[Colors::CONFIG_KEY] = Colors::encode($palette);
+            }
+        }
 
         // $config
         $availableConfig = self::getProjectConfigList($Project);
@@ -198,6 +209,11 @@ class Manager
         // merge current config and available config
         foreach (array_keys($availableConfig) as $key) {
             if (!isset($projectConfig[$key])) {
+                continue;
+            }
+
+            if ($key === Colors::CONFIG_KEY) {
+                $availableConfig[$key] = $projectConfig[$key];
                 continue;
             }
 
@@ -220,7 +236,7 @@ class Manager
                     continue;
                 }
 
-                if (is_string($setValue)) {
+                if (is_string($setValue) && $key !== Colors::CONFIG_KEY) {
                     $setValue = Orthos::removeHTML($setValue);
                     $setValue = Orthos::clearPath($setValue);
                 }
@@ -237,6 +253,14 @@ class Manager
 
         $Config->setSection($projectName, $availableConfig);
         $Config->save();
+
+        if (
+            isset($params[Colors::CONFIG_KEY])
+            && $params[Colors::CONFIG_KEY] !== ($projectConfig[Colors::CONFIG_KEY] ?? '')
+        ) {
+            QUICacheManager::clearProjectCache($projectName);
+            QUICacheManager::clearTemplateCache();
+        }
 
 
         QUI::getEvents()->fireEvent('projectConfigSave', [

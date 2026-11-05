@@ -41,6 +41,10 @@ QUI::getAjax()->registerFunction(
             return '';
         }
 
+        if ($authenticator === QUI\Users\Auth\WebAuthn::class && $User->isSU()) {
+            (new QUI\Users\Auth\WebAuthn\Server())->authorizeAuthenticatedEnrollment($User);
+        }
+
         if (
             $authenticator === QUI\Users\Auth\WebAuthn::class
             && $AuthenticatorUser instanceof QUI\Interfaces\Users\User

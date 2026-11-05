@@ -17,8 +17,9 @@ implementing specialized work:
   assets, and setup integrations.
 - `quiqqer_package_quality_upgrade` for PHIVE tool upgrades, PHPStan 2 and level 8, optional-dependency analysis stubs,
   DBAL/PostgreSQL migration, portable `database.xml`, and PHPUnit integration coverage.
-- `quiqqer_frontend_css_variables` for control and module CSS, binding settings into styling through the three-layer
-  CSS variable pattern, theming, and color usage.
+- `quiqqer_frontend_css_variables` for styling in controls, bricks, modules, and templates, including backend-only
+  and shared backend/frontend controls despite the skill's name. Determine styling ownership and inspect existing
+  environment components before adding CSS or applying the three-layer variable pattern.
 - `quiqqer_frontend_javascript` for JavaScript in packages: vanilla JavaScript instead of MooTools and element
   selection through `data-name` attributes.
 - `quiqqer_frontend_accessibility` for every change to HTML templates, markup, or DOM-creating JavaScript:

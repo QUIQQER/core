@@ -54,16 +54,12 @@
             ]]></de>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <de><![CDATA[
-            [host]: Dein Code zur Aktivierung der E-Mail-Einmal-Code-Authentifizierung
-            ]]></de>
+            <de><![CDATA[[host]: Deine E-Mail-Adresse bestätigen]]></de>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
             <de><![CDATA[
             <p>Hallo,</p>
-            <p>
-              dein Code zur Aktivierung der E-Mail-Einmal-Code-Authentifizierung bei <strong>[host]</strong> lautet:
-            </p>
+            <p>Dein Code zur Bestätigung deiner E-Mail-Adresse bei <strong>[host]</strong> lautet:</p><p>Diese Bestätigung aktiviert noch keine Zwei-Faktor-Authentifizierung. Diese kannst du anschließend separat einrichten.</p>
             <p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">
               [code]
             </p>

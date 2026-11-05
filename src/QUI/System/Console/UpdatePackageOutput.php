@@ -41,6 +41,10 @@ class UpdatePackageOutput implements SystemOutput
 
     public function writeLn(string $msg = '', bool|string $color = false, bool|string $bg = false): void
     {
+        if ($this->Output->writeComposerLine($msg)) {
+            return;
+        }
+
         $message = $this->sanitize($msg);
 
         if ($message === '') {
@@ -101,6 +105,10 @@ class UpdatePackageOutput implements SystemOutput
 
     public function writeExternalLine(string $msg): void
     {
+        if ($this->Output->writeComposerLine($msg)) {
+            return;
+        }
+
         $message = $this->sanitize($msg);
 
         if ($message === '') {

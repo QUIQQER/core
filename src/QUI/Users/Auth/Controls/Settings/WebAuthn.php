@@ -49,6 +49,7 @@ class WebAuthn extends Control
             'activationMode' => $activationMode,
             'canCreateCredential' => $canCreateCredential,
             'isEnabled' => $isEnabled,
+            'userUuid' => $user instanceof QUI\Interfaces\Users\User ? (string)$user->getUUID() : '',
             'credentials' => $credentials
         ]);
 

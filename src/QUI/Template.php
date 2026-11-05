@@ -913,6 +913,7 @@ class Template extends QUI\QDOM
             'lastUpdate' => QUI::getPackageManager()->getLastUpdateDate(),
             'localePublishVersion' => $localePublishVersion,
             'loaderSettings' => QUI\Projects\LoaderSettings::fromProject($Project),
+            'projectColorVariables' => QUI\Projects\Colors::getCssVariables($Project),
             'languages' => implode(',', $Project->getLanguages()),
             'systemCountry' => QUI::conf('globals', 'country'),
             'sessionUserIsUser' => (int)QUI::getUsers()->isUser($sessionUser),

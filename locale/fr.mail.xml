@@ -31,10 +31,10 @@
             <fr><![CDATA[<p>Bonjour,</p><p>Votre code de confirmation pour vous connecter à <strong>[host]</strong> est :</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Veuillez saisir ce code pour continuer. Il n’est valable que pendant une courte durée.</p><p>Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.</p><p>Cordialement,<br>L’équipe [host]</p>]]></fr>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.subject">
-            <fr><![CDATA[[host] : votre code d’activation de l’authentification par code à usage unique envoyé par e-mail]]></fr>
+            <fr><![CDATA[[host] : vérifiez votre adresse e-mail]]></fr>
         </locale>
         <locale name="quiqqer.enable.mail2fa.mail.content" html="true">
-            <fr><![CDATA[<p>Bonjour,</p><p>Votre code d’activation de l’authentification par code à usage unique envoyé par e-mail sur <strong>[host]</strong> est :</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Veuillez saisir ce code pour continuer. Il n’est valable que pendant une courte durée.</p><p>Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.</p><p>Cordialement,<br>L’équipe [host]</p>]]></fr>
+            <fr><![CDATA[<p>Bonjour,</p><p>Votre code pour vérifier votre adresse e-mail sur <strong>[host]</strong> est :</p><p>Cette confirmation n’active pas l’authentification à deux facteurs. Vous pourrez ensuite la configurer séparément.</p><p style="font-size: 1.5em; font-weight: bold; letter-spacing: 2px;">[code]</p><p>Veuillez saisir ce code pour continuer. Il n’est valable que pendant une courte durée.</p><p>Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.</p><p>Cordialement,<br>L’équipe [host]</p>]]></fr>
         </locale>
         <locale name="message.contact.successful">
             <fr><![CDATA[<p>Merci pour votre e-mail. Nous vous répondrons dans les plus brefs délais.</p>]]></fr>

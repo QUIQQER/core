@@ -3,6 +3,9 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="php">
+        <locale name="system.phpVersion.outdated">
+            <pt><![CDATA[A tua versão do PHP [version] está desatualizada. Atualiza para o PHP 8.3 ou superior. As futuras atualizações do QUIQQER exigem pelo menos o PHP 8.3.]]></pt>
+        </locale>
 
         <locale name="exception.console.execute.only.in.cli">
             <pt><![CDATA[As ferramentas do sistema só podem ser executadas na CLI.]]></pt>

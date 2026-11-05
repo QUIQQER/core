@@ -41,12 +41,31 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
         $onImport: function () {
             const content = this.getElm();
             const codeForm = content.querySelector('[data-name="quiqqer-mail2fa-auth-settings-code"]');
-            const codeSendButton = content.querySelector('[name="send-code"]');
-            const enableButton = content.querySelector('button[name="enable"]');
+            const codeSendButton = content.querySelector('[data-name="send-code"]');
+            const verifyButton = content.querySelector('[data-name="verify-mail"]');
+            const enableButton = content.querySelector('[data-name="enable"]');
 
             // mail code send
             if (codeSendButton) {
                 codeSendButton.addEventListener('click', this.$sendCode);
+            }
+
+            if (enableButton) {
+                enableButton.addEventListener('click', () => {
+                    enableButton.disabled = true;
+
+                    this.$enable().then((enabled) => {
+                        if (enabled === true) {
+                            this.fireEvent('completed');
+                        } else {
+                            this.$showError(QUILocale.get('quiqqer/core', 'exception.login.fail'));
+                        }
+                    }).catch((error) => {
+                        this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'), error);
+                    }).finally(() => {
+                        enableButton.disabled = false;
+                    });
+                });
             }
 
             if (codeForm) {
@@ -57,26 +76,36 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
                     e.stopPropagation();
                     e.preventDefault();
 
-                    if (enableButton) enableButton.disabled = true;
+                    if (verifyButton) verifyButton.disabled = true;
                     if (codeSendButton) codeSendButton.disabled = true;
 
                     const code = Array.from(codeForm.querySelectorAll('input'))
                         .map((input) => input.value)
                         .join('');
 
-                    this.$enable(code).then(() => {
-                        if (enableButton) enableButton.disabled = false;
-                        if (codeSendButton) codeSendButton.disabled = false;
+                    this.$verifyMail(code).then((verified) => {
+                        if (verified !== true) {
+                            this.$showError(QUILocale.get('quiqqer/core', 'exception.login.fail'));
+                            return;
+                        }
 
-                        this.fireEvent('completed');
+                        content.querySelector('[data-name="mail-verification"]').hidden = true;
+                        content.querySelector('[data-name="mail-activation"]').hidden = false;
+                        content.querySelector('[data-name="message"]').textContent = '';
+                        enableButton?.focus();
+                    }).catch((error) => {
+                        this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'), error);
+                    }).finally(() => {
+                        if (verifyButton) verifyButton.disabled = false;
+                        if (codeSendButton) codeSendButton.disabled = false;
                     });
                 });
             }
         },
 
         $sendCode: function (e) {
-            const button = e.target.nodeName === 'BUTTON' ? e.target : e.target.closest('button');
-            const icon = button.querySelector('.fa');
+            const button = this.getElm().querySelector('[data-name="send-code"]');
+            const icon = button.querySelector('[data-name="send-code-icon"]');
             let envelopeIcon = 'fa-envelope-o';
 
             if (icon.classList.contains('fa-envelope')) {
@@ -92,17 +121,57 @@ define('controls/users/auth/settings/VerifiedMail2FA', [
                 icon.classList.add(envelopeIcon);
                 button.disabled = false;
             }, {
-                'package': 'quiqqer/code'
+                showLogin: false,
+                onError: (error) => {
+                    icon.classList.remove('fa-circle-o-notch', 'fa-spin');
+                    icon.classList.add(envelopeIcon);
+                    button.disabled = false;
+                    this.$showError(error.getMessage?.() || QUILocale.get('quiqqer/core', 'exception.login.fail'), error);
+                }
             });
         },
 
-        $enable: function (code) {
-            return new Promise((resolve) => {
-                QUIAjax.post('ajax_users_authenticator_mail2fa_enableByUser', resolve, {
-                    'package': 'quiqqer/code',
-                    code: code
+        $verifyMail: function (code) {
+            return new Promise((resolve, reject) => {
+                QUIAjax.post('ajax_users_authenticator_mail2fa_verifyMail', resolve, {
+                    showLogin: false,
+                    code: code,
+                    onError: reject
                 });
             });
+        },
+
+        $enable: function () {
+            return new Promise((resolve, reject) => {
+                QUIAjax.post('ajax_users_authenticator_mail2fa_enableByUser', resolve, {
+                    showLogin: false,
+                    onError: reject
+                });
+            });
+        },
+
+        $showError: function (message, error = null) {
+            const messageNode = this.getElm().querySelector('[data-name="message"]');
+            messageNode.textContent = message;
+
+            if (error?.getCode?.() !== 401) {
+                return;
+            }
+
+            const retry = document.createElement('button');
+            retry.type = 'button';
+            retry.dataset.name = 'restart-login';
+            retry.className = 'btn btn-secondary';
+            retry.textContent = QUILocale.get('quiqqer/core', 'login.title');
+            retry.addEventListener('click', () => {
+                retry.disabled = true;
+                QUIAjax.post('ajax_session_destroy', () => window.location.reload(), {
+                    onError: () => {
+                        retry.disabled = false;
+                    }
+                });
+            });
+            messageNode.appendChild(retry);
         },
 
         $initInputEvents: function (inputs) {

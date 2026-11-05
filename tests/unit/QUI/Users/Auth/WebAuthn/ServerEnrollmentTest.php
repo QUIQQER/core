@@ -3,6 +3,7 @@
 namespace QUI\Users\Auth\WebAuthn;
 
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -109,6 +110,43 @@ class ServerEnrollmentTest extends TestCase
         self::assertLessThanOrEqual(300, $authorization['expires'] - $authorization['created']);
     }
 
+    public static function unconfiguredSetupContexts(): array
+    {
+        return [
+            'authenticated superuser' => [true, true],
+            'partial superuser session' => [true, false],
+            'authenticated regular user' => [false, true]
+        ];
+    }
+
+    #[DataProvider('unconfiguredSetupContexts')]
+    public function testOnlyFullyAuthenticatedSuperusersCanPrepareUnconfiguredWebAuthn(
+        bool $superuser,
+        bool $fullyAuthenticated
+    ): void {
+        $User = $this->createUser('admin-uuid');
+        $User->method('isSU')->willReturn($superuser);
+        $Server = new Server($this->createRepository());
+        $this->configureEnvironment($User, 0, [], $fullyAuthenticated);
+
+        $Handler = $this->createMock(Handler::class);
+        $Handler->method('getGlobalFrontendAuthenticators')->willReturn([]);
+        $Handler->method('getGlobalBackendAuthenticators')->willReturn([]);
+        $Handler->method('getGlobalFrontendSecondaryAuthenticators')->willReturn([]);
+        $Handler->method('getGlobalBackendSecondaryAuthenticators')->willReturn([]);
+        (new ReflectionProperty(Handler::class, 'Instance'))->setValue(null, $Handler);
+
+        self::assertSame($superuser && $fullyAuthenticated, $Server->authorizeAuthenticatedEnrollment($User));
+
+        if ($superuser && $fullyAuthenticated) {
+            self::assertSame($User, $Server->getAuthorizedEnrollmentUser());
+            QUI::getSession()->set('auth', 0);
+        }
+
+        $this->expectException(PermissionException::class);
+        $Server->getAuthorizedEnrollmentUser();
+    }
+
     public function testOptionalMfaUserIsNotFullyAuthenticatedBeforeSecondaryAuthentication(): void
     {
         $Authenticator = $this->createMock(AuthenticatorInterface::class);
@@ -134,6 +172,24 @@ class ServerEnrollmentTest extends TestCase
 
         $authorization = QUI::getSession()->get(Server::SESSION_ENROLLMENT);
         self::assertSame(Server::ENROLLMENT_FLOW_BOOTSTRAP, $authorization['flow']);
+    }
+
+    public function testSessionWithoutCurrentMandatorySecondFactorMustAuthenticateAgain(): void
+    {
+        $User = $this->createUser('user-uuid');
+        $Server = new Server($this->createRepository());
+        $this->configureEnvironment($User, 1, [WebAuthnAuthenticator::class], true);
+        self::assertTrue($Server->authorizeAuthenticatedEnrollment($User));
+        QUI::getSession()->set('auth-secondary', 0);
+
+        try {
+            $Server->getAuthorizedEnrollmentUser();
+            self::fail('The old session must not authorize passkey enrollment.');
+        } catch (PermissionException $Exception) {
+            self::assertSame(401, $Exception->getCode());
+        }
+
+        self::assertFalse(QUI::getSession()->get(Server::SESSION_ENROLLMENT));
     }
 
     public function testBootstrapRequiresSuccessfulPrimaryAuthentication(): void
@@ -221,6 +277,7 @@ class ServerEnrollmentTest extends TestCase
         QUI::getSession()->set(Server::SESSION_ENROLLMENT, $authorization);
 
         $this->expectException(PermissionException::class);
+        $this->expectExceptionCode(401);
         $Server->getAuthorizedEnrollmentUser();
     }
 

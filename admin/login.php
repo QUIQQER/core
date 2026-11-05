@@ -139,7 +139,9 @@ foreach ($packages as $package) {
     ?>
 
     <link href="<?php echo URL_BIN_DIR; ?>css/variables.css" rel="stylesheet"/>
+    <link href="<?php echo URL_OPT_DIR; ?>bin/qui/extend/elements.css" rel="stylesheet"/>
     <link href="<?php echo URL_BIN_DIR; ?>css/buttons.css" rel="stylesheet"/>
+    <link href="<?php echo URL_BIN_DIR; ?>css/forms.css" rel="stylesheet"/>
 
     <style type="text/css">
         :root {
@@ -147,14 +149,10 @@ foreach ($packages as $package) {
             --color-primary-dark: #0e3145;
             --color-primary-accent: #fff;
 
-            --color-secondary: #44565f;
-            --color-secondary-accent: #fff;
-
             --text-body: #1e2021;
             --text-muted: #6d7b86;
 
             --radius: 1rem;
-            --radius-sm: 0.25rem;
         }
 
 
@@ -289,40 +287,6 @@ foreach ($packages as $package) {
         .mainContent .login-container {
             min-height: 260px;
             display: grid;
-        }
-
-        .mainContent .quiqqer-login-auth label span {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        .mainContent .login-container input {
-            line-height: 1.5rem;
-            padding: 0.5rem 1rem;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: var(--radius-sm);
-        }
-
-        .mainContent button {
-            line-height: 1.5;
-            font-size: 16px;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            cursor: pointer;
-            border-radius: var(--radius-sm);
-        }
-
-        .mainContent [type="submit"] {
-            color: var(--color-primary-accent);
-            background-color: var(--color-primary);
-            width: 100%;
-        }
-
-        .mainContent button[type="reset"],
-        .mainContent button[name="cancel"] {
-            background-color: var(--color-secondary);
-            color: var(--color-secondary-accent);
         }
 
         /* lang switch */

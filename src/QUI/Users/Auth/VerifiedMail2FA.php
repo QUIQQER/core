@@ -19,6 +19,9 @@ use Random\RandomException;
 class VerifiedMail2FA extends AbstractAuthenticator
 {
     private const MAIL_THROTTLE_SECONDS = 60;
+    private const SETUP_CODE_TTL = 300;
+    private const SETUP_CODE_ATTEMPTS = 5;
+    private const SETUP_CONTEXT = 'quiqqer.security.mail2fa.setup';
 
     public const USER_CODE_ATTRIBUTE = 'quiqqer.verified.2fa.mail.code';
     public const USER_CODE_VERIFYING_ATTRIBUTE = 'quiqqer.verifying.2fa.mail.code';
@@ -64,19 +67,6 @@ class VerifiedMail2FA extends AbstractAuthenticator
         try {
             $user = $this->getUser();
         } catch (QUI\Exception) {
-        }
-
-        // wenn nutzer mail verifiziert ist, braucht es kein setting
-        if ($user) {
-            $email = $user->getAttribute('email');
-
-            if (method_exists($user, 'isAttributeVerified')) {
-                $isVerified = $user->isAttributeVerified($email, MailAttribute::class);
-
-                if ($isVerified) {
-                    return null;
-                }
-            }
         }
 
         return new Controls\Settings\VerifiedMail2FA([
@@ -320,27 +310,7 @@ class VerifiedMail2FA extends AbstractAuthenticator
      */
     public static function sendEnableMailToSessionUser(): void
     {
-        // get user
-        $uid = QUI::getSession()->get('uid');
-
-        if (empty($uid)) {
-            return;
-        }
-
-        try {
-            $User = QUI::getUsers()->get($uid);
-        } catch (QUI\Exception) {
-            throw new QUI\Permissions\Exception(
-                ['quiqqer/core', 'exception.login.fail.user.not.found'],
-            );
-        }
-
-        if (!($User instanceof QUI\Users\User)) {
-            throw new QUI\Permissions\Exception(
-                ['quiqqer/core', 'exception.login.fail.user.not.found'],
-            );
-        }
-
+        $User = self::getAuthorizedUser();
         $email = $User->getAttribute('email');
 
         if (empty($email)) {
@@ -369,6 +339,12 @@ class VerifiedMail2FA extends AbstractAuthenticator
 
         try {
             QUI::getSession()->set(self::USER_CODE_VERIFYING_ATTRIBUTE, $digitCode);
+            QUI::getSession()->set(self::SETUP_CONTEXT, [
+                'userUuid' => (string)$User->getUUID(),
+                'email' => $email,
+                'expires' => time() + self::SETUP_CODE_TTL,
+                'attempts' => 0
+            ]);
 
             QUI::getMailManager()->send(
                 $email,
@@ -382,9 +358,12 @@ class VerifiedMail2FA extends AbstractAuthenticator
             );
         } catch (\Exception $exception) {
             $ThrottleDecision->release();
+            self::clearSetupCode();
             QUI\System\Log::addError($exception->getMessage(), [
                 'source' => self::class . '::sendEnableMailToSessionUser'
             ]);
+
+            throw new Exception(['quiqqer/core', 'exception.login.fail'], 500);
         }
     }
 
@@ -393,40 +372,36 @@ class VerifiedMail2FA extends AbstractAuthenticator
      *
      * @throws Exception
      */
-    public static function enableByUser($code): bool
+    public static function verifyMailByUser($code): bool
     {
-        $uid = QUI::getSession()->get('uid');
+        $User = self::getAuthorizedUser();
+        $Session = QUI::getSession();
+        $context = $Session->get(self::SETUP_CONTEXT);
+        $userCode = $Session->get(self::USER_CODE_VERIFYING_ATTRIBUTE);
 
-        try {
-            $User = QUI::getUsers()->get($uid);
-        } catch (QUI\Exception) {
-            throw new QUI\Users\Exception(
-                ['quiqqer/core', 'exception.login.fail.user.not.found'],
-            );
-        }
-
-        if (!($User instanceof QUI\Users\User)) {
-            throw new QUI\Users\Exception(
-                ['quiqqer/core', 'exception.login.fail.user.not.found'],
-            );
-        }
-
-        // check if current user is nobody
-        // 1fa must be successfully authenticated
-        if (QUI::getUsers()->isNobodyUser(QUI::getUserBySession())) {
-            if (!QUI::getSession()->get('auth-primary')) {
-                throw new QUI\Users\Exception(
-                    ['quiqqer/core', 'exception.2fa.mail.enable.not.authenticated'],
-                );
-            }
-        }
-
-
-        $userCode = QUI::getSession()->get(self::USER_CODE_VERIFYING_ATTRIBUTE);
-
-        if ($code !== $userCode) {
+        if (
+            !is_array($context)
+            || ($context['userUuid'] ?? null) !== (string)$User->getUUID()
+            || ($context['email'] ?? null) !== $User->getAttribute('email')
+            || !is_int($context['expires'] ?? null)
+            || $context['expires'] <= time()
+            || !is_int($context['attempts'] ?? null)
+            || $context['attempts'] >= self::SETUP_CODE_ATTEMPTS
+            || !is_string($userCode)
+            || !preg_match('/^[0-9]{6}$/D', $userCode)
+        ) {
+            self::clearSetupCode();
             return false;
         }
+
+        $context['attempts']++;
+        $Session->set(self::SETUP_CONTEXT, $context);
+
+        if (!is_string($code) || !hash_equals($userCode, $code)) {
+            return false;
+        }
+
+        self::clearSetupCode();
 
         try {
             // verify mail
@@ -437,21 +412,112 @@ class VerifiedMail2FA extends AbstractAuthenticator
             );
 
             $User->save(QUI::getUsers()->getSystemUser());
-
-            // enable 2fa
-            if (QUI::getUsers()->isNobodyUser(QUI::getUserBySession())) {
-                $User->enableAuthenticator(
-                    VerifiedMail2FA::class,
-                    QUI::getUsers()->getSystemUser()
-                );
-            } else {
-                $User->enableAuthenticator(VerifiedMail2FA::class);
-            }
         } catch (QUI\Exception $e) {
             throw new QUI\Users\Exception($e->getMessage());
         }
 
         return true;
+    }
+
+    public static function enableByUser(): bool
+    {
+        $User = self::getAuthorizedUser();
+
+        if (!$User->isAttributeVerified($User->getAttribute('email'), MailAttribute::class)) {
+            throw new Exception(['quiqqer/core', 'exception.user.mail.not.verified'], 403);
+        }
+
+        $ParentUser = QUI::getUsers()->isNobodyUser(QUI::getUserBySession())
+            ? QUI::getUsers()->getSystemUser()
+            : null;
+        $User->enableAuthenticator(self::class, $ParentUser);
+
+        return true;
+    }
+
+    private static function clearSetupCode(): void
+    {
+        QUI::getSession()->remove(self::USER_CODE_VERIFYING_ATTRIBUTE);
+        QUI::getSession()->remove(self::SETUP_CONTEXT);
+    }
+
+    private static function getAuthorizedUser(): QUI\Users\User
+    {
+        QUI\Security\RequestOrigin::assertNotCrossOrigin();
+        $Session = QUI::getSession();
+        $uid = $Session->get('uid');
+
+        if (
+            $Session->get('auth-primary') !== 1
+            || !is_string($uid)
+            || $uid === ''
+        ) {
+            throw new Exception(['quiqqer/core', 'exception.2fa.mail.enable.not.authenticated'], 401);
+        }
+
+        $secondaryLoginType = QUI::isFrontend()
+            ? (int)QUI::conf('auth_settings', 'secondary_frontend')
+            : (int)QUI::conf('auth_settings', 'secondary_backend');
+
+        if (
+            $secondaryLoginType === 1
+            && $Session->get('auth') === 1
+            && $Session->get('auth-secondary') !== 1
+        ) {
+            throw new QUI\Users\Exception(['quiqqer/core', 'exception.permission.session.expired'], 401);
+        }
+
+        $User = QUI::getUsers()->get($uid);
+        $Handler = Handler::getInstance();
+        $configured = QUI::isFrontend()
+            ? $Handler->getGlobalFrontendSecondaryAuthenticators()
+            : $Handler->getGlobalBackendSecondaryAuthenticators();
+        $fullyAuthenticated = (new WebAuthn\Server())->isFullyAuthenticatedUser($User);
+
+        if (
+            !$User instanceof QUI\Users\User
+            || (string)$User->getUUID() !== $uid
+            || (
+                !in_array(self::class, $configured, true)
+                && (!$User->isSU() || !$fullyAuthenticated)
+            )
+            || !Helper::hasUserPermissionToUseAuthenticator($User, self::class)
+        ) {
+            throw new QUI\Permissions\Exception(['quiqqer/core', 'exception.no.permission'], 403);
+        }
+
+        if ($fullyAuthenticated) {
+            return $User;
+        }
+
+        if ($secondaryLoginType !== 1 || $Session->get('auth') || $Session->get('auth-secondary')) {
+            throw new QUI\Permissions\Exception(['quiqqer/core', 'exception.no.permission'], 403);
+        }
+
+        foreach ($User->getAuthenticators() as $Authenticator) {
+            if (
+                $Authenticator instanceof WebAuthn
+                && (new WebAuthn\CredentialRepository())->findByUserUuid($uid) === []
+            ) {
+                continue;
+            }
+
+            if (
+                in_array($Authenticator::class, $configured, true)
+                && $Authenticator->isSecondaryAuthentication()
+            ) {
+                throw new QUI\Permissions\Exception(['quiqqer/core', 'exception.no.permission'], 403);
+            }
+        }
+
+        if (
+            in_array(WebAuthn::class, $configured, true)
+            && (new WebAuthn\CredentialRepository())->findByUserUuid($uid) !== []
+        ) {
+            throw new QUI\Permissions\Exception(['quiqqer/core', 'exception.no.permission'], 403);
+        }
+
+        return $User;
     }
 
     //endregion

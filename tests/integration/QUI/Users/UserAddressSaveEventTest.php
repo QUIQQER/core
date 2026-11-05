@@ -3,6 +3,10 @@
 namespace QUI\Users;
 
 use Doctrine\DBAL\Connection;
+use Monolog\Handler\TestHandler;
+use Monolog\Level;
+use Monolog\Logger as MonologLogger;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use QUI;
 use QUI\Interfaces\Users\User as UserInterface;
@@ -127,6 +131,218 @@ class UserAddressSaveEventTest extends TestCase
 
         $Address->setAttribute('state', '');
         self::assertStringNotContainsString('class="region"', $Address->getDisplay());
+    }
+
+    public static function invalidStandardReferences(): iterable
+    {
+        yield 'missing UUID' => ['missing-uuid'];
+        yield 'foreign UUID' => ['foreign-uuid'];
+        yield 'missing numeric ID' => ['missing-id'];
+        yield 'foreign numeric ID' => ['foreign-id'];
+    }
+
+    #[DataProvider('invalidStandardReferences')]
+    public function testInvalidStoredStandardAddressIsRecoveredWithoutSavingAsNobody(string $referenceType): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = $this->createAddressUser();
+        $OwnAddress = $User->getStandardAddress();
+        $invalidReference = $this->createInvalidReference($referenceType);
+        self::getConnection()->update(
+            Manager::table(),
+            ['address' => $invalidReference],
+            ['uuid' => $User->getUUID()]
+        );
+        $User = new User($User->getUUID());
+
+        [$Address, $Handler] = $this->captureAddressLogs(
+            static fn (): Address => QUI::getUsers()->withSessionUser(
+                QUI::getUsers()->getNobody(),
+                static fn (): Address => $User->getStandardAddress()
+            )
+        );
+
+        self::assertSame($OwnAddress->getUUID(), $Address->getUUID());
+        self::assertSame($OwnAddress->getUUID(), $User->getAttribute('address'));
+        self::assertSame((string)$invalidReference, (string)$this->getStoredStandardAddress($User));
+        self::assertCount(1, $User->getAddressList());
+        self::assertFalse($Handler->hasRecords(Level::Error));
+
+        $User->save($SystemUser);
+
+        $ReloadedUser = new User($User->getUUID());
+        self::assertSame($OwnAddress->getUUID(), $this->getStoredStandardAddress($User));
+        self::assertSame($OwnAddress->getUUID(), $ReloadedUser->getStandardAddress()->getUUID());
+    }
+
+    #[DataProvider('invalidStandardReferences')]
+    public function testExplicitInvalidAddressLookupDoesNotChangeTheStandardAddress(string $referenceType): void
+    {
+        $User = $this->createAddressUser();
+        $OwnAddress = $User->getStandardAddress();
+        $invalidReference = $this->createInvalidReference($referenceType);
+
+        try {
+            $User->getAddress($invalidReference);
+            self::fail('An explicit missing or foreign address must be rejected.');
+        } catch (AddressNotFoundException) {
+            self::assertSame($OwnAddress->getUUID(), $User->getAttribute('address'));
+            self::assertSame($OwnAddress->getUUID(), $this->getStoredStandardAddress($User));
+        }
+    }
+
+    #[DataProvider('invalidStandardReferences')]
+    public function testExplicitInvalidStandardAddressAssignmentIsRejected(string $referenceType): void
+    {
+        $User = $this->createAddressUser();
+        $OwnAddress = $User->getStandardAddress();
+        $invalidReference = $this->createInvalidReference($referenceType);
+
+        try {
+            $User->setAttribute('address', $invalidReference);
+            self::fail('An invalid explicit standard address must be rejected.');
+        } catch (AddressNotFoundException) {
+            self::assertSame($OwnAddress, $User->getStandardAddress());
+            self::assertSame($OwnAddress->getUUID(), $User->getAttribute('address'));
+            self::assertSame($OwnAddress->getUUID(), $this->getStoredStandardAddress($User));
+        }
+    }
+
+    public function testMissingStandardAddressWithoutFallbackIsOnlyRecreatedDuringAuthorizedSave(): void
+    {
+        $User = $this->createAddressUser();
+        $missingReference = $User->getAttribute('address');
+        self::getConnection()->delete(Manager::tableAddress(), ['userUuid' => $User->getUUID()]);
+        $User = new User($User->getUUID());
+
+        try {
+            QUI::getUsers()->withSessionUser(
+                QUI::getUsers()->getNobody(),
+                static fn (): Address => $User->getStandardAddress()
+            );
+            self::fail('A missing fallback must not create an address while reading.');
+        } catch (AddressNotFoundException) {
+            self::assertSame([], $User->getAddressList());
+            self::assertSame($missingReference, $this->getStoredStandardAddress($User));
+        }
+
+        try {
+            QUI::getUsers()->withSessionUser(
+                QUI::getUsers()->getNobody(),
+                static fn () => $User->save()
+            );
+            self::fail('An anonymous caller must not save the recovered reference.');
+        } catch (QUI\Permissions\Exception) {
+            self::assertSame([], $User->getAddressList());
+            self::assertSame($missingReference, $this->getStoredStandardAddress($User));
+        }
+
+        $User->save(QUI::getUsers()->getSystemUser());
+
+        self::assertCount(1, $User->getAddressList());
+        self::assertNotSame($missingReference, $this->getStoredStandardAddress($User));
+        self::assertSame($User->getStandardAddress()->getUUID(), $this->getStoredStandardAddress($User));
+    }
+
+    public static function standardAddressReferenceFormats(): iterable
+    {
+        yield 'UUID' => [false];
+        yield 'legacy numeric ID' => [true];
+    }
+
+    #[DataProvider('standardAddressReferenceFormats')]
+    public function testStandardAddressCannotBeDeletedDirectly(bool $useNumericId): void
+    {
+        $User = $this->createAddressUser();
+        $Address = $User->getStandardAddress();
+        $reference = $useNumericId ? $Address->getId() : $Address->getUUID();
+        self::getConnection()->update(
+            Manager::table(),
+            ['address' => $reference],
+            ['uuid' => $User->getUUID()]
+        );
+        $User = new User($User->getUUID());
+
+        try {
+            $User->getAddress($reference)->delete();
+            self::fail('Direct API calls must protect the standard address too.');
+        } catch (QUI\Exception $Exception) {
+            self::assertSame(
+                QUI::getLocale()->get('quiqqer/core', 'exception.users.address.delete.default'),
+                $Exception->getMessage()
+            );
+            self::assertCount(1, $User->getAddressList());
+        }
+    }
+
+    public function testNonStandardAddressCanStillBeDeleted(): void
+    {
+        $User = $this->createAddressUser();
+        $StandardAddress = $User->getStandardAddress();
+        $OtherAddress = $User->addAddress(['city' => 'Berlin'], QUI::getUsers()->getSystemUser());
+
+        $OtherAddress->delete();
+
+        self::assertCount(1, $User->getAddressList());
+        self::assertSame($StandardAddress->getUUID(), $User->getStandardAddress()->getUUID());
+        self::assertSame($StandardAddress->getUUID(), $this->getStoredStandardAddress($User));
+    }
+
+    private function createAddressUser(): User
+    {
+        $Users = QUI::getUsers();
+
+        return $Users->createChild(
+            self::TEST_PREFIX . uniqid(),
+            $Users->getSystemUser()
+        );
+    }
+
+    private function createInvalidReference(string $type): int | string
+    {
+        return match ($type) {
+            'missing-uuid' => QUI\Utils\Uuid::get(),
+            'missing-id' => -12345,
+            'foreign-uuid' => (string)$this->createAddressUser()->getStandardAddress()->getUUID(),
+            'foreign-id' => $this->createAddressUser()->getStandardAddress()->getId()
+        };
+    }
+
+    private function getStoredStandardAddress(User $User): mixed
+    {
+        return self::getConnection()->createQueryBuilder()
+            ->select('address')
+            ->from(QUI\Utils\Doctrine::quoteIdentifier(Manager::table()))
+            ->where('uuid = :uuid')
+            ->setParameter('uuid', $User->getUUID())
+            ->executeQuery()
+            ->fetchOne();
+    }
+
+    /**
+     * @return array{mixed, TestHandler}
+     */
+    private function captureAddressLogs(callable $Callback): array
+    {
+        $PreviousLogger = QUI\Log\Logger::getLogger();
+        $Config = QUI\Log\Config::getPackageConfig();
+        self::assertNotNull($Config);
+        $previousLogLevels = $Config->get('log_levels');
+        $Handler = new TestHandler();
+        QUI\Log\Logger::$Logger = new MonologLogger('standard-address-test', [$Handler]);
+        $Config->setValue('log_levels', 'error', 1);
+
+        try {
+            $result = $Callback();
+
+            return [
+                $result,
+                $Handler
+            ];
+        } finally {
+            QUI\Log\Logger::$Logger = $PreviousLogger;
+            $Config->setSection('log_levels', $previousLogLevels);
+        }
     }
 
     private static function skipIfDatabaseIsUnavailable(): void
