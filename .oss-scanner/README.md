@@ -25,6 +25,10 @@ applies the checkout's setup. The test wrapper starts an internal MariaDB on
 loopback from the prepared snapshot; it needs no separate GitLab service or
 internet access. See [threat_model.md](threat_model.md) for its limits.
 
+Dependency setup uses public package sources. The IP-restricted licensed package
+repository inherited from the testing image is removed before Composer runs,
+so external scanner runners do not need access to the testing license's feed.
+
 The filter explicitly excludes one existing update-runner test that assumes a
 successful real Composer download. With no network it proceeds into a system
 update and fails to contact the license server. The wrapper itself does not skip

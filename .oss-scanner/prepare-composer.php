@@ -8,6 +8,15 @@ $file = '/var/www/html/var/composer/composer.json';
 $root = json_decode(file_get_contents($file), true, flags: JSON_THROW_ON_ERROR);
 $core = json_decode(file_get_contents('/opt/quiqqer-core/composer.json'), true, flags: JSON_THROW_ON_ERROR);
 
+// The testing image includes an IP-restricted licensed package repository.
+// Core and its test dependencies use public packages, so external scanner
+// runners must not query the inherited licensed feed during dependency setup.
+$root['repositories'] = array_values(array_filter(
+    $root['repositories'],
+    static fn (array $repository): bool =>
+        strtolower((string)parse_url($repository['url'] ?? '', PHP_URL_HOST)) !== 'license.quiqqer.com'
+));
+
 // Composer in the testing image cannot load the asset server's combination of
 // inline packages and metadata-url ("Undefined array key uid"). Its inline
 // package list is complete, so use that unchanged metadata as a package repo.
