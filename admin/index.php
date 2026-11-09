@@ -215,6 +215,9 @@ echo $User->getLang(); ?>"> <!--<![endif]-->
             'lang' => $Project ? $Project->getLang() : ''
         ]); ?>;
 
+        <?php $localeContextManifest = QUI\Translator::getJSContextManifest(); ?>
+        var QUIQQER_LOCALE_CONTEXTS = <?php echo json_encode($localeContextManifest); ?>;
+
         var QUIQQER = {
             loginBranding: <?php echo json_encode(
                 QUI\Users\Controls\Login::getBranding($Project),
@@ -229,6 +232,7 @@ echo $User->getLang(); ?>"> <!--<![endif]-->
             },
             ajax: '<?php echo URL_SYS_DIR; ?>ajax.php',
             inAdministration: true,
+            locale: <?php echo json_encode($localeContextManifest['version']); ?>,
             lu: "<?php echo QUI::getPackageManager()->getLastUpdateDate(); ?>",
             vMd5: "<?php echo md5(QUI::version()); ?>",
 
@@ -268,7 +272,11 @@ echo $User->getLang(); ?>"> <!--<![endif]-->
     $files = [];
 
     try {
-        $files = QUI\Translator::getJSTranslationFiles($User->getLang());
+        $files = QUI\Translator::getJSContextTranslationFiles(
+            $User->getLang(),
+            'administration',
+            $localeContextManifest
+        );
     } catch (QUI\Exception) {
     }
 
