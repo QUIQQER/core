@@ -1,14 +1,22 @@
 /**
- * Global locale object
+ * Global locale object, ready for synchronous frontend translation reads.
+ * Frontend headers map translation modules to classes/LocaleInstance to avoid a circular dependency.
  */
-define('Locale', ['classes/Locale'], function (QUILocale) {
-    "use strict";
+(function () {
+    'use strict';
 
-    if (window.location.search.match('lang=false')) {
-        QUILocale.no_translation = true;
-    } else if (window.location.toString().match('_lang_false')) {
-        QUILocale.no_translation = true;
+    const dependencies = ['classes/LocaleInstance'];
+    const frontend = window.QUIQQER_FRONTEND === 1;
+
+    if (frontend && Array.isArray(window.QUIQQER_LOCALE)) {
+        dependencies.push(...window.QUIQQER_LOCALE);
     }
 
-    return new QUILocale();
-});
+    define('Locale', dependencies, function (Locale) {
+        if (frontend && window.QUIQQER_PROJECT?.lang) {
+            Locale.setCurrent(window.QUIQQER_PROJECT.lang);
+        }
+
+        return Locale;
+    });
+})();

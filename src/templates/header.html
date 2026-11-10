@@ -152,6 +152,9 @@
                 urlArgs: "update={$lastUpdate|md5}&locale={$localePublishVersion}",
 
                 map : {
+                    'locale': {
+                        'Locale': 'classes/LocaleInstance'
+                    },
                     '*': {
                         'css': URL_OPT_DIR +'bin/qui/qui/lib/css.min.js',
                         'image': URL_OPT_DIR +'bin/qui/qui/lib/image.min.js',
