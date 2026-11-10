@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use QUI;
 use QUI\OAuth\Clients\Handler;
 use QUI\REST\Server;
+use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__ . '/RestIntegrationTestCase.php';
 
@@ -22,8 +23,11 @@ class OAuthAuthenticationTest extends RestIntegrationTestCase
         $Config->setValue('general', 'active', true);
         $Config->save();
         $clientId = null;
+        $PreviousRequest = QUI::$Request;
 
         try {
+            QUI::$Request = Request::create('https://core-rest.example.invalid/api');
+
             $clientId = Handler::createOAuthClient($this->Root, [
                 '/quiqqer/core/users' => ['active' => true, 'methods' => ['GET']]
             ], 'Core REST authentication test', true);
@@ -60,6 +64,8 @@ class OAuthAuthenticationTest extends RestIntegrationTestCase
             $clientId = null;
             self::assertSame(401, $Server->getSlim()->handle($Request)->getStatusCode());
         } finally {
+            QUI::$Request = $PreviousRequest;
+
             if ($clientId !== null) {
                 Handler::removeOAuthClient($clientId);
             }
