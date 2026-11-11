@@ -161,6 +161,22 @@ remain fragments; place them inside the documented parent structure rather than 
 Use optional `context` on individual `<locale>` entries to select JavaScript delivery. It is independent of
 `datatype` and never restricts PHP availability. Do not add a context default to `<groups>` or inherit one.
 
+When adding a translation, choose `datatype` from the code that performs the translation lookup: PHP/Smarty uses
+`php`, JavaScript uses `js`, and lookups in both use `php,js`. If JavaScript needs the key, choose its context from
+the JavaScript consumers alone:
+
+| Translation lookups | `datatype` | `context` |
+| --- | --- | --- |
+| PHP/Smarty only, including public HTML or translated AJAX responses | `php` | Omit |
+| Frontend JavaScript, optionally also PHP/Smarty | `js` or `php,js` | `frontend` |
+| Administration JavaScript, optionally also PHP/Smarty | `js` or `php,js` | `administration` |
+| JavaScript in both areas, optionally also PHP/Smarty | `js` or `php,js` | Omit |
+
+Context describes where the JavaScript translation is needed, not every place where the resulting text is shown.
+For example, a text rendered publicly by PHP and read by administration JavaScript uses `datatype="php,js"` with
+`context="administration"`. JavaScript displaying HTML or an AJAX error already translated by PHP does not itself
+require that locale key in JavaScript. Preserve explicitly loaded custom contexts and the override rules below.
+
 - Missing or empty context: automatically available in both frontend and administration.
 - `frontend` or `administration`: automatically available only in that area.
 - `frontend,administration`: automatically available in both areas.
@@ -186,7 +202,8 @@ infer delivery from the key name or PHP usage alone, and do not reclassify unrel
 Text-only overrides must follow the ownership rules above. See `quiqqer_frontend_javascript` for asynchronous
 custom-context loading and AMD evaluation constraints.
 
-For package-owned `package.title` and `package.description` entries, use `context="administration"` by default.
+For package-owned `package.title` and `package.description` entries that need JavaScript, use
+`context="administration"` by default.
 Add `frontend` only when an actual frontend JavaScript consumer requires these texts; PHP usage, including public
 package listings, does not justify frontend JavaScript delivery. Text-only overrides of another package's entries
 must still omit `context` to preserve the owning package's assignment.
