@@ -22,17 +22,8 @@
     width: 100%;
 }
 
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
 button:focus-visible,
 .btn:focus-visible {
     outline: 2px solid var(--qui-colors-primary);
     outline-offset: 2px;
-}
-
-input:where(:not([type="submit"], [type="button"], [type="reset"])):focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-    border-color: var(--qui-colors-primary);
 }
