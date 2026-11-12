@@ -115,6 +115,76 @@ class UserAddressSaveEventTest extends TestCase
         self::assertSame('', $User->addAddress(['city' => 'Berlin'], $SystemUser)->getAttribute('state'));
     }
 
+    #[DataProvider('standardAddressReferenceFormats')]
+    public function testSavingUserPreservesNewStandardAddressData(bool $useNumericId): void
+    {
+        $SystemUser = QUI::getUsers()->getSystemUser();
+        $User = $this->createAddressUser();
+        $Address = $User->addAddress(['city' => 'Berlin'], $SystemUser);
+        $uuid = $Address->getUUID();
+        self::assertNotNull($uuid);
+
+        $Address->addPhone([
+            'type' => 'mobile',
+            'no' => '111'
+        ]);
+        $Address->addMail('address-cache@example.invalid');
+        $Address->setAttribute('city', 'Bonn');
+        $Address->save($SystemUser);
+
+        $StoredAddress = new Address($User, $uuid);
+        self::assertSame($Address->getPhoneList(), $StoredAddress->getPhoneList());
+        self::assertSame('Bonn', $StoredAddress->getAttribute('city'));
+
+        $User->setAttribute('address', $useNumericId ? $Address->getId() : $uuid);
+        $User->save($SystemUser);
+
+        $ReloadedUser = new User($User->getUUID());
+        $ReloadedAddress = $ReloadedUser->getStandardAddress();
+        self::assertSame($uuid, $ReloadedUser->getAttribute('address'));
+        self::assertSame([
+            [
+                'type' => 'mobile',
+                'no' => '111'
+            ]
+        ], $ReloadedAddress->getPhoneList());
+        self::assertSame(['address-cache@example.invalid'], $ReloadedAddress->getMailList());
+        self::assertSame('Bonn', $ReloadedAddress->getAttribute('city'));
+        self::assertSame($Address, $User->getStandardAddress());
+    }
+
+    #[DataProvider('standardAddressReferenceFormats')]
+    public function testAddressLookupsSharePendingChangesAcrossIdentifiers(bool $useNumericId): void
+    {
+        $User = $this->createAddressUser();
+        $CreatedAddress = $User->addAddress(['city' => 'Berlin'], QUI::getUsers()->getSystemUser());
+        $id = $CreatedAddress->getId();
+        $uuid = $CreatedAddress->getUUID();
+        self::assertNotNull($uuid);
+
+        $ReloadedUser = new User($User->getUUID());
+        $Address = $ReloadedUser->getAddress($useNumericId ? $id : $uuid);
+        $Address->setAttribute('city', 'Bonn');
+        $Address->addPhone([
+            'type' => 'mobile',
+            'no' => '111'
+        ]);
+
+        $OtherLookup = $ReloadedUser->getAddress($useNumericId ? $uuid : $id);
+        self::assertSame($Address, $OtherLookup);
+        self::assertSame('Bonn', $OtherLookup->getAttribute('city'));
+        self::assertSame($Address->getPhoneList(), $OtherLookup->getPhoneList());
+        self::assertSame($Address, $ReloadedUser->getAddress((string)$id));
+        self::assertSame($Address, $ReloadedUser->getAddress('00' . $id));
+
+        $addresses = $ReloadedUser->getAddressList();
+        self::assertCount(2, $addresses);
+        self::assertSame($Address, $addresses[$uuid]);
+
+        $ReloadedUser->setAttribute('address', $id);
+        self::assertSame($Address, $ReloadedUser->getStandardAddress());
+    }
+
     public function testAddressStateIsIncludedInTextAndEscapedInHtml(): void
     {
         $SystemUser = QUI::getUsers()->getSystemUser();

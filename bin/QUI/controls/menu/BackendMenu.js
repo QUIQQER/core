@@ -23,6 +23,7 @@ define('controls/menu/BackendMenu', [
 
             this.$Bar = MenuBar;
             this.$active = null;
+            this.$ignoreClickUntil = 0;
             this.$roots = new Map();
             this.$actions = new Map();
             this.$items = [];
@@ -84,18 +85,28 @@ define('controls/menu/BackendMenu', [
                 }
                 Button.setAttribute('aria-controls', this.$Popup.id);
                 Button.setAttribute('aria-expanded', 'false');
-                Button.addEventListener('click', () => {
+                Button.addEventListener('click', (event) => {
                     if (this.$active === name) {
+                        if (event.detail > 0 && Date.now() < this.$ignoreClickUntil) {
+                            this.$Search?.focus({preventScroll: true});
+                            return;
+                        }
+
                         this.close();
                     } else {
                         this.open(name);
+                    }
+                });
+                Button.addEventListener('pointerenter', (event) => {
+                    if (event.pointerType === 'mouse' && this.$active && this.$active !== name) {
+                        this.open(name);
+                        this.$ignoreClickUntil = Date.now() + 2000;
                     }
                 });
                 Button.addEventListener('keydown', (event) => {
                     if (event.key === 'ArrowDown') {
                         event.preventDefault();
                         this.open(name);
-                        this.$Search.focus();
                     }
                 });
 
@@ -184,6 +195,7 @@ define('controls/menu/BackendMenu', [
             this.$Popup.hidden = false;
             this.$position();
             this.$Content.scrollTop = 0;
+            this.$Search?.focus({preventScroll: true});
 
             document.addEventListener('pointerdown', this.$outside, true);
             document.addEventListener('keydown', this.$escape);
@@ -198,6 +210,7 @@ define('controls/menu/BackendMenu', [
             }
 
             this.$active = null;
+            this.$ignoreClickUntil = 0;
             this.$Popup.hidden = true;
             Root.Button.setAttribute('aria-expanded', 'false');
             document.removeEventListener('pointerdown', this.$outside, true);

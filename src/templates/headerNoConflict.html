@@ -69,7 +69,8 @@
 
     var QUIQQER_ONLOAD_MODULES = {$loadModuleFiles|json_encode:true},
         QUIQQER_FRONTEND       = 1,
-        QUIQQER_LOCALE         = {$localeFiles|json_encode:true};
+        QUIQQER_LOCALE         = {$localeFiles|json_encode:true},
+        QUIQQER_LOCALE_CONTEXTS = {$localeContextManifest|json_encode:true};
 
     {if "LOGIN_FAILED"|defined}
         {if LOGIN_FAILED|is_string}
@@ -145,6 +146,9 @@
         urlArgs     : "update={$lastUpdate}&locale={$localePublishVersion}",
 
         map : {
+            'locale': {
+                'Locale': 'classes/LocaleInstance'
+            },
             '*': {
                 'css'    : URL_OPT_DIR +'bin/qui/qui/lib/css.min.js',
                 'image'  : URL_OPT_DIR +'bin/qui/qui/lib/image.min.js',

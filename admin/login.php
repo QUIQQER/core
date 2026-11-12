@@ -7,14 +7,12 @@ use QUI\Projects\Media\Utils;
 QUI::getEvents()->fireEvent('adminRequest');
 
 $languages = QUI::availableLanguages();
-$packages = QUI::getPackageManager()->getInstalled();
 $defaultLanguage = QUI::conf('globals', 'standardLanguage');
 
 if (!empty($defaultLanguage)) {
     QUI::getLocale()->setCurrent($defaultLanguage);
 }
 
-$authPackages = [];
 $quiqqerLogo = QUI::getLocale()->get('quiqqer/core', 'menu.quiqqer.text');
 
 $projectLogo = '';
@@ -30,23 +28,6 @@ try {
         $projectLogo = '<img src="' . $ProjectImage->getSizeCacheUrl() . '" />';
     }
 } catch (QUI\Exception) {
-}
-
-foreach ($packages as $package) {
-    try {
-        $Package = QUI::getPackage($package['name']);
-
-        if (!$Package->isQuiqqerPackage()) {
-            continue;
-        }
-
-        $auth = $Package->getProvider('auth');
-
-        if (!empty($auth)) {
-            $authPackages[] = $Package->getName();
-        }
-    } catch (QUI\Exception) {
-    }
 }
 
 ?>
@@ -116,21 +97,36 @@ foreach ($packages as $package) {
      */
     $files = [];
 
-    foreach ($authPackages as $package) {
-        foreach ($languages as $lang) {
-            $files[] = 'locale/' . $package . '/' . $lang;
+    $localeContextManifest = QUI\Translator::getJSContextManifest();
+    $localeFilesByLanguage = [];
+
+    foreach ($languages as $lang) {
+        $languageFiles = QUI\Translator::getJSContextTranslationFiles(
+            $lang,
+            'administration',
+            $localeContextManifest
+        );
+        $localeFilesByLanguage[$lang] = [];
+
+        foreach (array_keys($languageFiles) as $prefix) {
+            $module = $prefix . '/' . $lang;
+            $files[] = $module;
+            $localeFilesByLanguage[$lang][] = $module;
         }
     }
 
     echo '<script type="text/javascript">';
     echo '/* <![CDATA[ */';
     echo 'var QUIQQER_LOCALE = ' . json_encode($files) . ';';
+    echo 'var QUIQQER_LOCALE_CONTEXTS = ' . json_encode($localeContextManifest) . ';';
+    echo 'var QUIQQER_LOCALE_BY_LANGUAGE = ' . json_encode($localeFilesByLanguage) . ';';
     echo 'var QUIQQER_LANGUAGES = ' . json_encode($languages) . ';';
     echo 'var QUIQQER_IS_ADMIN_LOGIN = true;';
     echo 'var QUIQQER = ' . json_encode([
         'loginBranding' => QUI\Users\Controls\Login::getBranding($Standard ?? null),
         'csrfToken' => QUI\Security\CsrfToken::get(),
         'inAdministration' => true,
+        'locale' => $localeContextManifest['version'],
         'vMd5' => md5(QUI::version())
     ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . ';';
     echo 'var QUIQQER_CONFIG = {globals: {no_ajax_bundler: 1}}';
@@ -413,6 +409,7 @@ foreach ($packages as $package) {
             },
             waitSeconds: 0,
             catchError: true,
+            urlArgs: 'locale=' + QUIQQER.locale,
             map: {
                 '*': {
                     'css': '<?php echo URL_OPT_DIR; ?>bin/qui/qui/lib/css.js'
@@ -457,9 +454,8 @@ foreach ($packages as $package) {
                 require([
                     'qui/QUI',
                     'utils/Session',
-                    'Locale',
-                    'locale/quiqqer/core/' + lang
-                ], function (QUI, Session, QUILocale) {
+                    'Locale'
+                ].concat(QUIQQER_LOCALE_BY_LANGUAGE[lang]), function (QUI, Session, QUILocale) {
                     QUILocale.setCurrent(lang);
                     Session.set('quiqqer-user-language', lang).catch(function (err) {
                         // doesn't matter
@@ -724,7 +720,7 @@ if (defined('LOGIN_FAILED')) { ?>
         ];
 
     for (let i = 0, len = QUIQQER_LANGUAGES.length; i < len; i++) {
-        needle.push('locale/quiqqer/core/' + QUIQQER_LANGUAGES[i]);
+        needle.push(...QUIQQER_LOCALE_BY_LANGUAGE[QUIQQER_LANGUAGES[i]]);
     }
 
     require(needle, function (QUISelect, QUILocale) {

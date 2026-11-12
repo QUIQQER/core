@@ -14,6 +14,33 @@ final class PrintTemplateSecurityTest extends TestCase
     private const ATTACK_HEADER = '<script>alert(2)</script>Group';
     private const ATTACK_CSS_FILE = 'https://example.com/export.css" onload="alert(3)';
 
+    private ?QUI\Rewrite $PreviousRewrite;
+    private ?QUI\Template $PreviousTemplate;
+
+    protected function setUp(): void
+    {
+        $this->PreviousRewrite = QUI::$Rewrite;
+        $this->PreviousTemplate = QUI::$Template;
+
+        // The export has no page or theme and must not resolve the installation's start page.
+        $Project = $this->createMock(QUI\Projects\Project::class);
+        $Project->method('getName')->willReturn('print-template-test');
+        $Project->method('getAttribute')->willReturn(false);
+
+        $Rewrite = $this->createMock(QUI\Rewrite::class);
+        $Rewrite->method('getProject')->willReturn($Project);
+        $Rewrite->method('getSite')->willReturn(null);
+
+        QUI::$Rewrite = $Rewrite;
+        QUI::$Template = new QUI\Template();
+    }
+
+    protected function tearDown(): void
+    {
+        QUI::$Rewrite = $this->PreviousRewrite;
+        QUI::$Template = $this->PreviousTemplate;
+    }
+
     public function testGridValuesAreRenderedAsText(): void
     {
         $Engine = QUI::getTemplateManager()->getEngine();

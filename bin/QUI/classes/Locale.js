@@ -35,10 +35,131 @@ if (typeof window.Intl === 'undefined') {
 define('classes/Locale', needle, function (QUILocale) {
     "use strict";
 
+    const requests = new Map();
+    const instances = new WeakMap();
+
+    function request(moduleId, language, context, version) {
+        if (!requests.has(moduleId)) {
+            const pending = new Promise(function (resolve, reject) {
+                require([moduleId], resolve, reject);
+            }).then(function (payload) {
+                if (
+                    !payload ||
+                    payload.language !== language ||
+                    payload.context !== context ||
+                    typeof payload.version !== 'string' ||
+                    !payload.version ||
+                    (version !== null && payload.version !== version) ||
+                    !payload.groups ||
+                    typeof payload.groups !== 'object' ||
+                    Array.isArray(payload.groups) ||
+                    Object.values(payload.groups).some(group =>
+                        !group || typeof group !== 'object' ||
+                        Object.values(group).some(value => typeof value !== 'string')
+                    )
+                ) {
+                    throw new Error('Invalid published locale module: ' + moduleId);
+                }
+
+                return payload;
+            }).catch(function (error) {
+                requests.delete(moduleId);
+                const loader = window.requirejs || require;
+
+                if (typeof loader.undef === 'function') {
+                    loader.undef(moduleId);
+                }
+
+                throw error;
+            });
+
+            requests.set(moduleId, pending);
+        }
+
+        return requests.get(moduleId);
+    }
+
     return new Class({
 
         Extends: QUILocale,
         Type   : 'classes/Locale',
+
+        /**
+         * Load one published context for the language selected at invocation.
+         * Await this promise before synchronously reading its translations.
+         *
+         * @param {String} context
+         * @return {Promise}
+         */
+        loadContext: function (context) {
+            const Locale = this;
+
+            if (typeof context !== 'string') {
+                return Promise.reject(new TypeError('A locale context name is required.'));
+            }
+
+            context = context.trim();
+
+            if (
+                !/^[A-Za-z][A-Za-z0-9_-]{0,63}$/.test(context) ||
+                /^(common|all|manifest)$/i.test(context)
+            ) {
+                return Promise.reject(new Error('Invalid locale context: ' + context));
+            }
+
+            const manifest = window.QUIQQER_LOCALE_CONTEXTS;
+            const language = Locale.getCurrent();
+
+            if (!manifest || !manifest.contexts.includes(context)) {
+                return Promise.reject(new Error('Unknown locale context: ' + context));
+            }
+
+            if (!manifest.languages.includes(language)) {
+                return Promise.reject(new Error('Unpublished locale language: ' + language));
+            }
+
+            // Stable paths can serve a newer publication to an already open page.
+            const fixedPaths = manifest.format === 2;
+            const version = fixedPaths ? null : manifest.version;
+            const bundled = fixedPaths && ['frontend', 'administration'].includes(context);
+            const token = (bundled ? 'b' : 'c') + Array.from(
+                context,
+                character => character.charCodeAt(0).toString(16).padStart(2, '0')
+            ).join('');
+            const prefix = 'locale/_contexts/' + (fixedPaths ? '' : version + '/');
+            const identity = prefix + token + '/' + language;
+
+            if (!instances.has(Locale)) {
+                instances.set(Locale, new Map());
+            }
+
+            const loads = instances.get(Locale);
+
+            if (!loads.has(identity)) {
+                const modules = bundled
+                    ? [request(identity, language, context, version)]
+                    : [
+                        request(prefix + 'common/' + language, language, 'common', version),
+                        request(identity, language, context, version)
+                    ];
+                const pending = Promise.all(modules).then(function (payloads) {
+                    for (const payload of payloads) {
+                        for (const group of Object.keys(payload.groups)) {
+                            Locale.set(language, group, payload.groups[group]);
+                        }
+                    }
+
+                    return Locale;
+                }).catch(function (error) {
+                    loads.delete(identity);
+                    throw error;
+                });
+
+                loads.set(identity, pending);
+            }
+
+            return loads.get(identity);
+        },
 
         /**
          * Translate a locale code de_DE, en_EN, de_AT

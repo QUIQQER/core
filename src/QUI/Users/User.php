@@ -647,13 +647,25 @@ class User implements QUIUserInterface
      */
     public function getAddress(int | string $id): Address
     {
+        if (is_numeric($id)) {
+            $id = (int)$id;
+        }
+
         if (isset($this->address_list[$id])) {
             return $this->address_list[$id];
         }
 
-        $this->address_list[$id] = new QUI\Users\Address($this, $id);
+        $Address = new Address($this, $id);
 
-        return $this->address_list[$id];
+        // ID and UUID lookups must share saved and pending address changes.
+        $this->address_list[$Address->getId()] = $Address;
+        $uuid = $Address->getUUID();
+
+        if ($uuid !== null) {
+            $this->address_list[$uuid] = $Address;
+        }
+
+        return $Address;
     }
 
     /**

@@ -823,10 +823,14 @@ class Template extends QUI\QDOM
 
         QUI::getEvents()->fireEvent('templateGetHeader', [$this]);
 
-        // locale files
+        // Select initial modules and cache arguments from the same manifest.
+        $localeContextManifest = QUI\Translator::getJSContextManifest();
+
         try {
-            $files = QUI\Translator::getJSTranslationFiles(
-                $Project->getLang()
+            $files = QUI\Translator::getJSContextTranslationFiles(
+                $Project->getLang(),
+                'frontend',
+                $localeContextManifest
             );
         } catch (QUI\Exception) {
         }
@@ -837,12 +841,7 @@ class Template extends QUI\QDOM
             $locales[] = $package . '/' . $Project->getLang();
         }
 
-        $localePublishVersion = md5((string)QUI::getPackageManager()->getLastUpdateDate());
-
-        try {
-            $localePublishVersion = QUI\Translator::getLocalePublishVersion();
-        } catch (QUI\Exception) {
-        }
+        $localePublishVersion = $localeContextManifest['version'];
 
 
         $headers = $this->header;
@@ -905,6 +904,7 @@ class Template extends QUI\QDOM
             'Site' => $Site,
             'Engine' => $Engine,
             'localeFiles' => $locales,
+            'localeContextManifest' => $localeContextManifest,
             'loadModuleFiles' => $this->onLoadModules,
             'headerExtend' => $headerExtend,
             'ControlManager' => new QUI\Control\Manager(),

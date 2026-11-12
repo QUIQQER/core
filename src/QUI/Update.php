@@ -328,9 +328,12 @@ class Update
                     continue;
                 }
 
-                // locale setup
-                self::importLocale(
-                    $package_dir . '/' . $sub . '/locale.xml'
+                // Include referenced catalogs and retain package ownership before publication.
+                QUI\Translator::importFromPackage(
+                    QUI::getPackage($package . '/' . $sub),
+                    1,
+                    true,
+                    true
                 );
             }
         }
