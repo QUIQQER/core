@@ -1842,7 +1842,7 @@ class User implements QUIUserInterface
                     $params['companyName'] = $addressCompany;
                 }
             } catch (\Exception $Exception) {
-                QUI\System\Log::writeException($Exception);
+                QUI\System\Log::addError($Exception->getMessage());
             }
         }
 

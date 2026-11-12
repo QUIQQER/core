@@ -429,12 +429,16 @@ class Address extends QUI\QDOM
     public function addMail(string $mail): void
     {
         if (!Orthos::checkMailSyntax($mail)) {
-            throw new Exception(
+            $Exception = new Exception(
                 QUI::getLocale()->get(
                     'quiqqer/core',
                     'exception.lib.user.address.mail.wrong.syntax'
                 )
             );
+
+            QUI\System\Log::writeException($Exception);
+
+            throw $Exception;
         }
 
         $list = $this->getMailList();
@@ -485,12 +489,16 @@ class Address extends QUI\QDOM
     public function editMail(int $index, string $mail): void
     {
         if (!Orthos::checkMailSyntax($mail)) {
-            throw new Exception(
+            $Exception = new Exception(
                 QUI::getLocale()->get(
                     'quiqqer/core',
                     'exception.lib.user.address.mail.wrong.syntax'
                 )
             );
+
+            QUI\System\Log::writeException($Exception);
+
+            throw $Exception;
         }
 
         $list = $this->getMailList();
