@@ -823,7 +823,7 @@ class Template extends QUI\QDOM
 
         QUI::getEvents()->fireEvent('templateGetHeader', [$this]);
 
-        // Keep every initial module and subsequent context load on the same publication.
+        // Select initial modules and cache arguments from the same manifest.
         $localeContextManifest = QUI\Translator::getJSContextManifest();
 
         try {
