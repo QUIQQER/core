@@ -38,7 +38,7 @@ define('classes/Locale', needle, function (QUILocale) {
     const requests = new Map();
     const instances = new WeakMap();
 
-    function request(moduleId, language, version) {
+    function request(moduleId, language, context, version) {
         if (!requests.has(moduleId)) {
             const pending = new Promise(function (resolve, reject) {
                 require([moduleId], resolve, reject);
@@ -46,8 +46,17 @@ define('classes/Locale', needle, function (QUILocale) {
                 if (
                     !payload ||
                     payload.language !== language ||
-                    payload.version !== version ||
-                    !payload.groups
+                    payload.context !== context ||
+                    typeof payload.version !== 'string' ||
+                    !payload.version ||
+                    (version !== null && payload.version !== version) ||
+                    !payload.groups ||
+                    typeof payload.groups !== 'object' ||
+                    Array.isArray(payload.groups) ||
+                    Object.values(payload.groups).some(group =>
+                        !group || typeof group !== 'object' ||
+                        Object.values(group).some(value => typeof value !== 'string')
+                    )
                 ) {
                     throw new Error('Invalid published locale module: ' + moduleId);
                 }
@@ -109,12 +118,15 @@ define('classes/Locale', needle, function (QUILocale) {
                 return Promise.reject(new Error('Unpublished locale language: ' + language));
             }
 
-            const version = manifest.version;
-            const token = 'c' + Array.from(
+            // Stable paths can serve a newer publication to an already open page.
+            const fixedPaths = manifest.format === 2;
+            const version = fixedPaths ? null : manifest.version;
+            const bundled = fixedPaths && ['frontend', 'administration'].includes(context);
+            const token = (bundled ? 'b' : 'c') + Array.from(
                 context,
                 character => character.charCodeAt(0).toString(16).padStart(2, '0')
             ).join('');
-            const prefix = 'locale/_contexts/' + version + '/';
+            const prefix = 'locale/_contexts/' + (fixedPaths ? '' : version + '/');
             const identity = prefix + token + '/' + language;
 
             if (!instances.has(Locale)) {
@@ -124,10 +136,13 @@ define('classes/Locale', needle, function (QUILocale) {
             const loads = instances.get(Locale);
 
             if (!loads.has(identity)) {
-                const pending = Promise.all([
-                    request(prefix + 'common/' + language, language, version),
-                    request(identity, language, version)
-                ]).then(function (payloads) {
+                const modules = bundled
+                    ? [request(identity, language, context, version)]
+                    : [
+                        request(prefix + 'common/' + language, language, 'common', version),
+                        request(identity, language, context, version)
+                    ];
+                const pending = Promise.all(modules).then(function (payloads) {
                     for (const payload of payloads) {
                         for (const group of Object.keys(payload.groups)) {
                             Locale.set(language, group, payload.groups[group]);

@@ -71,7 +71,8 @@ const entries = Elm.querySelectorAll('[data-name="category"]');
 Use AMD module `Locale` for the QUIQQER Locale singleton. `Locale.get()` remains synchronous. Standard page headers
 load one language bundle containing shared translations and the `frontend` or `administration` context.
 The bundle registers its shared AMD module, so loading a custom context does not download shared translations again.
-Custom contexts must be loaded explicitly:
+Publications use stable paths and a versioned cache argument; they do not retain historical directories.
+An already open page can receive newer translations when loading another context. Custom contexts must be loaded explicitly:
 
 ```js
 async function renderTitle(element) {
@@ -87,7 +88,7 @@ async function renderTitle(element) {
 ```
 
 Import `Locale` as `QUILocale` in the surrounding AMD module. Call this function from a control method or lifecycle
-handler and handle its rejection in the caller. Each request captures its language and publication; after a language
+handler and handle its rejection in the caller. Each request captures its language; after a language
 change, await loading for the new language before calling `get()`. Repeated and concurrent identical requests are
 reused. Failed requests can be retried. Unknown contexts reject; a published empty context resolves.
 
