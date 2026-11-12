@@ -131,6 +131,8 @@ class Rewrite
      */
     private ?QUI\Interfaces\Projects\Site $site = null;
 
+    private bool $resolvingSite = false;
+
     /**
      * first site of the project
      */
@@ -1702,7 +1704,18 @@ class Rewrite
             return $this->site;
         }
 
-        return $this->getRequiredProject()->firstChild();
+        // A denied start page renders a login whose template engine asks for the site again.
+        if ($this->resolvingSite) {
+            return null;
+        }
+
+        $this->resolvingSite = true;
+
+        try {
+            return $this->getRequiredProject()->firstChild();
+        } finally {
+            $this->resolvingSite = false;
+        }
     }
 
     /**
