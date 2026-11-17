@@ -11,16 +11,58 @@ use Stash\Driver\FileSystem;
 
 use function is_dir;
 use function is_file;
+use function restore_error_handler;
+use function set_error_handler;
 use function strlen;
 use function strpos;
 use function substr;
 use function unlink;
+
+use const E_WARNING;
 
 /**
  * Class QuiqqerFileDriver
  */
 class QuiqqerFileDriver extends FileSystem
 {
+    /**
+     * @param array<array-key, string> $key
+     * @param mixed $data
+     * @param int $expiration
+     */
+    public function storeData($key, $data, $expiration): bool
+    {
+        $previousErrorHandler = null;
+        $previousErrorHandler = set_error_handler(
+            static function (
+                int $errorLevel,
+                string $message,
+                string $file,
+                int $line
+            ) use (&$previousErrorHandler): bool {
+                if (
+                    $errorLevel === E_WARNING
+                    && $message === 'file_put_contents(): Exclusive locks are not supported for this stream'
+                ) {
+                    // Stash returns false for this optional cache write.
+                    return true;
+                }
+
+                if ($previousErrorHandler !== null) {
+                    return $previousErrorHandler($errorLevel, $message, $file, $line) !== false;
+                }
+
+                return false;
+            }
+        );
+
+        try {
+            return parent::storeData($key, $data, $expiration);
+        } finally {
+            restore_error_handler();
+        }
+    }
+
     /**
      * @param null $key
      * @return bool
