@@ -76,7 +76,8 @@ let requireList = [
     'qui/controls/buttons/Button',
     'qui/controls/contextmenu/Item',
     'qui/controls/contextmenu/Separator',
-    'utils/Panels'
+    'utils/Panels',
+    'utils/PanelTooltips'
 ].append(window.QUIQQER_LOCALE || []);
 
 if (typeof window.Intl === "undefined") {
@@ -95,7 +96,8 @@ require(requireList, function () {
 
         QUIContextmenuItem = arguments[6],
         QUIContextmenuSeparator = arguments[7],
-        PanelUtils = arguments[8];
+        PanelUtils = arguments[8],
+        PanelTooltips = arguments[9];
 
     Locale.setCurrent(window.USER.lang);
 
@@ -124,7 +126,10 @@ require(requireList, function () {
 
         'control-task-panel-limit': 50,
         'control-task-panel-limit-message': Locale.get('quiqqer/core', 'message.to.much.tasks'),
-        'quiqqer-panel-inject': PanelUtils.panelApiInjectionEvent
+        'quiqqer-panel-inject': function (Panel) {
+            PanelTooltips(Panel);
+            return PanelUtils.panelApiInjectionEvent(Panel);
+        }
     });
 
     QUI.addEvent('onError', function (err, url, line) {
