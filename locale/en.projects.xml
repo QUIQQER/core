@@ -389,6 +389,12 @@
         <locale name="projects.project.site.childrensort.save">
             <en><![CDATA[Save sorting]]></en>
         </locale>
+        <locale name="projects.project.site.input.site" context="administration">
+            <en><![CDATA[Select a site]]></en>
+        </locale>
+        <locale name="projects.project.site.input.media" context="administration">
+            <en><![CDATA[Select a file from the media library]]></en>
+        </locale>
         <locale name="projects.project.site.input.clear">
             <en><![CDATA[Empty input]]></en>
         </locale>

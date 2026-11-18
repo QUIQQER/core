@@ -27,6 +27,7 @@ use QUI\Cache\Manager as QUICacheManager;
 use QUI\Utils\System\File as QUIFile;
 use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 use UnexpectedValueException;
 use Throwable;
 
@@ -55,6 +56,7 @@ use function file_put_contents;
 use function get_object_vars;
 use function hex2bin;
 use function http_build_query;
+use function implode;
 use function is_array;
 use function is_bool;
 use function is_dir;
@@ -67,6 +69,7 @@ use function ksort;
 use function parse_url;
 use function php_sapi_name;
 use function phpversion;
+use function preg_match;
 use function print_r;
 use function proc_close;
 use function proc_open;
@@ -75,7 +78,6 @@ use function stream_get_contents;
 use function str_contains;
 use function str_replace;
 use function strcmp;
-use function strip_tags;
 use function time;
 use function trim;
 use function usort;
@@ -1616,7 +1618,7 @@ class Manager extends QUI\QDOM
      */
     public function show(string $package): array
     {
-        $cache = 'packages/cache/show/' . $package;
+        $cache = 'packages/cache/show/v2/' . $package;
 
         try {
             return QUI\Cache\LongTermCache::get($cache);
@@ -1627,20 +1629,56 @@ class Manager extends QUI\QDOM
         $this->checkComposer();
 
         $result = [];
-        $show = $this->getComposer()->show($package);
+        $Composer = $this->getComposer();
+        $options = [
+            '--no-ansi' => true,
+            '--no-interaction' => true
+        ];
 
-        foreach ($show as $k => $line) {
-            if (!str_contains($line, ' <info>')) {
+        if ($Composer->getRunner() instanceof QUI\Composer\CLI) {
+            $options['packages'] = [$package];
+        } else {
+            $options['package'] = $package;
+        }
+
+        $show = $Composer->executeComposer('show', $options);
+        $lines = explode("\n", implode("\n", $show));
+        $Formatter = new OutputFormatter();
+        $requirements = [];
+        $hasRequirements = false;
+        $readingRequirements = false;
+
+        foreach ($lines as $line) {
+            $line = trim($Formatter->format($line) ?? '');
+
+            if ($line === 'requires') {
+                $hasRequirements = true;
+                $readingRequirements = true;
                 continue;
             }
 
-            if (!str_contains($line, ':')) {
+            $isMetadata = preg_match('/^([a-z][a-z. -]*?)\s+:\s*(.*)$/', $line, $matches) === 1;
+
+            if ($readingRequirements) {
+                if (
+                    $line !== ''
+                    && $line !== 'requires (dev)'
+                    && !$isMetadata
+                    && str_contains($line, ' ')
+                ) {
+                    $requirements[] = $line;
+                    continue;
+                }
+
+                $readingRequirements = false;
+            }
+
+            if (!$isMetadata) {
                 continue;
             }
 
-            $line = explode(':', $line);
-            $key = trim(strip_tags($line[0]));
-            $value = trim(strip_tags($line[1]));
+            $key = trim($matches[1]);
+            $value = trim($matches[2]);
 
             if ($key === 'versions') {
                 $value = array_map('trim', explode(',', $value));
@@ -1650,14 +1688,11 @@ class Manager extends QUI\QDOM
                 $key = 'description';
             }
 
-            if ($line == 'requires') {
-                $_temp = $show;
-                $result['require'] = array_slice($_temp, $k + 1);
-
-                continue;
-            }
-
             $result[$key] = $value;
+        }
+
+        if ($hasRequirements) {
+            $result['require'] = $requirements;
         }
 
         try {

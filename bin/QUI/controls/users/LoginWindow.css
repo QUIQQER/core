@@ -4,7 +4,7 @@
     --_login-muted: var(--quiqqer-core-login-window-muted, var(--qui-colors-gray-700));
     --_login-logo-height: var(--quiqqer-core-login-window-logo-height, 3.5rem);
     --_login-radius: var(--quiqqer-core-login-window-radius, 1.5rem);
-    --_login-surface: var(--quiqqer-core-login-window-surface, var(--qui-colors-white));
+    --_login-surface: var(--quiqqer-core-login-window-surface, var(--qui-colors-white, #fff));
     --_login-header-background: var(--quiqqer-core-login-window-header-background, var(--qui-colors-gray-25));
     --_login-border: var(--quiqqer-core-login-window-border, var(--qui-colors-gray-100));
     --_login-title-color: var(--quiqqer-core-login-window-title-color, var(--qui-colors-gray-900));
@@ -23,7 +23,7 @@
 
 .quiqqer-loginWindow-backdrop {
     --_login-backdrop-blur: var(--quiqqer-core-login-window-backdrop-blur, 8px);
-    --_login-backdrop-color: var(--quiqqer-core-login-window-backdrop-color, color-mix(in srgb, var(--qui-colors-gray-900) 50%, transparent));
+    --_login-backdrop-color: var(--quiqqer-core-login-window-backdrop-color, color-mix(in srgb, var(--qui-colors-gray-900, black) 50%, transparent));
 
     background-color: var(--_login-backdrop-color);
     -webkit-backdrop-filter: blur(var(--_login-backdrop-blur));
@@ -102,6 +102,7 @@
 
 .quiqqer-loginWindow-message {
     margin: var(--_login-gap) var(--_login-padding) 0;
+    padding: 0.75rem 1rem;
     line-height: 1.5;
 }
 

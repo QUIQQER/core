@@ -11,6 +11,7 @@ use QUI\Control;
 
 use function count;
 use function forward_static_call;
+use function htmlspecialchars;
 use function in_array;
 use function is_null;
 use function usort;
@@ -99,12 +100,17 @@ class Login extends Control
 
     public function getBody(): string
     {
-        if (QUI::getUsers()->isAuth(QUI::getUserBySession())) {
+        $SessionUser = QUI::getUserBySession();
+        $isNobody = $SessionUser instanceof QUI\Users\Nobody
+            && !QUI::getUsers()->isSystemUser($SessionUser);
+
+        if (!$isNobody && QUI::getUsers()->isAuth($SessionUser)) {
+            $username = htmlspecialchars($SessionUser->getName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
             $message = QUI::getLocale()->get(
                 'quiqqer/core',
                 'controls.users.auth.quiqqerLogin.already.logged.in',
                 [
-                    'username' => QUI::getUserBySession()->getName()
+                    'username' => $username
                 ]
             );
 
