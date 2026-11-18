@@ -168,7 +168,8 @@ define('controls/users/LoginWindow', [
 
             if (this.getAttribute('message')) {
                 const Message = element('p', 'login-message');
-                Message.className = 'quiqqer-loginWindow-message';
+                Message.className = 'quiqqer-loginWindow-message message-attention';
+                Message.setAttribute('role', 'status');
                 Message.textContent = new DOMParser().parseFromString(
                     String(this.getAttribute('message')),
                     'text/html'

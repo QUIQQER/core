@@ -379,6 +379,12 @@
         <locale name="projects.project.site.childrensort.save">
             <pt><![CDATA[Guardar ordenação]]></pt>
         </locale>
+        <locale name="projects.project.site.input.site" context="administration">
+            <pt><![CDATA[Selecionar uma página]]></pt>
+        </locale>
+        <locale name="projects.project.site.input.media" context="administration">
+            <pt><![CDATA[Selecionar um ficheiro da biblioteca multimédia]]></pt>
+        </locale>
         <locale name="projects.project.site.input.clear">
             <pt><![CDATA[Limpar campo]]></pt>
         </locale>

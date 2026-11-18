@@ -35,6 +35,7 @@ if (
 use QUI\System\Log;
 use QUI\Utils\Security\Orthos;
 use QUI\Utils\System\Debug;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -311,6 +312,19 @@ try {
     $Response->send();
 
     QUI::getEvents()->fireEvent('responseSent', [$Response]);
+} catch (SuspiciousOperationException $Exception) {
+    Log::addInfo('Invalid HTTP request rejected.', [
+        'reason' => $Exception->getMessage()
+    ]);
+
+    if (!headers_sent()) {
+        http_response_code(Response::HTTP_BAD_REQUEST);
+        header('Content-Type: text/html; charset=UTF-8');
+    }
+
+    echo file_get_contents(
+        dirname(__FILE__) . '/src/templates/error.html'
+    );
 } catch (Throwable $Exception) {
     // API handlers run during rewrite. Keep their PHP errors in the global handler.
     if (!$isPageRequest && !($Exception instanceof Exception)) {

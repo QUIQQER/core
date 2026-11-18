@@ -596,6 +596,9 @@ define('utils/Controls', [
 
         /**
          * Search all input[class="project-site"] and convert it to a control
+         * site/Input also supports free URLs (data-qui-options-external="1")
+         * and media files (data-qui-options-media="1"). Options are read by create().
+         * See the Core wiki dev_input_types, "Linkeingabe".
          *
          * @param {HTMLElement} Elm - parent node, this element in which is searched for
          * @return Promise
