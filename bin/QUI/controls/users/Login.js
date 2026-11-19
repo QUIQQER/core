@@ -716,6 +716,8 @@ define('controls/users/Login', [
                             });
 
                             this.$buildAuthenticator(responseData.control).then(() => {
+                                this.fireEvent('authNext', [this]);
+                                QUI.fireEvent('quiqqerUserAuthNext', [this]);
                                 resolve(responseData);
                             });
                         }
