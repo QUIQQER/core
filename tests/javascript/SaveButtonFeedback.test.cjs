@@ -283,3 +283,128 @@ test('group model retains its successful save callback and refresh event', async
     assert.equal(saved, f.model);
     assert.deepEqual(f.events, ['refresh']);
 });
+
+function sitePanelFixture() {
+    const f = fixture();
+    const validation = deferred();
+    const request = deferred();
+    const reload = deferred();
+    const calls = [];
+    const errors = [];
+    const form = {};
+    const attributes = {title: 'Home'};
+    const category = {};
+    let definition;
+    const dependencies = {
+        'utils/SaveButtonFeedback': f.saveFeedback,
+        'qui/utils/Form': {setDataToForm: (data, target) => calls.push(['form', data, target])}
+    };
+    vm.runInNewContext(readFileSync(resolve(__dirname,
+        '../../bin/QUI/controls/projects/project/site/Panel.js'), 'utf8'), {
+        Class: function(value) { return value; },
+        console: {error: error => errors.push(error)},
+        define: (name, names, factory) => {
+            definition = factory(...names.map(name => dependencies[name] || {}));
+        }
+    });
+    const model = {
+        save(callback, token) { calls.push(['save', callback, token]); return request.promise; },
+        getAttributes: () => attributes
+    };
+    let deleted = false;
+    const panel = {
+        ...definition,
+        $savePromise: null,
+        $ownsEditingLock: true,
+        $lockDestroyed: false,
+        $lockToken: 'editing-lock-token',
+        $isDeleted: () => deleted,
+        getButtons: name => { assert.equal(name, 'save'); return f.Button; },
+        getSite: () => model,
+        getActiveCategory: () => category,
+        $onCategoryLeave(active) { assert.equal(active, category); return validation.promise; },
+        $Container: {getElement: () => form},
+        load() { calls.push(['reload']); return reload.promise; },
+        $refreshEditingLock: () => calls.push(['refresh-lock']),
+        Loader: {hide: () => calls.push(['hide'])}
+    };
+    return {...f, panel, validation, request, reload, calls, errors, form, attributes,
+        deleteSite: () => { deleted = true; }};
+}
+
+test('site save waits for category validation, model saving and reload while preserving its editing token', async () => {
+    const f = sitePanelFixture();
+    const pending = f.panel.save();
+    assert.equal(f.panel.save(), pending);
+    assert.equal(f.options.textimage, 'fa fa-circle-o-notch fa-spin');
+    await Promise.resolve();
+    assert.deepEqual(f.calls, []);
+    f.validation.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+    assert.deepEqual(f.calls, [['save', null, 'editing-lock-token']]);
+    f.request.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+    assert.deepEqual(f.calls, [['save', null, 'editing-lock-token'],
+        ['form', f.attributes, f.form], ['reload']]);
+    assert.equal(f.options.textimage, 'fa fa-circle-o-notch fa-spin');
+    f.reload.resolve('reloaded');
+    assert.equal(await pending, 'reloaded');
+    assert.equal(f.options.textimage, 'fa fa-check');
+    assert.equal(f.element.disabled, false);
+    assert.equal(f.panel.$savePromise, null);
+    f.tick(2500);
+    assert.equal(f.options.textimage, 'fa fa-floppy-o');
+});
+
+for (const stage of ['validation', 'request', 'reload']) {
+    test('site ' + stage + ' failure displays feedback and retains lock recovery', async () => {
+        const f = sitePanelFixture();
+        const failure = new Error(stage + ' failed');
+        const pending = f.panel.save();
+        f.validation.resolve();
+        if (stage === 'validation') {
+            // A synchronous category failure must use the same feedback path.
+            f.panel.$onCategoryLeave = () => { throw failure; };
+        } else {
+            await Promise.resolve();
+            await Promise.resolve();
+            if (stage === 'request') f.request.reject(failure);
+            else { f.request.resolve(); f.reload.reject(failure); }
+        }
+        assert.equal(await pending, undefined);
+        assert.equal(f.options.textimage, 'fa fa-bolt');
+        assert.deepEqual(f.errors, [failure]);
+        assert.deepEqual(f.calls.slice(-2), [['refresh-lock'], ['hide']]);
+        assert.equal(f.panel.$savePromise, null);
+        if (stage === 'validation') assert.ok(!f.calls.some(call => call[0] === 'save'));
+    });
+}
+
+test('deleted or locked sites do not start saving or display save feedback', async () => {
+    for (const blocked of ['deleted', 'locked']) {
+        const f = sitePanelFixture();
+        if (blocked === 'deleted') f.deleteSite();
+        else f.panel.$ownsEditingLock = false;
+        await f.panel.save();
+        assert.deepEqual(f.calls, []);
+        assert.equal(f.options.textimage, 'fa fa-floppy-o');
+        assert.equal(f.timers.size, 0);
+    }
+});
+
+test('a site save cannot re-enable editing after lock loss, deletion or panel destruction', async () => {
+    for (const lost of ['lock', 'deleted', 'destroyed']) {
+        const f = sitePanelFixture();
+        const pending = f.panel.save();
+        f.validation.resolve();
+        f.request.resolve();
+        f.reload.resolve();
+        if (lost === 'lock') f.panel.$ownsEditingLock = false;
+        if (lost === 'deleted') f.deleteSite();
+        if (lost === 'destroyed') f.panel.$lockDestroyed = true;
+        await pending;
+        assert.equal(f.element.disabled, true);
+    }
+});

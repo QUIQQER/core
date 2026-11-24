@@ -20,6 +20,7 @@ define('controls/projects/project/site/Panel', [
     'Locale',
     'Users',
     'Mustache',
+    'utils/SaveButtonFeedback',
 
     'text!controls/projects/project/site/Panel.restore.html',
     'css!controls/projects/project/site/Panel.css'
@@ -41,7 +42,8 @@ define('controls/projects/project/site/Panel', [
           Locale          = arguments[11],
           Users           = arguments[12],
           Mustache        = arguments[13],
-          templateRestore = arguments[14];
+          SaveButtonFeedback = arguments[14],
+          templateRestore = arguments[15];
 
     const lg = 'quiqqer/core';
 
@@ -117,6 +119,7 @@ define('controls/projects/project/site/Panel', [
 
         initialize: function (Site, options) {
             this.$built = false;
+            this.$savePromise = null;
             this.$lockToken = Array.from(crypto.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2, '0')).join('');
             this.$ownsEditingLock = false;
             this.$lockDestroyed = false;
@@ -515,6 +518,7 @@ define('controls/projects/project/site/Panel', [
 
                     if (Save) {
                         Save.getElm().addClass('qui-site-button-save');
+                        Save.getElm().classList.add('quiqqer-save-feedback-button');
                     }
 
 
@@ -869,31 +873,43 @@ define('controls/projects/project/site/Panel', [
          * @method controls/projects/project/site/Panel#openPermissions
          */
         save: function () {
+            if (this.$savePromise) {
+                return this.$savePromise;
+            }
+
             if (this.$isDeleted() || !this.$ownsEditingLock) {
                 return Promise.resolve();
             }
 
             const self = this;
 
-            return this.$onCategoryLeave(this.getActiveCategory()).then(function () {
-                return self.getSite().save(null, self.$lockToken);
-            }).then(function () {
-                // refresh data
-                const Form = self.$Container.getElement('form');
+            this.$savePromise = SaveButtonFeedback(this.getButtons('save'), () => {
+                return this.$onCategoryLeave(this.getActiveCategory()).then(function () {
+                    return self.getSite().save(null, self.$lockToken);
+                }).then(function () {
+                    // refresh data
+                    const Form = self.$Container.getElement('form');
 
-                if (Form) {
-                    QUIFormUtils.setDataToForm(
-                        self.getSite().getAttributes(),
-                        Form
-                    );
-                }
+                    if (Form) {
+                        QUIFormUtils.setDataToForm(
+                            self.getSite().getAttributes(),
+                            Form
+                        );
+                    }
 
-                return self.load();
+                    return self.load();
+                });
+            }, {
+                canEnable: () => this.$ownsEditingLock && !this.$lockDestroyed && !this.$isDeleted()
             }).catch(function (err) {
                 console.error(err);
                 self.$refreshEditingLock();
                 self.Loader.hide();
+            }).finally(() => {
+                this.$savePromise = null;
             });
+
+            return this.$savePromise;
         },
 
         /**
