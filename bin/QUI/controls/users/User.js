@@ -10,7 +10,6 @@ define('controls/users/User', [
     'qui/controls/desktop/Panel',
 
     'qui/controls/buttons/Button',
-    'qui/controls/buttons/ButtonSwitch',
 
     'qui/controls/windows/Confirm',
     'controls/grid/Grid',
@@ -26,7 +25,7 @@ define('controls/users/User', [
     'css!controls/users/User.css',
     'css!controls/desktop/panels/XML.css'
 
-], function (QUI, QUIPanel, QUIButton, QUIButtonSwitch, QUIConfirm, Grid,
+], function (QUI, QUIPanel, QUIButton, QUIConfirm, Grid,
              FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors, EntityPanelButtons, SaveButtonFeedback
 ) {
     'use strict';
@@ -174,16 +173,15 @@ define('controls/users/User', [
                 type: 'separator'
             });
 
-            const StatusButton = new QUIButtonSwitch({
+            const StatusButton = new QUIButton({
                 name: 'status',
                 text: QUILocale.get('quiqqer/core', 'isActivate'),
-                status: true,
                 disabled: true,
                 events: {
-                    onChange: this.$onStatusButtonChange
+                    onClick: this.$onStatusButtonChange
                 }
             });
-            EntityPanelButtons.decorateStatus(StatusButton, 'user');
+            EntityPanelButtons.setStatus(StatusButton, 'user', true);
             this.addButton(StatusButton);
 
             const ExtrasBtn = EntityPanelButtons.createActions(this);
@@ -273,21 +271,14 @@ define('controls/users/User', [
                     }
 
                     if (User.isActive() === -1) {
-                        Status.setSilentOff();
-                        Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
+                        EntityPanelButtons.setStatus(Status, 'user', false);
                         Status.disable();
                         return;
                     }
 
                     Status.enable();
 
-                    if (!User.isActive()) {
-                        Status.off();
-                        Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-                    } else {
-                        Status.on();
-                        Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                    }
+                    EntityPanelButtons.setStatus(Status, 'user', Boolean(User.isActive()));
                 });
 
                 require(['Permissions'], function (Permissions) {
@@ -825,8 +816,7 @@ define('controls/users/User', [
                 Status = this.getButtons('status');
 
             if (this.getUser().isActive() === -1) {
-                Status.enable();
-                Status.setSilentOff();
+                EntityPanelButtons.setStatus(Status, 'user', false);
                 Status.disable();
 
                 this.setAttribute('icon', 'fa fa-user');
@@ -842,13 +832,7 @@ define('controls/users/User', [
                 return;
             }
 
-            if (this.getUser().isActive()) {
-                Status.setSilentOn();
-                Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-            } else {
-                Status.setSilentOff();
-                Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-            }
+            EntityPanelButtons.setStatus(Status, 'user', Boolean(this.getUser().isActive()));
 
             this.setAttribute('icon', 'fa fa-user');
             this.refresh();
@@ -863,62 +847,31 @@ define('controls/users/User', [
         },
 
         /**
-         * event: of button status on / off changes
-         *
-         * @param {Object} Button - qui/controls/buttons/ButtonSwitch
+         * Toggle activation after a click, keeping the current status until confirmed.
          */
         $onStatusButtonChange: function (Button) {
-            const buttonStatus = Button.getStatus(),
-                User = this.getUser(),
-                userStatus = User.isActive();
+            const User = this.getUser();
 
-            if (buttonStatus === userStatus || userStatus === -1) {
-                return;
+            if (Button.isDisabled() || User.isActive() === -1) {
+                return Promise.resolve();
             }
 
+            Button.disable();
             this.Loader.show();
 
-            let Prom;
+            return Promise.resolve().then(() => {
+                return User.isActive() ? this.userDeactivation() : User.activate();
+            }).catch(() => {
+                // Cancellation and failed requests retain the current model status.
+            }).finally(() => {
+                EntityPanelButtons.setStatus(Button, 'user', User.isActive() > 0);
 
-            if (buttonStatus) {
-                Prom = User.activate();
-            } else {
-                Prom = this.userDeactivation();
-            }
-
-            Prom.then(function () {
-                if (User.isActive() === -1) {
-                    Button.disable();
-                    this.Loader.hide();
-                    return;
-                }
-
-                if (User.isActive()) {
-                    Button.on();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                } else {
-                    Button.off();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
+                if (User.isActive() !== -1) {
+                    Button.enable();
                 }
 
                 this.Loader.hide();
-            }.bind(this)).catch(function () {
-                if (User.isActive() === -1) {
-                    Button.disable();
-                    this.Loader.hide();
-                    return;
-                }
-
-                if (User.isActive()) {
-                    Button.setSilentOn();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                } else {
-                    Button.setSilentOff();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-                }
-
-                this.Loader.hide();
-            }.bind(this));
+            });
         },
 
         /**

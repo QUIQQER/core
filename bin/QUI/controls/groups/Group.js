@@ -5,7 +5,6 @@ define('controls/groups/Group', [
 
     'qui/QUI',
     'qui/controls/desktop/Panel',
-    'qui/controls/buttons/ButtonSwitch',
     'qui/controls/buttons/Button',
     'controls/grid/Grid',
     'Groups',
@@ -17,7 +16,7 @@ define('controls/groups/Group', [
     'utils/EntityPanelButtons',
     'utils/SaveButtonFeedback'
 
-], function(QUI, QUIPanel, QUIButtonSwitch, QUIButton,
+], function(QUI, QUIPanel, QUIButton,
     Grid, Groups, Ajax, Editors, QUILocale, FormUtils, ControlUtils, EntityPanelButtons, SaveButtonFeedback
 ) {
     'use strict';
@@ -236,11 +235,7 @@ define('controls/groups/Group', [
                     (function() {
                         self.getButtons('status').enable();
 
-                        if (Group.isActive()) {
-                            self.getButtons('status').on();
-                        } else {
-                            self.getButtons('status').off();
-                        }
+                        EntityPanelButtons.setStatus(self.getButtons('status'), 'group', Boolean(Group.isActive()));
                     }).delay(400);
 
                     self.$onGroupRefresh();
@@ -323,13 +318,7 @@ define('controls/groups/Group', [
             const Bar = this.getCategoryBar(),
                 Status = this.getButtons('status');
 
-            if (this.getGroup().isActive()) {
-                Status.on();
-                Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-            } else {
-                Status.off();
-                Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-            }
+            EntityPanelButtons.setStatus(Status, 'group', Boolean(this.getGroup().isActive()));
 
             if (Bar.getActive()) {
                 this.$onCategoryLoad(Bar.getActive());
@@ -377,52 +366,33 @@ define('controls/groups/Group', [
 
                 let Status = this.getButtons('status');
 
-                if (Group.isActive()) {
-                    Status.setSilentOn();
-                    Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                } else {
-                    Status.setSilentOff();
-                    Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-                }
+                EntityPanelButtons.setStatus(Status, 'group', Boolean(Group.isActive()));
 
                 return;
             }
         },
 
         /**
-         * event :Status Button change
-         * @param {Object} Button
+         * Toggle activation after a click, keeping the current status until confirmed.
          */
         $onStatusButtonChange: function(Button) {
-            const buttonStatus = Button.getStatus(),
-                Group = this.getGroup(),
-                groupStatus = Group.isActive();
-
-            if (buttonStatus == groupStatus) {
-                return;
+            if (Button.isDisabled()) {
+                return Promise.resolve();
             }
 
+            const Group = this.getGroup();
+            Button.disable();
             this.Loader.show();
 
-            let Prom;
-
-            if (buttonStatus) {
-                Prom = Group.activate();
-            } else {
-                Prom = Group.deactivate();
-            }
-
-            Prom.then(function() {
-                if (Group.isActive()) {
-                    Button.on();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                } else {
-                    Button.off();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-                }
-
+            return Promise.resolve().then(() => {
+                return Group.isActive() ? Group.deactivate() : Group.activate();
+            }).catch(() => {
+                // Failed requests retain the current model status.
+            }).finally(() => {
+                EntityPanelButtons.setStatus(Button, 'group', Boolean(Group.isActive()));
+                Button.enable();
                 this.Loader.hide();
-            }.bind(this));
+            });
         },
 
         /**
@@ -447,15 +417,15 @@ define('controls/groups/Group', [
                 type: 'separator'
             });
 
-            const StatusButton = new QUIButtonSwitch({
+            const StatusButton = new QUIButton({
                 name: 'status',
                 text: QUILocale.get('quiqqer/core', 'isActivate'),
                 disabled: true,
                 events: {
-                    onChange: this.$onStatusButtonChange
+                    onClick: this.$onStatusButtonChange
                 }
             });
-            EntityPanelButtons.decorateStatus(StatusButton, 'group');
+            EntityPanelButtons.setStatus(StatusButton, 'group', true);
             this.addButton(StatusButton);
 
             ExtrasBtn.appendChild({

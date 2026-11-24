@@ -21,6 +21,7 @@ define('controls/projects/project/site/Panel', [
     'Users',
     'Mustache',
     'utils/SaveButtonFeedback',
+    'utils/EntityPanelButtons',
 
     'text!controls/projects/project/site/Panel.restore.html',
     'css!controls/projects/project/site/Panel.css'
@@ -43,7 +44,8 @@ define('controls/projects/project/site/Panel', [
           Users           = arguments[12],
           Mustache        = arguments[13],
           SaveButtonFeedback = arguments[14],
-          templateRestore = arguments[15];
+          EntityPanelButtons = arguments[15],
+          templateRestore = arguments[16];
 
     const lg = 'quiqqer/core';
 
@@ -318,6 +320,15 @@ define('controls/projects/project/site/Panel', [
         load: function () {
             this.refresh();
 
+            const Site = this.getSite();
+            const Status = this.getButtons('status');
+
+            if (Status && Site.isLoaded()) {
+                const active = Number(Site.getAttribute('active')) === 1;
+                Status.setAttribute('_onclick', active ? 'Panel.deactivate' : 'Panel.activate');
+                EntityPanelButtons.setStatus(Status, 'site', active);
+            }
+
             if (this.$isDeleted()) {
                 return this.$showDeletedState();
             }
@@ -512,6 +523,14 @@ define('controls/projects/project/site/Panel', [
                         }
 
                         self.addButton(data);
+                    }
+
+                    const Status = self.getButtons('status');
+
+                    if (Status) {
+                        // Toolbar metadata is loaded before the site model.
+                        const active = Status.getAttribute('_onclick') === 'Panel.deactivate';
+                        EntityPanelButtons.setStatus(Status, 'site', active);
                     }
 
                     const Save = self.getButtonBar().getChildren('save');
@@ -2229,11 +2248,8 @@ define('controls/projects/project/site/Panel', [
                 return;
             }
 
-            Status.setAttributes({
-                'textimage': Status.getAttribute('dimage'),
-                'text'     : Status.getAttribute('dtext'),
-                '_onclick' : 'Panel.deactivate'
-            });
+            Status.setAttribute('_onclick', 'Panel.deactivate');
+            EntityPanelButtons.setStatus(Status, 'site', true);
 
             this.Loader.hide();
         },
@@ -2257,11 +2273,8 @@ define('controls/projects/project/site/Panel', [
                 this.getContent().getElement('[name="release_from"]').value = '';
             }
 
-            Status.setAttributes({
-                'textimage': Status.getAttribute('aimage'),
-                'text'     : Status.getAttribute('atext'),
-                '_onclick' : 'Panel.activate'
-            });
+            Status.setAttribute('_onclick', 'Panel.activate');
+            EntityPanelButtons.setStatus(Status, 'site', false);
 
             this.Loader.hide();
         },

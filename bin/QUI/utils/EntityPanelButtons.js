@@ -1,5 +1,5 @@
 /**
- * Shared action and status buttons for user and group detail panels.
+ * Shared action and status buttons for backend detail panels.
  */
 define('utils/EntityPanelButtons', [
     'Locale',
@@ -63,27 +63,23 @@ define('utils/EntityPanelButtons', [
             return Button;
         },
 
-        decorateStatus: function (Status, entity) {
+        setStatus: function (Status, entity, active) {
             const element = Status.getElm();
-            element.type = 'button';
-            element.classList.add('quiqqer-entity-status-button');
-            const switchElement = Status.$Switch.getElm();
-            switchElement.setAttribute('aria-hidden', 'true');
+            const text = QUILocale.get(lg, active ? 'isActivate' : 'isDeactivate');
+            const action = QUILocale.get(lg, 'panel.' + entity + (active ? '.deactivate' : '.activate'));
 
-            const refresh = () => {
-                const active = Boolean(Status.getStatus());
-                const key = 'panel.' + entity + (active ? '.deactivate' : '.activate');
-                const action = QUILocale.get(lg, key);
-                element.setAttribute('title', action);
-                element.setAttribute('aria-label', action);
-                element.setAttribute('aria-pressed', String(active));
-            };
-            const Observer = new MutationObserver(refresh);
-            Observer.observe(switchElement, {attributes: true, attributeFilter: ['data-status']});
-            Status.addEvent('inject', refresh);
-            Status.addEvent('change', refresh);
-            Status.addEvent('destroy', () => Observer.disconnect());
-            refresh();
+            Status.setAttributes({
+                text: text,
+                textimage: active ? 'fa fa-check' : 'fa fa-times',
+                title: action
+            });
+            element.type = 'button';
+            element.tabIndex = 0;
+            element.style.removeProperty('outline');
+            element.classList.add('quiqqer-entity-status-button');
+            element.setAttribute('aria-label', text + '. ' + action);
+            element.setAttribute('aria-pressed', String(Boolean(active)));
+            element.firstElementChild.setAttribute('aria-hidden', 'true');
         }
     };
 });

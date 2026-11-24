@@ -23,7 +23,6 @@ class Events {
 }
 
 function fixture() {
-    const observers = [];
     const toolbar = new Element('div');
     const toolbarAttributes = {};
     class Button extends Events {
@@ -47,19 +46,19 @@ function fixture() {
         'panel.user.activate': 'Benutzer aktivieren',
         'panel.user.deactivate': 'Benutzer deaktivieren',
         'panel.group.activate': 'Gruppe aktivieren',
-        'panel.group.deactivate': 'Gruppe deaktivieren'
+        'panel.group.deactivate': 'Gruppe deaktivieren',
+        'panel.site.activate': 'Seite aktivieren',
+        'panel.site.deactivate': 'Seite deaktivieren',
+        isActivate: 'Ist aktiviert',
+        isDeactivate: 'Ist deaktiviert'
     };
     let buttons;
     vm.runInNewContext(readFileSync(resolve(__dirname, '../../bin/QUI/utils/EntityPanelButtons.js'), 'utf8'), {
         define: (name, dependencies, factory) => { buttons = factory({get: (group, key) => translations[key]}, Button); },
-        MutationObserver: class {
-            constructor(callback) { this.callback = callback; observers.push(this); }
-            observe(target, options) { this.target = target; this.options = options; }
-            disconnect() { this.disconnected = true; }
-        }
+
     });
     const panel = {getButtonBar: () => ({setAttribute: (key, value) => { toolbarAttributes[key] = value; }})};
-    return {buttons, panel, toolbar, toolbarAttributes, observers};
+    return {buttons, panel, toolbar, toolbarAttributes};
 }
 
 test('actions use a translated native button and standard right-aligned menu', () => {
@@ -102,37 +101,37 @@ test('actions expose disabled menu entries and Escape closes the menu and restor
 
 for (const [entity, activate, deactivate] of [
     ['user', 'Benutzer aktivieren', 'Benutzer deaktivieren'],
-    ['group', 'Gruppe aktivieren', 'Gruppe deaktivieren']
+    ['group', 'Gruppe aktivieren', 'Gruppe deaktivieren'],
+    ['site', 'Seite aktivieren', 'Seite deaktivieren']
 ]) {
-    test(entity + ' status keeps its visible text and only changes the action tooltip', () => {
-        const {buttons, observers} = fixture();
+    test(entity + ' status shows its current state and describes the opposite action in the tooltip', () => {
+        const {buttons} = fixture();
         const element = new Element('button');
-        element.textContent = 'Ist aktiviert';
-        const switchElement = new Element('div');
-        let active = true;
-        const Status = Object.assign(new Events(), {
+        const icon = new Element('span');
+        element.appendChild(icon);
+        element.firstElementChild = icon;
+        let attributes = {};
+        const Status = {
             getElm: () => element,
-            getStatus: () => active,
-            $Switch: {getElm: () => switchElement}
-        });
-        buttons.decorateStatus(Status, entity);
-        assert.equal(element.textContent, 'Ist aktiviert');
-        assert.equal(element.getAttribute('title'), deactivate);
+            setAttributes: value => { attributes = value; element.textContent = value.text; }
+        };
+        buttons.setStatus(Status, entity, true);
+        assert.equal(attributes.text, 'Ist aktiviert');
+        assert.equal(attributes.textimage, 'fa fa-check');
+        assert.equal(attributes.title, deactivate);
         assert.equal(element.getAttribute('aria-pressed'), 'true');
-        assert.equal(switchElement.getAttribute('aria-hidden'), 'true');
+        assert.equal(element.getAttribute('aria-label'), 'Ist aktiviert. ' + deactivate);
+        assert.equal(icon.getAttribute('aria-hidden'), 'true');
+        assert.equal(element.tabIndex, 0);
+        assert.equal(element.type, 'button');
         element.emit('mouseenter');
         assert.equal(element.textContent, 'Ist aktiviert');
-        active = false;
-        observers[0].callback();
-        assert.equal(element.textContent, 'Ist aktiviert', 'model callbacks retain ownership of the visible status text');
-        assert.equal(element.getAttribute('title'), activate);
-        assert.equal(element.getAttribute('aria-label'), activate);
+        buttons.setStatus(Status, entity, false);
+        assert.equal(attributes.text, 'Ist deaktiviert');
+        assert.equal(attributes.textimage, 'fa fa-times');
+        assert.equal(attributes.title, activate);
         assert.equal(element.getAttribute('aria-pressed'), 'false');
-        active = true;
-        Status.fire('change');
-        assert.equal(element.getAttribute('title'), deactivate);
-        Status.fire('destroy');
-        assert.equal(observers[0].disconnected, true);
+        assert.equal(element.getAttribute('aria-label'), 'Ist deaktiviert. ' + activate);
     });
 }
 
@@ -149,13 +148,12 @@ for (const entity of ['user', 'group']) {
         }
         const modules = {
             'qui/controls/buttons/Button': Control,
-            'qui/controls/buttons/ButtonSwitch': Control,
             Locale: {get: (group, key) => key},
             Users: {addEvent() {}},
             Ajax: {get() {}},
             'utils/EntityPanelButtons': {
                 createActions: () => actions,
-                decorateStatus: (Status, type) => decorations.push({Status, type})
+                setStatus: (Status, type) => decorations.push({Status, type})
             }
         };
         vm.runInNewContext(readFileSync(resolve(__dirname, '../../bin/QUI/controls/' + entity + 's/' +
@@ -181,6 +179,156 @@ for (const entity of ['user', 'group']) {
         assert.equal(decorations[0].type, entity);
         assert.equal(decorations[0].Status.options.name, 'status');
         assert.equal(decorations[0].Status.options.disabled, true);
+        assert.equal(decorations[0].Status.options.events.onClick, panel.$onStatusButtonChange);
         assert.ok(added.includes(actions));
     });
 }
+
+function activationFixture(entity, initial, failure = false) {
+    let definition;
+    let complete;
+    let active = initial;
+    let disabled = false;
+    const calls = [];
+    const pending = new Promise(resolve => { complete = resolve; });
+    const modules = {'utils/EntityPanelButtons': {
+        setStatus: (Button, type, status) => calls.push(['status', type, status])
+    }};
+    vm.runInNewContext(readFileSync(resolve(__dirname, '../../bin/QUI/controls/' + entity + 's/' +
+        (entity === 'user' ? 'User' : 'Group') + '.js'), 'utf8'), {
+        Class: function(value) { return value; },
+        define: (name, dependencies, factory) => {
+            definition = factory(...dependencies.map(name => modules[name] || {}));
+        }
+    });
+    const change = async value => {
+        calls.push(['change', value]);
+        await pending;
+        if (failure) throw new Error('Request failed or cancelled');
+        active = value;
+    };
+    const model = {isActive: () => active, activate: () => change(1), deactivate: () => change(0)};
+    const Button = {isDisabled: () => disabled, disable: () => { disabled = true; }, enable: () => { disabled = false; }};
+    const panel = {
+        ...definition,
+        getUser: () => model,
+        getGroup: () => model,
+        userDeactivation() { calls.push(['confirm']); return change(0); },
+        Loader: {show: () => calls.push(['show']), hide: () => calls.push(['hide'])}
+    };
+    return {panel, Button, calls, complete, isDisabled: () => disabled, isActive: () => active};
+}
+
+for (const entity of ['user', 'group']) {
+    for (const active of [0, 1]) {
+        test(entity + ' click toggles ' + active + ' only after confirmation and blocks repeated clicks', async () => {
+            const f = activationFixture(entity, active);
+            const pending = f.panel.$onStatusButtonChange(f.Button);
+            assert.equal(f.isDisabled(), true);
+            await f.panel.$onStatusButtonChange(f.Button);
+            assert.equal(f.isActive(), active);
+            assert.deepEqual(f.calls.filter(call => call[0] === 'status'), []);
+            assert.deepEqual(f.calls.filter(call => call[0] === 'change'), [['change', active ? 0 : 1]]);
+            if (entity === 'user' && active) assert.ok(f.calls.some(call => call[0] === 'confirm'));
+            f.complete();
+            await pending;
+            assert.equal(f.isActive(), active ? 0 : 1);
+            assert.equal(f.isDisabled(), false);
+            assert.deepEqual(f.calls.slice(-2), [['status', entity, !active], ['hide']]);
+        });
+    }
+
+    test(entity + ' rejected or cancelled activation keeps the current status and permits retry', async () => {
+        const f = activationFixture(entity, 1, true);
+        const pending = f.panel.$onStatusButtonChange(f.Button);
+        f.complete();
+        await pending;
+        assert.equal(f.isActive(), 1);
+        assert.equal(f.isDisabled(), false);
+        assert.deepEqual(f.calls.slice(-2), [['status', entity, true], ['hide']]);
+    });
+}
+
+test('deleted users cannot be activated', async () => {
+    const f = activationFixture('user', -1);
+    await f.panel.$onStatusButtonChange(f.Button);
+    assert.deepEqual(f.calls, []);
+});
+
+function siteFixture() {
+    let definition;
+    let loaded = false;
+    let active;
+    const updates = [];
+    const attributes = {_onclick: 'Panel.deactivate'};
+    const Status = {
+        getAttribute: name => attributes[name],
+        setAttribute: (name, value) => { attributes[name] = value; }
+    };
+    const modules = {
+        'utils/EntityPanelButtons': {setStatus: (Button, type, status) => updates.push([type, status])},
+        Locale: {get() {}},
+        'qui/QUI': {fireEvent() {}},
+        Ajax: {get: (names, callback) => callback([], [], false)},
+        'qui/controls/buttons/Button': class {hide() {} show() {}}
+    };
+    vm.runInNewContext(readFileSync(resolve(__dirname,
+        '../../bin/QUI/controls/projects/project/site/Panel.js'), 'utf8'), {
+        Class: function(value) { return value; },
+        define: (name, dependencies, factory) => {
+            definition = factory(...dependencies.map(name => modules[name] || {}));
+        }
+    });
+    const model = {
+        isLoaded: () => loaded,
+        getAttribute: () => active,
+        setAttribute() {},
+        getProject: () => ({encode: () => 'example'}),
+        getId: () => 1
+    };
+    const panel = {
+        ...definition,
+        $built: false,
+        $acquireEditingLock: () => Promise.resolve(true),
+        $lockDestroyed: false,
+        $deletedState: false,
+        getSite: () => model,
+        getButtons: () => Status,
+        getButtonBar: () => ({getChildren: () => null}),
+        addButton() {},
+        refresh() {},
+        $isDeleted: () => false,
+        getActiveCategory: () => ({}),
+        $onCategoryEnter: () => Promise.resolve(),
+        $ButtonOpenWebsite: {show() {}, hide() {}},
+        getContent: () => ({getElement: () => null}),
+        Loader: {hide() {}}
+    };
+    return {panel, attributes, updates,
+        setLoaded: value => { loaded = true; active = value; }};
+}
+
+test('site toolbar uses server status while its model is unloaded, then synchronizes on load', async () => {
+    for (const active of [false, true]) {
+        const f = siteFixture();
+        f.attributes._onclick = active ? 'Panel.deactivate' : 'Panel.activate';
+        await f.panel.$buildPanel();
+        assert.deepEqual(f.updates, [['site', active]], 'an unloaded model must not override server status');
+        await f.panel.load();
+        assert.equal(f.updates.length, 1);
+        f.setLoaded(active ? '1' : '0');
+        await f.panel.load();
+        assert.deepEqual(f.updates.at(-1), ['site', active]);
+        assert.equal(f.attributes._onclick, active ? 'Panel.deactivate' : 'Panel.activate');
+    }
+});
+
+test('site activation events keep current status and subsequent action synchronized', () => {
+    const f = siteFixture();
+    f.panel.$onSiteActivate();
+    assert.deepEqual(f.updates.at(-1), ['site', true]);
+    assert.equal(f.attributes._onclick, 'Panel.deactivate');
+    f.panel.$onSiteDeactivate();
+    assert.deepEqual(f.updates.at(-1), ['site', false]);
+    assert.equal(f.attributes._onclick, 'Panel.activate');
+});

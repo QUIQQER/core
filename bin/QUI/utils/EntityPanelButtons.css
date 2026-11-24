@@ -30,8 +30,7 @@
     line-height: 1;
 }
 
-.qui-panel-buttons .quiqqer-entity-actions-button:not(:disabled):hover,
-.qui-panel-buttons .quiqqer-entity-status-button:not(:disabled):hover {
+.qui-panel-buttons .quiqqer-entity-actions-button:not(:disabled):hover {
     background: var(--qui-colors-white);
     border-color: var(--_hover-color);
     color: color-mix(in srgb, var(--_hover-color) 75%, var(--qui-colors-black));
@@ -43,7 +42,7 @@
 }
 
 .qui-panel-buttons .quiqqer-entity-actions-button .qui-button-text,
-.qui-panel-buttons .quiqqer-entity-status-button .qui-button-switch-text {
+.qui-panel-buttons .quiqqer-entity-status-button .qui-button-text {
     float: none;
     margin: 0;
 }
@@ -56,12 +55,38 @@
     line-height: 1;
 }
 
-.qui-panel-buttons .quiqqer-entity-status-button .qui-button-switch-switch {
-    display: flex;
-    align-items: center;
-    float: none;
-    margin: 0;
-    padding: 0;
+.qui-panel-buttons .quiqqer-entity-status-button[aria-pressed="true"] {
+    --_status-color: var(--qui-colors-success-800);
+    --_status-border: var(--qui-colors-success);
+    --_status-hover-background: var(--qui-colors-success-50);
+}
+
+.qui-panel-buttons .quiqqer-entity-status-button[aria-pressed="false"] {
+    --_status-color: var(--qui-colors-danger-800);
+    --_status-border: var(--qui-colors-danger);
+    --_status-hover-background: var(--qui-colors-danger-50);
+}
+
+.qui-panel-buttons .quiqqer-entity-status-button {
+    background: var(--qui-colors-white);
+    border-color: var(--_status-border);
+    color: var(--_status-color);
+}
+
+.qui-panel-buttons .quiqqer-entity-status-button:not(:disabled):hover {
+    background: var(--_status-hover-background);
+    border-color: var(--_status-border);
+    color: var(--_status-color);
+    box-shadow: inset 0 0 0 1px var(--_status-border);
+}
+
+.qui-panel-buttons .quiqqer-entity-status-button:disabled {
+    opacity: 0.65;
+}
+
+.qui-panel-buttons .quiqqer-entity-status-button > .qui-button-text-image {
+    width: 1em;
+    text-align: center;
 }
 
 .qui-panel-buttons .quiqqer-entity-actions-button:focus-visible,

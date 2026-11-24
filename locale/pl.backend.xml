@@ -15,17 +15,23 @@
         <locale name="panel.actions" context="administration">
             <pl><![CDATA[Działania]]></pl>
         </locale>
+        <locale name="panel.site.activate" context="administration">
+            <pl><![CDATA[Kliknij, aby aktywować stronę.]]></pl>
+        </locale>
+        <locale name="panel.site.deactivate" context="administration">
+            <pl><![CDATA[Kliknij, aby dezaktywować stronę.]]></pl>
+        </locale>
         <locale name="panel.user.activate" context="administration">
-            <pl><![CDATA[Aktywuj użytkownika]]></pl>
+            <pl><![CDATA[Kliknij, aby aktywować użytkownika.]]></pl>
         </locale>
         <locale name="panel.user.deactivate" context="administration">
-            <pl><![CDATA[Dezaktywuj użytkownika]]></pl>
+            <pl><![CDATA[Kliknij, aby dezaktywować użytkownika.]]></pl>
         </locale>
         <locale name="panel.group.activate" context="administration">
-            <pl><![CDATA[Aktywuj grupę]]></pl>
+            <pl><![CDATA[Kliknij, aby aktywować grupę.]]></pl>
         </locale>
         <locale name="panel.group.deactivate" context="administration">
-            <pl><![CDATA[Dezaktywuj grupę]]></pl>
+            <pl><![CDATA[Kliknij, aby dezaktywować grupę.]]></pl>
         </locale>
         <locale name="menu.search.title">
             <pl><![CDATA[Wyszukiwanie]]></pl>

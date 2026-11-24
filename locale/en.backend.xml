@@ -15,17 +15,23 @@
         <locale name="panel.actions" context="administration">
             <en><![CDATA[Actions]]></en>
         </locale>
+        <locale name="panel.site.activate" context="administration">
+            <en><![CDATA[Click to activate the page.]]></en>
+        </locale>
+        <locale name="panel.site.deactivate" context="administration">
+            <en><![CDATA[Click to deactivate the page.]]></en>
+        </locale>
         <locale name="panel.user.activate" context="administration">
-            <en><![CDATA[Activate user]]></en>
+            <en><![CDATA[Click to activate the user.]]></en>
         </locale>
         <locale name="panel.user.deactivate" context="administration">
-            <en><![CDATA[Deactivate user]]></en>
+            <en><![CDATA[Click to deactivate the user.]]></en>
         </locale>
         <locale name="panel.group.activate" context="administration">
-            <en><![CDATA[Activate group]]></en>
+            <en><![CDATA[Click to activate the group.]]></en>
         </locale>
         <locale name="panel.group.deactivate" context="administration">
-            <en><![CDATA[Deactivate group]]></en>
+            <en><![CDATA[Click to deactivate the group.]]></en>
         </locale>
         <locale name="menu.search.title">
             <en><![CDATA[Search]]></en>
