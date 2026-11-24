@@ -11,7 +11,6 @@ define('controls/users/User', [
 
     'qui/controls/buttons/Button',
     'qui/controls/buttons/ButtonSwitch',
-    'qui/controls/buttons/ButtonMultiple',
 
     'qui/controls/windows/Confirm',
     'controls/grid/Grid',
@@ -21,12 +20,13 @@ define('controls/users/User', [
     'Ajax',
     'Locale',
     'Editors',
+    'utils/EntityPanelButtons',
 
     'css!controls/users/User.css',
     'css!controls/desktop/panels/XML.css'
 
-], function (QUI, QUIPanel, QUIButton, QUIButtonSwitch, QUIButtonMultiple, QUIConfirm, Grid,
-             FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors
+], function (QUI, QUIPanel, QUIButton, QUIButtonSwitch, QUIConfirm, Grid,
+             FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors, EntityPanelButtons
 ) {
     'use strict';
 
@@ -172,43 +172,19 @@ define('controls/users/User', [
                 type: 'separator'
             });
 
-            this.addButton(
-                new QUIButtonSwitch({
-                    name: 'status',
-                    text: QUILocale.get('quiqqer/core', 'isActivate'),
-                    status: true,
-                    disabled: true,
-                    events: {
-                        onChange: this.$onStatusButtonChange
-                    }
-                })
-            );
-
-            const ExtrasBtn = new QUIButtonMultiple({
-                name: 'extra',
-                textimage: 'fa fa-caret-down',
-                title: QUILocale.get(lg, 'quiqqer.customer.panel.extras.title'),
+            const StatusButton = new QUIButtonSwitch({
+                name: 'status',
+                text: QUILocale.get('quiqqer/core', 'isActivate'),
+                status: true,
+                disabled: true,
                 events: {
-                    onClick: function () {
-                        ExtrasBtn.getMenu().then(function (Menu) {
-                            const pos = ExtrasBtn.getElm().getPosition(),
-                                size = ExtrasBtn.getElm().getSize();
-
-                            Menu.setAttribute('corner', 'topRight');
-
-                            ExtrasBtn.openMenu().then(function () {
-                                Menu.setPosition(
-                                    pos.x - 150,
-                                    pos.y + size.y + 10
-                                );
-                            });
-                        });
-                    }
-                },
-                styles: {
-                    'float': 'right'
+                    onChange: this.$onStatusButtonChange
                 }
             });
+            EntityPanelButtons.decorateStatus(StatusButton, 'user');
+            this.addButton(StatusButton);
+
+            const ExtrasBtn = EntityPanelButtons.createActions(this);
 
             ExtrasBtn.appendChild({
                 name: 'sendMail',
@@ -240,8 +216,6 @@ define('controls/users/User', [
                     onClick: this.$onClickDel
                 }
             });
-
-            ExtrasBtn.getElm().addClass('quiqqer-quiqqer-user-mail-extrasbtn');
 
             this.addButton(ExtrasBtn);
 

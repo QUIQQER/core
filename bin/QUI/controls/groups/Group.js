@@ -7,7 +7,6 @@ define('controls/groups/Group', [
     'qui/controls/desktop/Panel',
     'qui/controls/buttons/ButtonSwitch',
     'qui/controls/buttons/Button',
-    'qui/controls/buttons/ButtonMultiple',
     'controls/grid/Grid',
     'Groups',
     'Ajax',
@@ -15,11 +14,10 @@ define('controls/groups/Group', [
     'Locale',
     'qui/utils/Form',
     'utils/Controls',
+    'utils/EntityPanelButtons'
 
-    'css!controls/groups/Group.css'
-
-], function(QUI, QUIPanel, QUIButtonSwitch, QUIButton, QUIButtonMultiple,
-    Grid, Groups, Ajax, Editors, QUILocale, FormUtils, ControlUtils
+], function(QUI, QUIPanel, QUIButtonSwitch, QUIButton,
+    Grid, Groups, Ajax, Editors, QUILocale, FormUtils, ControlUtils, EntityPanelButtons
 ) {
     'use strict';
 
@@ -421,31 +419,7 @@ define('controls/groups/Group', [
          * @method controls/groups/Group#$drawButtons
          */
         $drawButtons: function() {
-            const ExtrasBtn = new QUIButtonMultiple({
-                name: 'extra',
-                textimage: 'fa fa-caret-down',
-                title: QUILocale.get(lg, 'quiqqer.customer.panel.extras.title'),
-                events: {
-                    onClick: function () {
-                        ExtrasBtn.getMenu().then(function (Menu) {
-                            const pos = ExtrasBtn.getElm().getPosition(),
-                                size = ExtrasBtn.getElm().getSize();
-
-                            Menu.setAttribute('corner', 'topRight');
-
-                            ExtrasBtn.openMenu().then(function () {
-                                Menu.setPosition(
-                                    pos.x - 150,
-                                    pos.y + size.y + 10
-                                );
-                            });
-                        });
-                    }
-                },
-                styles: {
-                    'float': 'right'
-                }
-            });
+            const ExtrasBtn = EntityPanelButtons.createActions(this);
 
             this.addButton({
                 name: 'groupSave',
@@ -460,16 +434,16 @@ define('controls/groups/Group', [
                 type: 'separator'
             });
 
-            this.addButton(
-                new QUIButtonSwitch({
-                    name: 'status',
-                    text: QUILocale.get('quiqqer/core', 'isActivate'),
-                    disabled: true,
-                    events: {
-                        onChange: this.$onStatusButtonChange
-                    }
-                })
-            );
+            const StatusButton = new QUIButtonSwitch({
+                name: 'status',
+                text: QUILocale.get('quiqqer/core', 'isActivate'),
+                disabled: true,
+                events: {
+                    onChange: this.$onStatusButtonChange
+                }
+            });
+            EntityPanelButtons.decorateStatus(StatusButton, 'group');
+            this.addButton(StatusButton);
 
             ExtrasBtn.appendChild({
                 name: 'sendMail',
@@ -491,8 +465,6 @@ define('controls/groups/Group', [
                     onClick: this.del
                 }
             });
-
-            ExtrasBtn.getElm().addClass('quiqqer-quiqqer-group-mail-extrasbtn');
 
             this.addButton(ExtrasBtn);
 

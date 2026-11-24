@@ -3,6 +3,21 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="panel.actions" context="administration">
+            <fr><![CDATA[Actions]]></fr>
+        </locale>
+        <locale name="panel.user.activate" context="administration">
+            <fr><![CDATA[Activer l’utilisateur]]></fr>
+        </locale>
+        <locale name="panel.user.deactivate" context="administration">
+            <fr><![CDATA[Désactiver l’utilisateur]]></fr>
+        </locale>
+        <locale name="panel.group.activate" context="administration">
+            <fr><![CDATA[Activer le groupe]]></fr>
+        </locale>
+        <locale name="panel.group.deactivate" context="administration">
+            <fr><![CDATA[Désactiver le groupe]]></fr>
+        </locale>
         <locale name="menu.search.title">
             <fr><![CDATA[Recherche]]></fr>
         </locale>
