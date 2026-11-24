@@ -134,10 +134,8 @@ define('controls/users/Panel', [
          * Create the search toolbar and its filter popup.
          */
         $createSearchToolbar: function () {
-            this.getButtonBar();
-
-            const searchContainer = document.createElement('div');
-            searchContainer.className = 'quiqqer-users-search-toolbar';
+            const Toolbar = this.getButtonBar();
+            Toolbar.setAttribute('width', '100%');
 
             const searchField = document.createElement('div');
             searchField.className = 'quiqqer-users-search-field';
@@ -158,6 +156,8 @@ define('controls/users/Panel', [
 
             this.addButton(SearchButton);
             const searchButton = SearchButton.getElm();
+            const searchContainer = searchButton.parentElement;
+            searchContainer.classList.add('quiqqer-users-search-toolbar');
             searchButton.setAttribute('data-name', 'user-search-submit');
             searchButton.setAttribute('aria-label', QUILocale.get(lg, 'search'));
             searchButton.setAttribute('tabindex', '0');
@@ -190,7 +190,6 @@ define('controls/users/Panel', [
             chevron.className = 'fa fa-angle-down';
             chevron.setAttribute('aria-hidden', 'true');
             filterButton.appendChild(chevron);
-            searchContainer.appendChild(filterButton);
 
             // filter
             const filter = document.createElement('div');
@@ -205,7 +204,6 @@ define('controls/users/Panel', [
             this.$filterContainer = filter;
             document.body.appendChild(this.$filterContainer);
             this.renderFilter();
-            this.addButton(searchContainer);
 
             const closeFilter = () => {
                 filter.style.display = 'none';
