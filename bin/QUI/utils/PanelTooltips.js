@@ -1,5 +1,6 @@
 /**
  * Fast, text-only tooltips for backend panel header and toolbar buttons.
+ * An optional root includes another toolbar owned by the panel.
  */
 define('utils/PanelTooltips', [
     'Locale',
@@ -199,7 +200,8 @@ define('utils/PanelTooltips', [
         });
     };
 
-    return function (Panel) {
-        [Panel.$Buttons, Panel.$Header].forEach((Root) => attachArea(Panel, Root));
+    return function (Panel, Root) {
+        const areas = Root ? [Root] : [Panel.$Buttons, Panel.$Header];
+        areas.forEach((Area) => attachArea(Panel, Area));
     };
 });

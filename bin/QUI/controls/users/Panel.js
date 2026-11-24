@@ -16,6 +16,8 @@ define('controls/users/Panel', [
     'utils/Controls',
     'Locale',
     'Mustache',
+    'qui/controls/buttons/Button',
+    'utils/PanelTooltips',
 
     'text!controls/users/Panel.userSearch.html',
     'css!controls/users/Panel.css'
@@ -38,7 +40,9 @@ define('controls/users/Panel', [
         ControlUtils = arguments[10],
         QUILocale = arguments[11],
         Mustache = arguments[12],
-        userSearchTemplate = arguments[13];
+        QUIButton = arguments[13],
+        PanelTooltips = arguments[14],
+        userSearchTemplate = arguments[15];
 
     /**
      * @class controls/users/Panel
@@ -88,6 +92,7 @@ define('controls/users/Panel', [
             this.$Grid = null;
             this.$Container = null;
             this.$filterContainer = null;
+            this.$SearchNotice = null;
 
             this.addEvent('onCreate', this.$onCreate);
             this.addEvent('onResize', this.$onResize);
@@ -126,34 +131,73 @@ define('controls/users/Panel', [
         },
 
         /**
-         * create the user panel
+         * Create the search toolbar and its filter popup.
          */
-        $onCreate: function () {
-            this.addButton({}); // placeholder, workaround, button bar will be shown
+        $createSearchToolbar: function () {
+            this.getButtonBar();
 
-            // suche
             const searchContainer = document.createElement('div');
-            searchContainer.style.float = 'right';
-            searchContainer.style.paddingLeft = '10px';
-            searchContainer.style.position = 'relative';
+            searchContainer.className = 'quiqqer-users-search-toolbar';
 
-            searchContainer.innerHTML = `
-                <div style="position: relative; float: left;">
-                    <input name="user-search" type="search" />
-                    <span style="position: absolute; left: 10px; top: 16px;">
-                        <span class="fa fa-search"></span>
-                    </span>
-                </div>
-                <button name="filter" style="cursor: pointer;">
-                    <span class="fa fa-filter"></span>
-                </button>
-            `;
+            const searchField = document.createElement('div');
+            searchField.className = 'quiqqer-users-search-field';
+            searchField.setAttribute('role', 'search');
+            const searchInput = document.createElement('input');
+            searchInput.type = 'search';
+            searchInput.name = 'user-search';
+            searchInput.setAttribute('data-name', 'user-search');
+            searchInput.setAttribute('aria-label', QUILocale.get(lg, 'search'));
+            searchField.appendChild(searchInput);
+
+            const SearchButton = new QUIButton({
+                'class': 'quiqqer-users-search-button',
+                events: {
+                    onClick: () => this.search()
+                }
+            });
+
+            this.addButton(SearchButton);
+            const searchButton = SearchButton.getElm();
+            searchButton.setAttribute('data-name', 'user-search-submit');
+            searchButton.setAttribute('aria-label', QUILocale.get(lg, 'search'));
+            searchButton.setAttribute('tabindex', '0');
+            searchButton.style.outline = '';
+            const searchIcon = document.createElement('span');
+            searchIcon.className = 'fa fa-search';
+            searchIcon.setAttribute('aria-hidden', 'true');
+            searchButton.appendChild(searchIcon);
+            searchField.appendChild(searchButton);
+            searchContainer.appendChild(searchField);
+
+            const FilterButton = new QUIButton({
+                text: QUILocale.get(lg, 'user.panel.search.filter.title').replace(/:\s*$/, ''),
+                'class': 'quiqqer-users-filter-button'
+            });
+
+            this.addButton(FilterButton);
+            const filterButton = FilterButton.getElm();
+            filterButton.setAttribute('data-name', 'user-filter');
+            filterButton.setAttribute('aria-expanded', 'false');
+            filterButton.setAttribute('tabindex', '0');
+            filterButton.style.outline = '';
+
+            const filterIcon = document.createElement('span');
+            filterIcon.className = 'fa fa-filter';
+            filterIcon.setAttribute('aria-hidden', 'true');
+            filterButton.prepend(filterIcon);
+
+            const chevron = document.createElement('span');
+            chevron.className = 'fa fa-angle-down';
+            chevron.setAttribute('aria-hidden', 'true');
+            filterButton.appendChild(chevron);
+            searchContainer.appendChild(filterButton);
 
             // filter
             const filter = document.createElement('div');
+            filter.id = 'user-search-filter-' + this.$uid;
             filter.setAttribute('data-name', 'user-search-filter');
+            filterButton.setAttribute('aria-controls', filter.id);
             filter.style.zIndex = '1000';
-            filter.style.width = '500px';
             filter.style.display = 'none';
             filter.style.overflow = 'auto';
             filter.style.maxHeight = '550px';
@@ -163,13 +207,25 @@ define('controls/users/Panel', [
             this.renderFilter();
             this.addButton(searchContainer);
 
-            const filterButton = searchContainer.querySelector('[name="filter"]');
+            const closeFilter = () => {
+                filter.style.display = 'none';
+                filterButton.setAttribute('aria-expanded', 'false');
+                document.body.removeEventListener('mouseup', handleFilterClickOutside);
+                document.removeEventListener('keydown', handleFilterKeyDown);
+                this.search();
+            };
 
             const handleFilterClickOutside = (e) => {
-                if (!filter.contains(e.target) && e.target !== filterButton) {
-                    filter.style.display = 'none';
-                    document.body.removeEventListener('mouseup', handleFilterClickOutside);
-                    this.search();
+                if (!filter.contains(e.target) && !filterButton.contains(e.target)) {
+                    closeFilter();
+                }
+            };
+
+            const handleFilterKeyDown = (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    closeFilter();
+                    filterButton.focus();
                 }
             };
 
@@ -177,23 +233,27 @@ define('controls/users/Panel', [
                 e.stopPropagation();
                 e.preventDefault();
 
+                if (filterButton.getAttribute('aria-expanded') === 'true') {
+                    closeFilter();
+                    return;
+                }
+
                 const rect = filterButton.getBoundingClientRect();
 
                 filter.style.display = 'flex';
-                filter.style.left = `${parseInt(rect.left) - parseInt(filter.style.width) + 30}px`;
-                filter.style.top = `${parseInt(rect.bottom)}px`;
+                filter.style.left = `${Math.max(8, rect.right - filter.offsetWidth) + window.scrollX}px`;
+                filter.style.top = `${rect.bottom + 8 + window.scrollY}px`;
+                filterButton.setAttribute('aria-expanded', 'true');
 
-                setTimeout(() => {
-                    document.body.addEventListener('mouseup', handleFilterClickOutside);
-                }, 0);
+                document.body.addEventListener('mouseup', handleFilterClickOutside);
+                document.addEventListener('keydown', handleFilterKeyDown);
             });
 
-
-            const searchInput = searchContainer.querySelector('[name="user-search"]');
-            searchInput.style.paddingLeft = '30px';
-            searchInput.style.width = '280px';
-            searchInput.style.marginTop = '9px';
-            searchInput.style.borderRadius = '5px';
+            this.addEvent('onDestroy', () => {
+                document.body.removeEventListener('mouseup', handleFilterClickOutside);
+                document.removeEventListener('keydown', handleFilterKeyDown);
+                filter.remove();
+            });
 
             searchInput.addEventListener('change', () => {
                 this.search();
@@ -204,9 +264,18 @@ define('controls/users/Panel', [
                     this.search();
                 }
             });
+        },
+
+        /**
+         * Create the user panel.
+         */
+        $onCreate: function () {
+            this.$createSearchToolbar();
 
             // create grid
             const Body = this.getBody();
+            Body.classList.add('quiqqer-users-panel-body');
+            const gridSize = this.$getGridSize();
 
             this.$Container = new Element('div');
             this.$Container.inject(Body);
@@ -325,8 +394,8 @@ define('controls/users/Panel', [
                 serverSort: true,
                 showHeader: true,
                 sortHeader: true,
-                width: Body.getSize().x - 40,
-                height: Body.getSize().y - 40,
+                width: gridSize.width,
+                height: gridSize.height,
                 onrefresh: function (me) {
                     const options = me.options;
 
@@ -351,6 +420,10 @@ define('controls/users/Panel', [
                 onClick: this.$gridClick,
                 onDblClick: this.$gridDblClick,
                 onBlur: this.$gridBlur
+            });
+
+            this.$Grid.getButtons().forEach((Button) => {
+                PanelTooltips(this, Button.getElm().parentElement);
             });
 
             // start and list the users
@@ -388,13 +461,12 @@ define('controls/users/Panel', [
          * Opens the users search settings
          */
         search: function () {
-            const searchString = this.getElm().querySelector('[name="user-search"]');
-
-            this.setAttribute('search', true);
+            const searchString = this.getElm().querySelector('[data-name="user-search"]');
 
             const searchSettings = {
                 userSearchString: searchString.value
             };
+            let hasSearch = searchString.value.trim() !== '';
 
             if (this.$filterContainer) {
                 const form = this.$filterContainer.querySelector('form');
@@ -413,8 +485,16 @@ define('controls/users/Panel', [
                     filter_regdate_first: form.elements.filter_regdate_first.value,
                     filter_regdate_last: form.elements.filter_regdate_last.value
                 };
+
+                const filter = searchSettings.filter;
+                hasSearch = hasSearch ||
+                    filter.filter_status !== 'all' ||
+                    filter.filter_group !== '' ||
+                    filter.filter_regdate_first !== '' ||
+                    filter.filter_regdate_last !== '';
             }
 
+            this.setAttribute('search', hasSearch);
             this.setAttribute('searchSettings', searchSettings);
             this.$loadUsers();
         },
@@ -582,6 +662,29 @@ define('controls/users/Panel', [
         },
 
         /**
+         * Measure the available grid area, including wrapped search notices.
+         */
+        $getGridSize: function () {
+            const Body = this.getBody();
+            const style = window.getComputedStyle(Body);
+            const width = Math.max(0, Body.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight));
+            let height = Body.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+
+            if (this.$SearchNotice) {
+                const notice = this.$SearchNotice.getElm();
+                notice.style.width = `${width}px`;
+                const noticeStyle = window.getComputedStyle(notice);
+                height -= notice.getBoundingClientRect().height +
+                    parseFloat(noticeStyle.marginTop) + parseFloat(noticeStyle.marginBottom);
+            }
+
+            return {
+                width: width,
+                height: Math.max(0, height)
+            };
+        },
+
+        /**
          * Resize the users panel
          */
         $onResize: function () {
@@ -595,20 +698,9 @@ define('controls/users/Panel', [
                 return;
             }
 
-            if (this.getAttribute('search')) {
-                this.getGrid().setHeight(Body.getSize().y - 120);
-
-            } else {
-                this.getGrid().setHeight(Body.getSize().y - 40);
-            }
-
-            const Message = Body.getElement('.messages-message');
-
-            if (Message) {
-                Message.setStyle('width', this.getBody().getSize().x - 40);
-            }
-
-            this.getGrid().setWidth(Body.getSize().x - 40);
+            const gridSize = this.$getGridSize();
+            this.getGrid().setHeight(gridSize.height);
+            this.getGrid().setWidth(gridSize.width);
 
 
             // resize switches
@@ -636,8 +728,8 @@ define('controls/users/Panel', [
             this.setAttribute('icon', 'fa fa-spinner fa-spin');
             this.refresh();
 
-            if (this.getAttribute('search') && !this.getBody().getElement('.messages-message')) {
-                let attNode = new Attention({
+            if (this.getAttribute('search') && !this.$SearchNotice) {
+                this.$SearchNotice = new Attention({
                     Users: this,
                     message: QUILocale.get(lg, 'users.panel.search.info'),
                     events: {
@@ -645,25 +737,26 @@ define('controls/users/Panel', [
                             this.setAttribute('search', false);
                             this.setAttribute('searchSettings', {});
 
-                            const searchString = this.getElm().querySelector('[name="user-search"]');
+                            const searchString = this.getElm().querySelector('[data-name="user-search"]');
 
                             if (searchString) {
                                 searchString.value = '';
                             }
 
                             Message.destroy();
+                            this.$SearchNotice = null;
                             this.renderFilter();
                             this.$loadUsers();
                         }
                     },
                     styles: {
-                        margin: '0 0 20px',
+                        margin: '0 0 10px',
                         'border-width': 1,
                         cursor: 'pointer'
                     }
                 }).inject(this.getBody(), 'top');
 
-                attNode = attNode.getElm();
+                const attNode = this.$SearchNotice.getElm();
                 attNode.style.textAlign = 'center';
                 attNode.style.borderRadius = '5px';
 
@@ -672,8 +765,9 @@ define('controls/users/Panel', [
                 }
             }
 
-            if (!this.getAttribute('search') && this.getBody().getElement('.messages-message')) {
-                this.getBody().getElement('.messages-message').destroy();
+            if (!this.getAttribute('search') && this.$SearchNotice) {
+                this.$SearchNotice.destroy();
+                this.$SearchNotice = null;
             }
 
             this.resize();

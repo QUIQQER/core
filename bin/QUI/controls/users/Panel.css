@@ -1,4 +1,98 @@
+.qui-panel-content.quiqqer-users-panel-body {
+    padding: 10px;
+}
+
+.quiqqer-users-search-toolbar {
+    --_hover-color: color-mix(in srgb, var(--qui-colors-primary) 65%, var(--qui-colors-success));
+    --_hover-text: color-mix(in srgb, var(--_hover-color) 75%, var(--qui-colors-black));
+    --_hover-shadow: inset 0 0 0 1px var(--_hover-color), 0 0 7px color-mix(in srgb, var(--_hover-color) 45%, transparent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 50px;
+    width: 100%;
+    padding-inline: 10px;
+}
+
+.quiqqer-users-search-field {
+    display: flex;
+    align-items: center;
+    flex: 1 1 180px;
+    max-width: 310px;
+    min-width: 0;
+    height: 34px;
+    border: 1px solid var(--qui-colors-gray-200);
+    border-radius: 5px;
+    background: var(--qui-colors-primary--accent);
+    overflow: hidden;
+}
+
+.quiqqer-users-search-field input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0 10px;
+    border: 0;
+    background: transparent;
+}
+
+.qui-panel-buttons .quiqqer-users-search-button {
+    flex-shrink: 0;
+    height: 32px;
+    line-height: 32px;
+    border: 0;
+}
+
+.quiqqer-users-search-field:focus-within {
+    outline: 2px solid var(--qui-colors-primary);
+    outline-offset: 1px;
+}
+
+.quiqqer-users-search-field input:focus {
+    box-shadow: none;
+}
+
+.qui-panel-buttons .quiqqer-users-filter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-inline-start: auto;
+    height: 34px;
+    padding: 0 9px;
+    border: 1px solid var(--qui-colors-gray-200);
+    border-radius: 5px;
+    background: var(--qui-colors-primary--accent);
+    color: var(--qui-colors-gray-800);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.qui-panel-buttons .quiqqer-users-filter-button .qui-button-text {
+    margin: 0;
+}
+
+.quiqqer-users-search-field:hover,
+.qui-panel-buttons .quiqqer-users-search-toolbar button:not(:disabled):hover,
+.qui-panel-buttons .quiqqer-users-filter-button[aria-expanded="true"] {
+    background: var(--qui-colors-white);
+    border-color: var(--_hover-color);
+    box-shadow: var(--_hover-shadow);
+    color: var(--_hover-text);
+}
+
+.qui-panel-buttons .quiqqer-users-filter-button:focus-visible,
+.qui-panel-buttons .quiqqer-users-search-button:focus-visible {
+    outline: 2px solid var(--qui-colors-primary);
+    outline-offset: 2px;
+}
+
 [data-name="user-search-filter"] {
+    width: min(500px, calc(100vw - 16px));
     background: #fff;
     position: absolute;
     top: 0;

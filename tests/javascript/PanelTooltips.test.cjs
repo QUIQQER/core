@@ -190,3 +190,26 @@ test('header close buttons use the translated action while panel content stays o
     assert.ok(observers.every(Observer => Observer.disconnected));
     assert.ok([...Header.listeners.values(), ...Root.listeners.values()].every(callbacks => callbacks.size === 0));
 });
+
+test('an explicitly included grid toolbar shares tooltip behavior and panel cleanup', () => {
+    const {Root, Panel, tooltips, observers, callbacks, attach} = fixture();
+    const GridToolbar = new Node('DIV');
+    const Wipe = new Node('BUTTON', '', {title: 'Clear user data'});
+    Wipe.disabled = true;
+    Wipe.parentElement = GridToolbar;
+    GridToolbar.children.push(Wipe);
+    attach(Panel, GridToolbar);
+    attach(Panel, GridToolbar);
+    assert.equal(tooltips.length, 1);
+    assert.equal(observers.length, 1);
+    assert.equal(Root.children[0].getAttribute('title'), 'Speichern');
+    GridToolbar.emit('pointerover', Wipe);
+    assert.equal(tooltips[0].props.content, 'Clear user data');
+    assert.equal(tooltips[0].props.delay, 0);
+    assert.equal(tooltips[0].visible, true);
+    assert.equal(Wipe.getAttribute('title'), null);
+    callbacks.onDestroy();
+    assert.equal(tooltips[0].destroyed, true);
+    assert.equal(observers[0].disconnected, true);
+    assert.equal(Wipe.getAttribute('title'), 'Clear user data');
+});
