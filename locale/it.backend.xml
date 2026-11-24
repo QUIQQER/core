@@ -3,6 +3,15 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="panel.save.pending" context="administration">
+            <it><![CDATA[Salvataggio…]]></it>
+        </locale>
+        <locale name="panel.save.success" context="administration">
+            <it><![CDATA[Salvato]]></it>
+        </locale>
+        <locale name="panel.save.error" context="administration">
+            <it><![CDATA[Salvataggio non riuscito]]></it>
+        </locale>
         <locale name="panel.actions" context="administration">
             <it><![CDATA[Azioni]]></it>
         </locale>

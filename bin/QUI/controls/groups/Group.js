@@ -14,10 +14,11 @@ define('controls/groups/Group', [
     'Locale',
     'qui/utils/Form',
     'utils/Controls',
-    'utils/EntityPanelButtons'
+    'utils/EntityPanelButtons',
+    'utils/SaveButtonFeedback'
 
 ], function(QUI, QUIPanel, QUIButtonSwitch, QUIButton,
-    Grid, Groups, Ajax, Editors, QUILocale, FormUtils, ControlUtils, EntityPanelButtons
+    Grid, Groups, Ajax, Editors, QUILocale, FormUtils, ControlUtils, EntityPanelButtons, SaveButtonFeedback
 ) {
     'use strict';
 
@@ -67,6 +68,7 @@ define('controls/groups/Group', [
             // defaults
             this.$Group = null;
             this.$UserGrid = null;
+            this.$savePromise = null;
 
             if (typeOf(gid) === 'string' || typeOf(gid) === 'number') {
                 this.$Group = Groups.get(gid);
@@ -130,8 +132,18 @@ define('controls/groups/Group', [
          * Save the group
          */
         save: function() {
-            this.$onCategoryUnload();
-            this.getGroup().save();
+            if (this.$savePromise) {
+                return this.$savePromise;
+            }
+
+            this.$savePromise = SaveButtonFeedback(this.getButtons('groupSave'), () => {
+                this.$onCategoryUnload();
+                return this.getGroup().save();
+            }).finally(() => {
+                this.$savePromise = null;
+            });
+
+            return this.$savePromise;
         },
 
         /**
@@ -423,6 +435,7 @@ define('controls/groups/Group', [
 
             this.addButton({
                 name: 'groupSave',
+                'class': 'quiqqer-save-feedback-button',
                 text: QUILocale.get(lg, 'groups.group.btn.save'),
                 textimage: 'fa fa-save',
                 events: {

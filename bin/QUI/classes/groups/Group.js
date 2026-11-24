@@ -156,7 +156,17 @@ define('classes/groups/Group', [
                 rights: '[]'
             });
 
-            return new Promise((resolve) => {
+            const onError = params.onError;
+
+            return new Promise((resolve, reject) => {
+                params.onError = error => {
+                    reject(error);
+
+                    if (typeof onError === 'function') {
+                        onError(error);
+                    }
+                };
+
                 Ajax.post('ajax_groups_save', () => {
                     if (typeof onfinish !== 'undefined') {
                         onfinish(this);

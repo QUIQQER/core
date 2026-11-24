@@ -21,12 +21,13 @@ define('controls/users/User', [
     'Locale',
     'Editors',
     'utils/EntityPanelButtons',
+    'utils/SaveButtonFeedback',
 
     'css!controls/users/User.css',
     'css!controls/desktop/panels/XML.css'
 
 ], function (QUI, QUIPanel, QUIButton, QUIButtonSwitch, QUIConfirm, Grid,
-             FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors, EntityPanelButtons
+             FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors, EntityPanelButtons, SaveButtonFeedback
 ) {
     'use strict';
 
@@ -161,6 +162,7 @@ define('controls/users/User', [
 
             this.addButton({
                 name: 'userSave',
+                'class': 'quiqqer-save-feedback-button',
                 text: QUILocale.get(lg, 'users.user.btn.save'),
                 textimage: 'fa fa-save',
                 events: {
@@ -946,44 +948,25 @@ define('controls/users/User', [
                 return this.$savePromise;
             }
 
-            const Active = this.getActiveCategory(),
-                User = this.getUser(),
-                SaveButton = this.getButtons('userSave');
+            this.$savePromise = SaveButtonFeedback(this.getButtons('userSave'), () => {
+                const Active = this.getActiveCategory();
 
-            if (Active) {
-                this.$onButtonNormal(Active);
-            }
-
-            this.Loader.show();
-
-            if (SaveButton) {
-                SaveButton.disable();
-            }
-
-            let PassWordSave = Promise.resolve();
-
-            if (Active && Active.getAttribute('name') === 'security') {
-                PassWordSave = this.savePassword();
-            }
-
-            this.$savePromise = PassWordSave.then(function () {
-                return User.save();
-            }).then(function () {
-                if (SaveButton) {
-                    SaveButton.enable();
+                if (Active) {
+                    this.$onButtonNormal(Active);
                 }
 
-                this.Loader.hide();
-            }.bind(this)).catch(function (err) {
-                if (SaveButton) {
-                    SaveButton.enable();
+                this.Loader.show();
+                let passwordSave = Promise.resolve();
+
+                if (Active && Active.getAttribute('name') === 'security') {
+                    passwordSave = this.savePassword();
                 }
 
+                return passwordSave.then(() => this.getUser().save());
+            }).finally(() => {
                 this.Loader.hide();
-                throw err;
-            }.bind(this)).finally(function () {
                 this.$savePromise = null;
-            }.bind(this));
+            });
 
             return this.$savePromise;
         },
