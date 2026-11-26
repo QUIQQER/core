@@ -3,10 +3,11 @@ define('controls/usersAndGroups/SelectItem', [
     'qui/QUI',
     'qui/controls/elements/SelectItem',
     'Ajax',
+    'Locale',
     'Groups',
     'Users'
 
-], function(QUI, QUIElementSelectItem, QUIAjax, Groups, Users) {
+], function(QUI, QUIElementSelectItem, QUIAjax, QUILocale, Groups, Users) {
     'use strict';
 
     return new Class({
@@ -20,6 +21,12 @@ define('controls/usersAndGroups/SelectItem', [
 
         initialize: function(options) {
             this.parent(options);
+            this.$destroyed = false;
+            this.$refreshVersion = 0;
+            this.addEvent('onDestroy', () => {
+                this.$destroyed = true;
+                this.$refreshVersion++;
+            });
             this.setAttribute('icon', 'fa fa-group');
         },
 
@@ -29,45 +36,55 @@ define('controls/usersAndGroups/SelectItem', [
          * @returns {Promise}
          */
         refresh: function() {
-            var id = this.getAttribute('id'),
-                Prom = Promise.resolve();
+            if (this.$destroyed) {
+                return Promise.resolve();
+            }
 
-            // group
-            if (id.charAt(0) === 'g') {
-                this.setAttribute('icon', 'fa fa-group');
+            const id = String(this.getAttribute('id'));
+            const version = ++this.$refreshVersion;
+            const isGroup = id.startsWith('g');
+            const Entity = isGroup ? Groups.get(id.substring(1)) : Users.get(id.substring(1));
+            const loaded = Entity.isLoaded() ? Promise.resolve(Entity) : Entity.load();
+            this.setAttribute('icon', isGroup ? 'fa fa-group' : 'fa fa-user');
 
-                var Group = Groups.get(id.substring(1));
-
-                if (!Group.isLoaded()) {
-                    Prom = Group.load();
+            return loaded.then(() => {
+                if (this.$destroyed || version !== this.$refreshVersion) {
+                    return;
                 }
 
-                return Prom.then(function() {
-                    // everyone is not deletable
-                    if (id == 1) {
-                        this.$Destroy.setStyle('display', 'none');
-                    }
+                if (!isGroup && !Entity.getId() && id !== 'u0') {
+                    throw Entity;
+                }
 
-                    this.$Text.set({
-                        html: Group.getName()
-                    });
-                }.bind(this));
-            }
+                if (isGroup && id.substring(1) === '1') {
+                    this.$Destroy.style.display = 'none';
+                }
 
-            // user
-            this.setAttribute('icon', 'fa fa-user');
+                this.$Text.textContent = Entity.getName();
+                this.$Text.removeAttribute('role');
+                this.getElm().removeAttribute('aria-invalid');
+                this.getElm().removeAttribute('title');
+            }).catch((reason) => {
+                if (this.$destroyed || version !== this.$refreshVersion) {
+                    return;
+                }
 
-            var User = Users.get(id.substring(1));
+                let error = reason;
 
-            if (!User.isLoaded()) {
-                Prom = User.load();
-            }
+                if (!isGroup && reason === Entity && !Entity.getId()) {
+                    const userId = id.substring(1);
+                    error = new Error(QUILocale.get('quiqqer/core', 'exception.lib.user.not.found') + ' (' + userId + ')');
+                    error.userId = userId;
+                }
 
-            return Prom.then(function() {
-                this.$Text.set({
-                    html: User.getName()
-                });
-            }.bind(this));
+                const message = error?.message || String(error);
+                this.setAttribute('icon', 'fa fa-exclamation-triangle');
+                this.$Text.textContent = message;
+                this.$Text.setAttribute('role', 'alert');
+                this.getElm().setAttribute('aria-invalid', 'true');
+                this.getElm().title = message;
+                console.error(error);
+            });
         }
     });
 });

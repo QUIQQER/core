@@ -3,6 +3,36 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="panel.save.pending" context="administration">
+            <en><![CDATA[Saving…]]></en>
+        </locale>
+        <locale name="panel.save.success" context="administration">
+            <en><![CDATA[Saved]]></en>
+        </locale>
+        <locale name="panel.save.error" context="administration">
+            <en><![CDATA[Saving failed]]></en>
+        </locale>
+        <locale name="panel.actions" context="administration">
+            <en><![CDATA[Actions]]></en>
+        </locale>
+        <locale name="panel.site.activate" context="administration">
+            <en><![CDATA[Click to activate the page.]]></en>
+        </locale>
+        <locale name="panel.site.deactivate" context="administration">
+            <en><![CDATA[Click to deactivate the page.]]></en>
+        </locale>
+        <locale name="panel.user.activate" context="administration">
+            <en><![CDATA[Click to activate the user.]]></en>
+        </locale>
+        <locale name="panel.user.deactivate" context="administration">
+            <en><![CDATA[Click to deactivate the user.]]></en>
+        </locale>
+        <locale name="panel.group.activate" context="administration">
+            <en><![CDATA[Click to activate the group.]]></en>
+        </locale>
+        <locale name="panel.group.deactivate" context="administration">
+            <en><![CDATA[Click to deactivate the group.]]></en>
+        </locale>
         <locale name="menu.search.title">
             <en><![CDATA[Search]]></en>
         </locale>

@@ -1,0 +1,25 @@
+.quiqqer-save-feedback-button > .qui-button-text-image {
+    width: 1em;
+    text-align: center;
+}
+
+.quiqqer-save-feedback-button[data-save-state="pending"] > .qui-button-text-image {
+    color: var(--qui-colors-primary);
+}
+
+.quiqqer-save-feedback-button[data-save-state="success"] > .qui-button-text-image {
+    color: var(--qui-colors-success);
+}
+
+.quiqqer-save-feedback-button[data-save-state="error"] > .qui-button-text-image {
+    color: var(--qui-colors-danger);
+}
+
+.quiqqer-save-feedback-announcement {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

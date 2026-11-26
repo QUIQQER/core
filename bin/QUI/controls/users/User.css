@@ -14,20 +14,6 @@
     white-space: nowrap;
 }
 
-.quiqqer-quiqqer-user-mail-extrasbtn .qui-button-multiple-dd {
-    display: none !important;
-}
-
-.quiqqer-quiqqer-user-mail-extrasbtn > button {
-    padding: 0 !important;
-    text-align: center;
-    width: 50px;
-}
-
-.quiqqer-quiqqer-user-mail-extrasbtn > button .qui-button-multiple-textimage {
-    float: none;
-}
-
 .quiqqer-user-authenticators {
     --_list-gap: var(--quiqqer-users-authenticators-list-gap, 5px);
     --_gap: var(--quiqqer-users-authenticators-gap, 0.5rem);
