@@ -470,7 +470,7 @@ define('controls/projects/project/media/Panel', [
                 // Upload
                 const Upload = new QUIButton({
                     name: 'upload',
-                    icon: 'fa fa-plus',
+                    icon: 'fa fa-upload',
                     title: Locale.get(lg, 'projects.project.site.media.panel.btn.upload'),
                     events: {
                         onClick: () => self.$MobileUpload?.refresh()
@@ -553,7 +553,6 @@ define('controls/projects/project/media/Panel', [
                     placeholder: Locale.get(lg, 'projects.project.site.media.panel.filter.placeholder'),
                     styles: {
                         'float': 'right',
-                        margin: 10,
                         maxWidth: '100%',
                         width: 200
                     },

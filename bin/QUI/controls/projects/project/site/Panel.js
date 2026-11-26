@@ -20,6 +20,8 @@ define('controls/projects/project/site/Panel', [
     'Locale',
     'Users',
     'Mustache',
+    'utils/SaveButtonFeedback',
+    'utils/EntityPanelButtons',
 
     'text!controls/projects/project/site/Panel.restore.html',
     'css!controls/projects/project/site/Panel.css'
@@ -41,7 +43,9 @@ define('controls/projects/project/site/Panel', [
           Locale          = arguments[11],
           Users           = arguments[12],
           Mustache        = arguments[13],
-          templateRestore = arguments[14];
+          SaveButtonFeedback = arguments[14],
+          EntityPanelButtons = arguments[15],
+          templateRestore = arguments[16];
 
     const lg = 'quiqqer/core';
 
@@ -117,6 +121,7 @@ define('controls/projects/project/site/Panel', [
 
         initialize: function (Site, options) {
             this.$built = false;
+            this.$savePromise = null;
             this.$lockToken = Array.from(crypto.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2, '0')).join('');
             this.$ownsEditingLock = false;
             this.$lockDestroyed = false;
@@ -315,6 +320,15 @@ define('controls/projects/project/site/Panel', [
         load: function () {
             this.refresh();
 
+            const Site = this.getSite();
+            const Status = this.getButtons('status');
+
+            if (Status && Site.isLoaded()) {
+                const active = Number(Site.getAttribute('active')) === 1;
+                Status.setAttribute('_onclick', active ? 'Panel.deactivate' : 'Panel.activate');
+                EntityPanelButtons.setStatus(Status, 'site', active);
+            }
+
             if (this.$isDeleted()) {
                 return this.$showDeletedState();
             }
@@ -511,10 +525,19 @@ define('controls/projects/project/site/Panel', [
                         self.addButton(data);
                     }
 
+                    const Status = self.getButtons('status');
+
+                    if (Status) {
+                        // Toolbar metadata is loaded before the site model.
+                        const active = Status.getAttribute('_onclick') === 'Panel.deactivate';
+                        EntityPanelButtons.setStatus(Status, 'site', active);
+                    }
+
                     const Save = self.getButtonBar().getChildren('save');
 
                     if (Save) {
                         Save.getElm().addClass('qui-site-button-save');
+                        Save.getElm().classList.add('quiqqer-save-feedback-button');
                     }
 
 
@@ -869,31 +892,43 @@ define('controls/projects/project/site/Panel', [
          * @method controls/projects/project/site/Panel#openPermissions
          */
         save: function () {
+            if (this.$savePromise) {
+                return this.$savePromise;
+            }
+
             if (this.$isDeleted() || !this.$ownsEditingLock) {
                 return Promise.resolve();
             }
 
             const self = this;
 
-            return this.$onCategoryLeave(this.getActiveCategory()).then(function () {
-                return self.getSite().save(null, self.$lockToken);
-            }).then(function () {
-                // refresh data
-                const Form = self.$Container.getElement('form');
+            this.$savePromise = SaveButtonFeedback(this.getButtons('save'), () => {
+                return this.$onCategoryLeave(this.getActiveCategory()).then(function () {
+                    return self.getSite().save(null, self.$lockToken);
+                }).then(function () {
+                    // refresh data
+                    const Form = self.$Container.getElement('form');
 
-                if (Form) {
-                    QUIFormUtils.setDataToForm(
-                        self.getSite().getAttributes(),
-                        Form
-                    );
-                }
+                    if (Form) {
+                        QUIFormUtils.setDataToForm(
+                            self.getSite().getAttributes(),
+                            Form
+                        );
+                    }
 
-                return self.load();
+                    return self.load();
+                });
+            }, {
+                canEnable: () => this.$ownsEditingLock && !this.$lockDestroyed && !this.$isDeleted()
             }).catch(function (err) {
                 console.error(err);
                 self.$refreshEditingLock();
                 self.Loader.hide();
+            }).finally(() => {
+                this.$savePromise = null;
             });
+
+            return this.$savePromise;
         },
 
         /**
@@ -2213,11 +2248,8 @@ define('controls/projects/project/site/Panel', [
                 return;
             }
 
-            Status.setAttributes({
-                'textimage': Status.getAttribute('dimage'),
-                'text'     : Status.getAttribute('dtext'),
-                '_onclick' : 'Panel.deactivate'
-            });
+            Status.setAttribute('_onclick', 'Panel.deactivate');
+            EntityPanelButtons.setStatus(Status, 'site', true);
 
             this.Loader.hide();
         },
@@ -2241,11 +2273,8 @@ define('controls/projects/project/site/Panel', [
                 this.getContent().getElement('[name="release_from"]').value = '';
             }
 
-            Status.setAttributes({
-                'textimage': Status.getAttribute('aimage'),
-                'text'     : Status.getAttribute('atext'),
-                '_onclick' : 'Panel.activate'
-            });
+            Status.setAttribute('_onclick', 'Panel.activate');
+            EntityPanelButtons.setStatus(Status, 'site', false);
 
             this.Loader.hide();
         },

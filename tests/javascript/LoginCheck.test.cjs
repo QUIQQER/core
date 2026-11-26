@@ -109,7 +109,7 @@ test('concurrent controls share the running check, but later submissions get a f
     assert.equal(calls.length, 4);
 });
 
-function loginFixture(check, response = {loggedIn: true, user: {}}) {
+function loginFixture(check, response = {loggedIn: true, user: {}}, showLoader = true) {
     class Element extends EventTarget {
         constructor(tagName) {
             super();
@@ -134,6 +134,7 @@ function loginFixture(check, response = {loggedIn: true, user: {}}) {
             }
             return null;
         }
+        querySelectorAll() { return []; }
     }
     const root = new Element('div');
     const container = new Element('div');
@@ -153,17 +154,19 @@ function loginFixture(check, response = {loggedIn: true, user: {}}) {
                 'qui/utils/Form': {getFormData: () => ({password: 'secret'})},
                 'utils/LoginCheck': {check},
                 'Locale': {get: (group, key) => key},
-                'Ajax': {post(call, callback, params) { calls.push({call, params}); callback(response); }}
+                'Ajax': {post(call, callback, params) {
+                    calls.push({call, params});
+                    callback(typeof response === 'function' ? response() : response);
+                }}
             })[dependency] || {}));
         }
     });
     const login = {
         ...definition, $forms: [], $authStep: 'primary',
         getElm: () => root,
-        getAttribute: name => name === 'onSuccess' ? () => succeeded++ : name === 'showLoader',
+        getAttribute: name => name === 'onSuccess' ? () => succeeded++ : name === 'showLoader' && showLoader,
         Loader: {visible: false, show() { this.visible = true; }, hide() { this.visible = false; }},
-        fireEvent: name => events.push(name),
-        $handleLoginResponse: response => Promise.resolve(response)
+        fireEvent: name => events.push(name)
     };
     const form = {get: () => 'QUI\\Users\\Auth\\QUIQQER'};
     return {login, form, root, container, calls, events, succeeded: () => succeeded};
@@ -248,3 +251,60 @@ test('an incomplete setup response without authenticators cannot signal login su
     assert.equal(fixture.events.includes('success'), false);
     assert.equal(fixture.events.includes('quiqqerUserAuthLoginSuccess'), false);
 });
+
+for (const showLoader of [false, true]) {
+    test(`2FA releases the popup loader after building the next form (showLoader=${showLoader})`, async () => {
+        let response = {
+            loggedIn: false,
+            authStep: 'secondary',
+            secondaryLoginType: 1,
+            authenticator: ['QUI\\Users\\Auth\\VerifiedMail2FA'],
+            control: 'mail-code-form'
+        };
+        const fixture = loginFixture(() => Promise.resolve(), () => response, showLoader);
+        const {login, form, calls, events} = fixture;
+        let popupLoading = false;
+        const fireEvent = login.fireEvent;
+        login.fireEvent = name => {
+            fireEvent(name);
+
+            if (name === 'authBegin') popupLoading = true;
+            if (name === 'authNext') popupLoading = false;
+        };
+
+        let finishBuilding;
+        login.$buildAuthenticator = html => {
+            assert.equal(html, 'mail-code-form');
+            return new Promise(resolve => {
+                finishBuilding = () => {
+                    login.Loader.hide();
+                    resolve();
+                };
+            });
+        };
+
+        const pending = login.auth(form);
+        await new Promise(resolve => setImmediate(resolve));
+        assert.equal(popupLoading, true);
+        assert.equal(events.includes('authNext'), false);
+        assert.equal(fixture.succeeded(), 0);
+
+        finishBuilding();
+        await pending;
+        assert.equal(popupLoading, false);
+        assert.equal(login.Loader.visible, false);
+        assert.equal(events.filter(name => name === 'authNext').length, 1);
+        assert.equal(events.filter(name => name === 'quiqqerUserAuthNext').length, 1);
+        assert.equal(login.$authStep, 'secondary');
+        assert.equal(fixture.succeeded(), 0);
+        assert.equal(events.includes('success'), false);
+
+        response = {loggedIn: true, authStep: 'secondary', user: {id: 42}};
+        const codeForm = {get: () => 'QUI\\Users\\Auth\\VerifiedMail2FA'};
+        await login.auth(codeForm);
+        assert.equal(calls[1].params.authStep, 'secondary');
+        assert.equal(calls[1].params.authenticator, 'QUI\\Users\\Auth\\VerifiedMail2FA');
+        assert.equal(fixture.succeeded(), 1);
+        assert.equal(events.filter(name => name === 'success').length, 1);
+    });
+}

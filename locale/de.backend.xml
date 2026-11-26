@@ -3,6 +3,36 @@
          xsi:noNamespaceSchemaLocation="https://www.quiqqer.com/docs/schemas/2.x/locale.xsd">
 <locales>
     <groups name="quiqqer/core" datatype="js,php">
+        <locale name="panel.save.pending" context="administration">
+            <de><![CDATA[Wird gespeichert…]]></de>
+        </locale>
+        <locale name="panel.save.success" context="administration">
+            <de><![CDATA[Gespeichert]]></de>
+        </locale>
+        <locale name="panel.save.error" context="administration">
+            <de><![CDATA[Speichern fehlgeschlagen]]></de>
+        </locale>
+        <locale name="panel.actions" context="administration">
+            <de><![CDATA[Aktionen]]></de>
+        </locale>
+        <locale name="panel.site.activate" context="administration">
+            <de><![CDATA[Klicken, um die Seite zu aktivieren.]]></de>
+        </locale>
+        <locale name="panel.site.deactivate" context="administration">
+            <de><![CDATA[Klicken, um die Seite zu deaktivieren.]]></de>
+        </locale>
+        <locale name="panel.user.activate" context="administration">
+            <de><![CDATA[Klicken, um den Benutzer zu aktivieren.]]></de>
+        </locale>
+        <locale name="panel.user.deactivate" context="administration">
+            <de><![CDATA[Klicken, um den Benutzer zu deaktivieren.]]></de>
+        </locale>
+        <locale name="panel.group.activate" context="administration">
+            <de><![CDATA[Klicken, um die Gruppe zu aktivieren.]]></de>
+        </locale>
+        <locale name="panel.group.deactivate" context="administration">
+            <de><![CDATA[Klicken, um die Gruppe zu deaktivieren.]]></de>
+        </locale>
         <locale name="menu.search.title">
             <de><![CDATA[Suche]]></de>
         </locale>

@@ -10,8 +10,6 @@ define('controls/users/User', [
     'qui/controls/desktop/Panel',
 
     'qui/controls/buttons/Button',
-    'qui/controls/buttons/ButtonSwitch',
-    'qui/controls/buttons/ButtonMultiple',
 
     'qui/controls/windows/Confirm',
     'controls/grid/Grid',
@@ -21,12 +19,14 @@ define('controls/users/User', [
     'Ajax',
     'Locale',
     'Editors',
+    'utils/EntityPanelButtons',
+    'utils/SaveButtonFeedback',
 
     'css!controls/users/User.css',
     'css!controls/desktop/panels/XML.css'
 
-], function (QUI, QUIPanel, QUIButton, QUIButtonSwitch, QUIButtonMultiple, QUIConfirm, Grid,
-             FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors
+], function (QUI, QUIPanel, QUIButton, QUIConfirm, Grid,
+             FormUtils, ControlUtils, Users, QUIAjax, QUILocale, Editors, EntityPanelButtons, SaveButtonFeedback
 ) {
     'use strict';
 
@@ -161,6 +161,7 @@ define('controls/users/User', [
 
             this.addButton({
                 name: 'userSave',
+                'class': 'quiqqer-save-feedback-button',
                 text: QUILocale.get(lg, 'users.user.btn.save'),
                 textimage: 'fa fa-save',
                 events: {
@@ -172,43 +173,18 @@ define('controls/users/User', [
                 type: 'separator'
             });
 
-            this.addButton(
-                new QUIButtonSwitch({
-                    name: 'status',
-                    text: QUILocale.get('quiqqer/core', 'isActivate'),
-                    status: true,
-                    disabled: true,
-                    events: {
-                        onChange: this.$onStatusButtonChange
-                    }
-                })
-            );
-
-            const ExtrasBtn = new QUIButtonMultiple({
-                name: 'extra',
-                textimage: 'fa fa-caret-down',
-                title: QUILocale.get(lg, 'quiqqer.customer.panel.extras.title'),
+            const StatusButton = new QUIButton({
+                name: 'status',
+                text: QUILocale.get('quiqqer/core', 'isActivate'),
+                disabled: true,
                 events: {
-                    onClick: function () {
-                        ExtrasBtn.getMenu().then(function (Menu) {
-                            const pos = ExtrasBtn.getElm().getPosition(),
-                                size = ExtrasBtn.getElm().getSize();
-
-                            Menu.setAttribute('corner', 'topRight');
-
-                            ExtrasBtn.openMenu().then(function () {
-                                Menu.setPosition(
-                                    pos.x - 150,
-                                    pos.y + size.y + 10
-                                );
-                            });
-                        });
-                    }
-                },
-                styles: {
-                    'float': 'right'
+                    onClick: this.$onStatusButtonChange
                 }
             });
+            EntityPanelButtons.setStatus(StatusButton, 'user', true);
+            this.addButton(StatusButton);
+
+            const ExtrasBtn = EntityPanelButtons.createActions(this);
 
             ExtrasBtn.appendChild({
                 name: 'sendMail',
@@ -240,8 +216,6 @@ define('controls/users/User', [
                     onClick: this.$onClickDel
                 }
             });
-
-            ExtrasBtn.getElm().addClass('quiqqer-quiqqer-user-mail-extrasbtn');
 
             this.addButton(ExtrasBtn);
 
@@ -297,21 +271,14 @@ define('controls/users/User', [
                     }
 
                     if (User.isActive() === -1) {
-                        Status.setSilentOff();
-                        Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
+                        EntityPanelButtons.setStatus(Status, 'user', false);
                         Status.disable();
                         return;
                     }
 
                     Status.enable();
 
-                    if (!User.isActive()) {
-                        Status.off();
-                        Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-                    } else {
-                        Status.on();
-                        Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                    }
+                    EntityPanelButtons.setStatus(Status, 'user', Boolean(User.isActive()));
                 });
 
                 require(['Permissions'], function (Permissions) {
@@ -849,8 +816,7 @@ define('controls/users/User', [
                 Status = this.getButtons('status');
 
             if (this.getUser().isActive() === -1) {
-                Status.enable();
-                Status.setSilentOff();
+                EntityPanelButtons.setStatus(Status, 'user', false);
                 Status.disable();
 
                 this.setAttribute('icon', 'fa fa-user');
@@ -866,13 +832,7 @@ define('controls/users/User', [
                 return;
             }
 
-            if (this.getUser().isActive()) {
-                Status.setSilentOn();
-                Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-            } else {
-                Status.setSilentOff();
-                Status.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-            }
+            EntityPanelButtons.setStatus(Status, 'user', Boolean(this.getUser().isActive()));
 
             this.setAttribute('icon', 'fa fa-user');
             this.refresh();
@@ -887,62 +847,31 @@ define('controls/users/User', [
         },
 
         /**
-         * event: of button status on / off changes
-         *
-         * @param {Object} Button - qui/controls/buttons/ButtonSwitch
+         * Toggle activation after a click, keeping the current status until confirmed.
          */
         $onStatusButtonChange: function (Button) {
-            const buttonStatus = Button.getStatus(),
-                User = this.getUser(),
-                userStatus = User.isActive();
+            const User = this.getUser();
 
-            if (buttonStatus === userStatus || userStatus === -1) {
-                return;
+            if (Button.isDisabled() || User.isActive() === -1) {
+                return Promise.resolve();
             }
 
+            Button.disable();
             this.Loader.show();
 
-            let Prom;
+            return Promise.resolve().then(() => {
+                return User.isActive() ? this.userDeactivation() : User.activate();
+            }).catch(() => {
+                // Cancellation and failed requests retain the current model status.
+            }).finally(() => {
+                EntityPanelButtons.setStatus(Button, 'user', User.isActive() > 0);
 
-            if (buttonStatus) {
-                Prom = User.activate();
-            } else {
-                Prom = this.userDeactivation();
-            }
-
-            Prom.then(function () {
-                if (User.isActive() === -1) {
-                    Button.disable();
-                    this.Loader.hide();
-                    return;
-                }
-
-                if (User.isActive()) {
-                    Button.on();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                } else {
-                    Button.off();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
+                if (User.isActive() !== -1) {
+                    Button.enable();
                 }
 
                 this.Loader.hide();
-            }.bind(this)).catch(function () {
-                if (User.isActive() === -1) {
-                    Button.disable();
-                    this.Loader.hide();
-                    return;
-                }
-
-                if (User.isActive()) {
-                    Button.setSilentOn();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isActivate'));
-                } else {
-                    Button.setSilentOff();
-                    Button.setAttribute('text', QUILocale.get('quiqqer/core', 'isDeactivate'));
-                }
-
-                this.Loader.hide();
-            }.bind(this));
+            });
         },
 
         /**
@@ -972,44 +901,25 @@ define('controls/users/User', [
                 return this.$savePromise;
             }
 
-            const Active = this.getActiveCategory(),
-                User = this.getUser(),
-                SaveButton = this.getButtons('userSave');
+            this.$savePromise = SaveButtonFeedback(this.getButtons('userSave'), () => {
+                const Active = this.getActiveCategory();
 
-            if (Active) {
-                this.$onButtonNormal(Active);
-            }
-
-            this.Loader.show();
-
-            if (SaveButton) {
-                SaveButton.disable();
-            }
-
-            let PassWordSave = Promise.resolve();
-
-            if (Active && Active.getAttribute('name') === 'security') {
-                PassWordSave = this.savePassword();
-            }
-
-            this.$savePromise = PassWordSave.then(function () {
-                return User.save();
-            }).then(function () {
-                if (SaveButton) {
-                    SaveButton.enable();
+                if (Active) {
+                    this.$onButtonNormal(Active);
                 }
 
-                this.Loader.hide();
-            }.bind(this)).catch(function (err) {
-                if (SaveButton) {
-                    SaveButton.enable();
+                this.Loader.show();
+                let passwordSave = Promise.resolve();
+
+                if (Active && Active.getAttribute('name') === 'security') {
+                    passwordSave = this.savePassword();
                 }
 
+                return passwordSave.then(() => this.getUser().save());
+            }).finally(() => {
                 this.Loader.hide();
-                throw err;
-            }.bind(this)).finally(function () {
                 this.$savePromise = null;
-            }.bind(this));
+            });
 
             return this.$savePromise;
         },
