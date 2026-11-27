@@ -8,6 +8,8 @@ require "header.php";
 use QUI\Setup;
 use QUI\System\Log;
 
+Setup::deferJavaScriptLocalePublication();
+
 // quiqqer setup
 $Output->writeLn('> Execute QUIQQER setup');
 
