@@ -701,6 +701,18 @@ EOT;
         QUI\Permissions\Manager::importPermissionsForGroups();
     }
 
+    /** Keep PHP translations available during package setup until finish() builds the JavaScript bundles. */
+    public static function deferJavaScriptLocalePublication(): void
+    {
+        $Translator = new \ReflectionClass(QUI\Translator::class);
+        $method = 'deferJavaScriptPublication';
+
+        // Older Translator releases publish immediately.
+        if ($Translator->hasMethod($method)) {
+            $Translator->getMethod($method)->invoke(null);
+        }
+    }
+
     /**
      * Finish the setup
      *

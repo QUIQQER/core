@@ -16,6 +16,8 @@ if (isset($_SERVER['argv'][1])) {
     exit;
 }
 
+QUI\Setup::deferJavaScriptLocalePublication();
+
 foreach ($packages as $package) {
     try {
         $Output->writeLn('>> ' . $package);
